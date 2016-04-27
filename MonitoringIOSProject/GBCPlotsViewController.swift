@@ -127,6 +127,7 @@ class GBCPlotsViewController: UIViewController {
         yAxis.labelTextStyle = labelTextStyle
         yAxis.titleTextStyle = labelTextStyle
         
+
     }
     /*
      // MARK: - Navigation
@@ -146,13 +147,18 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         return UInt(x.count)
     }
     func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
+        
         switch CPTScatterPlotField(rawValue: Int(fieldEnum))! {
         case .X:
             return x[Int(idx)]
         case .Y:
             var yLabel = y[Int(idx)]
-            if plot.identifier as! NSInteger == 1{
+            if (plot.identifier as! NSInteger == 1){
+                yLabel = yLabel + 0.1
+            }else if(plot.identifier as! NSInteger == 2){
                 yLabel = yLabel + 0.2
+            }else if(plot.identifier as! NSInteger == 3){
+                yLabel = yLabel + 0.3
             }else{
                 yLabel = y[Int(idx)]
             }
