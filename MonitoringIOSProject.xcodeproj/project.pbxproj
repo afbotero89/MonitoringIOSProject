@@ -18,6 +18,7 @@
 		D83E0F6A1CD1386700300593 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83E0F691CD1386700300593 /* Accelerate.framework */; };
 		D83E0F6C1CD1387500300593 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83E0F6B1CD1387500300593 /* QuartzCore.framework */; };
 		D83E0F6D1CD1387D00300593 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D83E0F651CD1381200300593 /* libCorePlot-CocoaTouch.a */; };
+		D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		D83E0F691CD1386700300593 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D83E0F6B1CD1387500300593 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D83E0F701CD13A9F00300593 /* MonitoringIOSProject-Header-File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MonitoringIOSProject-Header-File.h"; path = "MonitoringIOSProject/MonitoringIOSProject-Header-File.h"; sourceTree = "<group>"; };
+		D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCPlotsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 			children = (
 				D83E0F1E1CD137C900300593 /* AppDelegate.swift */,
 				D83E0F201CD137C900300593 /* ViewController.swift */,
+				D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */,
 				D83E0F221CD137C900300593 /* Main.storyboard */,
 				D83E0F281CD137C900300593 /* Assets.xcassets */,
 				D83E0F2A1CD137C900300593 /* LaunchScreen.storyboard */,
@@ -387,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */,
 				D83E0F211CD137C900300593 /* ViewController.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,
 				D83E0F271CD137C900300593 /* MonitoringIOSProject.xcdatamodeld in Sources */,
