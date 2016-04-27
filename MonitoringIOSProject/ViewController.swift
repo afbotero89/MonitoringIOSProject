@@ -13,8 +13,6 @@ var x = [0.0,0.01]
 var y = [0.0,0.01]
 
 
-
-
 class ViewController: GBCPlotsViewController {
     
     var contador = 0.0
@@ -31,8 +29,12 @@ class ViewController: GBCPlotsViewController {
     
     let request = NSMutableURLRequest(URL: NSURL(string: "http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
     
+    var bluetoothManager:BluetoothManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Initialize the bluetooth manager.
+        self.bluetoothManager = BluetoothManager()
         
         // Do any additional setup after loading the view, typically from a nib.
         plot.identifier = 1
@@ -46,15 +48,19 @@ class ViewController: GBCPlotsViewController {
         plot.dataLineStyle = plotLineStyle
         newGraph.addPlot(plot)
         newGraph.addPlot(plot1)
+        containerGraph.frame = CGRect(x: 10, y: 100, width: self.view.frame.width - 20, height: 600)
+        containerGraph.layer.borderWidth = 1
+        containerGraph.layer.borderColor = UIColor.blackColor().CGColor
+        containerGraph.layer.cornerRadius = 20
         containerGraph.hostedGraph = newGraph
-        containerGraph.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
-        //view.addSubview(containerGraph)
+        view.addSubview(containerGraph)
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view, typically from a nib.
         
         request.HTTPMethod = "POST"
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +88,7 @@ class ViewController: GBCPlotsViewController {
     
     func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double){
         
-        
+        /*
         let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         
@@ -99,7 +105,7 @@ class ViewController: GBCPlotsViewController {
             let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
             print("responseString = \(responseString)")
         }
-        task.resume()
+        task.resume()*/
     }
 
 

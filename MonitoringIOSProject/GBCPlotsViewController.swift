@@ -32,13 +32,13 @@ class GBCPlotsViewController: UIViewController {
         titleTextStyle.color = CPTColor.grayColor()
         titleTextStyle.fontName = "Helveltica-Neue"
         
-        
+        /*
         // Graph's hosting view
         let hostingView = view as! CPTGraphHostingView
         hostingView.hostedGraph = newGraph
         // In order to optimize memory spenditures, plot all the graphs on the same single layer.
         hostingView.collapsesLayers = true
-        
+        */
         let plotAreaFrame = newGraph.plotAreaFrame!
         
         // Border
