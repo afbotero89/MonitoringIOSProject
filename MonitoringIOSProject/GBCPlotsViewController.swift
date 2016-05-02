@@ -49,12 +49,12 @@ class GBCPlotsViewController: UIViewController {
         
         // Border
         plotAreaFrame.borderLineStyle = nil
-        plotAreaFrame.cornerRadius    = 0.0
+        plotAreaFrame.cornerRadius    = 20.0
         plotAreaFrame.masksToBorder   = false
         
         // Border
         plotAreaFrameHeartRate.borderLineStyle = nil
-        plotAreaFrameHeartRate.cornerRadius    = 0.0
+        plotAreaFrameHeartRate.cornerRadius    = 20.0
         plotAreaFrameHeartRate.masksToBorder   = false
         
         // Paddings

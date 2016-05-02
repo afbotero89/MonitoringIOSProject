@@ -19,6 +19,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
+                        <barButtonItem key="leftBarButtonItem" image="Info" id="Act-aA-cum">
+                            <connections>
+                                <action selector="generalInformation:" destination="BYZ-38-t0r" id="j4n-2o-T3i"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Configuration" id="fgi-yk-fJE">
                             <connections>
                                 <action selector="configurationButton:" destination="BYZ-38-t0r" id="sQX-sp-B3A"/>
@@ -44,7 +49,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="MonitoringIOSProject" customModuleProvider="target">
                                 <rect key="frame" x="127" y="147" width="347" height="306"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="347" id="QBv-FV-fXV"/>
                                     <constraint firstAttribute="height" constant="306" id="SgY-B3-OZS"/>
@@ -59,7 +64,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Zzj-XZ-AH3" firstAttribute="centerX" secondItem="Ehf-Ol-fYt" secondAttribute="centerX" id="IBO-Mh-hnu"/>
                             <constraint firstItem="Zzj-XZ-AH3" firstAttribute="centerY" secondItem="Ehf-Ol-fYt" secondAttribute="centerY" id="pmu-vh-3sH"/>
@@ -70,6 +75,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9T6-PK-nVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1400" y="855"/>
+        </scene>
+        <!--General information-->
+        <scene sceneID="tKF-4S-UI6">
+            <objects>
+                <viewController id="aUc-0Y-hsP" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dS4-ug-ux3"/>
+                        <viewControllerLayoutGuide type="bottom" id="hfv-XM-owH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="orj-hb-GKz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtT-Jz-Stx">
+                                <rect key="frame" x="178" y="125" width="102" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="fcs-kE-8JY"/>
+                                    <constraint firstAttribute="width" constant="102" id="xPe-FU-Dvs"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Batery Level:">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Batery" translatesAutoresizingMaskIntoConstraints="NO" id="NGK-iA-mfL">
+                                <rect key="frame" x="325" y="97" width="96" height="77"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="77" id="fOd-rx-Pme"/>
+                                    <constraint firstAttribute="width" constant="96" id="pAB-Zz-RAb"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VS3-rm-mSY">
+                                <rect key="frame" x="279" y="72" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Gvq-dY-j5M"/>
+                                    <constraint firstAttribute="width" constant="42" id="hl1-vy-Kyu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="VS3-rm-mSY" firstAttribute="leading" secondItem="ZtT-Jz-Stx" secondAttribute="trailing" constant="-1" id="XoY-6z-ZGs"/>
+                            <constraint firstItem="ZtT-Jz-Stx" firstAttribute="top" secondItem="VS3-rm-mSY" secondAttribute="bottom" constant="32" id="fFM-gl-T1s"/>
+                            <constraint firstItem="NGK-iA-mfL" firstAttribute="leading" secondItem="VS3-rm-mSY" secondAttribute="trailing" constant="4" id="iPc-MB-S74"/>
+                            <constraint firstItem="VS3-rm-mSY" firstAttribute="top" secondItem="dS4-ug-ux3" secondAttribute="bottom" constant="8" id="n9z-YK-2Wa"/>
+                            <constraint firstItem="NGK-iA-mfL" firstAttribute="top" secondItem="VS3-rm-mSY" secondAttribute="bottom" constant="4" id="nit-E8-TU0"/>
+                            <constraint firstItem="VS3-rm-mSY" firstAttribute="centerX" secondItem="orj-hb-GKz" secondAttribute="centerX" id="wDe-c1-rqo"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="General information" id="eL1-BG-yux"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xjY-Ks-ome" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400" y="1552"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lFT-b7-keO">
@@ -108,8 +175,28 @@
             </objects>
             <point key="canvasLocation" x="667" y="855"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="VDr-8a-D3N">
+            <objects>
+                <navigationController storyboardIdentifier="generalInformation" automaticallyAdjustsScrollViewInsets="NO" id="g6x-gi-xl8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8LR-Ul-Qcu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aUc-0Y-hsP" kind="relationship" relationship="rootViewController" id="S7i-9i-Jjz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fxS-wg-ImT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="667" y="1552"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Batery" width="128" height="128"/>
         <image name="Configuration" width="32" height="32"/>
+        <image name="Info" width="32" height="32"/>
     </resources>
 </document>

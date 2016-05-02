@@ -13,7 +13,7 @@ struct Config {
     static let TB_SLIDER_SIZE:CGFloat = UIScreen.mainScreen().bounds.size.width
     static let TB_SAFEAREA_PADDING:CGFloat = 60.0
     static let TB_LINE_WIDTH:CGFloat = 40.0
-    static let TB_FONTSIZE:CGFloat = 40.0
+    static let TB_FONTSIZE:CGFloat = 20.0
     
 }
 
@@ -71,14 +71,14 @@ class BWCircularSlider: UIControl {
         let textFieldRect = CGRectMake(
             (frame.size.width  - fontSize.width) / 2.2,
             (frame.size.height - fontSize.height) / 2.0,
-            fontSize.width + 30, fontSize.height);
+            fontSize.width + 40, fontSize.height);
         
         textField = UITextField(frame: textFieldRect)
         textField?.backgroundColor = UIColor.clearColor()
         textField?.textColor = UIColor.blackColor()
         textField?.textAlignment = .Center
         textField?.font = font
-        textField?.text = "\(self.angle)"
+        textField?.text = "\(self.angle) min"
         
         addSubview(textField!)
     }
@@ -222,7 +222,7 @@ class BWCircularSlider: UIControl {
         angle = Int(360 - angleInt)
         
         //Update the textfield
-        textField!.text = "\(angle)"
+        textField!.text = "\(angle) min"
         
         //Redraw
         setNeedsDisplay()

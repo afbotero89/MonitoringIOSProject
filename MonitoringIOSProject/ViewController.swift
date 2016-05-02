@@ -38,6 +38,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     let labelHeartRate = UILabel()
     
+    let gradientLayer = CAGradientLayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Initialize the bluetooth manager.
@@ -51,10 +53,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          
                                                          object: nil)
         
-        let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 1
@@ -85,8 +83,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         //timer = NSTimer.scheduledTimerWithTimeInterval(0.002, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view, typically from a nib.
         
+
         setLegendGraph()
+        
         addAttributesToContainerGraph()
+        
+        addAttributesToViewController()
         
         request.HTTPMethod = "POST"
         
@@ -100,28 +102,29 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func addAttributesToContainerGraph(){
         // Labe1: pressure value
-        labelPressure.frame = CGRect(x: 500, y: 310, width: 150, height: 160)
+        labelPressure.frame = CGRect(x: 500, y: 300, width: 190, height: 160)
         labelPressure.numberOfLines = 10
-        labelPressure.text = "Systolic:\n\n Diastolic:\n\n Average:"
+        labelPressure.text = "Last messure \n\nSystolic:\n\n Diastolic:\n\n Average:"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // Label2: heart rate value
-        labelHeartRate.frame = CGRect(x: 500, y: 850, width: 150, height: 80)
+        
+        labelHeartRate.frame = CGRect(x: 500, y: 850, width: 190, height: 80)
         labelHeartRate.numberOfLines = 10
-        labelHeartRate.text = "Heart Rate:"
+        labelHeartRate.text = "Last messure \n\nHeart Rate:"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // attributes pressure container
-        pressureContainerGraph.frame = CGRect(x: 100, y: 80, width: 550, height: 450)
+        pressureContainerGraph.frame = CGRect(x: 50, y: 80, width: 650, height: 450)
         pressureContainerGraph.layer.borderWidth = 1
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
         
         // attributes heart rate container graph
-        heartRateContainerGraph.frame = CGRect(x: 100, y: 550, width: 550, height: 450)
+        heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 450)
         heartRateContainerGraph.layer.borderWidth = 1
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         heartRateContainerGraph.layer.cornerRadius = 20
@@ -132,6 +135,30 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         view.addSubview(heartRateContainerGraph)
         view.addSubview(labelHeartRate)
         view.addSubview(labelPressure)
+    }
+    
+    func addAttributesToViewController(){
+        // 1
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+        
+        // 2
+        let color1 = UIColor.clearColor().CGColor as CGColorRef
+        let color2 = UIColor(white: 0.0, alpha: 0.2).CGColor as CGColorRef
+        gradientLayer.colors = [color1, color2]
+        
+        // 3
+        gradientLayer.locations = [0.0, 0.5]
+        
+        // 4
+        self.view.layer.addSublayer(gradientLayer)
+
+        let nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.Black
+        nav?.tintColor = UIColor.whiteColor()
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
+        
     }
     
     func setLegendGraph(){
@@ -163,8 +190,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
         //theLegendHeartRate.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
         
-        pressuresGraph.legendDisplacement = CGPointMake(370.0, -25.0)
-        heartRateGraph.legendDisplacement = CGPointMake(370.0, -25.0)
+        pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+        heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
         
         attrsLegend = [
             NSForegroundColorAttributeName : UIColor.blackColor(),
@@ -258,5 +285,24 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
 
+    @IBAction func generalInformation(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("generalInformation")
+        documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popover = documentationTableViewController.popoverPresentationController!
+        documentationTableViewController.preferredContentSize = CGSizeMake(400,150)
+        
+        popover.permittedArrowDirections = .Any
+        
+        // Depending on the source, set the popover properties accordingly.
+        if let barButtonItem = sender as? UIBarButtonItem{
+            popover.barButtonItem = barButtonItem
+        } else if let view = sender as? UIView{
+            popover.sourceView = view
+            popover.sourceRect = view.bounds
+        }
+        popover.delegate = self
+        self.presentViewController(documentationTableViewController, animated: true, completion: nil)
+    }
 }
 
