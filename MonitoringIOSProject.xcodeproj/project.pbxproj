@@ -563,14 +563,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MonitoringIOSProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = GIBIC.MonitoringIOSProject;
+				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/../../repos/core-plot/framework\"/**";
 			};
@@ -580,14 +584,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MonitoringIOSProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = GIBIC.MonitoringIOSProject;
+				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/../../repos/core-plot/framework\"/**";
 			};
@@ -658,6 +666,7 @@
 				D83E0F481CD137C900300593 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D83E0F491CD137C900300593 /* Build configuration list for PBXNativeTarget "MonitoringIOSProjectTests" */ = {
 			isa = XCConfigurationList;
@@ -666,6 +675,7 @@
 				D83E0F4B1CD137C900300593 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D83E0F4C1CD137C900300593 /* Build configuration list for PBXNativeTarget "MonitoringIOSProjectUITests" */ = {
 			isa = XCConfigurationList;
@@ -674,6 +684,7 @@
 				D83E0F4E1CD137C900300593 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

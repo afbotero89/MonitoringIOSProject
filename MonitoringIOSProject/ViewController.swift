@@ -15,8 +15,6 @@ var y = [0.0,0.01]
 class ViewController: GBCPlotsViewController {
     
     var contador = 0.0
-    /// Physiological variables container
-    let physiologicalVariablesContainer = CPTGraphHostingView()
     
     var timer:NSTimer?
     
@@ -28,9 +26,11 @@ class ViewController: GBCPlotsViewController {
     
     let plot3 = CPTScatterPlot()
     
-    var containerGraph = CPTGraphHostingView()
+    var pressureContainerGraph = CPTGraphHostingView()
     
-    let request = NSMutableURLRequest(URL: NSURL(string: "http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
+    var heartRateContainerGraph = CPTGraphHostingView()
+    
+    let request = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
     
     var bluetoothManager:BluetoothManager!
     
@@ -38,6 +38,14 @@ class ViewController: GBCPlotsViewController {
         super.viewDidLoad()
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.insertPoint),
+                                                         
+                                                         name: "insertNewPlot",
+                                                         
+                                                         object: nil)
         
         let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
@@ -48,12 +56,13 @@ class ViewController: GBCPlotsViewController {
         plot.identifier = 1
         plot1.identifier = 2
         plot2.identifier = 3
-        plot3.identifier = 4
+        //plot3.identifier = 4
+        
         // Set the lineStyle for the plot
         plot.dataSource = self
         plot1.dataSource = self
         plot2.dataSource = self
-        plot3.dataSource = self
+        //plot3.dataSource = self
         let plotLineStyle = plot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 2.5
         plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
@@ -61,19 +70,14 @@ class ViewController: GBCPlotsViewController {
         plot.title = "Systolic pressure"
         plot1.title = "Diastolic pressure"
         plot2.title = "Average pressure"
-        plot3.title = "Heart rate"
-        newGraph.addPlot(plot)
-        newGraph.addPlot(plot1)
-        newGraph.addPlot(plot2)
-        newGraph.addPlot(plot3)
-        containerGraph.frame = CGRect(x: 10, y: 100, width: self.view.frame.width - 20, height: 600)
-        containerGraph.layer.borderWidth = 1
-        containerGraph.layer.borderColor = UIColor.blackColor().CGColor
-        containerGraph.layer.cornerRadius = 20
-        containerGraph.hostedGraph = newGraph
-        
+        //plot3.title = "Heart rate"
+        pressuresGraph.addPlot(plot)
+        pressuresGraph.addPlot(plot1)
+        pressuresGraph.addPlot(plot2)
+        //newGraph.addPlot(plot3)
+
         // Set legend
-        let theLegend=CPTLegend(graph: newGraph)
+        let theLegend=CPTLegend(graph: pressuresGraph)
         let legendLineStyle = CPTMutableLineStyle()
         theLegend.fill = CPTFill(color: CPTColor.whiteColor())
         legendLineStyle.lineColor = CPTColor.whiteColor()
@@ -88,7 +92,7 @@ class ViewController: GBCPlotsViewController {
         
         theLegend.cornerRadius = 10.0
         theLegend.swatchSize = CGSizeMake(20.0, 20.0)
-        newGraph.legendDisplacement = CGPointMake(500.0, -45.0)
+        pressuresGraph.legendDisplacement = CGPointMake(270.0, -25.0)
         attrsLegend = [
             NSForegroundColorAttributeName : UIColor.blackColor(),
             NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
@@ -97,13 +101,14 @@ class ViewController: GBCPlotsViewController {
         
         theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
         
-        newGraph.legend = theLegend
-        newGraph.legendAnchor = CPTRectAnchor.TopLeft
+        pressuresGraph.legend = theLegend
+        pressuresGraph.legendAnchor = CPTRectAnchor.TopLeft
+        pressureContainerGraph.userInteractionEnabled = true
         
-        view.addSubview(containerGraph)
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
+        //timer = NSTimer.scheduledTimerWithTimeInterval(0.002, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view, typically from a nib.
+        
+        addAttributesToContainerGraph()
         
         request.HTTPMethod = "POST"
         
@@ -115,22 +120,55 @@ class ViewController: GBCPlotsViewController {
         
     }
     
+    func addAttributesToContainerGraph(){
+        
+        // attributes pressure container
+        pressureContainerGraph.frame = CGRect(x: 175, y: 80, width: 450, height: 450)
+        pressureContainerGraph.layer.borderWidth = 1
+        pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
+        pressureContainerGraph.layer.cornerRadius = 20
+        pressureContainerGraph.hostedGraph = pressuresGraph
+        
+        view.addSubview(pressureContainerGraph)
+        // attributes heart rate container graph
+        
+        heartRateContainerGraph.frame = CGRect(x: 175, y: 550, width: 450, height: 450)
+        heartRateContainerGraph.layer.borderWidth = 1
+        heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
+        heartRateContainerGraph.layer.cornerRadius = 20
+        //heartRateContainerGraph.hostedGraph = newGraph
+        
+        // Insert subviews
+        view.addSubview(heartRateContainerGraph)
+
+    }
+    
     func insertPoint(){
         
         contador = contador + 0.01
         x.append(Double(contador))
         y.append(Double(contador))
+        //print(contador)
         if x.count == 40{
+            
             contador = 0.0
             x = [0.0,0.01]
             
             y = [0.0,0.01]
+            
         }
-        newGraph.addPlot(plot)
-        newGraph.addPlot(plot1)
-        newGraph.addPlot(plot2)
-        newGraph.addPlot(plot3)
-        newGraph.reloadData()
+        pressuresGraph.removePlot(plot)
+        pressuresGraph.removePlot(plot1)
+        pressuresGraph.removePlot(plot2)
+        //newGraph.removePlot(plot3)
+        
+        pressuresGraph.addPlot(plot)
+        pressuresGraph.addPlot(plot1)
+        pressuresGraph.addPlot(plot2)
+        //newGraph.addPlot(plot3)
+        
+        pressuresGraph.reloadData()
+        
         uploadToServerDataBaseSQL(contador,diastolicPressure: (contador+1),mediumPressure: (contador+2),heartRate: (contador+3))
     }
     

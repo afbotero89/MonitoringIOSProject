@@ -151,7 +151,7 @@ class BluetoothManager: NSObject{
         */
         
         let newStr = NSString(UTF8String:&buffer)
-        print(newStr)
+        //print(newStr)
     }
 }
 
@@ -280,11 +280,15 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+        
         let service = characteristic.service
         if let serviceDescriptor = self.serviceDescriptorForService(service), let characteristicName = serviceDescriptor.characteristicNameForCharacteristicUUID(characteristic.UUID){
-            print("Did receive update notification for characterisitic with name: \(characteristic)")
+            //print("Did receive update notification for characterisitic with name: \(characteristic)")
             if characteristicName == CharacteristicsNames.ReadFromBLEBeeKey.rawValue{
-                print("Now read the value from the Monitor readable characteristic")
+                //print("Now read the value from the Monitor readable characteristic")
                 readDataFromPeripheral(characteristic.value!)                
             }
         }

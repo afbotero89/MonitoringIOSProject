@@ -11,7 +11,9 @@ import UIKit
 class GBCPlotsViewController: UIViewController {
 
     // Graph
-    let newGraph = CPTXYGraph(frame: CGRectZero)
+    let pressuresGraph = CPTXYGraph(frame: CGRectZero)
+    
+    let heartRateGraph = CPTXYGraph(frame: CGRectZero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,8 @@ class GBCPlotsViewController: UIViewController {
     }
     func configureGraph(){
         
-        
-        newGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
+        pressuresGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
+        pressuresGraph.defaultPlotSpace?.allowsUserInteraction = true
         
         let titleTextStyle = CPTMutableTextStyle()
         titleTextStyle.color = CPTColor.grayColor()
@@ -39,7 +41,7 @@ class GBCPlotsViewController: UIViewController {
         // In order to optimize memory spenditures, plot all the graphs on the same single layer.
         hostingView.collapsesLayers = true
         */
-        let plotAreaFrame = newGraph.plotAreaFrame!
+        let plotAreaFrame = pressuresGraph.plotAreaFrame!
         
         // Border
         plotAreaFrame.borderLineStyle = nil
@@ -47,10 +49,10 @@ class GBCPlotsViewController: UIViewController {
         plotAreaFrame.masksToBorder   = false
         
         // Paddings
-        newGraph.paddingLeft   = 40.0
-        newGraph.paddingRight  = 0.0
-        newGraph.paddingTop    = 0.0
-        newGraph.paddingBottom = 60.0
+        pressuresGraph.paddingLeft   = 40.0
+        pressuresGraph.paddingRight  = 0.0
+        pressuresGraph.paddingTop    = 0.0
+        pressuresGraph.paddingBottom = 60.0
         
         plotAreaFrame.paddingTop    = 15.0
         plotAreaFrame.paddingRight  = 15.0
@@ -69,7 +71,8 @@ class GBCPlotsViewController: UIViewController {
         minorGridLineStyle.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.1))
         minorGridLineStyle.dashPattern = [CGFloat(3), CGFloat(3)]
         
-        let axisSet = newGraph.axisSet as! CPTXYAxisSet
+        let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
+        
         let xAxis = axisSet.xAxis!
         xAxis.labelingPolicy = CPTAxisLabelingPolicy.Automatic
         xAxis.orthogonalPosition = 0.0
@@ -87,8 +90,9 @@ class GBCPlotsViewController: UIViewController {
         labelFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         xAxis.labelFormatter = labelFormatter
         //Do now show the vertical line over the x axis
-        xAxis.axisLineStyle =  nil
+        //xAxis.axisLineStyle =  nil
         xAxis.separateLayers = false
+        xAxis.hidden = false
         // Configure the text style for the labels
         let attributes = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 20)!]
         let labelTextStyle = CPTMutableTextStyle(attributes: attributes)
@@ -113,17 +117,18 @@ class GBCPlotsViewController: UIViewController {
         // Do not present the Ticks that appear over the axis
         yAxis.majorTickLineStyle = nil
         yAxis.minorTickLineStyle = nil
-        yAxis.minorTicksPerInterval = 0
+        yAxis.minorTicksPerInterval = 2
+        
         
         //yAxis.title = "Y Axis"
-        yAxis.title = nil
+        yAxis.title = "Pressure (mmHg)"
         yAxis.titleOffset = 0
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         //yAxis.labelFormatter = nil
         yAxis.labelingPolicy = .None
         //Store the label style
         
-        yAxis.axisLineStyle = nil
+        //yAxis.axisLineStyle = nil
         yAxis.labelTextStyle = labelTextStyle
         yAxis.titleTextStyle = labelTextStyle
         
