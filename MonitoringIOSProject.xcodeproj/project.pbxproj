@@ -21,6 +21,10 @@
 		D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */; };
 		D83E0F761CD1565100300593 /* GBCEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F751CD1565100300593 /* GBCEnumerations.swift */; };
 		D83E0F791CD167C700300593 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F781CD167C700300593 /* BluetoothManager.swift */; };
+		D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
+		D84CD8501CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
+		D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
+		D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +108,8 @@
 		D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCPlotsViewController.swift; sourceTree = "<group>"; };
 		D83E0F751CD1565100300593 /* GBCEnumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCEnumerations.swift; sourceTree = "<group>"; };
 		D83E0F781CD167C700300593 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSlider.swift; sourceTree = "<group>"; };
+		D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSliderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,7 @@
 				D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */,
 				D83E0F691CD1386700300593 /* Accelerate.framework */,
 				D83E0F6B1CD1387500300593 /* QuartzCore.framework */,
+				D84CD8401CD7F9EA00B35B18 /* SliderConfiguration */,
 				D83E0F7A1CD167CF00300593 /* Bluetooth */,
 				D83E0F1D1CD137C900300593 /* MonitoringIOSProject */,
 				D83E0F771CD157D200300593 /* Plots */,
@@ -166,8 +173,8 @@
 				D83E0F1E1CD137C900300593 /* AppDelegate.swift */,
 				D83E0F201CD137C900300593 /* ViewController.swift */,
 				D83E0F751CD1565100300593 /* GBCEnumerations.swift */,
-				D83E0F221CD137C900300593 /* Main.storyboard */,
 				D83E0F281CD137C900300593 /* Assets.xcassets */,
+				D83E0F221CD137C900300593 /* Main.storyboard */,
 				D83E0F2A1CD137C900300593 /* LaunchScreen.storyboard */,
 				D83E0F2D1CD137C900300593 /* Info.plist */,
 				D83E0F251CD137C900300593 /* MonitoringIOSProject.xcdatamodeld */,
@@ -229,6 +236,16 @@
 				D83E0F781CD167C700300593 /* BluetoothManager.swift */,
 			);
 			name = Bluetooth;
+			path = MonitoringIOSProject;
+			sourceTree = "<group>";
+		};
+		D84CD8401CD7F9EA00B35B18 /* SliderConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */,
+				D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */,
+			);
+			name = SliderConfiguration;
 			path = MonitoringIOSProject;
 			sourceTree = "<group>";
 		};
@@ -420,7 +437,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */,
+				D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
 				D83E0F761CD1565100300593 /* GBCEnumerations.swift in Sources */,
+				D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
 				D83E0F211CD137C900300593 /* ViewController.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,
 				D83E0F791CD167C700300593 /* BluetoothManager.swift in Sources */,
@@ -441,6 +460,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D83E0F421CD137C900300593 /* MonitoringIOSProjectUITests.swift in Sources */,
+				D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
+				D84CD8501CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

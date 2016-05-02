@@ -12,19 +12,19 @@ var x = [0.0,0.01]
 
 var y = [0.0,0.01]
 
-class ViewController: GBCPlotsViewController {
+class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
     var contador = 0.0
     
     var timer:NSTimer?
     
-    let plot = CPTScatterPlot()
+    let systolicPressurePlot = CPTScatterPlot()
     
-    let plot1 = CPTScatterPlot()
+    let diastolicPressurePlot = CPTScatterPlot()
     
-    let plot2 = CPTScatterPlot()
+    let averagePressurePlot = CPTScatterPlot()
     
-    let plot3 = CPTScatterPlot()
+    let heartRatePressurePlot = CPTScatterPlot()
     
     var pressureContainerGraph = CPTGraphHostingView()
     
@@ -57,30 +57,30 @@ class ViewController: GBCPlotsViewController {
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         // Do any additional setup after loading the view, typically from a nib.
-        plot.identifier = 1
-        plot1.identifier = 2
-        plot2.identifier = 3
-        plot3.identifier = 4
+        systolicPressurePlot.identifier = 1
+        diastolicPressurePlot.identifier = 2
+        averagePressurePlot.identifier = 3
+        heartRatePressurePlot.identifier = 4
         
         // Set the lineStyle for the plot
-        plot.dataSource = self
-        plot1.dataSource = self
-        plot2.dataSource = self
-        plot3.dataSource = self
-        let plotLineStyle = plot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
+        systolicPressurePlot.dataSource = self
+        diastolicPressurePlot.dataSource = self
+        averagePressurePlot.dataSource = self
+        heartRatePressurePlot.dataSource = self
+        let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 2.5
         plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
-        plot.dataLineStyle = plotLineStyle
+        systolicPressurePlot.dataLineStyle = plotLineStyle
         
-        plot.title = "Systolic pressure"
-        plot1.title = "Diastolic pressure"
-        plot2.title = "Average pressure"
-        plot3.title = "Heart rate"
+        systolicPressurePlot.title = "Systolic pressure"
+        diastolicPressurePlot.title = "Diastolic pressure"
+        averagePressurePlot.title = "Average pressure"
+        heartRatePressurePlot.title = "Heart rate"
         
-        pressuresGraph.addPlot(plot)
-        pressuresGraph.addPlot(plot1)
-        pressuresGraph.addPlot(plot2)
-        heartRateGraph.addPlot(plot3)
+        pressuresGraph.addPlot(systolicPressurePlot)
+        pressuresGraph.addPlot(diastolicPressurePlot)
+        pressuresGraph.addPlot(averagePressurePlot)
+        heartRateGraph.addPlot(heartRatePressurePlot)
         
         //timer = NSTimer.scheduledTimerWithTimeInterval(0.002, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view, typically from a nib.
@@ -157,7 +157,7 @@ class ViewController: GBCPlotsViewController {
         
         theLegend.cornerRadius = 10.0
         theLegend.swatchSize = CGSizeMake(20.0, 20.0)
-        theLegend.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
+        //theLegend.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
         
         theLegendHeartRate.cornerRadius = 10.0
         theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
@@ -199,18 +199,18 @@ class ViewController: GBCPlotsViewController {
             y = [0.0,0.01]
             
         }
-        pressuresGraph.removePlot(plot)
-        pressuresGraph.removePlot(plot1)
-        pressuresGraph.removePlot(plot2)
+        pressuresGraph.removePlot(systolicPressurePlot)
+        pressuresGraph.removePlot(diastolicPressurePlot)
+        pressuresGraph.removePlot(averagePressurePlot)
         
-        pressuresGraph.addPlot(plot)
-        pressuresGraph.addPlot(plot1)
-        pressuresGraph.addPlot(plot2)
+        pressuresGraph.addPlot(systolicPressurePlot)
+        pressuresGraph.addPlot(diastolicPressurePlot)
+        pressuresGraph.addPlot(averagePressurePlot)
         
         pressuresGraph.reloadData()
         
-        heartRateGraph.removePlot(plot3)
-        heartRateGraph.addPlot(plot3)
+        heartRateGraph.removePlot(heartRatePressurePlot)
+        heartRateGraph.addPlot(heartRatePressurePlot)
         heartRateGraph.reloadData()
         uploadToServerDataBaseSQL(contador,diastolicPressure: (contador+1),mediumPressure: (contador+2),heartRate: (contador+3))
     }
@@ -237,6 +237,26 @@ class ViewController: GBCPlotsViewController {
         task.resume()*/
     }
 
+    @IBAction func configurationButton(sender: AnyObject) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("sliderConfiguration")
+        documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popover = documentationTableViewController.popoverPresentationController!
+        documentationTableViewController.preferredContentSize = CGSizeMake(400,350)
+        
+        popover.permittedArrowDirections = .Any
+        
+        // Depending on the source, set the popover properties accordingly.
+        if let barButtonItem = sender as? UIBarButtonItem{
+            popover.barButtonItem = barButtonItem
+        } else if let view = sender as? UIView{
+            popover.sourceView = view
+            popover.sourceRect = view.bounds
+        }
+        popover.delegate = self
+        self.presentViewController(documentationTableViewController, animated: true, completion: nil)
+    }
 
 }
 
