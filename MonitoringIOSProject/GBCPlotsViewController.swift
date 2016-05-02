@@ -30,6 +30,9 @@ class GBCPlotsViewController: UIViewController {
         pressuresGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
         pressuresGraph.defaultPlotSpace?.allowsUserInteraction = true
         
+        heartRateGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
+        heartRateGraph.defaultPlotSpace?.allowsUserInteraction = true
+        
         let titleTextStyle = CPTMutableTextStyle()
         titleTextStyle.color = CPTColor.grayColor()
         titleTextStyle.fontName = "Helveltica-Neue"
@@ -42,11 +45,17 @@ class GBCPlotsViewController: UIViewController {
         hostingView.collapsesLayers = true
         */
         let plotAreaFrame = pressuresGraph.plotAreaFrame!
+        let plotAreaFrameHeartRate = heartRateGraph.plotAreaFrame!
         
         // Border
         plotAreaFrame.borderLineStyle = nil
         plotAreaFrame.cornerRadius    = 0.0
         plotAreaFrame.masksToBorder   = false
+        
+        // Border
+        plotAreaFrameHeartRate.borderLineStyle = nil
+        plotAreaFrameHeartRate.cornerRadius    = 0.0
+        plotAreaFrameHeartRate.masksToBorder   = false
         
         // Paddings
         pressuresGraph.paddingLeft   = 40.0
@@ -58,7 +67,17 @@ class GBCPlotsViewController: UIViewController {
         plotAreaFrame.paddingRight  = 15.0
         plotAreaFrame.masksToBorder = false
         
-        // Axis
+        // Paddings
+        heartRateGraph.paddingLeft   = 40.0
+        heartRateGraph.paddingRight  = 0.0
+        heartRateGraph.paddingTop    = 0.0
+        heartRateGraph.paddingBottom = 60.0
+        
+        plotAreaFrameHeartRate.paddingTop    = 15.0
+        plotAreaFrameHeartRate.paddingRight  = 15.0
+        plotAreaFrameHeartRate.masksToBorder = false
+        
+        // Axis pressure graph
         
         // X
         // Grid line styles. For the X axis
@@ -132,7 +151,80 @@ class GBCPlotsViewController: UIViewController {
         yAxis.labelTextStyle = labelTextStyle
         yAxis.titleTextStyle = labelTextStyle
         
-
+        
+        // Axis heart rate graph
+        
+        // X
+        // Grid line styles. For the X axis
+        var majorGridLineStyleHeartRate = CPTMutableLineStyle()
+        majorGridLineStyleHeartRate.lineWidth = 0.75
+        majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.75))
+        majorGridLineStyleHeartRate.dashPattern = [CGFloat(3), CGFloat(3)]
+        var minorGridLineStyleHeartRate = CPTMutableLineStyle()
+        minorGridLineStyleHeartRate.lineWidth = 0.25
+        minorGridLineStyleHeartRate.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.1))
+        minorGridLineStyleHeartRate.dashPattern = [CGFloat(3), CGFloat(3)]
+        
+        let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
+        
+        let xAxisHeartRate = axisSetHeartRate.xAxis!
+        xAxisHeartRate.labelingPolicy = CPTAxisLabelingPolicy.Automatic
+        xAxisHeartRate.orthogonalPosition = 0.0
+        xAxisHeartRate.majorGridLineStyle = majorGridLineStyleHeartRate
+        xAxisHeartRate.minorGridLineStyle = minorGridLineStyleHeartRate
+        // Do not present the Ticks that appear over the X axis line
+        xAxisHeartRate.majorTickLineStyle = nil
+        xAxisHeartRate.minorTickLineStyle = nil
+        xAxisHeartRate.minorTicksPerInterval = 2
+        xAxisHeartRate.title = "Time (s)"
+        xAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
+        xAxisHeartRate.labelFormatter = nil
+        //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis
+        let labelFormatterHeartRate = NSNumberFormatter()
+        labelFormatterHeartRate.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        xAxisHeartRate.labelFormatter = labelFormatterHeartRate
+        //Do now show the vertical line over the x axis
+        //xAxis.axisLineStyle =  nil
+        xAxisHeartRate.separateLayers = false
+        xAxisHeartRate.hidden = false
+        // Configure the text style for the labels
+        let attributesHeartRate = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 20)!]
+        let labelTextStyleHeartRate = CPTMutableTextStyle(attributes: attributesHeartRate)
+        xAxisHeartRate.labelTextStyle = labelTextStyleHeartRate
+        xAxisHeartRate.titleTextStyle = labelTextStyleHeartRate
+        
+        // Y
+        // Grid line styles. For the Y axis
+        majorGridLineStyleHeartRate = CPTMutableLineStyle()
+        majorGridLineStyleHeartRate.lineWidth = 0.25
+        majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.1))
+        majorGridLineStyleHeartRate.dashPattern = [CGFloat(3), CGFloat(3)]
+        minorGridLineStyleHeartRate = CPTMutableLineStyle()
+        minorGridLineStyleHeartRate.lineWidth = 0.25
+        minorGridLineStyleHeartRate.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.1))
+        
+        let yAxisHeartRate = axisSetHeartRate.yAxis!
+        yAxisHeartRate.labelingPolicy = .Automatic
+        yAxisHeartRate.orthogonalPosition = 0.0
+        yAxisHeartRate.majorGridLineStyle = majorGridLineStyle
+        yAxisHeartRate.minorGridLineStyle = minorGridLineStyle
+        // Do not present the Ticks that appear over the axis
+        yAxisHeartRate.majorTickLineStyle = nil
+        yAxisHeartRate.minorTickLineStyle = nil
+        yAxisHeartRate.minorTicksPerInterval = 2
+        
+        
+        //yAxis.title = "Y Axis"
+        yAxisHeartRate.title = "Pressure (mmHg)"
+        yAxisHeartRate.titleOffset = 0
+        yAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
+        //yAxis.labelFormatter = nil
+        yAxisHeartRate.labelingPolicy = .None
+        //Store the label style
+        
+        //yAxis.axisLineStyle = nil
+        yAxisHeartRate.labelTextStyle = labelTextStyleHeartRate
+        yAxisHeartRate.titleTextStyle = labelTextStyleHeartRate
     }
     /*
      // MARK: - Navigation
