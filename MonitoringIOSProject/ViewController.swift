@@ -8,15 +8,13 @@
 
 import UIKit
 
-var x = [0.0,0.01]
+var x = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
 
-var y = [0.0,0.01]
+var y = [0.0, 0.4, 0.25, 0.2, 0.05, 0.01]
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
     var contador = 0.0
-    
-    var timer:NSTimer?
     
     let systolicPressurePlot = CPTScatterPlot()
     
@@ -39,6 +37,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     let labelHeartRate = UILabel()
     
     let gradientLayer = CAGradientLayer()
+    
+    @IBOutlet weak var currentMeasurementLabel: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +65,17 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         diastolicPressurePlot.dataSource = self
         averagePressurePlot.dataSource = self
         heartRatePressurePlot.dataSource = self
+        
+        // Plot simbol
+        let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+        lowSymbol.fill = CPTFill(color: CPTColor.blueColor())
+        lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
+        
+        systolicPressurePlot.plotSymbol = lowSymbol
+        diastolicPressurePlot.plotSymbol = lowSymbol
+        averagePressurePlot.plotSymbol = lowSymbol
+        heartRatePressurePlot.plotSymbol = lowSymbol
+        
         let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 2.5
         plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
@@ -79,10 +90,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         pressuresGraph.addPlot(diastolicPressurePlot)
         pressuresGraph.addPlot(averagePressurePlot)
         heartRateGraph.addPlot(heartRatePressurePlot)
-        
-        //timer = NSTimer.scheduledTimerWithTimeInterval(0.002, target: self, selector: #selector(ViewController.insertPoint), userInfo: nil, repeats: true)
-        // Do any additional setup after loading the view, typically from a nib.
-        
 
         setLegendGraph()
         
@@ -102,29 +109,28 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func addAttributesToContainerGraph(){
         // Labe1: pressure value
-        labelPressure.frame = CGRect(x: 500, y: 300, width: 190, height: 160)
+        labelPressure.frame = CGRect(x: 500, y: 280, width: 190, height: 160)
         labelPressure.numberOfLines = 10
         labelPressure.text = "Last messure \n\nSystolic:\n\n Diastolic:\n\n Average:"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // Label2: heart rate value
-        
-        labelHeartRate.frame = CGRect(x: 500, y: 850, width: 190, height: 80)
+        labelHeartRate.frame = CGRect(x: 500, y: 820, width: 190, height: 80)
         labelHeartRate.numberOfLines = 10
         labelHeartRate.text = "Last messure \n\nHeart Rate:"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // attributes pressure container
-        pressureContainerGraph.frame = CGRect(x: 50, y: 80, width: 650, height: 450)
+        pressureContainerGraph.frame = CGRect(x: 50, y: 80, width: 650, height: 425)
         pressureContainerGraph.layer.borderWidth = 1
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
         
         // attributes heart rate container graph
-        heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 450)
+        heartRateContainerGraph.frame = CGRect(x: 50, y: 540, width: 650, height: 425)
         heartRateContainerGraph.layer.borderWidth = 1
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         heartRateContainerGraph.layer.cornerRadius = 20
@@ -159,6 +165,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         
+        currentMeasurementLabel.layer.cornerRadius = 10
     }
     
     func setLegendGraph(){
@@ -270,7 +277,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("sliderConfiguration")
         documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover = documentationTableViewController.popoverPresentationController!
-        documentationTableViewController.preferredContentSize = CGSizeMake(400,350)
+        documentationTableViewController.preferredContentSize = CGSizeMake(380,350)
         
         popover.permittedArrowDirections = .Any
         
@@ -304,5 +311,27 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
+    
+    @IBAction func currentMeasurementButton(sender: AnyObject) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("currentMeasurement")
+        documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popover = documentationTableViewController.popoverPresentationController!
+        documentationTableViewController.preferredContentSize = CGSizeMake(500,650)
+        
+        popover.permittedArrowDirections = .Any
+        
+        // Depending on the source, set the popover properties accordingly.
+        if let barButtonItem = sender as? UIBarButtonItem{
+            popover.barButtonItem = barButtonItem
+        } else if let view = sender as? UIView{
+            popover.sourceView = view
+            popover.sourceRect = view.bounds
+        }
+        popover.delegate = self
+        self.presentViewController(documentationTableViewController, animated: true, completion: nil)
+    }
+    
 }
 

@@ -78,7 +78,7 @@ class BWCircularSlider: UIControl {
         textField?.textColor = UIColor.blackColor()
         textField?.textAlignment = .Center
         textField?.font = font
-        textField?.text = "\(self.angle) min"
+        textField?.text = "\(self.angle/6) min"
         
         addSubview(textField!)
     }
@@ -222,7 +222,7 @@ class BWCircularSlider: UIControl {
         angle = Int(360 - angleInt)
         
         //Update the textfield
-        textField!.text = "\(angle) min"
+        textField!.text = "\(angle/6) min"
         
         //Redraw
         setNeedsDisplay()

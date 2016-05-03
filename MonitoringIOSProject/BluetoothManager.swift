@@ -64,16 +64,17 @@ class BluetoothManager: NSObject{
     //MARK: Properties
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
-    //let monitorDeviceUUIDString:String = "71719149-939D-55ED-E509-5AD1BC74C01E" //TODO: selection of device from user input. Store in NSUserDefaults.
-    let monitorDeviceUUIDString:String = "AC6CC042-C370-ACA7-F511-9BDEFB145400"
+    //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
+    let monitorDeviceUUIDString:String = "8C286680-D676-FD21-54A7-BFD0C858E73E"
     /// BLEBee service (v1.0.0) string UUID:
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
-    static let monitorserviceUUIDString:String = "00001000-6868-6868-6868-686868686868"
-    static let monitorServiceName:String = "SharkBand"
+    static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
+    
+    static let monitorServiceName:String = "Bluegiga CR Demo"
     
     /// Read characteristic string UUID for the BLEBee Service
     //static let rxBLEBeeSeviceCharacteristicUUIDString:String = "A1E8F5B1-696B-4E4C-87C6-69DFE0B0093B"
-    static let rxBLEBeeSeviceCharacteristicUUIDString:String = "00001001-6868-6868-6868-686868686868"
+    static let rxBLEBeeServiceCharacteristicUUIDString:String = "A1E8F5B1-696B-4E4C-87C6-69DFE0B0093B"
     /// Write characteristic string UUID for the BLEBee service
     static let txBLEBeeServiceCharacteristicUUIDString:String = "1494440E-9A58-4CC0-81E4-DDEA7F74F623"
     
@@ -104,7 +105,7 @@ class BluetoothManager: NSObject{
     static func loadServicesDescriptors()->[ServiceDescriptor]{
         
         // Initialize the characteristics dictionary for the BLEBee service
-        let characteristics:[String:CBUUID] = [CharacteristicsNames.ReadFromBLEBeeKey.rawValue: CBUUID(string:self.rxBLEBeeSeviceCharacteristicUUIDString), CharacteristicsNames.SendToBLEBeeKey.rawValue: CBUUID(string:txBLEBeeServiceCharacteristicUUIDString)]
+        let characteristics:[String:CBUUID] = [CharacteristicsNames.ReadFromBLEBeeKey.rawValue: CBUUID(string:self.rxBLEBeeServiceCharacteristicUUIDString), CharacteristicsNames.SendToBLEBeeKey.rawValue: CBUUID(string:txBLEBeeServiceCharacteristicUUIDString)]
         
         let bleBeeService = ServiceDescriptor(name: monitorServiceName, UUIDString: monitorserviceUUIDString, characteristics: characteristics)
         return [bleBeeService]
@@ -270,6 +271,7 @@ extension BluetoothManager:CBPeripheralDelegate{
                     case (serviceDescriptor.characteristics[CharacteristicsNames.SendToBLEBeeKey.rawValue]?.UUIDString)!:
                         print("Found writable characteristic")
                         self.monitorWritableCharacteristic = characteristic
+                        monitorPeripheral?.setNotifyValue(true, forCharacteristic: characteristic)
                         
                     default:
                         break
@@ -280,17 +282,30 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-
+        /*
+        print("caracteristicas")
         
-        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+        print(characteristic)
+        
+        //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
         
         let service = characteristic.service
         if let serviceDescriptor = self.serviceDescriptorForService(service), let characteristicName = serviceDescriptor.characteristicNameForCharacteristicUUID(characteristic.UUID){
             //print("Did receive update notification for characterisitic with name: \(characteristic)")
             if characteristicName == CharacteristicsNames.ReadFromBLEBeeKey.rawValue{
                 //print("Now read the value from the Monitor readable characteristic")
-                readDataFromPeripheral(characteristic.value!)                
+                readDataFromPeripheral(characteristic.value!)
+                
+                let str = "enviado"
+                
+                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                
+                peripheral.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
             }
-        }
+            if characteristicName  == CharacteristicsNames.SendToBLEBeeKey.rawValue{
+                print("envia dato")
+                
+            }
+        }*/
     }
 }
