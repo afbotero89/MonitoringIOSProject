@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 enum PhysiologicalVariables:Int{
     case systolicPressure=0, diastolicPressure, averagePressure, heartRate
     
@@ -18,4 +19,17 @@ enum DeviceVariables:Int{
     case batteryLevel=0, currentHour
     
     static let allValues = [batteryLevel, currentHour]
+}
+
+struct VectorPhysiologicalVariables{
+    
+    //static var currentMeasures : [Character] = []
+    static var currentMeasures:String = ""
+    static var systolicPressure:[Double] = []
+    static var diastolicPressure:[Double] = []
+    static var averagePressure:[Double] = []
+    static var heartRate:[Double] = []
+    static var measuringTime:[String] = []
+    static var batteryLevel:[Double] = []
+    static var vectorNumberOfSamples:[Double] = []
 }

@@ -126,10 +126,45 @@ class BluetoothManager: NSObject{
      Reads the data received from peripheral. If a more sophisticated method is requiered, such as one including buffers of data, take a look at RedCodeMobile project.
     */
     func readDataFromPeripheral(data:NSData){
-        var buffer:Int8 = 0x0
-        data.getBytes(&buffer, length: data.length)
-
         
+        // Get data from buffer
+        var buffer = [UInt8](count:data.length, repeatedValue:0)
+        data.getBytes(&buffer, length: data.length)
+        
+        var characterValue:Character?
+        
+        for i in buffer{
+            characterValue = Character(UnicodeScalar(i))
+            VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
+        }
+        
+        let currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
+        
+        for j in currentMeasurement{
+            if j == "254"{
+                print(VectorPhysiologicalVariables.currentMeasures)
+                for i in 0...(currentMeasurement.count - 1){
+                    if currentMeasurement[i] == "s"{
+                        VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
+                    }else if(currentMeasurement[i] == "d"){
+                        VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
+                    }else if(currentMeasurement[i] == "m"){
+                        VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
+                    }else if(currentMeasurement[i] == "b"){
+                        VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
+                    }else if(currentMeasurement[i] == "f"){
+                        VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
+                    }else if(currentMeasurement[i] == "h"){
+                        VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
+                    }
+                    
+                }
+                VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+            
+                NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                VectorPhysiologicalVariables.currentMeasures.removeAll()
+            }
+        }
         /**
         //To read received data as integer
          var buffer:UInt8 = 0x0
@@ -282,10 +317,8 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        
-        print("caracteristicas")
-        
-        print(characteristic)
+
+        readDataFromPeripheral(characteristic.value!)
         /*
         //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
         

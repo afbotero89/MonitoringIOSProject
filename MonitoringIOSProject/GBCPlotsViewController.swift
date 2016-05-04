@@ -245,6 +245,9 @@ class GBCPlotsViewController: UIViewController {
 extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLegendDelegate, CPTPlotSpaceDelegate, CPTPlotDelegate{
     
     func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
+        if plot.identifier as! NSInteger == 4{
+            return UInt(VectorPhysiologicalVariables.heartRate.count)
+        }
         return UInt(x.count)
     }
     func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
@@ -253,6 +256,10 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         switch CPTScatterPlotField(rawValue: Int(fieldEnum))! {
         case .X:
+            if plot.identifier as! NSInteger == 4{
+                
+                return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
+            }
             return x[Int(idx)]
         case .Y:
             var yLabel = y[Int(idx)]
@@ -263,7 +270,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             }else if(plot.identifier as! NSInteger == 3){
                 yLabel = yLabel + 0.3
             }else{
-                yLabel = y[Int(idx)]
+                yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]/100
             }
             
             return yLabel
