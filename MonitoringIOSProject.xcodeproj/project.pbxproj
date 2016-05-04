@@ -21,6 +21,8 @@
 		D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */; };
 		D83E0F761CD1565100300593 /* GBCEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F751CD1565100300593 /* GBCEnumerations.swift */; };
 		D83E0F791CD167C700300593 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F781CD167C700300593 /* BluetoothManager.swift */; };
+		D84920571CDA5BD500AB611B /* AditionalInformationPopPup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D84920561CDA5BD500AB611B /* AditionalInformationPopPup.storyboard */; };
+		D84920631CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */; };
 		D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
 		D84CD8501CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
 		D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
@@ -109,6 +111,8 @@
 		D83E0F721CD13D5900300593 /* GBCPlotsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCPlotsViewController.swift; sourceTree = "<group>"; };
 		D83E0F751CD1565100300593 /* GBCEnumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCEnumerations.swift; sourceTree = "<group>"; };
 		D83E0F781CD167C700300593 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		D84920561CDA5BD500AB611B /* AditionalInformationPopPup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AditionalInformationPopPup.storyboard; sourceTree = "<group>"; };
+		D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCAditionalInformationPopupViewController.swift; sourceTree = "<group>"; };
 		D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSlider.swift; sourceTree = "<group>"; };
 		D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSliderView.swift; sourceTree = "<group>"; };
 		D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewController.swift; sourceTree = "<group>"; };
@@ -176,8 +180,10 @@
 				D83E0F201CD137C900300593 /* ViewController.swift */,
 				D83E0F751CD1565100300593 /* GBCEnumerations.swift */,
 				D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */,
+				D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */,
 				D83E0F281CD137C900300593 /* Assets.xcassets */,
 				D83E0F221CD137C900300593 /* Main.storyboard */,
+				D84920561CDA5BD500AB611B /* AditionalInformationPopPup.storyboard */,
 				D83E0F2A1CD137C900300593 /* LaunchScreen.storyboard */,
 				D83E0F2D1CD137C900300593 /* Info.plist */,
 				D83E0F251CD137C900300593 /* MonitoringIOSProject.xcdatamodeld */,
@@ -415,6 +421,7 @@
 				D83E0F2C1CD137C900300593 /* LaunchScreen.storyboard in Resources */,
 				D83E0F291CD137C900300593 /* Assets.xcassets in Resources */,
 				D83E0F241CD137C900300593 /* Main.storyboard in Resources */,
+				D84920571CDA5BD500AB611B /* AditionalInformationPopPup.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +452,7 @@
 				D83E0F761CD1565100300593 /* GBCEnumerations.swift in Sources */,
 				D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
 				D83E0F211CD137C900300593 /* ViewController.swift in Sources */,
+				D84920631CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,
 				D83E0F791CD167C700300593 /* BluetoothManager.swift in Sources */,
 				D83E0F271CD137C900300593 /* MonitoringIOSProject.xcdatamodeld in Sources */,

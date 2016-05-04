@@ -276,6 +276,23 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
         task.resume()*/
     }
+    
+    func displayGeneralInformationPopPup(location:CGPoint){
+        // Display popup
+        let storyboard = UIStoryboard(name: "AditionalInformationPopPup", bundle: nil)
+        let additionalInformationPopup = storyboard.instantiateViewControllerWithIdentifier("aditionalInformationPopup") as! GBCAditionalInformationPopupViewController
+        additionalInformationPopup.title = "Weaning test result"
+        additionalInformationPopup.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let presentationController = additionalInformationPopup.popoverPresentationController!
+        presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
+        additionalInformationPopup.preferredContentSize = CGSize(width: 400, height: 200)
+        presentationController.sourceView = self.view
+        let rect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+        presentationController.sourceRect = rect
+        // Set this object as the delegate
+        presentationController.delegate = self
+        presentViewController(additionalInformationPopup, animated: true, completion: nil)
+    }
 
     @IBAction func configurationButton(sender: AnyObject) {
         
@@ -338,13 +355,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
-    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int) {
+    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
         
-        print("identifier")
-        print(plot.identifier)
-        
-        print("index !!!")
-        print(index)
+        let touch = event.allTouches()?.first?.preciseLocationInView(self.view)
+        displayGeneralInformationPopPup(touch!)
         
     }
 }
