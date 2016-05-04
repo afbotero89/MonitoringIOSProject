@@ -65,12 +65,12 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    let monitorDeviceUUIDString:String = "8C286680-D676-FD21-54A7-BFD0C858E73E"
+    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
     /// BLEBee service (v1.0.0) string UUID:
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     
-    static let monitorServiceName:String = "Bluegiga CR Demo"
+    static let monitorServiceName:String = "Sensor Presion"
     
     /// Read characteristic string UUID for the BLEBee Service
     //static let rxBLEBeeSeviceCharacteristicUUIDString:String = "A1E8F5B1-696B-4E4C-87C6-69DFE0B0093B"
@@ -282,11 +282,11 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        /*
+        
         print("caracteristicas")
         
         print(characteristic)
-        
+        /*
         //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
         
         let service = characteristic.service
@@ -308,4 +308,5 @@ extension BluetoothManager:CBPeripheralDelegate{
             }
         }*/
     }
+    
 }

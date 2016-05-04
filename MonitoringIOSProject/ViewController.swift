@@ -8,7 +8,7 @@
 
 import UIKit
 
-var x = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
+var x = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 var y = [0.0, 0.4, 0.25, 0.2, 0.05, 0.01]
 
@@ -75,6 +75,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         diastolicPressurePlot.plotSymbol = lowSymbol
         averagePressurePlot.plotSymbol = lowSymbol
         heartRatePressurePlot.plotSymbol = lowSymbol
+        
+        // Sensitivity level when the user touches the symbol
+        systolicPressurePlot.plotSymbolMarginForHitDetection = 20
+        diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
+        averagePressurePlot.plotSymbolMarginForHitDetection = 20
+        heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
         
         let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 2.5
@@ -332,6 +338,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
-    
+    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int) {
+        
+        print("identifier")
+        print(plot.identifier)
+        
+        print("index !!!")
+        print(index)
+        
+    }
 }
 

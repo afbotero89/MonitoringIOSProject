@@ -240,10 +240,11 @@ class GBCPlotsViewController: UIViewController {
 extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLegendDelegate, CPTPlotSpaceDelegate, CPTPlotDelegate{
     
     func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
-        
         return UInt(x.count)
     }
     func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
+        
+        plot.delegate = self
         
         switch CPTScatterPlotField(rawValue: Int(fieldEnum))! {
         case .X:
@@ -265,3 +266,4 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
     }
 
 }
+
