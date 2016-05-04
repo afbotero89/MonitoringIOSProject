@@ -355,6 +355,18 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
+    
+    @IBAction func autoSetGraph(sender: AnyObject) {
+        //Change the x and y range.
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 1)
+        plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        
+        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 1)
+        plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: 0, length: 1)
+    }
+    
     func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
         
         let touch = event.allTouches()?.first?.preciseLocationInView(self.view)

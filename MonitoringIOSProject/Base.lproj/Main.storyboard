@@ -58,7 +58,11 @@
                                     <action selector="configurationButton:" destination="BYZ-38-t0r" id="sQX-sp-B3A"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="AutoSet" id="3ON-pm-D1D"/>
+                            <barButtonItem image="AutoSet" id="3ON-pm-D1D">
+                                <connections>
+                                    <action selector="autoSetGraph:" destination="BYZ-38-t0r" id="9eW-nB-g2s"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>

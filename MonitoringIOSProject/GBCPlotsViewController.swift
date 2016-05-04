@@ -30,6 +30,11 @@ class GBCPlotsViewController: UIViewController {
         pressuresGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
         pressuresGraph.defaultPlotSpace?.allowsUserInteraction = true
         
+        //Change the x and y range.
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 1)
+        plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        
         heartRateGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
         heartRateGraph.defaultPlotSpace?.allowsUserInteraction = true
         
@@ -215,7 +220,7 @@ class GBCPlotsViewController: UIViewController {
         
         
         //yAxis.title = "Y Axis"
-        yAxisHeartRate.title = "Pressure (mmHg)"
+        yAxisHeartRate.title = "Heart per minute (BPM)"
         yAxisHeartRate.titleOffset = 0
         yAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         //yAxis.labelFormatter = nil

@@ -151,7 +151,7 @@ class BluetoothManager: NSObject{
         }
         */
         
-        let newStr = NSString(UTF8String:&buffer)
+        //let newStr = NSString(UTF8String:&buffer)
         //print(newStr)
     }
 }
