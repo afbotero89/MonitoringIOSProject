@@ -245,10 +245,8 @@ class GBCPlotsViewController: UIViewController {
 extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLegendDelegate, CPTPlotSpaceDelegate, CPTPlotDelegate{
     
     func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
-        if plot.identifier as! NSInteger == 4{
-            return UInt(VectorPhysiologicalVariables.heartRate.count)
-        }
-        return UInt(x.count)
+        
+        return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
     }
     func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
         
@@ -256,19 +254,21 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         switch CPTScatterPlotField(rawValue: Int(fieldEnum))! {
         case .X:
-            if plot.identifier as! NSInteger == 4{
-                
-                return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
-            }
-            return x[Int(idx)]
+            print("entra al valor!!!")
+            return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
+            
         case .Y:
             var yLabel = y[Int(idx)]
+            //Systolic pressure
             if (plot.identifier as! NSInteger == 1){
-                yLabel = yLabel + 0.1
+                yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]/100
+            //Diastolic pressure
             }else if(plot.identifier as! NSInteger == 2){
-                yLabel = yLabel + 0.2
+                yLabel = VectorPhysiologicalVariables.diastolicPressure[Int(idx)]/100
+            //Average pressure
             }else if(plot.identifier as! NSInteger == 3){
-                yLabel = yLabel + 0.3
+                yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]/100
+            //Heart rate pressure
             }else{
                 yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]/100
             }

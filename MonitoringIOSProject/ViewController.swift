@@ -239,19 +239,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             y = [0.0,0.01]
             
         }
-        pressuresGraph.removePlot(systolicPressurePlot)
-        pressuresGraph.removePlot(diastolicPressurePlot)
-        pressuresGraph.removePlot(averagePressurePlot)
         
-        pressuresGraph.addPlot(systolicPressurePlot)
-        pressuresGraph.addPlot(diastolicPressurePlot)
-        pressuresGraph.addPlot(averagePressurePlot)
+        pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
+        pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
+        pressuresGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
+        heartRateGraph.plotWithIdentifier(4)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
-        pressuresGraph.reloadData()
-        
-        heartRateGraph.removePlot(heartRatePressurePlot)
-        heartRateGraph.addPlot(heartRatePressurePlot)
-        heartRateGraph.reloadData()
         uploadToServerDataBaseSQL(contador,diastolicPressure: (contador+1),mediumPressure: (contador+2),heartRate: (contador+3))
     }
     
