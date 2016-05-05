@@ -63,14 +63,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Plot simbol
         let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
-        lowSymbol.fill = CPTFill(color: CPTColor.blueColor())
+        lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
         lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
-        
-        systolicPressurePlot.plotSymbol = lowSymbol
-        diastolicPressurePlot.plotSymbol = lowSymbol
+    
         averagePressurePlot.plotSymbol = lowSymbol
-        heartRatePressurePlot.plotSymbol = lowSymbol
-        
         // Sensitivity level when the user touches the symbol
         systolicPressurePlot.plotSymbolMarginForHitDetection = 20
         diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
@@ -78,9 +74,22 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
         
         let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
-        plotLineStyle.lineWidth = 2.5
+        plotLineStyle.lineWidth = 1.5
+        
         plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
         systolicPressurePlot.dataLineStyle = plotLineStyle
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0))
+        systolicPressurePlot.plotSymbol = lowSymbol
+        
+        plotLineStyle.lineColor = CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0))
+        diastolicPressurePlot.dataLineStyle = plotLineStyle
+        diastolicPressurePlot.plotSymbol = lowSymbol
+        
+        plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
+        heartRatePressurePlot.dataLineStyle = plotLineStyle
+        heartRatePressurePlot.plotSymbol = lowSymbol
         
         systolicPressurePlot.title = "Systolic pressure"
         diastolicPressurePlot.title = "Diastolic pressure"
