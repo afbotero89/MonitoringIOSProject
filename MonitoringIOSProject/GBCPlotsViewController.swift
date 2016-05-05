@@ -254,19 +254,18 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         switch CPTScatterPlotField(rawValue: Int(fieldEnum))! {
         case .X:
-            print("entra al valor!!!")
             return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
             
         case .Y:
-            var yLabel = y[Int(idx)]
+            var yLabel:Double?
             //Systolic pressure
-            if (plot.identifier as! NSInteger == 1){
+            if (plot.identifier as! NSInteger == 0){
                 yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]/100
             //Diastolic pressure
-            }else if(plot.identifier as! NSInteger == 2){
+            }else if(plot.identifier as! NSInteger == 1){
                 yLabel = VectorPhysiologicalVariables.diastolicPressure[Int(idx)]/100
             //Average pressure
-            }else if(plot.identifier as! NSInteger == 3){
+            }else if(plot.identifier as! NSInteger == 2){
                 yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]/100
             //Heart rate pressure
             }else{

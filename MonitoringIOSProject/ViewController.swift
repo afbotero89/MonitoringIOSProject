@@ -8,13 +8,8 @@
 
 import UIKit
 
-var x = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
-
-var y = [0.0, 0.4, 0.25, 0.2, 0.05, 0.01]
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
-    
-    var contador = 0.0
     
     let systolicPressurePlot = CPTScatterPlot()
     
@@ -55,10 +50,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         
         // Do any additional setup after loading the view, typically from a nib.
-        systolicPressurePlot.identifier = 1
-        diastolicPressurePlot.identifier = 2
-        averagePressurePlot.identifier = 3
-        heartRatePressurePlot.identifier = 4
+        systolicPressurePlot.identifier = 0
+        diastolicPressurePlot.identifier = 1
+        averagePressurePlot.identifier = 2
+        heartRatePressurePlot.identifier = 3
         
         // Set the lineStyle for the plot
         systolicPressurePlot.dataSource = self
@@ -226,26 +221,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func insertPoint(){
+
+        pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
+        pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
+        pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
+        heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
-        contador = contador + 0.01
-        x.append(Double(contador))
-        y.append(Double(contador))
-        //print(contador)
-        if x.count == 40{
-            
-            contador = 0.0
-            x = [0.0,0.01]
-            
-            y = [0.0,0.01]
-            
-        }
-        
-        pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
-        pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
-        pressuresGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
-        heartRateGraph.plotWithIdentifier(4)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
-        
-        uploadToServerDataBaseSQL(contador,diastolicPressure: (contador+1),mediumPressure: (contador+2),heartRate: (contador+3))
+        // Label update with latest measures
+        labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n\n Average: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
+        labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
+        uploadToServerDataBaseSQL(1,diastolicPressure: (1+1),mediumPressure: (1+2),heartRate: (1+3))
     }
     
     func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double){
@@ -270,12 +255,17 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         task.resume()*/
     }
     
-    func displayGeneralInformationPopPup(location:CGPoint){
+    func displayGeneralInformationPopPup(location:CGPoint, plotIdentifier: NSInteger){
+        
         // Display popup
         let storyboard = UIStoryboard(name: "AditionalInformationPopPup", bundle: nil)
         let additionalInformationPopup = storyboard.instantiateViewControllerWithIdentifier("aditionalInformationPopup") as! GBCAditionalInformationPopupViewController
-        additionalInformationPopup.title = "Weaning test result"
+        additionalInformationPopup.title = "General information"
         additionalInformationPopup.modalPresentationStyle = UIModalPresentationStyle.Popover
+        
+        let plotSelected = PhysiologicalVariables(rawValue: plotIdentifier)?.displayString()
+        additionalInformationPopup.titlePhysiologicalVariableString = plotSelected!
+        
         let presentationController = additionalInformationPopup.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
         additionalInformationPopup.preferredContentSize = CGSize(width: 400, height: 200)
@@ -361,9 +351,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
-        
         let touch = event.allTouches()?.first?.preciseLocationInView(self.view)
-        displayGeneralInformationPopPup(touch!)
+        displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger)
         
     }
 }

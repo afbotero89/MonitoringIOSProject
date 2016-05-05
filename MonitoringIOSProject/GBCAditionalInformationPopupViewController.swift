@@ -10,9 +10,26 @@ import UIKit
 
 class GBCAditionalInformationPopupViewController: UIViewController {
 
+    @IBOutlet weak var titlePhysiologicalVariable: UILabel!
+    
+    @IBOutlet weak var valuePhysiologicalVariable: UILabel!
+    
+    @IBOutlet weak var measuringTime: UILabel!
+    
+    var titlePhysiologicalVariableString:String?
+    
+    var valuePhysiologicalVariableString:String?
+    
+    var measuringTimeString:String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        titlePhysiologicalVariable.text = titlePhysiologicalVariableString
+        
+        valuePhysiologicalVariable.text = valuePhysiologicalVariableString
+        
+        measuringTime.text = measuringTimeString
         // Do any additional setup after loading the view.
     }
 

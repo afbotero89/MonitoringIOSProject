@@ -12,6 +12,19 @@ import Foundation
 enum PhysiologicalVariables:Int{
     case systolicPressure=0, diastolicPressure, averagePressure, heartRate
     
+    func displayString()-> String{
+        switch self{
+        case .systolicPressure:
+            return "Systolic pressure:"
+        case .diastolicPressure:
+            return "Diastolic pressure:"
+        case .averagePressure:
+            return "Average pressure:"
+        case .heartRate:
+            return "Heart rate:"
+        }
+    }
+    
     static let allValues = [systolicPressure, diastolicPressure, averagePressure, heartRate]
 }
 
