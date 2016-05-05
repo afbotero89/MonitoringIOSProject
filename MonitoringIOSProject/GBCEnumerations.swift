@@ -34,6 +34,10 @@ enum DeviceVariables:Int{
     static let allValues = [batteryLevel, currentHour]
 }
 
+enum UserSelectedGraphic:Int{
+    case pressureGraphic = 0, heartRateGraphic
+}
+
 struct VectorPhysiologicalVariables{
     
     //static var currentMeasures : [Character] = []

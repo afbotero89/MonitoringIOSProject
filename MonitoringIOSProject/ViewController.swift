@@ -255,7 +255,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         task.resume()*/
     }
     
-    func displayGeneralInformationPopPup(location:CGPoint, plotIdentifier: NSInteger){
+    func displayGeneralInformationPopPup(location:CGPoint, plotIdentifier: NSInteger, indexPoint:Int){
         
         // Display popup
         let storyboard = UIStoryboard(name: "AditionalInformationPopPup", bundle: nil)
@@ -265,6 +265,20 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let plotSelected = PhysiologicalVariables(rawValue: plotIdentifier)?.displayString()
         additionalInformationPopup.titlePhysiologicalVariableString = plotSelected!
+        
+        additionalInformationPopup.unitsString = " mmHg"
+        switch PhysiologicalVariables(rawValue: plotIdentifier)!{
+        case .systolicPressure:
+            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.systolicPressure[indexPoint])
+        case .diastolicPressure:
+            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.diastolicPressure[indexPoint])
+        case .averagePressure:
+            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.averagePressure[indexPoint])
+        case .heartRate:
+            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.heartRate[indexPoint])
+            additionalInformationPopup.unitsString = " BPM"
+        }
+        additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint]
         
         let presentationController = additionalInformationPopup.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
@@ -351,8 +365,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
+        
         let touch = event.allTouches()?.first?.preciseLocationInView(self.view)
-        displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger)
+        displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger, indexPoint: index)
         
     }
 }

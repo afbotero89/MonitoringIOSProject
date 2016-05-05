@@ -22,12 +22,14 @@ class GBCAditionalInformationPopupViewController: UIViewController {
     
     var measuringTimeString:String?
     
+    var unitsString:String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         titlePhysiologicalVariable.text = titlePhysiologicalVariableString
         
-        valuePhysiologicalVariable.text = valuePhysiologicalVariableString
+        valuePhysiologicalVariable.text = valuePhysiologicalVariableString! + unitsString!
         
         measuringTime.text = measuringTimeString
         // Do any additional setup after loading the view.
