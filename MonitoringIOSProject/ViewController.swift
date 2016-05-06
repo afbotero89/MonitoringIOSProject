@@ -101,6 +101,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         pressuresGraph.addPlot(averagePressurePlot)
         heartRateGraph.addPlot(heartRatePressurePlot)
 
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
         setLegendGraph()
         
         addAttributesToContainerGraph()
@@ -239,6 +245,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Label update with latest measures
         labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n\n Average: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
         labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
+        
+        
+        //Change the x and y range.
+        
+        autoSetXYRangePressureGraphAndHeartRateGraph()
+        
         uploadToServerDataBaseSQL(1,diastolicPressure: (1+1),mediumPressure: (1+2),heartRate: (1+3))
     }
     
@@ -291,7 +303,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let presentationController = additionalInformationPopup.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
-        additionalInformationPopup.preferredContentSize = CGSize(width: 400, height: 200)
+        additionalInformationPopup.preferredContentSize = CGSize(width: 350, height: 150)
         presentationController.sourceView = self.view
         let rect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
         presentationController.sourceRect = rect
@@ -364,13 +376,27 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBAction func autoSetGraph(sender: AnyObject) {
         //Change the x and y range.
-        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
-        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 1)
-        plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        autoSetXYRangePressureGraphAndHeartRateGraph()
+    }
+    
+    func autoSetXYRangePressureGraphAndHeartRateGraph(){
         
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
         let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
-        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 1)
-        plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+        if VectorPhysiologicalVariables.vectorNumberOfSamples.count>6{
+            let startXRange = VectorPhysiologicalVariables.vectorNumberOfSamples[VectorPhysiologicalVariables.vectorNumberOfSamples.count-6]
+            
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            
+        }else{
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        }
     }
     
     func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {

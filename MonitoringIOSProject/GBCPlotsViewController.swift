@@ -63,7 +63,7 @@ class GBCPlotsViewController: UIViewController {
         plotAreaFrameHeartRate.masksToBorder   = false
         
         // Paddings
-        pressuresGraph.paddingLeft   = 40.0
+        pressuresGraph.paddingLeft   = 60.0
         pressuresGraph.paddingRight  = 0.0
         pressuresGraph.paddingTop    = 0.0
         pressuresGraph.paddingBottom = 60.0
@@ -73,7 +73,7 @@ class GBCPlotsViewController: UIViewController {
         plotAreaFrame.masksToBorder = false
         
         // Paddings
-        heartRateGraph.paddingLeft   = 40.0
+        heartRateGraph.paddingLeft   = 60.0
         heartRateGraph.paddingRight  = 0.0
         heartRateGraph.paddingTop    = 0.0
         heartRateGraph.paddingBottom = 60.0
@@ -118,7 +118,7 @@ class GBCPlotsViewController: UIViewController {
         xAxis.separateLayers = false
         xAxis.hidden = false
         // Configure the text style for the labels
-        let attributes = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 20)!]
+        let attributes = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
         let labelTextStyle = CPTMutableTextStyle(attributes: attributes)
         xAxis.labelTextStyle = labelTextStyle
         xAxis.titleTextStyle = labelTextStyle
@@ -126,7 +126,7 @@ class GBCPlotsViewController: UIViewController {
         // Y
         // Grid line styles. For the Y axis
         majorGridLineStyle = CPTMutableLineStyle()
-        majorGridLineStyle.lineWidth = 0.25
+        majorGridLineStyle.lineWidth = 0.75
         majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.1))
         majorGridLineStyle.dashPattern = [CGFloat(3), CGFloat(3)]
         minorGridLineStyle = CPTMutableLineStyle()
@@ -134,25 +134,26 @@ class GBCPlotsViewController: UIViewController {
         minorGridLineStyle.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.1))
         
         let yAxis = axisSet.yAxis!
-        yAxis.labelingPolicy = .Automatic
+        yAxis.labelingPolicy = CPTAxisLabelingPolicy.Automatic
         yAxis.orthogonalPosition = 0.0
         yAxis.majorGridLineStyle = majorGridLineStyle
         yAxis.minorGridLineStyle = minorGridLineStyle
-        // Do not present the Ticks that appear over the axis
+        // Do not present the Ticks that appear over the X axis line
         yAxis.majorTickLineStyle = nil
         yAxis.minorTickLineStyle = nil
         yAxis.minorTicksPerInterval = 2
-        
-        
-        //yAxis.title = "Y Axis"
         yAxis.title = "Pressure (mmHg)"
-        yAxis.titleOffset = 0
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
-        //yAxis.labelFormatter = nil
-        yAxis.labelingPolicy = .None
-        //Store the label style
-        
-        //yAxis.axisLineStyle = nil
+        yAxis.labelFormatter = nil
+        //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis
+        labelFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        yAxis.labelFormatter = labelFormatter
+        //Do now show the vertical line over the x axis
+        //xAxis.axisLineStyle =  nil
+        yAxis.separateLayers = false
+        yAxis.hidden = false
+        // Configure the text style for the labels
+    
         yAxis.labelTextStyle = labelTextStyle
         yAxis.titleTextStyle = labelTextStyle
         
@@ -193,7 +194,7 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.separateLayers = false
         xAxisHeartRate.hidden = false
         // Configure the text style for the labels
-        let attributesHeartRate = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 20)!]
+        let attributesHeartRate = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
         let labelTextStyleHeartRate = CPTMutableTextStyle(attributes: attributesHeartRate)
         xAxisHeartRate.labelTextStyle = labelTextStyleHeartRate
         xAxisHeartRate.titleTextStyle = labelTextStyleHeartRate
@@ -201,33 +202,36 @@ class GBCPlotsViewController: UIViewController {
         // Y
         // Grid line styles. For the Y axis
         majorGridLineStyleHeartRate = CPTMutableLineStyle()
-        majorGridLineStyleHeartRate.lineWidth = 0.25
+        majorGridLineStyleHeartRate.lineWidth = 0.75
         majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.1))
         majorGridLineStyleHeartRate.dashPattern = [CGFloat(3), CGFloat(3)]
         minorGridLineStyleHeartRate = CPTMutableLineStyle()
         minorGridLineStyleHeartRate.lineWidth = 0.25
-        minorGridLineStyleHeartRate.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.1))
+        minorGridLineStyleHeartRate.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.2))
         
         let yAxisHeartRate = axisSetHeartRate.yAxis!
-        yAxisHeartRate.labelingPolicy = .Automatic
+        yAxisHeartRate.labelingPolicy = CPTAxisLabelingPolicy.Automatic
         yAxisHeartRate.orthogonalPosition = 0.0
-        yAxisHeartRate.majorGridLineStyle = majorGridLineStyle
-        yAxisHeartRate.minorGridLineStyle = minorGridLineStyle
-        // Do not present the Ticks that appear over the axis
+        yAxisHeartRate.majorGridLineStyle = majorGridLineStyleHeartRate
+        yAxisHeartRate.minorGridLineStyle = minorGridLineStyleHeartRate
+        // Do not present the Ticks that appear over the X axis line
         yAxisHeartRate.majorTickLineStyle = nil
         yAxisHeartRate.minorTickLineStyle = nil
         yAxisHeartRate.minorTicksPerInterval = 2
-        
-        
-        //yAxis.title = "Y Axis"
-        yAxisHeartRate.title = "Heart per minute (BPM)"
-        yAxisHeartRate.titleOffset = 0
+        yAxisHeartRate.title = "Beats per minute (BPM)"
         yAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
-        //yAxis.labelFormatter = nil
-        yAxisHeartRate.labelingPolicy = .None
-        //Store the label style
-        
-        //yAxis.axisLineStyle = nil
+        yAxisHeartRate.labelFormatter = nil
+        //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis
+        //let labelFormatterHeartRate = NSNumberFormatter()
+        labelFormatterHeartRate.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        yAxisHeartRate.labelFormatter = labelFormatterHeartRate
+        //Do now show the vertical line over the x axis
+        //xAxis.axisLineStyle =  nil
+        yAxisHeartRate.separateLayers = false
+        yAxisHeartRate.hidden = false
+        // Configure the text style for the labels
+        //let attributesHeartRate = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 20)!]
+        //let labelTextStyleHeartRate = CPTMutableTextStyle(attributes: attributesHeartRate)
         yAxisHeartRate.labelTextStyle = labelTextStyleHeartRate
         yAxisHeartRate.titleTextStyle = labelTextStyleHeartRate
     }
@@ -260,18 +264,17 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             var yLabel:Double?
             //Systolic pressure
             if (plot.identifier as! NSInteger == 0){
-                yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]/100
+                yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]
             //Diastolic pressure
             }else if(plot.identifier as! NSInteger == 1){
-                yLabel = VectorPhysiologicalVariables.diastolicPressure[Int(idx)]/100
+                yLabel = VectorPhysiologicalVariables.diastolicPressure[Int(idx)]
             //Average pressure
             }else if(plot.identifier as! NSInteger == 2){
-                yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]/100
+                yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]
             //Heart rate pressure
             }else{
-                yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]/100
+                yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]
             }
-            
             return yLabel
         }
     }
