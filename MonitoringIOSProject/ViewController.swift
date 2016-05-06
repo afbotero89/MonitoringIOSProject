@@ -35,10 +35,15 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var currentMeasurementLabel: UIButton!
     
+    @IBOutlet weak var statusConnectionLabel: UILabel!
+    
+    @IBOutlet weak var imageStatusConnection: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
@@ -48,7 +53,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          
                                                          object: nil)
         
-        
+        // Watch Bluetooth connection
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 0
         diastolicPressurePlot.identifier = 1
@@ -123,30 +129,36 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: BLEServiceChangedStatusNotification, object: nil)
+    }
+    
     func addAttributesToContainerGraph(){
         // Labe1: pressure value
-        labelPressure.frame = CGRect(x: 500, y: 280, width: 190, height: 160)
+        labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
         labelPressure.numberOfLines = 10
-        labelPressure.text = "Last messure \n\nSystolic:\n\n Diastolic:\n\n Average:"
+        labelPressure.text = "Last messure \n\nSystolic:\nDiastolic:\nAverage:"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // Label2: heart rate value
-        labelHeartRate.frame = CGRect(x: 500, y: 820, width: 190, height: 80)
+        labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
         labelHeartRate.numberOfLines = 10
         labelHeartRate.text = "Last messure \n\nHeart Rate:"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // attributes pressure container
-        pressureContainerGraph.frame = CGRect(x: 50, y: 80, width: 650, height: 425)
+        pressureContainerGraph.frame = CGRect(x: 50, y: 140, width: 650, height: 400)
         pressureContainerGraph.layer.borderWidth = 1
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
+        pressureContainerGraph.addSubview(labelPressure)
+        
         
         // attributes heart rate container graph
-        heartRateContainerGraph.frame = CGRect(x: 50, y: 540, width: 650, height: 425)
+        heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
         heartRateContainerGraph.layer.borderWidth = 1
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         heartRateContainerGraph.layer.cornerRadius = 20
@@ -182,6 +194,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         
         currentMeasurementLabel.layer.cornerRadius = 10
+        
+        statusConnectionLabel.clipsToBounds = true
+        statusConnectionLabel.layer.cornerRadius = 10
     }
     
     func setLegendGraph(){
@@ -243,10 +258,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
         // Label update with latest measures
-        labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n\n Average: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
+        labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\nDiastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\nAverage: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
         labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
-        
-        
+        print(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
         //Change the x and y range.
         
         autoSetXYRangePressureGraphAndHeartRateGraph()
@@ -310,6 +324,26 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Set this object as the delegate
         presentationController.delegate = self
         presentViewController(additionalInformationPopup, animated: true, completion: nil)
+    }
+    func connectionChanged(notification: NSNotification) {
+        
+        // Connection status changed. Indicate on GUI.
+        let userInfo = notification.userInfo as! [String: Bool]
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // Set image based on connection status
+            if let isConnected: Bool = userInfo["isConnected"] {
+                if isConnected {
+                    self.imageStatusConnection.image = UIImage(named: "Bluetooth_Connected")
+                    self.statusConnectionLabel.text = "Connected"
+                
+                } else {
+                    self.imageStatusConnection.image = UIImage(named: "Bluetooth_Disconnected")
+                    self.statusConnectionLabel.text = "Disconnected"
+                  
+                }
+            }
+        });
     }
 
     @IBAction func configurationButton(sender: AnyObject) {

@@ -118,7 +118,8 @@ class GBCPlotsViewController: UIViewController {
         xAxis.separateLayers = false
         xAxis.hidden = false
         // Configure the text style for the labels
-        let attributes = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+        let attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+                           NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
         let labelTextStyle = CPTMutableTextStyle(attributes: attributes)
         xAxis.labelTextStyle = labelTextStyle
         xAxis.titleTextStyle = labelTextStyle
@@ -194,7 +195,8 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.separateLayers = false
         xAxisHeartRate.hidden = false
         // Configure the text style for the labels
-        let attributesHeartRate = [NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+        let attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+                                   NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
         let labelTextStyleHeartRate = CPTMutableTextStyle(attributes: attributesHeartRate)
         xAxisHeartRate.labelTextStyle = labelTextStyleHeartRate
         xAxisHeartRate.titleTextStyle = labelTextStyleHeartRate

@@ -21,15 +21,16 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EzC-Rv-twl">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <color key="barTintColor" red="0.07894957432378398" green="0.32343721742422166" blue="0.47850518048128343" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem id="RE3-D3-5Kp">
                                         <nil key="title"/>
                                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ANx-on-6rY">
                                             <rect key="frame" x="180" y="7" width="240" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <state key="normal" title="Current measurement">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="csp-0c-O9B"/>
@@ -38,12 +39,41 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5K-N6-6Ak">
+                                <rect key="frame" x="206" y="84" width="188" height="41"/>
+                                <color key="backgroundColor" red="0.043137254901960784" green="0.17254901960784313" blue="0.25490196078431371" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="87e-vy-dMZ"/>
+                                    <constraint firstAttribute="width" constant="188" id="UTX-Ho-tz0"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Scanning Bluetooth...">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="jKl-Bq-YWP">
+                                <rect key="frame" x="148" y="80" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="DsT-oG-do0"/>
+                                    <constraint firstAttribute="width" constant="50" id="phN-fD-KJ7"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="EzC-Rv-twl" secondAttribute="trailing" constant="-20" id="A9e-bY-NiE"/>
                             <constraint firstItem="EzC-Rv-twl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="DPQ-3g-G1X"/>
+                            <constraint firstItem="jKl-Bq-YWP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="FA3-1B-wYa"/>
+                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RFn-sd-I0N"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EzC-Rv-twl" secondAttribute="bottom" id="bCx-6F-xLW"/>
+                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="leading" secondItem="jKl-Bq-YWP" secondAttribute="trailing" constant="8" id="dz0-xl-Kce"/>
+                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="jEu-i4-t9m"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
@@ -67,6 +97,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="uiJ-UO-tmS"/>
+                        <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
+                        <outlet property="statusConnectionLabel" destination="C5K-N6-6Ak" id="0kf-Rs-qT4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -501,6 +533,7 @@
     <resources>
         <image name="AutoSet" width="21" height="21"/>
         <image name="Batery" width="128" height="128"/>
+        <image name="Bluetooth_Disconnected" width="256" height="256"/>
         <image name="Configuration" width="32" height="32"/>
         <image name="DiastolicPressure" width="256" height="256"/>
         <image name="HeartRate" width="256" height="256"/>

@@ -15,6 +15,7 @@ enum CharacteristicsNames:String {
     case SendToBLEBeeKey = "SendToBLEBee"
 }
 
+let BLEServiceChangedStatusNotification = "kBLEServiceChangedStatusNotification"
 
 //MARK: - ServiceDescriptor
 
@@ -215,6 +216,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
             else {
                 print("Scanning for periopherals")
                 //centralManager.scanForPeripheralsWithServices(servicesUUIDs, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
+                // Send notification that Bluetooth is disconnected and start scanning
                 centralManager.scanForPeripheralsWithServices(nil, options: nil)
             }
             
@@ -249,6 +251,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
     }
     
     func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        
         if error != nil{
             print("The connection to peripheral", peripheral.name, "failed with error:", error?.description, separator: " ", terminator: "\n")
         }
@@ -311,6 +314,8 @@ extension BluetoothManager:CBPeripheralDelegate{
                     default:
                         break
                     }
+                    // Send notification that Bluetooth is connected and all required characteristics are discovered
+                    self.sendBTServiceNotificationWithIsBluetoothConnected(true)
                 }
             }
         }
@@ -341,5 +346,8 @@ extension BluetoothManager:CBPeripheralDelegate{
             }
         }*/
     }
-    
+    func sendBTServiceNotificationWithIsBluetoothConnected(isBluetoothConnected: Bool) {
+        let connectionDetails = ["isConnected": isBluetoothConnected]
+        NSNotificationCenter.defaultCenter().postNotificationName(BLEServiceChangedStatusNotification, object: self, userInfo: connectionDetails)
+    }
 }
