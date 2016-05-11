@@ -41,6 +41,15 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let device = UIDevice.currentDevice().model
+        
+        if device == "iPad"{
+            UserSelectedConfiguration.typeOfDevice = .iPad
+        }else{
+            UserSelectedConfiguration.typeOfDevice = .iPhone
+        }
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
         
@@ -55,6 +64,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Watch Bluetooth connection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 0
         diastolicPressurePlot.identifier = 1
@@ -134,22 +146,20 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func addAttributesToContainerGraph(){
+        
         // Labe1: pressure value
-        labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
         labelPressure.numberOfLines = 10
         labelPressure.text = "Last messure \n\nSystolic:\nDiastolic:\nAverage:"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // Label2: heart rate value
-        labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
         labelHeartRate.numberOfLines = 10
         labelHeartRate.text = "Last messure \n\nHeart Rate:"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // attributes pressure container
-        pressureContainerGraph.frame = CGRect(x: 50, y: 140, width: 650, height: 400)
         pressureContainerGraph.layer.borderWidth = 1
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
@@ -158,11 +168,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         
         // attributes heart rate container graph
-        heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
         heartRateContainerGraph.layer.borderWidth = 1
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
+        
+        // Function call to determine the orientation of the device
+        deviceRotated()
         
         // Insert subviews
         view.addSubview(pressureContainerGraph)
@@ -345,6 +357,87 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             }
         });
     }
+    
+    func deviceRotated(){
+        
+        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        {
+            // Portrait
+            switch UserSelectedConfiguration.typeOfDevice!{
+            case .iPad:
+                // Image status connection
+                imageStatusConnection.frame = CGRect(x: 240, y: 80, width: 50, height: 50)
+                
+                // Status connection label
+                statusConnectionLabel.frame = CGRect(x: 290, y: 80, width: 188, height: 41)
+                
+                // Labe1: pressure value
+                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
+                
+                // Label2: heart rate value
+                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
+                
+                // Attributes pressure container
+                pressureContainerGraph.frame = CGRect(x: 50, y: 140, width: 650, height: 400)
+                
+                // Attributes heart rate container graph
+                heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
+                
+            case .iPhone:
+                
+                let deviceHeight = self.view.frame.height
+                print(deviceHeight)
+                // Image status connection
+                imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 15, height: 15)
+                
+                // Status connection label
+                statusConnectionLabel.frame = CGRect(x: 20, y: 80, width: 188, height: 21)
+                
+                // Labe1: pressure value
+                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
+                
+                // Label2: heart rate value
+                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
+                
+                // Attributes pressure container
+                pressureContainerGraph.frame = CGRect(x: 10, y: 140, width: self.view.frame.width - 20, height: deviceHeight - 400)
+                
+                // Attributes heart rate container graph
+                heartRateContainerGraph.frame = CGRect(x: 10, y: 350, width: self.view.frame.width - 20, height: deviceHeight - 400)
+            }
+            
+        }else{
+            
+            // Landscape
+            switch UserSelectedConfiguration.typeOfDevice!{
+            case .iPad:
+                print("entra !!!!!")
+                // Image status connection
+                imageStatusConnection.frame = CGRect(x: 10, y: 140, width: 50, height: 50)
+                
+                // Status connection label
+                statusConnectionLabel.frame = CGRect(x: 10, y: 80, width: 188, height: 41)
+                
+                // Labe1: pressure value
+                labelPressure.frame = CGRect(x: 680, y: 200, width: 190, height: 120)
+                
+                // Label2: heart rate value
+                labelHeartRate.frame = CGRect(x: 680, y: 550, width: 190, height: 80)
+                
+                // Attributes pressure container
+                pressureContainerGraph.frame = CGRect(x: 230, y: 80, width: 650, height: 300)
+                
+                // Attributes heart rate container graph
+                heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
+
+            case .iPhone:
+                print("iPhone")
+            }
+  
+        }
+ 
+    }
+
 
     @IBAction func configurationButton(sender: AnyObject) {
         

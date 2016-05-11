@@ -219,7 +219,10 @@ extension BluetoothManager:CBCentralManagerDelegate{
                 // Send notification that Bluetooth is disconnected and start scanning
                 centralManager.scanForPeripheralsWithServices(nil, options: nil)
             }
-            
+        case .PoweredOff:
+            print("power off")
+        case .Resetting:
+            print("reseting")
         default:
             print(central.state)
         }

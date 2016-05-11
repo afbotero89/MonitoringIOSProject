@@ -38,6 +38,11 @@ enum UserSelectedGraphic:Int{
     case pressureGraphic = 0, heartRateGraphic
 }
 
+enum TypeOfDevice:Int{
+    case iPhone=0, iPad
+}
+
+
 struct VectorPhysiologicalVariables{
     
     //static var currentMeasures : [Character] = []
@@ -50,3 +55,8 @@ struct VectorPhysiologicalVariables{
     static var batteryLevel:[Double] = []
     static var vectorNumberOfSamples:[Double] = []
 }
+
+struct UserSelectedConfiguration{
+    static var typeOfDevice:TypeOfDevice?
+}
+
