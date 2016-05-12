@@ -66,7 +66,10 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    
+    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    
     /// BLEBee service (v1.0.0) string UUID:
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
@@ -101,13 +104,37 @@ class BluetoothManager: NSObject{
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
-                                                         selector: #selector(BluetoothManager.writeValuePeripheral),
+                                                         selector: #selector(BluetoothManager.sendMeasurementTime),
                                                          
-                                                         name: "writeValueToPeripheral",
+                                                         name: "sendMeasurementTimeToPeripheral",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(BluetoothManager.sendCurrentTime),
+                                                         
+                                                         name: "sendCurrentTimeToPeripheral",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(BluetoothManager.activeCurrentMeasurement),
+                                                         
+                                                         name: "sendCurrentMeasurementToPeripheral",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(BluetoothManager.cancelCurrentMeasurement),
+                                                         
+                                                         name: "cancelCurrentMeasurementToPeripheral",
                                                          
                                                          object: nil)
     }
-    
+
     /**
      Loads the descriptors for the sought services.
     */
@@ -139,21 +166,27 @@ class BluetoothManager: NSObject{
         // Get data from buffer
         var buffer = [UInt8](count:data.length, repeatedValue:0)
         data.getBytes(&buffer, length: data.length)
-        
         var characterValue:Character?
         
         for i in buffer{
             characterValue = Character(UnicodeScalar(i))
+            
             VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
         }
         
         let currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
+        
         print(currentMeasurement)
+        
         for j in currentMeasurement{
-            if j == "254\n\rs" || j == "254\n\r"{
-                print(VectorPhysiologicalVariables.currentMeasures)
+            //if j == "254\n\rs" || j == "254\n\r" {
+             if j == "254" {  
+                if j == "255" && activeCurrentMeasurementFlag == true{
+                    print("dato enviado")
+                }
+               
                 for i in 0...(currentMeasurement.count - 1){
-                    if currentMeasurement[i] == "s"{
+                    if currentMeasurement[i] == "s" {
                         VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
                     }else if(currentMeasurement[i] == "d"){
                         VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
@@ -239,7 +272,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         // Attempt to connect to the discovered device.
         //centralManager.stopScan()
-        print("Found peripheral \(peripheral)")
+        
         //TODO:Verify if a more rigurous selection of the device is requiered. What if several devices have the same services?
         // It is important to have a reference to the peripheral that will be connected. Otherwise, the connection does not succeed (seems to be a bug?)
         if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
@@ -247,6 +280,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
             self.monitorPeripheral = peripheral
             centralManager.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnNotificationKey: NSNumber(bool:true)])
         }
+        print("Found peripheral \(peripheral)")
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
@@ -271,6 +305,12 @@ extension BluetoothManager:CBCentralManagerDelegate{
             self.centralManager.connectPeripheral(peripheral, options: nil);
         }
         
+    }
+    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        print("desconectado!!!!")
+        // Send notification that Bluetooth is connected and all required characteristics are discovered
+        self.sendBTServiceNotificationWithIsBluetoothConnected(false)
+        centralManager.scanForPeripheralsWithServices(nil, options: nil)
     }
 }
 
@@ -334,7 +374,15 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         
+        //print("Now read the value from the Monitor readable characteristic")
         readDataFromPeripheral(characteristic.value!)
+        
+        let str = "255"
+        
+        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        peripheral.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        
         /*
         //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
         
@@ -362,7 +410,53 @@ extension BluetoothManager:CBPeripheralDelegate{
         NSNotificationCenter.defaultCenter().postNotificationName(BLEServiceChangedStatusNotification, object: self, userInfo: connectionDetails)
     }
     
-    func writeValuePeripheral(){
-        print("writeValue")
+    func sendMeasurementTime(){
+        
+        print("tiempo de medida")
+        
+        let str = "20"
+        
+        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+    
+        if monitorPeripheral != nil{
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }
+    
+    }
+    
+    func sendCurrentTime(){
+        
+        print("hora actual")
+        
+        let str = "h"
+        
+        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        if monitorPeripheral != nil{
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }
+    }
+    
+    func activeCurrentMeasurement(){
+        
+        print("activar medida actual")
+        
+        let str = "a"
+        
+        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        if monitorPeripheral != nil{
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }
+    }
+    func cancelCurrentMeasurement(){
+        
+        print("cancelar medida actual")
+        
+        let str = "c"
+        
+        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        if monitorPeripheral != nil{
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+var activeCurrentMeasurementFlag = false
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
@@ -119,6 +120,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
         
         setLegendGraph()
         
@@ -495,6 +498,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBAction func currentMeasurementButton(sender: AnyObject) {
         
+        activeCurrentMeasurementFlag = true
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("currentMeasurement")
         documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
@@ -511,6 +516,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             popover.sourceRect = view.bounds
         }
         popover.delegate = self
+        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+        
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
     
