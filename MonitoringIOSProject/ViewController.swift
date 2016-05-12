@@ -41,15 +41,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        let device = UIDevice.currentDevice().model
-        
-        if device == "iPad"{
-            UserSelectedConfiguration.typeOfDevice = .iPad
-        }else{
-            UserSelectedConfiguration.typeOfDevice = .iPhone
-        }
+
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
         
@@ -532,5 +524,37 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger, indexPoint: index)
         
     }
+    
+}
+extension ViewController{
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.FullScreen
+    }
+    
+    func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navController = UINavigationController(rootViewController: controller.presentedViewController)
+        let barButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ViewController.dismissPopover(_:)))
+        navController.topViewController!.navigationItem.rightBarButtonItem = barButtonItem
+        return navController
+    }
+    /**
+     Method called when the popover is dissmised programatically, after the user presses a button (iPhone)
+     */
+    func dismissPopover(sender:AnyObject){
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        
+    }
+    
+    /**
+     Method called after the popover is dissmissed by means of user interactions only (iPad).
+     */
+    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+        
+        //Code
+        //insertNewBarGraphExtubatedPatient()
+        
+    }
+
 }
 

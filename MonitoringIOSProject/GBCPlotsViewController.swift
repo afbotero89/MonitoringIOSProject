@@ -17,6 +17,13 @@ class GBCPlotsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let device = UIDevice.currentDevice().model
+        
+        if device == "iPad"{
+            UserSelectedConfiguration.typeOfDevice = .iPad
+        }else{
+            UserSelectedConfiguration.typeOfDevice = .iPhone
+        }
         configureGraph()
         // Do any additional setup after loading the view.
     }
@@ -118,8 +125,16 @@ class GBCPlotsViewController: UIViewController {
         xAxis.separateLayers = false
         xAxis.hidden = false
         // Configure the text style for the labels
-        let attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
-                           NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+        var attributes:[String: AnyObject]?
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+                               NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+        case .iPhone:
+            attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+                               NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 10)!]
+        }
+        
         let labelTextStyle = CPTMutableTextStyle(attributes: attributes)
         xAxis.labelTextStyle = labelTextStyle
         xAxis.titleTextStyle = labelTextStyle
@@ -195,8 +210,16 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.separateLayers = false
         xAxisHeartRate.hidden = false
         // Configure the text style for the labels
-        let attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
-                                   NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+        var attributesHeartRate:[String: AnyObject]?
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+                                       NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+        case .iPhone:
+            attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+                                       NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 10)!]
+        }
+        
         let labelTextStyleHeartRate = CPTMutableTextStyle(attributes: attributesHeartRate)
         xAxisHeartRate.labelTextStyle = labelTextStyleHeartRate
         xAxisHeartRate.titleTextStyle = labelTextStyleHeartRate
