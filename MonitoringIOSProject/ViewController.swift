@@ -454,13 +454,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
 
     @IBAction func configurationButton(sender: AnyObject) {
         
-         NSNotificationCenter.defaultCenter().postNotificationName("writeValueToPeripheral", object: nil, userInfo: nil)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("sliderConfiguration")
         documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover = documentationTableViewController.popoverPresentationController!
-        documentationTableViewController.preferredContentSize = CGSizeMake(380,350)
+        documentationTableViewController.preferredContentSize = CGSizeMake(380,450)
         
         popover.permittedArrowDirections = .Any
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */; };
 		D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F1E1CD137C900300593 /* AppDelegate.swift */; };
 		D83E0F211CD137C900300593 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F201CD137C900300593 /* ViewController.swift */; };
 		D83E0F241CD137C900300593 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D83E0F221CD137C900300593 /* Main.storyboard */; };
@@ -90,6 +91,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCConfigurationMeasuringTimeViewController.swift; sourceTree = "<group>"; };
 		D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonitoringIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83E0F1E1CD137C900300593 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D83E0F201CD137C900300593 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		D84CD8401CD7F9EA00B35B18 /* SliderConfiguration */ = {
 			isa = PBXGroup;
 			children = (
+				D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */,
 				D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */,
 				D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */,
 			);
@@ -451,6 +454,7 @@
 				D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
 				D83E0F761CD1565100300593 /* GBCEnumerations.swift in Sources */,
 				D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
+				D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */,
 				D83E0F211CD137C900300593 /* ViewController.swift in Sources */,
 				D84920631CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,

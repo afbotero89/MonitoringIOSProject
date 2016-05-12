@@ -108,7 +108,7 @@
         <!--User configuration-->
         <scene sceneID="uMs-gI-Hn2">
             <objects>
-                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qym-mq-K5y"/>
                         <viewControllerLayoutGuide type="bottom" id="Sue-xm-Rft"/>
@@ -133,18 +133,56 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unJ-wc-41X">
+                                <rect key="frame" x="270" y="466" width="61" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="2Ov-IE-K6S"/>
+                                    <constraint firstAttribute="height" constant="30" id="j8t-O5-aFj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButton:" destination="0kz-tk-cwH" eventType="touchUpInside" id="7gT-RQ-6yF"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGN-hQ-gUw">
+                                <rect key="frame" x="191" y="113" width="219" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3Zt-If-408"/>
+                                    <constraint firstAttribute="width" constant="219" id="j3F-DZ-LrC"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Set measurement time">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Light"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="unJ-wc-41X" firstAttribute="top" secondItem="Zzj-XZ-AH3" secondAttribute="bottom" constant="13" id="3Sg-PK-DWZ"/>
                             <constraint firstItem="Zzj-XZ-AH3" firstAttribute="centerX" secondItem="Ehf-Ol-fYt" secondAttribute="centerX" id="IBO-Mh-hnu"/>
+                            <constraint firstItem="unJ-wc-41X" firstAttribute="centerX" secondItem="Ehf-Ol-fYt" secondAttribute="centerX" id="cSM-vb-sFy"/>
+                            <constraint firstItem="Zzj-XZ-AH3" firstAttribute="top" secondItem="qGN-hQ-gUw" secondAttribute="bottom" constant="13" id="fQE-2g-qTS"/>
                             <constraint firstItem="Zzj-XZ-AH3" firstAttribute="centerY" secondItem="Ehf-Ol-fYt" secondAttribute="centerY" id="pmu-vh-3sH"/>
+                            <constraint firstItem="qGN-hQ-gUw" firstAttribute="centerX" secondItem="Ehf-Ol-fYt" secondAttribute="centerX" id="vtc-VJ-bOu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="User configuration" id="HLj-xb-ybs"/>
+                    <connections>
+                        <outlet property="doneButtonLayer" destination="unJ-wc-41X" id="APO-ah-Hs5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9T6-PK-nVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1400" y="855"/>
+            <point key="canvasLocation" x="1415" y="854"/>
         </scene>
         <!--General information-->
         <scene sceneID="tKF-4S-UI6">
