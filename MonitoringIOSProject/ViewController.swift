@@ -33,6 +33,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     let gradientLayer = CAGradientLayer()
     
+    var graphicsEnabledHeight:Double?
+    
+    var graphicsEnabledWidth:Double?
+    
     @IBOutlet weak var currentMeasurementLabel: UIButton!
     
     @IBOutlet weak var statusConnectionLabel: UILabel!
@@ -44,7 +48,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
 
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
-        
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
@@ -235,6 +238,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
         heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
         
+
         attrsLegend = [
             NSForegroundColorAttributeName : UIColor.blackColor(),
             NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
@@ -264,7 +268,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Label update with latest measures
         labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\nDiastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\nAverage: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
         labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
-        print(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
+        
         //Change the x and y range.
         
         autoSetXYRangePressureGraphAndHeartRateGraph()
@@ -302,26 +306,21 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         additionalInformationPopup.title = "General information"
         additionalInformationPopup.modalPresentationStyle = UIModalPresentationStyle.Popover
         
-        let plotSelected = PhysiologicalVariables(rawValue: plotIdentifier)?.displayString()
-        additionalInformationPopup.titlePhysiologicalVariableString = plotSelected!
+        //let plotSelected = PhysiologicalVariables(rawValue: plotIdentifier)?.displayString()
         
-        additionalInformationPopup.unitsString = " mmHg"
-        switch PhysiologicalVariables(rawValue: plotIdentifier)!{
-        case .systolicPressure:
-            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.systolicPressure[indexPoint])
-        case .diastolicPressure:
-            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.diastolicPressure[indexPoint])
-        case .averagePressure:
-            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.averagePressure[indexPoint])
-        case .heartRate:
-            additionalInformationPopup.valuePhysiologicalVariableString = String(VectorPhysiologicalVariables.heartRate[indexPoint])
-            additionalInformationPopup.unitsString = " BPM"
-        }
+        additionalInformationPopup.valueSystolicPressureString = String(VectorPhysiologicalVariables.systolicPressure[indexPoint]) + " mmHg"
+        
+        additionalInformationPopup.valueAveragePressureString = String(VectorPhysiologicalVariables.averagePressure[indexPoint]) + " mmHg"
+        
+        additionalInformationPopup.valueDiastolicPressureString = String(VectorPhysiologicalVariables.diastolicPressure[indexPoint]) + " mmHg"
+        
+        additionalInformationPopup.valueHeartRateString = String(VectorPhysiologicalVariables.heartRate[indexPoint]) + " BPM"
+        
         additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint]
         
         let presentationController = additionalInformationPopup.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
-        additionalInformationPopup.preferredContentSize = CGSize(width: 350, height: 150)
+        additionalInformationPopup.preferredContentSize = CGSize(width: 320, height: 250)
         presentationController.sourceView = self.view
         let rect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
         presentationController.sourceRect = rect
@@ -352,6 +351,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func deviceRotated(){
         
+        // 2*navigationController, because navigation bar and button bar
+        graphicsEnabledHeight = Double(view.frame.height) - 4*Double((navigationController?.navigationBar.frame.height)!)
+        
+        graphicsEnabledWidth = Double(view.frame.width)
+        
+        print(graphicsEnabledHeight)
+        
         if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
         {
             // Portrait
@@ -377,8 +383,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
             case .iPhone:
                 
-                let deviceHeight = self.view.frame.height
-                print(deviceHeight)
                 // Image status connection
                 imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 15, height: 15)
                 
@@ -392,10 +396,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 10, y: 140, width: self.view.frame.width - 20, height: deviceHeight - 400)
+                pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: 350, width: self.view.frame.width - 20, height: deviceHeight - 400)
+                heartRateContainerGraph.frame = CGRect(x: 10, y: 300, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
             }
             
         }else{
@@ -403,7 +407,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             // Landscape
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
-                print("entra !!!!!")
+                
                 // Image status connection
                 imageStatusConnection.frame = CGRect(x: 10, y: 140, width: 50, height: 50)
                 
@@ -423,7 +427,24 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
 
             case .iPhone:
-                print("iPhone")
+                
+                // Image status connection
+                imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 15, height: 15)
+                
+                // Status connection label
+                statusConnectionLabel.frame = CGRect(x: 20, y: 80, width: 188, height: 21)
+                
+                // Labe1: pressure value
+                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
+                
+                // Label2: heart rate value
+                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
+                
+                // Attributes pressure container
+                pressureContainerGraph.frame = CGRect(x: 20, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                
+                // Attributes heart rate container graph
+                heartRateContainerGraph.frame = CGRect(x: 280, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
             }
   
         }
@@ -432,6 +453,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
 
 
     @IBAction func configurationButton(sender: AnyObject) {
+        
+         NSNotificationCenter.defaultCenter().postNotificationName("writeValueToPeripheral", object: nil, userInfo: nil)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("sliderConfiguration")
@@ -543,7 +566,7 @@ extension ViewController{
     func dismissPopover(sender:AnyObject){
         self.dismissViewControllerAnimated(true, completion: nil)
         
-        
+        print("dissmiss iPhone")
     }
     
     /**
@@ -553,6 +576,7 @@ extension ViewController{
         
         //Code
         //insertNewBarGraphExtubatedPatient()
+        print("dissmiss iPad")
         
     }
 

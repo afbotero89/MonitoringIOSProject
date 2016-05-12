@@ -9,16 +9,24 @@
 import UIKit
 
 class GBCAditionalInformationPopupViewController: UIViewController {
-
-    @IBOutlet weak var titlePhysiologicalVariable: UILabel!
     
-    @IBOutlet weak var valuePhysiologicalVariable: UILabel!
+    @IBOutlet weak var valueSystolicPressure: UILabel!
+    
+    @IBOutlet weak var valueAveragePressure: UILabel!
+    
+    @IBOutlet weak var valueDiastolicPressure: UILabel!
+    
+    @IBOutlet weak var valueHeartRate: UILabel!
     
     @IBOutlet weak var measuringTime: UILabel!
     
-    var titlePhysiologicalVariableString:String?
+    var valueSystolicPressureString:String?
     
-    var valuePhysiologicalVariableString:String?
+    var valueAveragePressureString:String?
+    
+    var valueDiastolicPressureString:String?
+    
+    var valueHeartRateString:String?
     
     var measuringTimeString:String?
     
@@ -27,10 +35,10 @@ class GBCAditionalInformationPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titlePhysiologicalVariable.text = titlePhysiologicalVariableString
-        
-        valuePhysiologicalVariable.text = valuePhysiologicalVariableString! + unitsString!
-        
+        valueSystolicPressure.text = valueSystolicPressureString
+        valueAveragePressure.text = valueAveragePressureString
+        valueDiastolicPressure.text = valueDiastolicPressureString
+        valueHeartRate.text = valueHeartRateString
         measuringTime.text = measuringTimeString
         // Do any additional setup after loading the view.
     }

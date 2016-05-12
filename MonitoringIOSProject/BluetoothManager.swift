@@ -66,12 +66,12 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
     /// BLEBee service (v1.0.0) string UUID:
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     
-    static let monitorServiceName:String = "Sensor Presion"
+    static let monitorServiceName:String = "Sensor presion"
     
     /// Read characteristic string UUID for the BLEBee Service
     //static let rxBLEBeeSeviceCharacteristicUUIDString:String = "A1E8F5B1-696B-4E4C-87C6-69DFE0B0093B"
@@ -98,6 +98,14 @@ class BluetoothManager: NSObject{
         super.init()
         // Initialize the central manager.
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(BluetoothManager.writeValuePeripheral),
+                                                         
+                                                         name: "writeValueToPeripheral",
+                                                         
+                                                         object: nil)
     }
     
     /**
@@ -140,9 +148,9 @@ class BluetoothManager: NSObject{
         }
         
         let currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
-        
+        print(currentMeasurement)
         for j in currentMeasurement{
-            if j == "254"{
+            if j == "254\n\rs" || j == "254\n\r"{
                 print(VectorPhysiologicalVariables.currentMeasures)
                 for i in 0...(currentMeasurement.count - 1){
                     if currentMeasurement[i] == "s"{
@@ -300,7 +308,7 @@ extension BluetoothManager:CBPeripheralDelegate{
             // Print the and service for this characteristic
             if let serviceDescriptor = self.serviceDescriptorForService(service), let characteristicName = serviceDescriptor.characteristicNameForCharacteristicUUID(characteristic.UUID) {
                 print("Found Characteristic", characteristicName , "of Service", serviceDescriptor.name, separator: " ", terminator: "\n")
-                if serviceDescriptor.name == BluetoothManager.monitorServiceName{
+                //if serviceDescriptor.name == BluetoothManager.monitorServiceName{
                     switch characteristic.UUID.UUIDString {
                     case (serviceDescriptor.characteristics[CharacteristicsNames.ReadFromBLEBeeKey.rawValue]?.UUIDString)!:
                         print("Found ReadFromBLEBee characteristic")
@@ -319,13 +327,13 @@ extension BluetoothManager:CBPeripheralDelegate{
                     }
                     // Send notification that Bluetooth is connected and all required characteristics are discovered
                     self.sendBTServiceNotificationWithIsBluetoothConnected(true)
-                }
+                //}
             }
         }
     }
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-
+        
         readDataFromPeripheral(characteristic.value!)
         /*
         //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
@@ -352,5 +360,9 @@ extension BluetoothManager:CBPeripheralDelegate{
     func sendBTServiceNotificationWithIsBluetoothConnected(isBluetoothConnected: Bool) {
         let connectionDetails = ["isConnected": isBluetoothConnected]
         NSNotificationCenter.defaultCenter().postNotificationName(BLEServiceChangedStatusNotification, object: self, userInfo: connectionDetails)
+    }
+    
+    func writeValuePeripheral(){
+        print("writeValue")
     }
 }
