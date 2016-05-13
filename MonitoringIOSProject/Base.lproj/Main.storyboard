@@ -212,7 +212,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Batery" translatesAutoresizingMaskIntoConstraints="NO" id="NGK-iA-mfL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="BatteryLevel10" translatesAutoresizingMaskIntoConstraints="NO" id="NGK-iA-mfL">
                                 <rect key="frame" x="325" y="97" width="96" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="fOd-rx-Pme"/>
@@ -267,7 +267,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Systolic pressure:">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="22" name="HelveticaNeue-Light"/>
                                         </attributes>
                                     </fragment>
@@ -300,7 +300,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiastolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-1k-9Yi">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AveragePressure" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-1k-9Yi">
                                         <rect key="frame" x="0.0" y="95" width="90" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="X8B-o7-NGa"/>
@@ -317,7 +317,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cxy-jh-vpr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiastolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="cxy-jh-vpr">
                                         <rect key="frame" x="0.0" y="190" width="90" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="9Rb-UV-kNG"/>
@@ -371,26 +371,28 @@
                                     <constraint firstAttribute="height" constant="28" id="WFB-x1-4mT"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="Diastolic pressure:">
+                                    <fragment content="Average pressure:">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="22" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUk-LF-35n">
-                                <rect key="frame" x="247" y="254" width="173" height="27"/>
+                                <rect key="frame" x="247" y="254" width="174" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="173" id="0KI-Ja-KkH"/>
                                     <constraint firstAttribute="height" constant="27" id="JDQ-Zd-iSz"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="Average pressure:">
+                                    <fragment content="Diastolic pressure:">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="22" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -405,7 +407,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Heart rate:">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="22" name="HelveticaNeue-Light"/>
                                         </attributes>
                                     </fragment>
@@ -421,7 +423,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Battery level:">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="22" name="HelveticaNeue-Light"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -539,7 +541,9 @@
     </scenes>
     <resources>
         <image name="AutoSet" width="21" height="21"/>
+        <image name="AveragePressure" width="72" height="72"/>
         <image name="Batery" width="128" height="128"/>
+        <image name="BatteryLevel10" width="128" height="128"/>
         <image name="Bluetooth_Disconnected" width="256" height="256"/>
         <image name="Configuration" width="32" height="32"/>
         <image name="DiastolicPressure" width="256" height="256"/>

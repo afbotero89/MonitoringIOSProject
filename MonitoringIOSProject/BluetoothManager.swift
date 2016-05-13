@@ -178,13 +178,36 @@ class BluetoothManager: NSObject{
         
         print(currentMeasurement)
         
+        for i in currentMeasurement{
+            if i == "255" && activeCurrentHourFlag == true{
+                let date = NSDate()
+                let fmt = NSDateFormatter()
+                fmt.dateFormat = "HH:mm:ss"
+                let str:String = fmt.stringFromDate(date)
+                print("hora actual enviada")
+                print(data)
+                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                activeCurrentHourFlag = false
+                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            }
+            
+            if i == "255" && activeCurrentMeasurementFlag == true{
+                print("dato recivido")
+                activeCurrentMeasurementFlag = false
+            }
+            
+            if i == "255" && activeMeasurementTimeFlag == true{
+                print("tiempo de medida recivido")
+                activeMeasurementTimeFlag = false
+            }
+    
+        }
+        
+        //Graphic data
         for j in currentMeasurement{
             //if j == "254\n\rs" || j == "254\n\r" {
              if j == "254" {  
-                if j == "255" && activeCurrentMeasurementFlag == true{
-                    print("dato enviado")
-                }
-               
+                
                 for i in 0...(currentMeasurement.count - 1){
                     if currentMeasurement[i] == "s" {
                         VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
@@ -202,7 +225,7 @@ class BluetoothManager: NSObject{
                     
                 }
                 VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
-            
+                
                 NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
             }
@@ -252,6 +275,9 @@ extension BluetoothManager:CBCentralManagerDelegate{
             if connectedPeripherals.count > 0{
                 for peripheralDevice in connectedPeripherals{
                     self.centralManager.connectPeripheral(peripheralDevice, options: nil);
+                    // Send actual hour
+                    //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+                    sendCurrentTime()
                 }
             }
             else {
@@ -412,44 +438,50 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func sendMeasurementTime(){
         
-        print("tiempo de medida")
-        
         let str = "20"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
     
         if monitorPeripheral != nil{
+            activeMeasurementTimeFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }else{
+            print("no envia tiempo de medida")
+            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
         }
     
     }
     
     func sendCurrentTime(){
         
-        print("hora actual")
-        
-        let str = "h"
+        let str = "h254"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        
         if monitorPeripheral != nil{
+            print("hora actual")
+            activeCurrentHourFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }else{
+            print("no peticion de tiempo actual")
+            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
         }
     }
     
     func activeCurrentMeasurement(){
         
-        print("activar medida actual")
-        
         let str = "a"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         if monitorPeripheral != nil{
+            print("activar medida actual")
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }else{
+            print("no activa medida actual")
+            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
         }
     }
     func cancelCurrentMeasurement(){
-        
-        print("cancelar medida actual")
         
         let str = "c"
         
@@ -457,6 +489,9 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         if monitorPeripheral != nil{
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }else{
+            print("no cancela medida actual")
+            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
         }
     }
 }

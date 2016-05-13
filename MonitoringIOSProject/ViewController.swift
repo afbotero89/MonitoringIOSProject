@@ -10,6 +10,11 @@ import UIKit
 
 var activeCurrentMeasurementFlag = false
 
+var activeCurrentHourFlag = false
+
+var activeMeasurementTimeFlag = false
+
+
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
     let systolicPressurePlot = CPTScatterPlot()
@@ -57,6 +62,15 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          name: "insertNewPlot",
                                                          
                                                          object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayDisconnectBluetoothMessage),
+                                                         
+                                                         name: "displayDisconnectBluetoothAlertMessage",
+                                                         
+                                                         object: nil)
+        
         
         // Watch Bluetooth connection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
@@ -120,8 +134,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
         
         setLegendGraph()
         
@@ -453,6 +465,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
  
     }
+    
+    func displayDisconnectBluetoothMessage(){
+        print("revisar conexion bluetooth")
+        //let alertController = UIAlertController(title: "There is no connection", message: "Check connection", preferredStyle:UIAlertControllerStyle.Alert)
+        //self.presentViewController(alertController, animated: true, completion: nil)
+    }
 
 
     @IBAction func configurationButton(sender: AnyObject) {
@@ -497,9 +515,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     @IBAction func currentMeasurementButton(sender: AnyObject) {
-        
-        activeCurrentMeasurementFlag = true
-        
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("currentMeasurement")
         documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
@@ -516,6 +532,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             popover.sourceRect = view.bounds
         }
         popover.delegate = self
+        
+        activeCurrentMeasurementFlag = true
         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
         
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
