@@ -387,10 +387,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPhone:
                 
                 // Image status connection
-                imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 15, height: 15)
+                imageStatusConnection.frame = CGRect(x: 0, y: 70, width: 21, height: 21)
                 
                 // Status connection label
-                statusConnectionLabel.frame = CGRect(x: 20, y: 80, width: 188, height: 21)
+                statusConnectionLabel.frame = CGRect(x: 20, y: 70, width: 188, height: 21)
                 
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
@@ -402,7 +402,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: 300, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 120, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
             }
             
         }else{
@@ -432,7 +432,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPhone:
                 
                 // Image status connection
-                imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 15, height: 15)
+                imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 21, height: 21)
                 
                 // Status connection label
                 statusConnectionLabel.frame = CGRect(x: 20, y: 80, width: 188, height: 21)
@@ -447,7 +447,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressureContainerGraph.frame = CGRect(x: 20, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 280, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
             }
   
         }
