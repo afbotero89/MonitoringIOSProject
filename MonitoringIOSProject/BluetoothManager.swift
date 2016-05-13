@@ -66,9 +66,9 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
     
-    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    //let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
     
     /// BLEBee service (v1.0.0) string UUID:
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
@@ -169,9 +169,11 @@ class BluetoothManager: NSObject{
         var characterValue:Character?
         
         for i in buffer{
-            characterValue = Character(UnicodeScalar(i))
             
-            VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
+                characterValue = Character(UnicodeScalar(i))
+            
+                VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
+            
         }
         
         let currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
@@ -183,12 +185,13 @@ class BluetoothManager: NSObject{
                 let date = NSDate()
                 let fmt = NSDateFormatter()
                 fmt.dateFormat = "HH:mm:ss"
-                let str:String = fmt.stringFromDate(date)
+                let str:String = fmt.stringFromDate(date) + "254"
                 print("hora actual enviada")
-                print(data)
+                print(str)
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
                 activeCurrentHourFlag = false
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                VectorPhysiologicalVariables.currentMeasures.removeAll()
             }
             
             if i == "255" && activeCurrentMeasurementFlag == true{
@@ -197,16 +200,25 @@ class BluetoothManager: NSObject{
             }
             
             if i == "255" && activeMeasurementTimeFlag == true{
-                print("tiempo de medida recivido")
+                
                 activeMeasurementTimeFlag = false
+                let date = NSDate()
+                let fmt = NSDateFormatter()
+                fmt.dateFormat = "HH:mm:ss"
+                let str:String = "00:00:05254"
+                print("tiempo de medida enviado")
+                print(data)
+                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                //activeCurrentHourFlag = false
+                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
             }
     
         }
         
         //Graphic data
         for j in currentMeasurement{
-            //if j == "254\n\rs" || j == "254\n\r" {
-             if j == "254" {  
+            if j == "254\n\rs" || j == "254\n\r" || j == "254"{
+             //if j == "254" {
                 
                 for i in 0...(currentMeasurement.count - 1){
                     if currentMeasurement[i] == "s" {
@@ -228,6 +240,12 @@ class BluetoothManager: NSObject{
                 
                 NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
+                
+                let str = "255"
+                
+                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                
+                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
             }
         }
         /**
@@ -403,11 +421,6 @@ extension BluetoothManager:CBPeripheralDelegate{
         //print("Now read the value from the Monitor readable characteristic")
         readDataFromPeripheral(characteristic.value!)
         
-        let str = "255"
-        
-        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        peripheral.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         
         /*
         //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
@@ -438,7 +451,7 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func sendMeasurementTime(){
         
-        let str = "20"
+        let str = "h254"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
     
@@ -454,12 +467,12 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func sendCurrentTime(){
         
-        let str = "h254"
+        let str = "t254"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         
         if monitorPeripheral != nil{
-            print("hora actual")
+            print("enviado t254")
             activeCurrentHourFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }else{
@@ -470,7 +483,7 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func activeCurrentMeasurement(){
         
-        let str = "a"
+        let str = "i254"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         if monitorPeripheral != nil{
@@ -483,7 +496,7 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     func cancelCurrentMeasurement(){
         
-        let str = "c"
+        let str = "c254"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         

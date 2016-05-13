@@ -58,5 +58,6 @@ struct VectorPhysiologicalVariables{
 
 struct UserSelectedConfiguration{
     static var typeOfDevice:TypeOfDevice?
+    static var userSelectMeasurementTime:Int?
 }
 

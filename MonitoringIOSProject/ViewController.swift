@@ -51,7 +51,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
         
@@ -510,6 +510,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             popover.sourceView = view
             popover.sourceRect = view.bounds
         }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+        print("hora")
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }

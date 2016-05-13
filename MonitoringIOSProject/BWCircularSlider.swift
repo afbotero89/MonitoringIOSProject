@@ -198,7 +198,7 @@ class BWCircularSlider: UIControl {
         
         //Get the handle position
         let handleCenter = pointFromAngle(angle)
-
+        
         //Draw It!
         UIColor(white:1.0, alpha:0.7).set();
         CGContextFillEllipseInRect(ctx, CGRectMake(handleCenter.x, handleCenter.y, Config.TB_LINE_WIDTH, Config.TB_LINE_WIDTH));
