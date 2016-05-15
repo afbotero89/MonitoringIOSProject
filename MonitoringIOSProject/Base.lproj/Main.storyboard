@@ -251,6 +251,24 @@
             </objects>
             <point key="canvasLocation" x="1400" y="1552"/>
         </scene>
+        <!--Saved history graph-->
+        <scene sceneID="wgL-dx-Nry">
+            <objects>
+                <viewController storyboardIdentifier="savedHistoryGraphs" title="Saved history graph" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7x2-ic-eai"/>
+                        <viewControllerLayoutGuide type="bottom" id="B8a-Ti-xKe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h4x-vN-SQk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qwc-IJ-vf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2156" y="173"/>
+        </scene>
         <!--Current Measurement-->
         <scene sceneID="5Oa-du-Yqc">
             <objects>

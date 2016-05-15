@@ -15,6 +15,10 @@ class GBCPlotsViewController: UIViewController {
     
     let heartRateGraph = CPTXYGraph(frame: CGRectZero)
     
+    let savedGraph = [0.1,0.2,0.3,0.4]
+    
+    let savedGraphY = [10,20,30,40]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let device = UIDevice.currentDevice().model
@@ -275,7 +279,16 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
     
     func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
         
-        return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
+        switch plot.identifier as! NSInteger{
+        case 0,1,2,3:
+            return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
+        case 4,5,6,7:
+            return UInt(savedGraph.count)
+        default:
+            return 0
+        }
+        
+        //return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
     }
     func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
         
@@ -283,11 +296,34 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         switch CPTScatterPlotField(rawValue: Int(fieldEnum))! {
         case .X:
-            return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
+            
+            switch plot.identifier as! NSInteger{
+            case 0,1,2,3:
+                return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
+            case 4,5,6,7:
+                return savedGraph[Int(idx)]
+            default:
+                return 0
+            }
+            
             
         case .Y:
             var yLabel:Double?
             //Systolic pressure
+            
+            switch plot.identifier as! NSInteger{
+            case 0:
+                yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]
+            case 1:
+                yLabel = VectorPhysiologicalVariables.diastolicPressure[Int(idx)]
+            case 2:
+                yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]
+            case 3:
+                yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]
+            default:
+                yLabel = Double(savedGraphY[Int(idx)])
+            }
+            /*
             if (plot.identifier as! NSInteger == 0){
                 yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]
             //Diastolic pressure
@@ -299,7 +335,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             //Heart rate pressure
             }else{
                 yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]
-            }
+            }*/
             return yLabel
         }
     }

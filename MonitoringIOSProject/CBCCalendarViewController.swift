@@ -47,7 +47,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     @IBAction func displayRecordButton(sender: AnyObject) {
-        print("display record")
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
     }
 
 }

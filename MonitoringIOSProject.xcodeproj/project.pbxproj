@@ -31,6 +31,8 @@
 		B505D3EA1CE820F10054E2BC /* WeekHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B505D3D41CE820F10054E2BC /* WeekHeaderView.xib */; };
 		B505D3FD1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */; };
 		B505D3FE1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */; };
+		B505D4001CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3FF1CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift */; };
+		B505D4011CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3FF1CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift */; };
 		D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */; };
 		D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F1E1CD137C900300593 /* AppDelegate.swift */; };
 		D83E0F211CD137C900300593 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F201CD137C900300593 /* ViewController.swift */; };
@@ -140,7 +142,8 @@
 		B505D3D21CE820F10054E2BC /* NSDateAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateAdditions.swift; sourceTree = "<group>"; };
 		B505D3D31CE820F10054E2BC /* WeekHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekHeaderView.swift; sourceTree = "<group>"; };
 		B505D3D41CE820F10054E2BC /* WeekHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekHeaderView.xib; sourceTree = "<group>"; };
-		B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBCCalendarViewController.swift; sourceTree = "<group>"; };
+		B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CBCCalendarViewController.swift; path = MonitoringIOSProject/CBCCalendarViewController.swift; sourceTree = "<group>"; };
+		B505D3FF1CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GBCSavedHistoryGraphsViewController.swift; path = MonitoringIOSProject/GBCSavedHistoryGraphsViewController.swift; sourceTree = "<group>"; };
 		D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCConfigurationMeasuringTimeViewController.swift; sourceTree = "<group>"; };
 		D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonitoringIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83E0F1E1CD137C900300593 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +220,15 @@
 			path = MonitoringIOSProject/CalendarKit;
 			sourceTree = "<group>";
 		};
+		B505D4021CE83ABA0054E2BC /* SavedHistoryGraphs */ = {
+			isa = PBXGroup;
+			children = (
+				B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */,
+				B505D3FF1CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift */,
+			);
+			name = SavedHistoryGraphs;
+			sourceTree = "<group>";
+		};
 		D83E0F121CD137C900300593 = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +242,7 @@
 				D83E0F1D1CD137C900300593 /* MonitoringIOSProject */,
 				D83E0F351CD137C900300593 /* MonitoringIOSProjectTests */,
 				D83E0F1C1CD137C900300593 /* Products */,
+				B505D4021CE83ABA0054E2BC /* SavedHistoryGraphs */,
 				D83E0F6E1CD1388B00300593 /* OtherSource */,
 				D83E0F401CD137C900300593 /* MonitoringIOSProjectUITests */,
 			);
@@ -253,7 +266,6 @@
 				D83E0F751CD1565100300593 /* GBCEnumerations.swift */,
 				D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */,
 				D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */,
-				B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */,
 				D83E0F281CD137C900300593 /* Assets.xcassets */,
 				D83E0F221CD137C900300593 /* Main.storyboard */,
 				D84920561CDA5BD500AB611B /* AditionalInformationPopPup.storyboard */,
@@ -553,6 +565,7 @@
 				D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
 				B505D3E11CE820F10054E2BC /* MonthCollectionCell.swift in Sources */,
 				B505D3FD1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */,
+				B505D4001CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift in Sources */,
 				D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */,
 				B505D3D71CE820F10054E2BC /* CalendarView.swift in Sources */,
 				D83E0F211CD137C900300593 /* ViewController.swift in Sources */,
@@ -579,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B505D3D81CE820F10054E2BC /* CalendarView.swift in Sources */,
+				B505D4011CE83AA40054E2BC /* GBCSavedHistoryGraphsViewController.swift in Sources */,
 				B505D3E81CE820F10054E2BC /* WeekHeaderView.swift in Sources */,
 				B505D3DC1CE820F10054E2BC /* Date.swift in Sources */,
 				D83E0F421CD137C900300593 /* MonitoringIOSProjectUITests.swift in Sources */,

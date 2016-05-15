@@ -78,7 +78,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          name: "displayCurrentMeasurementPopoverNotification",
                                                          
                                                          object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displaySavedHistoryGraphs),
+                                                         
+                                                         name: "displaySavedHistoryGraphsNotification",
+                                                         
+                                                         object: nil)
         
         // Watch Bluetooth connection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
@@ -641,6 +647,28 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         let touch = event.allTouches()?.first?.preciseLocationInView(self.view)
         displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger, indexPoint: index)
         
+    }
+    
+    func displaySavedHistoryGraphs(){
+        
+        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))! 
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            let nav = UINavigationController(rootViewController: popoverContent)
+            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover = nav.popoverPresentationController
+            popoverContent.preferredContentSize = CGSizeMake(self.view.frame.width,600)
+            popover!.delegate = self
+            popover!.sourceView = self.view
+            popover!.sourceRect = CGRectMake(100,100,0,0)
+            
+            self.presentViewController(nav, animated: true, completion: nil)
+        case .iPhone:
+            
+            navigationController?.pushViewController(popoverContent, animated: true)
+        }
+ 
     }
     
 }
