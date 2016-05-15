@@ -71,6 +71,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          
                                                          object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayCurrentMeasurementPopover),
+                                                         
+                                                         name: "displayCurrentMeasurementPopoverNotification",
+                                                         
+                                                         object: nil)
+        
         
         // Watch Bluetooth connection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
@@ -218,6 +226,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         currentMeasurementLabel.layer.cornerRadius = 10
         
         statusConnectionLabel.clipsToBounds = true
+        
         statusConnectionLabel.layer.cornerRadius = 10
     }
     
@@ -472,6 +481,32 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         //self.presentViewController(alertController, animated: true, completion: nil)
     }
 
+    func displayCurrentMeasurementPopover(){
+        
+        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurement"))! as! GBCCurrentMeasurementViewController
+        
+        popoverContent.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last) + " mmHg"
+        popoverContent.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last) + " mmHg"
+        popoverContent.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last) + " mmHg"
+        popoverContent.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last) + " BPM"
+        popoverContent.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last) + " %"
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            let nav = UINavigationController(rootViewController: popoverContent)
+            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover = nav.popoverPresentationController
+            popoverContent.preferredContentSize = CGSizeMake(500,600)
+            popover!.delegate = self
+            popover!.sourceView = self.view
+            popover!.sourceRect = CGRectMake(100,100,0,0)
+            
+            self.presentViewController(nav, animated: true, completion: nil)
+        case .iPhone:
+            
+            navigationController?.pushViewController(popoverContent, animated: true)
+        }
+    }
 
     @IBAction func configurationButton(sender: AnyObject) {
         
@@ -512,34 +547,29 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
-        print("hora")
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
     
     @IBAction func currentMeasurementButton(sender: AnyObject) {
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("currentMeasurement")
-        documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
-        let popover = documentationTableViewController.popoverPresentationController!
-        documentationTableViewController.preferredContentSize = CGSizeMake(500,650)
+        //displayCurrentMeasurementPopover()
         
-        popover.permittedArrowDirections = .Any
-        
-        // Depending on the source, set the popover properties accordingly.
-        if let barButtonItem = sender as? UIBarButtonItem{
-            popover.barButtonItem = barButtonItem
-        } else if let view = sender as? UIView{
-            popover.sourceView = view
-            popover.sourceRect = view.bounds
+        if activeCurrentMeasurementFlag == false{
+            
+            currentMeasurementLabel.setTitle("Cancel measure", forState: .Normal)
+            
+            activeCurrentMeasurementFlag = true
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+        }else{
+            currentMeasurementLabel.setTitle("Current measurement", forState: .Normal)
+            
+            activeCurrentMeasurementFlag = false
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("cancelCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+            
         }
-        popover.delegate = self
         
-        activeCurrentMeasurementFlag = true
-        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-        
-        self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
     
     @IBAction func autoSetGraph(sender: AnyObject) {
