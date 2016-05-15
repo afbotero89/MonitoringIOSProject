@@ -577,6 +577,45 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         autoSetXYRangePressureGraphAndHeartRateGraph()
     }
     
+    @IBAction func displayCalendar(sender: AnyObject) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            
+            let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("calendarViewControllerIPad")
+            documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover = documentationTableViewController.popoverPresentationController!
+            documentationTableViewController.preferredContentSize = CGSizeMake(500,400)
+            
+            popover.permittedArrowDirections = .Any
+            
+            // Depending on the source, set the popover properties accordingly.
+            if let barButtonItem = sender as? UIBarButtonItem{
+                popover.barButtonItem = barButtonItem
+            } else if let view = sender as? UIView{
+                popover.sourceView = view
+                popover.sourceRect = view.bounds
+                
+            }
+            
+            popover.delegate = self
+            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+            
+            self.presentViewController(documentationTableViewController, animated: true, completion: nil)
+            
+        case .iPhone:
+            
+            let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("calendarViewControllerIPhone")
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+            navigationController?.pushViewController(documentationTableViewController, animated: true)
+        }
+        
+        
+        
+    }
     func autoSetXYRangePressureGraphAndHeartRateGraph(){
         
         let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace

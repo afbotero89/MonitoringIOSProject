@@ -93,6 +93,11 @@
                                     <action selector="autoSetGraph:" destination="BYZ-38-t0r" id="9eW-nB-g2s"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem image="Calendar" id="OVw-zc-wUw">
+                                <connections>
+                                    <action selector="displayCalendar:" destination="BYZ-38-t0r" id="ZN0-hf-AmW"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -498,7 +503,59 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydM-WV-4m6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1400" y="2290"/>
+            <point key="canvasLocation" x="2156" y="862"/>
+        </scene>
+        <!--Calendar-->
+        <scene sceneID="La9-2U-2bz">
+            <objects>
+                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MGD-RA-nv8"/>
+                        <viewControllerLayoutGuide type="bottom" id="SGx-S2-dhf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G90-P3-30I">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNg-0v-MpS">
+                                <rect key="frame" x="20" y="64" width="560" height="436"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-y8-VOS">
+                                <rect key="frame" x="262" y="521" width="77" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="LbN-Ij-NrY"/>
+                                    <constraint firstAttribute="width" constant="77" id="ecR-mV-9zZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Display ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="displayRecordButton:" destination="DC9-27-pkX" eventType="touchUpInside" id="mak-VU-rBv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8ax-y8-VOS" firstAttribute="centerX" secondItem="G90-P3-30I" secondAttribute="centerX" id="ItR-nv-q9p"/>
+                            <constraint firstItem="8ax-y8-VOS" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="21" id="OV8-8O-53W"/>
+                            <constraint firstItem="UNg-0v-MpS" firstAttribute="trailing" secondItem="G90-P3-30I" secondAttribute="trailingMargin" id="eHh-o6-8Js"/>
+                            <constraint firstItem="UNg-0v-MpS" firstAttribute="top" secondItem="MGD-RA-nv8" secondAttribute="bottom" id="gda-bU-X1K"/>
+                            <constraint firstItem="SGx-S2-dhf" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="100" id="hDG-XK-Dgq"/>
+                            <constraint firstItem="UNg-0v-MpS" firstAttribute="leading" secondItem="G90-P3-30I" secondAttribute="leadingMargin" id="viT-Oz-hDk"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Calendar" id="YIy-mh-rqL"/>
+                    <connections>
+                        <outlet property="displayRecordButton" destination="8ax-y8-VOS" id="eGB-wJ-41P"/>
+                        <outlet property="placeholderView" destination="UNg-0v-MpS" id="EZB-9C-aAI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jn2-NS-0Cb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2968" y="1552"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lFT-b7-keO">
@@ -519,6 +576,24 @@
             </objects>
             <point key="canvasLocation" x="667" y="173"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xwC-Fl-vTE">
+            <objects>
+                <navigationController storyboardIdentifier="calendarViewControllerIPad" automaticallyAdjustsScrollViewInsets="NO" id="JeI-Ob-mnE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GOC-5D-z92">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DC9-27-pkX" kind="relationship" relationship="rootViewController" id="1ff-AI-AzV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eNF-SL-vXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2156" y="1552"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AutoSet" width="21" height="21"/>
@@ -526,6 +601,7 @@
         <image name="Batery" width="256" height="256"/>
         <image name="BatteryLevel10" width="128" height="128"/>
         <image name="Bluetooth_Disconnected" width="256" height="256"/>
+        <image name="Calendar" width="32" height="32"/>
         <image name="Configuration" width="32" height="32"/>
         <image name="DiastolicPressure" width="256" height="256"/>
         <image name="HeartRate" width="256" height="256"/>
