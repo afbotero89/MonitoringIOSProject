@@ -1,15 +1,16 @@
 //
-//  GBCSavedHistoryGraphsViewController.swift
+//  GBCSavedHistoryGraphsViewController1.swift
 //  MonitoringIOSProject
 //
-//  Created by Felipe Botero on 15/05/16.
+//  Created by Felipe Botero on 16/05/16.
 //  Copyright © 2016 FING156561. All rights reserved.
 //
 
 import UIKit
 
-class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
+class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
 
+    
     let systolicPressurePlot = CPTScatterPlot()
     
     let diastolicPressurePlot = CPTScatterPlot()
@@ -21,10 +22,6 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
     var pressureContainerGraph = CPTGraphHostingView()
     
     var heartRateContainerGraph = CPTGraphHostingView()
-    
-    let labelPressure = UILabel()
-    
-    let labelHeartRate = UILabel()
     
     let gradientLayer = CAGradientLayer()
     
@@ -93,30 +90,26 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
         
+        setLegendGraph()
+        
         addAttributesToContainerGraph()
+        
+        autoSetXYGraph()
         // Do any additional setup after loading the view.
     }
-
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     func addAttributesToContainerGraph(){
-        
-        // Labe1: pressure value
-        labelPressure.numberOfLines = 10
-        labelPressure.text = "Last messure \n\nSystolic:\nDiastolic:\nAverage:"
-        labelPressure.textColor = UIColor.whiteColor()
-        labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
-        
-        // Label2: heart rate value
-        labelHeartRate.numberOfLines = 10
-        labelHeartRate.text = "Last messure \n\nHeart Rate:"
-        labelHeartRate.textColor = UIColor.whiteColor()
-        labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 1
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
-        pressureContainerGraph.addSubview(labelPressure)
+        
         
         
         // attributes heart rate container graph
@@ -131,8 +124,7 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         // Insert subviews
         view.addSubview(pressureContainerGraph)
         view.addSubview(heartRateContainerGraph)
-        view.addSubview(labelHeartRate)
-        view.addSubview(labelPressure)
+        
     }
     
     func deviceRotated(){
@@ -150,25 +142,13 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
                 
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
-                
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 20, y: 50, width: self.view.frame.width - 60, height: 250)
+                pressureContainerGraph.frame = CGRect(x: 20, y: 50, width: self.view.frame.width - 60, height: 270)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 20, y: 310, width: self.view.frame.width - 60, height: 250)
+                heartRateContainerGraph.frame = CGRect(x: 20, y: 340, width: self.view.frame.width - 60, height: 270)
                 
             case .iPhone:
-                
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
                 
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
@@ -183,12 +163,6 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
                 
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 680, y: 200, width: 190, height: 120)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 680, y: 550, width: 190, height: 80)
-                
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 230, y: 80, width: 650, height: 300)
                 
@@ -196,12 +170,6 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
                 heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
                 
             case .iPhone:
-                
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
                 
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 20, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
@@ -214,10 +182,62 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func autoSetXYRange(){
+        
     }
+    
+    func setLegendGraph(){
+        // Set legend pressure graph
+        let theLegend=CPTLegend(graph: pressuresGraph)
+        let theLegendHeartRate=CPTLegend(graph: heartRateGraph)
+        
+        let legendLineStyle = CPTMutableLineStyle()
+        theLegend.fill = CPTFill(color: CPTColor.whiteColor())
+        legendLineStyle.lineColor = CPTColor.whiteColor()
+        theLegend.borderLineStyle = legendLineStyle
+        theLegend.numberOfColumns = 1
+        theLegend.numberOfRows = 4
+        
+        theLegendHeartRate.fill = CPTFill(color: CPTColor.whiteColor())
+        theLegendHeartRate.borderLineStyle = legendLineStyle
+        theLegendHeartRate.numberOfColumns = 1
+        theLegendHeartRate.numberOfRows = 4
+        
+        // Set attributes legend
+        // Attributes to the axis titles
+        var attrsLegend:[String : AnyObject]?
+        
+        theLegend.cornerRadius = 10.0
+        theLegend.swatchSize = CGSizeMake(20.0, 20.0)
+        //theLegend.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
+        
+        theLegendHeartRate.cornerRadius = 10.0
+        theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+        //theLegendHeartRate.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
+        
+        pressuresGraph.legendDisplacement = CGPointMake(550.0, 0.0)
+        heartRateGraph.legendDisplacement = CGPointMake(550.0, 0.0)
+        
+        
+        attrsLegend = [
+            NSForegroundColorAttributeName : UIColor.blackColor(),
+            NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
+            
+        ]
+        
+        theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
+        
+        pressuresGraph.legend = theLegend
+        pressuresGraph.legendAnchor = CPTRectAnchor.TopLeft
+        pressureContainerGraph.userInteractionEnabled = true
+        
+        theLegendHeartRate.textStyle = CPTTextStyle(attributes: attrsLegend)
+        
+        heartRateGraph.legend = theLegendHeartRate
+        heartRateGraph.legendAnchor = CPTRectAnchor.TopLeft
+        heartRateContainerGraph.userInteractionEnabled = true
+    }
+    
     func insertGraph(){
         
         pressuresGraph.plotWithIdentifier(4)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
@@ -225,10 +245,29 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         pressuresGraph.plotWithIdentifier(6)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
         heartRateGraph.plotWithIdentifier(7)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
-        // Label update with latest measures
-        labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\nDiastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\nAverage: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
-        labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
+    }
+    
+    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
+    
+    }
+    
+    func autoSetXYGraph(){
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
         
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+        if PhysiologicalVariablesStoredInDatabaseSQL.hour.count>6{
+            let startXRange = (PhysiologicalVariablesStoredInDatabaseSQL.hour.count - 5)/10
+            
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            
+        }else{
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        }
     }
 
 }

@@ -74,20 +74,20 @@ class GBCPlotsViewController: UIViewController {
         plotAreaFrameHeartRate.masksToBorder   = false
         
         // Paddings
-        pressuresGraph.paddingLeft   = 60.0
+        pressuresGraph.paddingLeft   = 50.0
         pressuresGraph.paddingRight  = 0.0
         pressuresGraph.paddingTop    = 0.0
-        pressuresGraph.paddingBottom = 60.0
+        pressuresGraph.paddingBottom = 50.0
         
         plotAreaFrame.paddingTop    = 15.0
         plotAreaFrame.paddingRight  = 15.0
         plotAreaFrame.masksToBorder = false
         
         // Paddings
-        heartRateGraph.paddingLeft   = 60.0
+        heartRateGraph.paddingLeft   = 50.0
         heartRateGraph.paddingRight  = 0.0
         heartRateGraph.paddingTop    = 0.0
-        heartRateGraph.paddingBottom = 60.0
+        heartRateGraph.paddingBottom = 50.0
         
         plotAreaFrameHeartRate.paddingTop    = 15.0
         plotAreaFrameHeartRate.paddingRight  = 15.0
@@ -117,7 +117,7 @@ class GBCPlotsViewController: UIViewController {
         xAxis.majorTickLineStyle = nil
         xAxis.minorTickLineStyle = nil
         xAxis.minorTicksPerInterval = 2
-        xAxis.title = "Time (s)"
+        xAxis.title = "Measure"
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         xAxis.labelFormatter = nil
         //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis
@@ -133,7 +133,7 @@ class GBCPlotsViewController: UIViewController {
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
             attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
-                               NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+                               NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 12)!]
         case .iPhone:
             attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
                                NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 10)!]
@@ -202,7 +202,7 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.majorTickLineStyle = nil
         xAxisHeartRate.minorTickLineStyle = nil
         xAxisHeartRate.minorTicksPerInterval = 2
-        xAxisHeartRate.title = "Time (s)"
+        xAxisHeartRate.title = "Measure"
         xAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         xAxisHeartRate.labelFormatter = nil
         //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis
@@ -218,7 +218,7 @@ class GBCPlotsViewController: UIViewController {
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
             attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
-                                       NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 16)!]
+                                       NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 12)!]
         case .iPhone:
             attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
                                        NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 10)!]
@@ -283,7 +283,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         case 0,1,2,3:
             return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
         case 4,5,6,7:
-            return UInt(savedGraph.count)
+            return UInt(PhysiologicalVariablesStoredInDatabaseSQL.hour.count)
         default:
             return 0
         }
@@ -301,7 +301,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             case 0,1,2,3:
                 return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
             case 4,5,6,7:
-                return savedGraph[Int(idx)]
+                return Double(idx)/10
             default:
                 return 0
             }
@@ -320,8 +320,17 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
                 yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]
             case 3:
                 yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]
+            case 4:
+                yLabel = PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure[Int(idx)]
+            case 5:
+                yLabel = PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure[Int(idx)]
+            case 6:
+                yLabel = PhysiologicalVariablesStoredInDatabaseSQL.averagePressure[Int(idx)]
+            case 7:
+                yLabel = PhysiologicalVariablesStoredInDatabaseSQL.heartRate[Int(idx)]
             default:
-                yLabel = Double(savedGraphY[Int(idx)])
+                yLabel = 0
+                
             }
             /*
             if (plot.identifier as! NSInteger == 0){
@@ -338,6 +347,31 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             }*/
             return yLabel
         }
+    }
+    
+    func dataLabelForPlot(plot: CPTPlot, recordIndex idx: UInt) -> CPTLayer? {
+        
+        let style = CPTMutableTextStyle()
+        style.color = CPTColor.blackColor()
+        style.fontName = "HelveticaNeue-Light"
+        style.fontSize = 10.0
+        
+        switch plot.identifier as! NSInteger{
+        case 0,1,2,3:
+            return CPTTextLayer()
+        case 4:
+            return CPTTextLayer(text: String(PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure[Int(idx)]), style: style)
+        case 5:
+            return CPTTextLayer(text: String(PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure[Int(idx)]), style: style)
+        case 6:
+            return CPTTextLayer(text: String(PhysiologicalVariablesStoredInDatabaseSQL.averagePressure[Int(idx)]), style: style)
+        case 7:
+            return CPTTextLayer(text: String(PhysiologicalVariablesStoredInDatabaseSQL.heartRate[Int(idx)]), style: style)
+            
+        default:
+            return CPTTextLayer()
+        }
+        
     }
 
 }

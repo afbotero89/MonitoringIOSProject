@@ -142,6 +142,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
      Notification Center
      */
     func notifications(){
+    
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
@@ -518,11 +519,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurement"))! as! GBCCurrentMeasurementViewController
         
-        popoverContent.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last) + " mmHg"
-        popoverContent.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last) + " mmHg"
-        popoverContent.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last) + " mmHg"
-        popoverContent.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last) + " BPM"
-        popoverContent.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last) + " %"
+        popoverContent.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
+        popoverContent.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
+        popoverContent.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
+        popoverContent.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
+        popoverContent.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
@@ -581,22 +582,26 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func displaySavedHistoryGraphs(){
         
-        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))!
+        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            let nav = UINavigationController(rootViewController: popoverContent)
-            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
-            let popover = nav.popoverPresentationController
-            popoverContent.preferredContentSize = CGSizeMake(self.view.frame.width,600)
+            /*
+            let nav:UINavigationController?
+            nav = UINavigationController(rootViewController: popoverContent!)
+            nav!.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover = nav!.popoverPresentationController
+            popoverContent!.preferredContentSize = CGSizeMake(self.view.frame.width,600)
             popover!.delegate = self
             popover!.sourceView = self.view
             popover!.sourceRect = CGRectMake(100,100,0,0)
-            
-            self.presentViewController(nav, animated: true, completion: nil)
+ 
+            self.presentViewController(nav!, animated: true, completion: nil)
+             */
+            navigationController?.pushViewController(popoverContent!, animated: true)
         case .iPhone:
             
-            navigationController?.pushViewController(popoverContent, animated: true)
+            navigationController?.pushViewController(popoverContent!, animated: true)
         }
         
     }
@@ -682,7 +687,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("calendarViewControllerIPad")
             documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
             let popover = documentationTableViewController.popoverPresentationController!
-            documentationTableViewController.preferredContentSize = CGSizeMake(500,400)
+            documentationTableViewController.preferredContentSize = CGSizeMake(400,350)
             
             popover.permittedArrowDirections = .Any
             
@@ -696,7 +701,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             }
             
             popover.delegate = self
-            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+            //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
             
             self.presentViewController(documentationTableViewController, animated: true, completion: nil)
             
@@ -707,11 +712,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
             navigationController?.pushViewController(documentationTableViewController, animated: true)
         }
-        
-        
-        
     }
-    
 }
 // MARK: - Extension
 /**
@@ -744,6 +745,7 @@ extension ViewController{
         
         //Code
         //insertNewBarGraphExtubatedPatient()
+        
         print("dissmiss iPad")
         
     }

@@ -26,6 +26,8 @@ class GBCConfigurationMeasuringTimeViewController: UIViewController {
     }
 
     @IBAction func doneButton(sender: AnyObject) {
+        print(UserSelectedConfiguration.userSelectMeasurementTime)
+        
         NSNotificationCenter.defaultCenter().postNotificationName("sendMeasurementTimeToPeripheral", object: nil, userInfo: nil)
         self.dismissViewControllerAnimated(true, completion: nil)
     }

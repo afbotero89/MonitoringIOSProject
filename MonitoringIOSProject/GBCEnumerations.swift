@@ -60,14 +60,7 @@ struct VectorPhysiologicalVariables{
 
 struct UserSelectedConfiguration{
     static var typeOfDevice:TypeOfDevice?
-    static var userSelectMeasurementTime:Int?
+    static var userSelectMeasurementTime:Int!
 }
 
-struct PhysiologicalVariablesStoredInDatabaseSQL{
-    static var systolicPressure:[Double] = []
-    static var diastolicPressure:[Double] = []
-    static var averagePressure:[Double] = []
-    static var heartRate:[Double] = []
-    static var hour:[Double] = []
-}
 

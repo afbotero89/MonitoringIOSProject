@@ -200,7 +200,7 @@ class BluetoothManager: NSObject{
             if i == "255" && activeMeasurementTimeFlag == true{
                 
                 activeMeasurementTimeFlag = false
-                let str:String = "00:00:02254"
+                let str:String = "00:00:\(UserSelectedConfiguration.userSelectMeasurementTime)254"
                 print("tiempo de medida enviado")
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
                 activeCurrentHourFlag = false

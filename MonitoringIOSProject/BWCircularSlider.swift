@@ -39,7 +39,7 @@ class BWCircularSlider: UIControl {
 
     var textField:UITextField?
     var radius:CGFloat = 0
-    var angle:Int = 15
+    var angle:Int!
     var startColor = UIColor.blueColor()
     var endColor = UIColor.purpleColor()
     
@@ -78,8 +78,13 @@ class BWCircularSlider: UIControl {
         textField?.textColor = UIColor.blackColor()
         textField?.textAlignment = .Center
         textField?.font = font
-        textField?.text = "\(self.angle/6) min"
-        
+        if UserSelectedConfiguration.userSelectMeasurementTime == nil{
+            angle = 0
+            UserSelectedConfiguration.userSelectMeasurementTime = 0
+        }
+        angle = UserSelectedConfiguration.userSelectMeasurementTime*6
+        textField?.text = "\(UserSelectedConfiguration.userSelectMeasurementTime) min"
+        //UserSelectedConfiguration.userSelectMeasurementTime = self.angle/6
         addSubview(textField!)
     }
 
@@ -223,6 +228,7 @@ class BWCircularSlider: UIControl {
         
         //Update the textfield
         textField!.text = "\(angle/6) min"
+        UserSelectedConfiguration.userSelectMeasurementTime = self.angle/6
         
         //Redraw
         setNeedsDisplay()

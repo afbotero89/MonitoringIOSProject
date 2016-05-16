@@ -254,7 +254,7 @@
         <!--Saved history graph-->
         <scene sceneID="wgL-dx-Nry">
             <objects>
-                <viewController storyboardIdentifier="savedHistoryGraphs" title="Saved history graph" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="savedHistoryGraphs" title="Saved history graph" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController1" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7x2-ic-eai"/>
                         <viewControllerLayoutGuide type="bottom" id="B8a-Ti-xKe"/>
@@ -262,7 +262,7 @@
                     <view key="view" contentMode="scaleToFill" id="h4x-vN-SQk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qwc-IJ-vf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -321,7 +321,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUk-LF-35n">
-                                <rect key="frame" x="247" y="254" width="174" height="27"/>
+                                <rect key="frame" x="247" y="252" width="174" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="JDQ-Zd-iSz"/>
                                 </constraints>
@@ -536,11 +536,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNg-0v-MpS">
-                                <rect key="frame" x="20" y="64" width="560" height="436"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="456"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-y8-VOS">
-                                <rect key="frame" x="262" y="521" width="77" height="30"/>
+                                <rect key="frame" x="262" y="551" width="77" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LbN-Ij-NrY"/>
@@ -555,14 +555,14 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="8ax-y8-VOS" firstAttribute="centerX" secondItem="G90-P3-30I" secondAttribute="centerX" id="ItR-nv-q9p"/>
                             <constraint firstItem="8ax-y8-VOS" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="21" id="OV8-8O-53W"/>
-                            <constraint firstItem="UNg-0v-MpS" firstAttribute="trailing" secondItem="G90-P3-30I" secondAttribute="trailingMargin" id="eHh-o6-8Js"/>
-                            <constraint firstItem="UNg-0v-MpS" firstAttribute="top" secondItem="MGD-RA-nv8" secondAttribute="bottom" id="gda-bU-X1K"/>
-                            <constraint firstItem="SGx-S2-dhf" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="100" id="hDG-XK-Dgq"/>
-                            <constraint firstItem="UNg-0v-MpS" firstAttribute="leading" secondItem="G90-P3-30I" secondAttribute="leadingMargin" id="viT-Oz-hDk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UNg-0v-MpS" secondAttribute="trailing" constant="-20" id="WDH-Yp-hSH"/>
+                            <constraint firstItem="UNg-0v-MpS" firstAttribute="leading" secondItem="G90-P3-30I" secondAttribute="leadingMargin" constant="-20" id="ZjC-0R-TQK"/>
+                            <constraint firstItem="UNg-0v-MpS" firstAttribute="top" secondItem="MGD-RA-nv8" secondAttribute="bottom" constant="10" id="gda-bU-X1K"/>
+                            <constraint firstItem="SGx-S2-dhf" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="70" id="hDG-XK-Dgq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Calendar" id="YIy-mh-rqL"/>

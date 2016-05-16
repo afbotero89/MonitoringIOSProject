@@ -8,6 +8,14 @@
 
 import UIKit
 
+struct PhysiologicalVariablesStoredInDatabaseSQL{
+    static var systolicPressure:[Double] = []
+    static var diastolicPressure:[Double] = []
+    static var averagePressure:[Double] = []
+    static var heartRate:[Double] = []
+    static var hour:[String] = []
+}
+
 class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
 
     @IBOutlet var placeholderView: UIView!
@@ -95,6 +103,32 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             }else{
                 
                 print("responseString = \(self.responseString)")
+                PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.removeAll()
+                PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.removeAll()
+                PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.removeAll()
+                PhysiologicalVariablesStoredInDatabaseSQL.heartRate.removeAll()
+                PhysiologicalVariablesStoredInDatabaseSQL.hour.removeAll()
+                
+                let vector = self.responseString.componentsSeparatedByString(";")
+                
+                for i in vector{
+                    var vector1 = i.componentsSeparatedByString(",")
+                    for j in 0...(vector1.count - 1){
+                        if vector1[j] == "s"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[j+1])!)
+                        }else if vector1[j] == "d"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[j+1])!)
+                        }else if vector1[j] == "a"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[j+1])!)
+                        }else if vector1[j] == "f"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[j+1])!)
+                        }else if vector1[j] == "h"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(UTF8String: vector1[j+1])!)
+                        }
+                    }
+                }
+                
+                print(PhysiologicalVariablesStoredInDatabaseSQL.hour)
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
                 
