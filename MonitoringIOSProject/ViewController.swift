@@ -29,7 +29,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     var heartRateContainerGraph = CPTGraphHostingView()
     
-    let request = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
+    let requestSetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
     
     var bluetoothManager:BluetoothManager!
     
@@ -55,41 +55,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.insertPoint),
-                                                         
-                                                         name: "insertNewPlot",
-                                                         
-                                                         object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.displayDisconnectBluetoothMessage),
-                                                         
-                                                         name: "displayDisconnectBluetoothAlertMessage",
-                                                         
-                                                         object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.displayCurrentMeasurementPopover),
-                                                         
-                                                         name: "displayCurrentMeasurementPopoverNotification",
-                                                         
-                                                         object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.displaySavedHistoryGraphs),
-                                                         
-                                                         name: "displaySavedHistoryGraphsNotification",
-                                                         
-                                                         object: nil)
-        
-        // Watch Bluetooth connection
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        notifications()
         
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 0
@@ -155,8 +121,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         addAttributesToViewController()
         
-        request.HTTPMethod = "POST"
+        requestSetDataBaseSQL.HTTPMethod = "POST"
         
+        uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
     }
 
     override func didReceiveMemoryWarning() {
@@ -168,6 +135,59 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: BLEServiceChangedStatusNotification, object: nil)
     }
+    
+    // MARK: - Functions
+    
+    /**
+     Notification Center
+     */
+    func notifications(){
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.insertPoint),
+                                                         
+                                                         name: "insertNewPlot",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayDisconnectBluetoothMessage),
+                                                         
+                                                         name: "displayDisconnectBluetoothAlertMessage",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayCurrentMeasurementPopover),
+                                                         
+                                                         name: "displayCurrentMeasurementPopoverNotification",
+                                                         
+                                                         object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displaySavedHistoryGraphs),
+                                                         
+                                                         name: "displaySavedHistoryGraphsNotification",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayAlertThereIsNoDataController),
+                                                         
+                                                         name: "displayAlertThereIsNoDataNotification",
+                                                         
+                                                         object: nil)
+        
+        // Watch Bluetooth connection
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
     
     func addAttributesToContainerGraph(){
         
@@ -303,16 +323,21 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         autoSetXYRangePressureGraphAndHeartRateGraph()
         
-        uploadToServerDataBaseSQL(1,diastolicPressure: (1+1),mediumPressure: (1+2),heartRate: (1+3))
+        uploadToServerDataBaseSQL(120,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
     }
     
-    func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double){
+    /**
+     Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour and date)
+    */
+    func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
         
-        /*
-        let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)"
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        // todays date.
+        let date = NSDate()
         
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+        let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
+        requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL) {
             data, response, error in
             
             if error != nil {
@@ -325,8 +350,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
             print("responseString = \(responseString)")
         }
-        task.resume()*/
+        task.resume()
     }
+    
     
     func displayGeneralInformationPopPup(location:CGPoint, plotIdentifier: NSInteger, indexPoint:Int){
         
@@ -358,6 +384,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         presentationController.delegate = self
         presentViewController(additionalInformationPopup, animated: true, completion: nil)
     }
+    
     func connectionChanged(notification: NSNotification) {
         
         // Connection status changed. Indicate on GUI.
@@ -513,7 +540,69 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             navigationController?.pushViewController(popoverContent, animated: true)
         }
     }
+    
+    /**
+     Auto set XY range
+     */
+    func autoSetXYRangePressureGraphAndHeartRateGraph(){
+        
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
+        
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+        if VectorPhysiologicalVariables.vectorNumberOfSamples.count>6{
+            let startXRange = VectorPhysiologicalVariables.vectorNumberOfSamples[VectorPhysiologicalVariables.vectorNumberOfSamples.count-6]
+            
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            
+        }else{
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: 0, length: 1)
+        }
+    }
+    
+    /**
+     
+     */
+    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
+        
+        let touch = event.allTouches()?.first?.preciseLocationInView(self.view)
+        displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger, indexPoint: index)
+        
+    }
+    
+    func displayAlertThereIsNoDataController(){
+        //let alertController = UIAlertController(title: "There is no data", message: "La aplicación se reiniciará una vez envíe el reporte", preferredStyle:UIAlertControllerStyle.Alert)
+        //self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func displaySavedHistoryGraphs(){
+        
+        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))!
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            let nav = UINavigationController(rootViewController: popoverContent)
+            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover = nav.popoverPresentationController
+            popoverContent.preferredContentSize = CGSizeMake(self.view.frame.width,600)
+            popover!.delegate = self
+            popover!.sourceView = self.view
+            popover!.sourceRect = CGRectMake(100,100,0,0)
+            
+            self.presentViewController(nav, animated: true, completion: nil)
+        case .iPhone:
+            
+            navigationController?.pushViewController(popoverContent, animated: true)
+        }
+        
+    }
 
+    // MARK: - Buttons
+    
     @IBAction func configurationButton(sender: AnyObject) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -622,56 +711,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         
     }
-    func autoSetXYRangePressureGraphAndHeartRateGraph(){
-        
-        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
-        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
-        
-        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
-        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
-        
-        if VectorPhysiologicalVariables.vectorNumberOfSamples.count>6{
-            let startXRange = VectorPhysiologicalVariables.vectorNumberOfSamples[VectorPhysiologicalVariables.vectorNumberOfSamples.count-6]
-            
-            plotSpacePressureGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
-            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
-            
-        }else{
-            plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
-            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: 0, length: 1)
-        }
-    }
-    
-    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
-        
-        let touch = event.allTouches()?.first?.preciseLocationInView(self.view)
-        displayGeneralInformationPopPup(touch!, plotIdentifier: plot.identifier as! NSInteger, indexPoint: index)
-        
-    }
-    
-    func displaySavedHistoryGraphs(){
-        
-        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))! 
-        
-        switch UserSelectedConfiguration.typeOfDevice!{
-        case .iPad:
-            let nav = UINavigationController(rootViewController: popoverContent)
-            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
-            let popover = nav.popoverPresentationController
-            popoverContent.preferredContentSize = CGSizeMake(self.view.frame.width,600)
-            popover!.delegate = self
-            popover!.sourceView = self.view
-            popover!.sourceRect = CGRectMake(100,100,0,0)
-            
-            self.presentViewController(nav, animated: true, completion: nil)
-        case .iPhone:
-            
-            navigationController?.pushViewController(popoverContent, animated: true)
-        }
- 
-    }
     
 }
+// MARK: - Extension
+/**
+    Extension popover presentation controller
+ */
 extension ViewController{
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.FullScreen

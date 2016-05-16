@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Enumerations
 
 enum PhysiologicalVariables:Int{
     case systolicPressure=0, diastolicPressure, averagePressure, heartRate
@@ -42,6 +43,7 @@ enum TypeOfDevice:Int{
     case iPhone=0, iPad
 }
 
+// MARK: - Structs
 
 struct VectorPhysiologicalVariables{
     
@@ -59,5 +61,13 @@ struct VectorPhysiologicalVariables{
 struct UserSelectedConfiguration{
     static var typeOfDevice:TypeOfDevice?
     static var userSelectMeasurementTime:Int?
+}
+
+struct PhysiologicalVariablesStoredInDatabaseSQL{
+    static var systolicPressure:[Double] = []
+    static var diastolicPressure:[Double] = []
+    static var averagePressure:[Double] = []
+    static var heartRate:[Double] = []
+    static var hour:[Double] = []
 }
 

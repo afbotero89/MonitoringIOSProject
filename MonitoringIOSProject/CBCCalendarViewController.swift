@@ -14,6 +14,11 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     @IBOutlet weak var displayRecordButton: UIButton!
     
+    var dateSelectedByTheUser:String?
+    
+    let requestGetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
+    
+    var responseString:NSString!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +48,60 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     func didSelectDate(date: NSDate) {
-        print("\(date.year)-\(date.month)-\(date.day)")
+        dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
+        print(dateSelectedByTheUser)
     }
+    
+    
+    // MARK: - Buttons
     
     @IBAction func displayRecordButton(sender: AnyObject) {
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        getDataFromServerDataBaseSQL(dateSelectedByTheUser!)
         
-        NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
+
+    }
+    
+    /**
+     Get data from data base SQL where date is selected by the user with the calendar
+     */
+    func getDataFromServerDataBaseSQL(date: String){
+        
+        let postString = "date=\(date)"
+        
+        requestGetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        requestGetDataBaseSQL.HTTPMethod = "POST"
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDataBaseSQL) {
+            data, response, error in
+            
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            self.responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            
+            
+            if (String(self.responseString).isEmpty){
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                
+                print("no hay datos en la base de datos")
+                
+            }else{
+                
+                print("responseString = \(self.responseString)")
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
+            }
+        }
+        task.resume()
     }
 
 }
