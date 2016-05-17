@@ -106,6 +106,11 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        
+    }
     func addAttributesToContainerGraph(){
         
         // attributes pressure container
@@ -276,7 +281,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
         
         if PhysiologicalVariablesStoredInDatabaseSQL.hour.count>6{
-            let startXRange = (PhysiologicalVariablesStoredInDatabaseSQL.hour.count - 5)/10
+            let startXRange = (PhysiologicalVariablesStoredInDatabaseSQL.hour.count - 3)/10
             
             plotSpacePressureGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
             plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: startXRange, length: 1)

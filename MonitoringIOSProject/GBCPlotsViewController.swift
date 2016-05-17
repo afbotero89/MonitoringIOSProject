@@ -28,6 +28,12 @@ class GBCPlotsViewController: UIViewController {
         }else{
             UserSelectedConfiguration.typeOfDevice = .iPhone
         }
+        
+        
+        if userSelectViewController == nil{
+            userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
+        }
+        
         configureGraph()
         // Do any additional setup after loading the view.
     }
@@ -109,15 +115,45 @@ class GBCPlotsViewController: UIViewController {
         let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
         
         let xAxis = axisSet.xAxis!
-        xAxis.labelingPolicy = CPTAxisLabelingPolicy.Automatic
+        xAxis.title = "Measure"
+        
+        print("User selected graphic")
+        print(userSelectViewController)
+        
+        switch userSelectViewController!{
+            
+        case .realTimeViewController:
+            xAxis.labelingPolicy = .Automatic
+            
+        case .hitorialViewController:
+            var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
+            xAxis.labelingPolicy = .None
+            //xAxis.hidden = false
+            let style = CPTMutableTextStyle()
+            style.color = CPTColor.blackColor()
+            style.fontName = "Helvetica-Neue"
+            style.fontSize = 12.0
+            let text =  PhysiologicalVariablesStoredInDatabaseSQL.hour
+            for i in 0..<text.count{
+                
+                let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
+                xLabel.tickLocation = i/10
+                xLabel.offset = 0
+                labels.insert(xLabel)
+                xAxis.axisLabels = labels
+                
+            }
+        }
+
+        xAxis.hidden = false
         xAxis.orthogonalPosition = 0.0
         xAxis.majorGridLineStyle = majorGridLineStyle
         xAxis.minorGridLineStyle = minorGridLineStyle
         // Do not present the Ticks that appear over the X axis line
-        xAxis.majorTickLineStyle = nil
-        xAxis.minorTickLineStyle = nil
-        xAxis.minorTicksPerInterval = 2
-        xAxis.title = "Measure"
+        xAxis.majorTickLineStyle = majorGridLineStyle
+        xAxis.minorTickLineStyle = minorGridLineStyle
+        xAxis.minorTicksPerInterval = 1
+        
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         xAxis.labelFormatter = nil
         //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis

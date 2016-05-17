@@ -43,6 +43,10 @@ enum TypeOfDevice:Int{
     case iPhone=0, iPad
 }
 
+enum UserSelectViewPrincipalViewController:Int{
+    case realTimeViewController = 0, hitorialViewController
+}
+
 // MARK: - Structs
 
 struct VectorPhysiologicalVariables{
@@ -61,6 +65,7 @@ struct VectorPhysiologicalVariables{
 struct UserSelectedConfiguration{
     static var typeOfDevice:TypeOfDevice?
     static var userSelectMeasurementTime:Int!
+    
 }
 
 

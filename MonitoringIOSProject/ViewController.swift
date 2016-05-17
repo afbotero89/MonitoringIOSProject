@@ -14,6 +14,7 @@ var activeCurrentHourFlag = false
 
 var activeMeasurementTimeFlag = false
 
+var userSelectViewController : UserSelectViewPrincipalViewController?
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
@@ -124,6 +125,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
         uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
     }
 
     override func didReceiveMemoryWarning() {

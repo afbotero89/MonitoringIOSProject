@@ -133,6 +133,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 case .iPad:
                     self.dismissViewControllerAnimated(true, completion: nil)
                     
+                    userSelectViewController = UserSelectViewPrincipalViewController.hitorialViewController
+                    
                     NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
                 case .iPhone:
                     let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
