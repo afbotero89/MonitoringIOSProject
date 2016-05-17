@@ -66,9 +66,9 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
     
-    //let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
     
     //let monitorDeviceUUIDString:String = "BB8DC5A4-5AA4-6656-00FD-188D16815EB2"
     
@@ -189,8 +189,8 @@ class BluetoothManager: NSObject{
                 print(str)
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
                 activeCurrentHourFlag = false
-                VectorPhysiologicalVariables.currentMeasures.removeAll()
-                currentMeasurement.removeAll()
+                //VectorPhysiologicalVariables.currentMeasures.removeAll()
+                //currentMeasurement.removeAll()
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 
             }
@@ -225,26 +225,31 @@ class BluetoothManager: NSObject{
             
             if j == "254\n\rs" || j == "254\n\r" || j == "254" {
              //if j == "254" {
+                var counterVariablesToGraph = 0
                 
                 for i in 0...(currentMeasurement.count - 1){
                     if currentMeasurement[i] == "s" {
+                        counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
                     }else if(currentMeasurement[i] == "d"){
+                        counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
                     }else if(currentMeasurement[i] == "m"){
+                        counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
                     }else if(currentMeasurement[i] == "b"){
+                        counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
                     }else if(currentMeasurement[i] == "f"){
+                        counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
                     }else if(currentMeasurement[i] == "h"){
+                        counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
                     }
                     
                 }
-                VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
                 
-                NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
                 
                 if activeCurrentMeasurementFlag == true{
                     
@@ -253,13 +258,24 @@ class BluetoothManager: NSObject{
                     NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
                 }
                 
+                if counterVariablesToGraph == 6{
+                    
+                    VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                    
+                    VectorPhysiologicalVariables.currentMeasures.removeAll()
+                    
+                    let str = "255,"
+                    
+                    let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                    
+                    monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                
+                }
+                
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
-                
-                let str = "255,"
-                
-                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-                
-                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+ 
             }
         }
         /**

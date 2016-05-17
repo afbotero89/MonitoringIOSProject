@@ -53,24 +53,11 @@
 		D84CD8501CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
 		D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
+		D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */; };
 		D8FDC8A71CD9091F002A702F /* GBCCurrentMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B505D3F81CE820F10054E2BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
-			remoteInfo = "CorePlot tvOS";
-		};
-		B505D3FA1CE820F10054E2BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
-			remoteInfo = "UnitTests tvOS";
-		};
 		D83E0F331CD137C900300593 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D83E0F131CD137C900300593 /* Project object */;
@@ -169,6 +156,7 @@
 		D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCAditionalInformationPopupViewController.swift; sourceTree = "<group>"; };
 		D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSlider.swift; sourceTree = "<group>"; };
 		D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSliderView.swift; sourceTree = "<group>"; };
+		D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCBatteryLevelViewController.swift; sourceTree = "<group>"; };
 		D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,6 +253,7 @@
 				D83E0F751CD1565100300593 /* GBCEnumerations.swift */,
 				D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */,
 				D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */,
+				D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */,
 				D83E0F281CD137C900300593 /* Assets.xcassets */,
 				D83E0F221CD137C900300593 /* Main.storyboard */,
 				D84920561CDA5BD500AB611B /* AditionalInformationPopPup.storyboard */,
@@ -302,8 +291,6 @@
 				D83E0F631CD1381200300593 /* UnitTests iOS.xctest */,
 				D83E0F651CD1381200300593 /* libCorePlot-CocoaTouch.a */,
 				D83E0F671CD1381200300593 /* CorePlot-CocoaTouchTests.xctest */,
-				B505D3F91CE820F10054E2BC /* CorePlot.framework */,
-				B505D3FB1CE820F10054E2BC /* UnitTests tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -456,20 +443,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B505D3F91CE820F10054E2BC /* CorePlot.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CorePlot.framework;
-			remoteRef = B505D3F81CE820F10054E2BC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B505D3FB1CE820F10054E2BC /* UnitTests tvOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "UnitTests tvOS.xctest";
-			remoteRef = B505D3FA1CE820F10054E2BC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D83E0F5D1CD1381200300593 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -563,6 +536,7 @@
 				B505D3E71CE820F10054E2BC /* WeekHeaderView.swift in Sources */,
 				D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
 				B505D3E11CE820F10054E2BC /* MonthCollectionCell.swift in Sources */,
+				D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */,
 				B505D3FD1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */,
 				D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */,
 				B505D3D71CE820F10054E2BC /* CalendarView.swift in Sources */,
@@ -737,7 +711,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
+				PRODUCT_BUNDLE_IDENTIFIER = GBC.MonitoringIOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";
@@ -758,7 +732,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
+				PRODUCT_BUNDLE_IDENTIFIER = GBC.MonitoringIOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";

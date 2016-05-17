@@ -652,7 +652,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("generalInformation")
         documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover = documentationTableViewController.popoverPresentationController!
-        documentationTableViewController.preferredContentSize = CGSizeMake(400,150)
+        documentationTableViewController.preferredContentSize = CGSizeMake(350,150)
         
         popover.permittedArrowDirections = .Any
         
