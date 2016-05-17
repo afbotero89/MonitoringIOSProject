@@ -8,6 +8,8 @@
 
 import Foundation
 
+let defaults = NSUserDefaults.standardUserDefaults()
+
 // MARK: - Enumerations
 
 enum PhysiologicalVariables:Int{
@@ -60,6 +62,7 @@ struct VectorPhysiologicalVariables{
     static var measuringTime:[String] = []
     static var batteryLevel:[Double] = []
     static var vectorNumberOfSamples:[Double] = []
+    static var vectorToUploadServer:[AnyObject] = []
 }
 
 struct UserSelectedConfiguration{

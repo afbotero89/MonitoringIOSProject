@@ -124,7 +124,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
-        uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+        //uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -347,6 +347,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
             autoSetXYRangePressureGraphAndHeartRateGraph()
         
+            if defaults.arrayForKey("VectorToUpLoadServer")?.count > 0{
+                for i in defaults.arrayForKey("VectorToUpLoadServer")!{
+                    upLoadLostDataToServer(i as! String)
+                }
+            }
+            
             uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:VectorPhysiologicalVariables.measuringTime.last!)
         }
     }
@@ -366,7 +372,37 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             data, response, error in
             
             if error != nil {
-                print("error=\(error)")
+                //print("error=\(error)")
+                if defaults.arrayForKey("VectorToUpLoadServer")?.count > 0{
+                    VectorPhysiologicalVariables.vectorToUploadServer = defaults.arrayForKey("VectorToUpLoadServer")!
+                }
+                VectorPhysiologicalVariables.vectorToUploadServer.append(postString)
+                defaults.setObject(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
+                print("variables almacenadas db sql")
+                print(defaults.arrayForKey("VectorToUpLoadServer"))
+                return
+            }
+
+            print("response = \(response)")
+            
+            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print("responseString = \(responseString)")
+        }
+        task.resume()
+    }
+    
+    func upLoadLostDataToServer(lostData:String){
+        
+        print(defaults.arrayForKey("VectorToUpLoadServer")?.count)
+        
+        let postString = lostData
+        requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL) {
+            data, response, error in
+            
+            if error != nil {
+                
                 return
             }
             
@@ -374,8 +410,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
             print("responseString = \(responseString)")
+            defaults.removeObjectForKey("VectorToUpLoadServer")
         }
         task.resume()
+        
     }
     
     
