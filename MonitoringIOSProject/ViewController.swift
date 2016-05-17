@@ -347,7 +347,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
             autoSetXYRangePressureGraphAndHeartRateGraph()
         
-            uploadToServerDataBaseSQL(120,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+            uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:VectorPhysiologicalVariables.measuringTime.last!)
         }
     }
     
@@ -670,7 +670,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             popover.sourceRect = view.bounds
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+        //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
     }
