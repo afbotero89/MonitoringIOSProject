@@ -262,8 +262,42 @@
                     <view key="view" contentMode="scaleToFill" id="h4x-vN-SQk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7C-Pe-JrJ">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="XDz-Gl-A5I">
+                                        <barButtonItem key="rightBarButtonItem" image="AutoSet" id="N1K-a4-Li9">
+                                            <connections>
+                                                <action selector="autoSetXYButton:" destination="9RS-rQ-aTU" id="bcK-Ae-eIS"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zv-zC-LBd">
+                                <rect key="frame" x="203" y="31" width="195" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="195" id="7fG-Mf-wia"/>
+                                    <constraint firstAttribute="height" constant="21" id="Z1x-l8-bUm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="e7C-Pe-JrJ" secondAttribute="trailing" constant="-20" id="Ypj-Vc-nPJ"/>
+                            <constraint firstItem="e7C-Pe-JrJ" firstAttribute="leading" secondItem="h4x-vN-SQk" secondAttribute="leadingMargin" constant="-20" id="asl-tz-OsA"/>
+                            <constraint firstItem="e7C-Pe-JrJ" firstAttribute="top" secondItem="0Zv-zC-LBd" secondAttribute="bottom" constant="-32" id="hK9-fw-YDz"/>
+                            <constraint firstItem="e7C-Pe-JrJ" firstAttribute="top" secondItem="7x2-ic-eai" secondAttribute="bottom" id="lIf-BZ-313"/>
+                            <constraint firstItem="0Zv-zC-LBd" firstAttribute="centerX" secondItem="h4x-vN-SQk" secondAttribute="centerX" id="zr6-rJ-p1u"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLabelUserSelectedDate" destination="0Zv-zC-LBd" id="IKT-1J-zui"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qwc-IJ-vf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

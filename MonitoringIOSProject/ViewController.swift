@@ -197,12 +197,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         labelPressure.text = "Last messure \n\nSystolic:\nDiastolic:\nAverage:"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
+        labelPressure.layer.cornerRadius = 5
         
         // Label2: heart rate value
         labelHeartRate.numberOfLines = 10
         labelHeartRate.text = "Last messure \n\nHeart Rate:"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
+        labelHeartRate.layer.cornerRadius = 10
         
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 1
@@ -279,23 +281,36 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         var attrsLegend:[String : AnyObject]?
         
         theLegend.cornerRadius = 10.0
-        theLegend.swatchSize = CGSizeMake(20.0, 20.0)
+        
         //theLegend.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
         
         theLegendHeartRate.cornerRadius = 10.0
-        theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+        
         //theLegendHeartRate.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
-        
-        pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
-        heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
-        
+        // Portrait
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            theLegend.swatchSize = CGSizeMake(20.0, 20.0)
+            theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+            pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+            heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+            attrsLegend = [
+                NSForegroundColorAttributeName : UIColor.blackColor(),
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
+                
+            ]
+        case .iPhone:
+            theLegend.swatchSize = CGSizeMake(20.0, 7.0)
+            theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+            pressuresGraph.legendDisplacement = CGPointMake(170.0, -5.0)
+            heartRateGraph.legendDisplacement = CGPointMake(170.0, -5.0)
+            attrsLegend = [
+                NSForegroundColorAttributeName : UIColor.blackColor(),
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
+                
+            ]
+        }
 
-        attrsLegend = [
-            NSForegroundColorAttributeName : UIColor.blackColor(),
-            NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
-            
-        ]
-        
         theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
         
         pressuresGraph.legend = theLegend
@@ -311,20 +326,23 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func insertPoint(){
 
-        pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
+        if VectorPhysiologicalVariables.systolicPressure.count > 0 && VectorPhysiologicalVariables.diastolicPressure.count > 0 && VectorPhysiologicalVariables.averagePressure.count > 0 && VectorPhysiologicalVariables.heartRate.count > 0{
+        
+            pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
         pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
-        pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
-        heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
+            pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
+            heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
-        // Label update with latest measures
-        labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\nDiastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\nAverage: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
-        labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
+            // Label update with latest measures
+            labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\nDiastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\nAverage: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
+            labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
         
-        //Change the x and y range.
+            //Change the x and y range.
         
-        autoSetXYRangePressureGraphAndHeartRateGraph()
+            autoSetXYRangePressureGraphAndHeartRateGraph()
         
-        uploadToServerDataBaseSQL(120,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+            uploadToServerDataBaseSQL(120,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+        }
     }
     
     /**

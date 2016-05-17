@@ -10,6 +10,7 @@ import UIKit
 
 class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
 
+    @IBOutlet weak var titleLabelUserSelectedDate: UILabel!
     
     let systolicPressurePlot = CPTScatterPlot()
     
@@ -31,6 +32,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 4
@@ -95,6 +97,8 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         addAttributesToContainerGraph()
         
         autoSetXYGraph()
+        
+        titleLabelUserSelectedDate.text = PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser
         // Do any additional setup after loading the view.
     }
     
@@ -130,7 +134,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     func deviceRotated(){
         
         // 2*navigationController, because navigation bar and button bar
-        graphicsEnabledHeight = Double(20)
+        graphicsEnabledHeight = Double(view.frame.height) - 4*Double((navigationController?.navigationBar.frame.height)!)
         
         graphicsEnabledWidth = Double(view.frame.width)
         
@@ -143,10 +147,10 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
             case .iPad:
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 20, y: 50, width: self.view.frame.width - 60, height: 270)
+                pressureContainerGraph.frame = CGRect(x: 50, y: 140, width: 650, height: 400)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 20, y: 340, width: self.view.frame.width - 60, height: 270)
+                heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
                 
             case .iPhone:
                 
@@ -208,23 +212,36 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         var attrsLegend:[String : AnyObject]?
         
         theLegend.cornerRadius = 10.0
-        theLegend.swatchSize = CGSizeMake(20.0, 20.0)
+        
         //theLegend.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
         
         theLegendHeartRate.cornerRadius = 10.0
-        theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+        
         //theLegendHeartRate.backgroundColor = UIColor.groupTableViewBackgroundColor().CGColor
         
-        pressuresGraph.legendDisplacement = CGPointMake(550.0, 0.0)
-        heartRateGraph.legendDisplacement = CGPointMake(550.0, 0.0)
-        
-        
-        attrsLegend = [
-            NSForegroundColorAttributeName : UIColor.blackColor(),
-            NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
-            
-        ]
-        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            theLegend.swatchSize = CGSizeMake(20.0, 20.0)
+            theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+            pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+            heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+            attrsLegend = [
+                NSForegroundColorAttributeName : UIColor.blackColor(),
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
+                
+            ]
+        case .iPhone:
+            theLegend.swatchSize = CGSizeMake(20.0, 7.0)
+            theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+            pressuresGraph.legendDisplacement = CGPointMake(170.0, -5.0)
+            heartRateGraph.legendDisplacement = CGPointMake(170.0, -5.0)
+            attrsLegend = [
+                NSForegroundColorAttributeName : UIColor.blackColor(),
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
+                
+            ]
+        }
+
         theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
         
         pressuresGraph.legend = theLegend
@@ -270,4 +287,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         }
     }
 
+    @IBAction func autoSetXYButton(sender: AnyObject) {
+        autoSetXYGraph()
+    }
 }

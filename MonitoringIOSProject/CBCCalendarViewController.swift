@@ -14,6 +14,7 @@ struct PhysiologicalVariablesStoredInDatabaseSQL{
     static var averagePressure:[Double] = []
     static var heartRate:[Double] = []
     static var hour:[String] = []
+    static var dateSelectedByTheUser:String?
 }
 
 class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
@@ -22,7 +23,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     @IBOutlet weak var displayRecordButton: UIButton!
     
-    var dateSelectedByTheUser:String?
+    
     
     let requestGetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
     
@@ -56,8 +57,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     func didSelectDate(date: NSDate) {
-        dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
-        print(dateSelectedByTheUser)
+        PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
+        print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
     }
     
     
@@ -65,7 +66,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     @IBAction func displayRecordButton(sender: AnyObject) {
         
-        getDataFromServerDataBaseSQL(dateSelectedByTheUser!)
+        getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
         
 
     }
@@ -128,11 +129,17 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     }
                 }
                 
-                print(PhysiologicalVariablesStoredInDatabaseSQL.hour)
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
+                case .iPhone:
+                    let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
+                    self.navigationController?.pushViewController(popoverContent!, animated: true)
+                    
+                }
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
-                
-                NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
             }
         }
         task.resume()

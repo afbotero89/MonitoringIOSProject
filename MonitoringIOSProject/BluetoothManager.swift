@@ -66,9 +66,11 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
     
-    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    //let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    
+    //let monitorDeviceUUIDString:String = "BB8DC5A4-5AA4-6656-00FD-188D16815EB2"
     
     /// BLEBee service (v1.0.0) string UUID:
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
@@ -94,7 +96,7 @@ class BluetoothManager: NSObject{
     /// Hold an array of `ServiceDescriptor`s  in order to identify the services that will be serched
     let servicesDescriptors:[ServiceDescriptor] = BluetoothManager.loadServicesDescriptors();
     
-    
+    var timer:NSTimer?
     //MARK: Methods
     
     override init() {
@@ -133,6 +135,7 @@ class BluetoothManager: NSObject{
                                                          name: "cancelCurrentMeasurementToPeripheral",
                                                          
                                                          object: nil)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BluetoothManager.timerPrueba), userInfo: nil, repeats: true)
     }
 
     /**
@@ -177,11 +180,11 @@ class BluetoothManager: NSObject{
         var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
         print(currentMeasurement)
         for i in currentMeasurement{
-            if i == "255" && activeCurrentHourFlag == true{
+            if (i == "255" || i == "2" || i == "55") && activeCurrentHourFlag == true{
                 let date = NSDate()
                 let fmt = NSDateFormatter()
                 fmt.dateFormat = "HH:mm:ss"
-                let str:String = fmt.stringFromDate(date) + "254"
+                let str:String = fmt.stringFromDate(date) + "254,"
                 print("hora actual enviada")
                 print(str)
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
@@ -191,18 +194,25 @@ class BluetoothManager: NSObject{
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 
             }
-            
+            /*
             if i == "255" && activeCurrentMeasurementFlag == true{
-                print("dato recivido")
+                //print("dato recivido")
                 //activeCurrentMeasurementFlag = false
-            }
+            }*/
             
-            if i == "255" && activeMeasurementTimeFlag == true{
+            if (i == "255" || i == "2" || i == "55") && activeMeasurementTimeFlag == true{
                 
                 activeMeasurementTimeFlag = false
-                let str:String = "00:00:\(UserSelectedConfiguration.userSelectMeasurementTime)254"
+                let str:String?
+                if UserSelectedConfiguration.userSelectMeasurementTime < 10{
+                    str = "00:00:0\(UserSelectedConfiguration.userSelectMeasurementTime)254,"
+                }else{
+                    str = "00:00:\(UserSelectedConfiguration.userSelectMeasurementTime)254,"
+                }
+                
                 print("tiempo de medida enviado")
-                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                print(str)
+                let data = str!.dataUsingEncoding(NSUTF8StringEncoding)
                 activeCurrentHourFlag = false
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
@@ -245,7 +255,7 @@ class BluetoothManager: NSObject{
                 
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
                 
-                let str = "255"
+                let str = "255,"
                 
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
                 
@@ -410,6 +420,13 @@ extension BluetoothManager:CBPeripheralDelegate{
                         print("Found writable characteristic")
                         self.monitorWritableCharacteristic = characteristic
                         monitorPeripheral?.setNotifyValue(true, forCharacteristic: characteristic)
+                        
+                        //let str = "254"
+                        
+                        //let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                        
+                        //monitorPeripheral?.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                        
                         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
                     default:
                         break
@@ -459,12 +476,13 @@ extension BluetoothManager:CBPeripheralDelegate{
     */
     func sendCurrentTime(){
         
-        let str = "t254"
+        let str = "t254,"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         
         if monitorPeripheral != nil{
             print("enviado t254")
+            print(data)
             activeCurrentHourFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }else{
@@ -478,12 +496,13 @@ extension BluetoothManager:CBPeripheralDelegate{
     */
     func sendMeasurementTime(){
         
-        let str = "h254"
+        let str = "h254,"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
     
         if monitorPeripheral != nil{
-           
+            print("enviado h254")
+            print(data)
             activeMeasurementTimeFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }else{
@@ -498,7 +517,7 @@ extension BluetoothManager:CBPeripheralDelegate{
     */
     func activeCurrentMeasurement(){
         
-        let str = "i254"
+        let str = "i254,"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         if monitorPeripheral != nil{
@@ -513,8 +532,8 @@ extension BluetoothManager:CBPeripheralDelegate{
      Cancel current measure
     */
     func cancelCurrentMeasurement(){
-        
-        let str = "c254"
+        /*
+        let str = "c254,"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         
@@ -523,6 +542,22 @@ extension BluetoothManager:CBPeripheralDelegate{
         }else{
             print("no cancela medida actual")
             NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
+        }*/
+    }
+    func timerPrueba(){
+        if (activeCurrentHourFlag == true){
+            activeCurrentHourFlag = true
+            let str = "t254,"
+            let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }
+        
+        if (activeMeasurementTimeFlag == true){
+            let str = "h254,"
+            let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+            print(str)
+            print(data)
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }
     }
 }
