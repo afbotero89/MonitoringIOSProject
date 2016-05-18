@@ -49,11 +49,13 @@ class GBCPlotsViewController: UIViewController {
         
         //Change the x and y range.
         let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpacePressureGraph.graph?.cornerRadius = 20
         plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 1)
         plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
-        
+    
         heartRateGraph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
         heartRateGraph.defaultPlotSpace?.allowsUserInteraction = true
+        heartRateGraph.defaultPlotSpace?.graph?.cornerRadius = 20
         
         let titleTextStyle = CPTMutableTextStyle()
         titleTextStyle.color = CPTColor.grayColor()
@@ -117,9 +119,6 @@ class GBCPlotsViewController: UIViewController {
         let xAxis = axisSet.xAxis!
         xAxis.title = "Measure"
         
-        print("User selected graphic")
-        print(userSelectViewController)
-        
         switch userSelectViewController!{
             
         case .realTimeViewController:
@@ -137,7 +136,7 @@ class GBCPlotsViewController: UIViewController {
             for i in 0..<text.count{
                 
                 let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
-                xLabel.tickLocation = i/10
+                xLabel.tickLocation = Double(i)/10.0
                 xLabel.offset = 0
                 labels.insert(xLabel)
                 xAxis.axisLabels = labels
@@ -239,6 +238,30 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.minorTickLineStyle = nil
         xAxisHeartRate.minorTicksPerInterval = 2
         xAxisHeartRate.title = "Measure"
+        switch userSelectViewController!{
+            
+        case .realTimeViewController:
+            xAxisHeartRate.labelingPolicy = .Automatic
+            
+        case .hitorialViewController:
+            var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
+            xAxisHeartRate.labelingPolicy = .None
+            //xAxis.hidden = false
+            let style = CPTMutableTextStyle()
+            style.color = CPTColor.blackColor()
+            style.fontName = "Helvetica-Neue"
+            style.fontSize = 12.0
+            let text =  PhysiologicalVariablesStoredInDatabaseSQL.hour
+            for i in 0..<text.count{
+                
+                let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
+                xLabel.tickLocation = Double(i)/10.0
+                xLabel.offset = 0
+                labels.insert(xLabel)
+                xAxisHeartRate.axisLabels = labels
+                
+            }
+        }
         xAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         xAxisHeartRate.labelFormatter = nil
         //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis

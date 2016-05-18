@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,26 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EzC-Rv-twl">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <color key="barTintColor" red="0.07894957432378398" green="0.32343721742422166" blue="0.47850518048128343" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem id="RE3-D3-5Kp">
-                                        <nil key="title"/>
-                                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ANx-on-6rY">
-                                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" title="Current measurement">
-                                                <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="csp-0c-O9B"/>
-                                            </connections>
-                                        </button>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5K-N6-6Ak">
                                 <rect key="frame" x="206" y="84" width="188" height="41"/>
                                 <color key="backgroundColor" red="0.043137254901960784" green="0.17254901960784313" blue="0.25490196078431371" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
@@ -57,20 +37,34 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="jKl-Bq-YWP">
-                                <rect key="frame" x="148" y="80" width="50" height="50"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="jKl-Bq-YWP">
+                                <rect key="frame" x="138" y="80" width="60" height="50"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Ak8-nH-ITd"/>
                                     <constraint firstAttribute="height" constant="50" id="DsT-oG-do0"/>
-                                    <constraint firstAttribute="width" constant="50" id="phN-fD-KJ7"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-on-6rY">
+                                <rect key="frame" x="180" y="550" width="240" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1p5-Vh-Nc1"/>
+                                    <constraint firstAttribute="width" constant="240" id="RmU-P3-4m3"/>
+                                </constraints>
+                                <state key="normal" title="Current measurement">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="csp-0c-O9B"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="EzC-Rv-twl" secondAttribute="trailing" constant="-20" id="A9e-bY-NiE"/>
-                            <constraint firstItem="EzC-Rv-twl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="DPQ-3g-G1X"/>
+                            <constraint firstItem="jKl-Bq-YWP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="FaS-86-Bye"/>
+                            <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QCB-TK-LWb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="20" id="QXh-TI-7NP"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RFn-sd-I0N"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EzC-Rv-twl" secondAttribute="bottom" id="bCx-6F-xLW"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="leading" secondItem="jKl-Bq-YWP" secondAttribute="trailing" constant="8" id="dz0-xl-Kce"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="jEu-i4-t9m"/>
                         </constraints>

@@ -50,8 +50,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addAttributesToViewController()
         
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
@@ -119,8 +122,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         setLegendGraph()
         
         addAttributesToContainerGraph()
-        
-        addAttributesToViewController()
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
@@ -200,17 +201,19 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Labe1: pressure value
         labelPressure.numberOfLines = 10
-        labelPressure.text = "Last messure \n\nSystolic:\nDiastolic:\nAverage:"
+        labelPressure.text = " Last messure \n\n Systolic:\n Diastolic:\n Average:"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelPressure.layer.cornerRadius = 5
+        labelPressure.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         
         // Label2: heart rate value
         labelHeartRate.numberOfLines = 10
-        labelHeartRate.text = "Last messure \n\nHeart Rate:"
+        labelHeartRate.text = " Last messure \n\n Heart Rate:"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelHeartRate.layer.cornerRadius = 10
+        labelHeartRate.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 1
@@ -237,26 +240,40 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func addAttributesToViewController(){
-        // 1
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+
+        //let color1 = UIColor.clearColor().CGColor as CGColorRef
+        //let color2 = UIColor(white: 0.0, alpha: 0.2).CGColor as CGColorRef
         
-        // 2
-        let color1 = UIColor.clearColor().CGColor as CGColorRef
-        let color2 = UIColor(white: 0.0, alpha: 0.2).CGColor as CGColorRef
+        let color1 = UIColor.whiteColor().CGColor
+        
+        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.7).CGColor
+        
         gradientLayer.colors = [color1, color2]
         
-        // 3
-        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.locations = [0.1, 1]
         
-        // 4
-        self.view.layer.addSublayer(gradientLayer)
-
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+        
+        gradientLayer.accessibilityElementAtIndex(0)
+        
+        view.layer.insertSublayer(gradientLayer, atIndex:0)
+        
         let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
+        
+        labelHeartRate.clipsToBounds = true
+        
+        labelHeartRate.layer.cornerRadius = 10
+        
+        labelPressure.clipsToBounds = true
+        
+        labelPressure.layer.cornerRadius = 10
+        
+        currentMeasurementLabel.clipsToBounds = true
         
         currentMeasurementLabel.layer.cornerRadius = 10
         
@@ -340,8 +357,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
             // Label update with latest measures
-            labelPressure.text = "Last messure \n\nSystolic: \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\nDiastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\nAverage: \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
-            labelHeartRate.text = "Last messure \n\nHeart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
+            labelPressure.text = " Last messure \n\n Systolic:  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n Average:  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
+            labelHeartRate.text = " Last messure \n\n Heart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
         
             //Change the x and y range.
         
@@ -439,7 +456,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let presentationController = additionalInformationPopup.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
-        additionalInformationPopup.preferredContentSize = CGSize(width: 320, height: 250)
+        additionalInformationPopup.preferredContentSize = CGSize(width: 320, height: 200)
         presentationController.sourceView = self.view
         let rect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
         presentationController.sourceRect = rect
@@ -638,8 +655,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func displayAlertThereIsNoDataController(){
-        //let alertController = UIAlertController(title: "There is no data", message: "La aplicación se reiniciará una vez envíe el reporte", preferredStyle:UIAlertControllerStyle.Alert)
-        //self.presentViewController(alertController, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "There is no data", message: "", preferredStyle:UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Done", style: .Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func displaySavedHistoryGraphs(){
@@ -716,6 +734,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     @IBAction func currentMeasurementButton(sender: AnyObject) {
         //displayCurrentMeasurementPopover()
         
+        currentMeasurementLabel.setTitle("Current measurement", forState: .Normal)
+        
+        activeCurrentMeasurementFlag = true
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+        /*
         if activeCurrentMeasurementFlag == false{
             
             currentMeasurementLabel.setTitle("Cancel measure", forState: .Normal)
@@ -730,7 +754,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             NSNotificationCenter.defaultCenter().postNotificationName("cancelCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
             
-        }
+        }*/
         
     }
     

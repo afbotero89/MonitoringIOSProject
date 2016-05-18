@@ -563,6 +563,12 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     func timerPrueba(){
         
+        if activeMeasurementTimeFlag == true{
+            let str = "i254,"
+            let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+        }
+        
         if (activeMeasurementTimeFlag == true){
             let str = "h254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)
@@ -570,6 +576,7 @@ extension BluetoothManager:CBPeripheralDelegate{
             print(data)
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }
+        
         if (activeCurrentHourFlag == true){
             activeCurrentHourFlag = true
             let str = "t254,"

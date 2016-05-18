@@ -113,6 +113,17 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     }
     func addAttributesToContainerGraph(){
         
+        // Add gradient layer
+        let color1 = UIColor.whiteColor().CGColor
+        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.7).CGColor
+        
+        gradientLayer.colors = [color1, color2]
+        gradientLayer.locations = [0.1, 1]
+        
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+        
+        view.layer.insertSublayer(gradientLayer, atIndex:0)
+        
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 1
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
