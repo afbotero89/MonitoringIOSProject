@@ -18,7 +18,12 @@ class GBCBatteryLevelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        batteryLevelPercentage.text = String(VectorPhysiologicalVariables.batteryLevel.last)
+        
+        if VectorPhysiologicalVariables.batteryLevel.last != nil{
+            batteryLevelPercentage.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
+        }else{
+            batteryLevelPercentage.text = "Device disconnected" + " %"
+        }
         batteryLevelPercentage.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
         // Battery level 0%

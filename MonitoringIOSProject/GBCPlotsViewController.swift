@@ -119,6 +119,8 @@ class GBCPlotsViewController: UIViewController {
         let xAxis = axisSet.xAxis!
         xAxis.title = "Measure"
         
+        var locations = Set<NSNumber>()
+        
         switch userSelectViewController!{
             
         case .realTimeViewController:
@@ -132,15 +134,21 @@ class GBCPlotsViewController: UIViewController {
             style.color = CPTColor.blackColor()
             style.fontName = "Helvetica-Neue"
             style.fontSize = 12.0
+            
             let text =  PhysiologicalVariablesStoredInDatabaseSQL.hour
+            
             for i in 0..<text.count{
                 
                 let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
                 xLabel.tickLocation = Double(i)/10.0
+                if i%2 == 0{
+                    locations.insert(Double(i)/10.0)
+                }
                 xLabel.offset = 0
                 labels.insert(xLabel)
+                xAxis.majorTickLocations = locations
                 xAxis.axisLabels = labels
-                
+   
             }
         }
 
@@ -257,6 +265,7 @@ class GBCPlotsViewController: UIViewController {
                 let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
                 xLabel.tickLocation = Double(i)/10.0
                 xLabel.offset = 0
+                xAxisHeartRate.majorTickLocations = locations
                 labels.insert(xLabel)
                 xAxisHeartRate.axisLabels = labels
                 
@@ -340,6 +349,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         switch plot.identifier as! NSInteger{
         case 0,1,2,3:
+            
             return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
         case 4,5,6,7:
             return UInt(PhysiologicalVariablesStoredInDatabaseSQL.hour.count)
@@ -358,6 +368,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             
             switch plot.identifier as! NSInteger{
             case 0,1,2,3:
+            
                 return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
             case 4,5,6,7:
                 return Double(idx)/10

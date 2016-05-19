@@ -46,7 +46,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-on-6rY">
                                 <rect key="frame" x="205" y="547" width="190" height="35"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="3lj-79-PfY"/>
                                     <constraint firstAttribute="height" constant="35" id="XhG-ka-aqi"/>
@@ -58,27 +58,26 @@
                                     <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="csp-0c-O9B"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ud4-V1-0bC">
-                                <rect key="frame" x="356" y="547" width="38" height="35"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuE-21-oHP">
+                                <rect key="frame" x="350" y="547" width="34" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="U43-7L-vzn"/>
-                                    <constraint firstAttribute="width" constant="38" id="s3B-K2-H2B"/>
+                                    <constraint firstAttribute="height" constant="35" id="fsb-bI-JXa"/>
+                                    <constraint firstAttribute="width" constant="34" id="p20-R6-xnb"/>
                                 </constraints>
-                                <state key="normal" image="E16F2451-F1C2-4F84-A99D-AE10670ABACC"/>
+                                <state key="normal" image="UserSelect"/>
                                 <connections>
-                                    <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iw7-S2-25R"/>
+                                    <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jnS-aD-jZ1"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="18" id="015-Ov-5SH"/>
-                            <constraint firstItem="ud4-V1-0bC" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-39" id="0kx-gH-9ab"/>
                             <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgy-eZ-hUF"/>
-                            <constraint firstItem="ud4-V1-0bC" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="E2h-d7-shR"/>
                             <constraint firstItem="jKl-Bq-YWP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="FaS-86-Bye"/>
+                            <constraint firstItem="FuE-21-oHP" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="G90-uC-S44"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RFn-sd-I0N"/>
+                            <constraint firstItem="FuE-21-oHP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-45" id="WLA-5H-TQg"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="leading" secondItem="jKl-Bq-YWP" secondAttribute="trailing" constant="8" id="dz0-xl-Kce"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="jEu-i4-t9m"/>
                         </constraints>
@@ -108,7 +107,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="currentMeasurementLabel" destination="ud4-V1-0bC" id="Xfc-4r-NCl"/>
+                        <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="xkJ-IC-4MD"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
                         <outlet property="statusConnectionLabel" destination="C5K-N6-6Ak" id="0kf-Rs-qT4"/>
                     </connections>
@@ -226,27 +225,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VS3-rm-mSY">
-                                <rect key="frame" x="279" y="30" width="42" height="21"/>
+                                <rect key="frame" x="294" y="30" width="12" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Gvq-dY-j5M"/>
-                                    <constraint firstAttribute="width" constant="42" id="hl1-vy-Kyu"/>
+                                    <constraint firstAttribute="width" constant="12" id="hl1-vy-Kyu"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1OL-rj-RdI">
-                                <rect key="frame" x="156" y="96" width="138" height="21"/>
+                                <rect key="frame" x="171" y="96" width="138" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="138" id="0Yi-fa-Trh"/>
                                     <constraint firstAttribute="height" constant="21" id="hiM-bV-Fka"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BatteryLevel10" translatesAutoresizingMaskIntoConstraints="NO" id="NGK-iA-mfL">
-                                <rect key="frame" x="322" y="73" width="96" height="68"/>
+                                <rect key="frame" x="307" y="73" width="96" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="SSM-09-tkw"/>
                                     <constraint firstAttribute="width" constant="96" id="pAB-Zz-RAb"/>
@@ -306,7 +305,7 @@
                                     <constraint firstAttribute="height" constant="21" id="Z1x-l8-bUm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -362,10 +361,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw4-FQ-tyW">
-                                <rect key="frame" x="247" y="156" width="180" height="28"/>
+                                <rect key="frame" x="247" y="156" width="172" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="Nw4-Zo-tus"/>
                                     <constraint firstAttribute="height" constant="28" id="WFB-x1-4mT"/>
+                                    <constraint firstAttribute="width" constant="172" id="p9e-82-eM2"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Average pressure:">
@@ -379,9 +378,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUk-LF-35n">
-                                <rect key="frame" x="247" y="252" width="174" height="27"/>
+                                <rect key="frame" x="247" y="252" width="163" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="JDQ-Zd-iSz"/>
+                                    <constraint firstAttribute="width" constant="163" id="chb-cV-bjA"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Diastolic pressure:">
@@ -436,15 +436,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWw-4h-yHf">
-                                <rect key="frame" x="427" y="254" width="81" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="Uzh-JV-iVO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzo-xn-ubw">
                                 <rect key="frame" x="427" y="351" width="81" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -452,7 +443,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfF-c0-AkX">
-                                <rect key="frame" x="427" y="442" width="81" height="21"/>
+                                <rect key="frame" x="427" y="447" width="81" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -541,19 +532,26 @@
                                     <constraint firstAttribute="width" constant="90" id="qnV-56-5hA"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWw-4h-yHf">
+                                <rect key="frame" x="427" y="254" width="81" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="Uzh-JV-iVO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="qkm-4r-rcP" firstAttribute="leading" secondItem="cw4-FQ-tyW" secondAttribute="trailing" id="1BS-t1-me2"/>
                             <constraint firstItem="qkm-4r-rcP" firstAttribute="top" secondItem="5Pl-Fu-Mm6" secondAttribute="bottom" constant="66" id="2pa-mf-cWu"/>
                             <constraint firstItem="jlQ-uV-g4C" firstAttribute="top" secondItem="GT2-RM-9QH" secondAttribute="bottom" constant="14" id="5Lm-xq-Mte"/>
                             <constraint firstItem="iZH-HO-BAX" firstAttribute="top" secondItem="GT2-RM-9QH" secondAttribute="bottom" constant="49" id="6Vd-Is-mJY"/>
                             <constraint firstItem="jFr-yB-5HQ" firstAttribute="top" secondItem="cy4-Ys-7oF" secondAttribute="bottom" constant="70" id="6td-AP-HD6"/>
                             <constraint firstItem="cw4-FQ-tyW" firstAttribute="leading" secondItem="f9w-1k-9Yi" secondAttribute="trailing" constant="18" id="81O-cQ-d8q"/>
-                            <constraint firstItem="BfF-c0-AkX" firstAttribute="top" secondItem="Xzo-xn-ubw" secondAttribute="bottom" constant="70" id="8gh-5e-Ms2"/>
                             <constraint firstItem="pWw-4h-yHf" firstAttribute="top" secondItem="qkm-4r-rcP" secondAttribute="bottom" constant="70" id="9fU-ud-vAK"/>
                             <constraint firstItem="Xzo-xn-ubw" firstAttribute="top" secondItem="pWw-4h-yHf" secondAttribute="bottom" constant="70" id="AKj-sI-p8b"/>
-                            <constraint firstItem="pWw-4h-yHf" firstAttribute="leading" secondItem="lUk-LF-35n" secondAttribute="trailing" constant="6" id="ArW-cV-xpz"/>
+                            <constraint firstItem="pWw-4h-yHf" firstAttribute="leading" secondItem="lUk-LF-35n" secondAttribute="trailing" constant="17" id="AyL-Rk-oaE"/>
                             <constraint firstItem="BfF-c0-AkX" firstAttribute="leading" secondItem="jFr-yB-5HQ" secondAttribute="trailing" constant="51" id="BJd-xJ-zA3"/>
                             <constraint firstItem="5Pl-Fu-Mm6" firstAttribute="leading" secondItem="iZH-HO-BAX" secondAttribute="trailing" constant="17" id="Hau-yJ-2iX"/>
                             <constraint firstItem="Xzo-xn-ubw" firstAttribute="leading" secondItem="cy4-Ys-7oF" secondAttribute="trailing" constant="73" id="KGA-Zf-UTw"/>
@@ -564,14 +562,17 @@
                             <constraint firstItem="iZH-HO-BAX" firstAttribute="leading" secondItem="jlQ-uV-g4C" secondAttribute="trailing" constant="8" id="cV2-vv-EXR"/>
                             <constraint firstItem="jFr-yB-5HQ" firstAttribute="leading" secondItem="9FB-i2-aNL" secondAttribute="trailing" constant="18" id="geQ-9m-SeF"/>
                             <constraint firstItem="iZH-HO-BAX" firstAttribute="centerX" secondItem="wN0-h9-JA4" secondAttribute="centerX" id="lij-r2-1Vo"/>
+                            <constraint firstItem="BfF-c0-AkX" firstAttribute="top" secondItem="Xzo-xn-ubw" secondAttribute="bottom" constant="75" id="pEr-he-eSb"/>
                             <constraint firstItem="cw4-FQ-tyW" firstAttribute="top" secondItem="iZH-HO-BAX" secondAttribute="bottom" constant="63" id="vAb-wm-Et8"/>
                             <constraint firstItem="lUk-LF-35n" firstAttribute="leading" secondItem="cxy-jh-vpr" secondAttribute="trailing" constant="18" id="wiS-aE-Ehz"/>
+                            <constraint firstItem="qkm-4r-rcP" firstAttribute="leading" secondItem="cw4-FQ-tyW" secondAttribute="trailing" constant="8" id="wo5-vw-vxd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Current Measurement" id="SMK-6i-THj"/>
                     <connections>
                         <outlet property="BatteryLevel" destination="BfF-c0-AkX" id="C0V-9d-G7D"/>
                         <outlet property="averagePressureValue" destination="pWw-4h-yHf" id="H7R-Ic-g5k"/>
+                        <outlet property="batteryLevelImage" destination="9FB-i2-aNL" id="ipQ-qJ-APF"/>
                         <outlet property="diastolicPressureValue" destination="qkm-4r-rcP" id="VCa-sT-V5e"/>
                         <outlet property="heartRateValue" destination="Xzo-xn-ubw" id="QK7-pe-fN3"/>
                         <outlet property="systolicPressureValue" destination="5Pl-Fu-Mm6" id="RX5-IV-DmR"/>
@@ -680,127 +681,9 @@
         <image name="Calendar" width="32" height="32"/>
         <image name="Configuration" width="32" height="32"/>
         <image name="DiastolicPressure" width="256" height="256"/>
-        <image name="E16F2451-F1C2-4F84-A99D-AE10670ABACC" width="32" height="32">
-            <mutableData key="keyedArchiveRepresentation">
-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
-cgBpAGMAQx6lAHUAIABoAOwAbgBoACAAUgBHAEIAIABDAGgAdQBuAGcAUABlAHIAZgBpAGwAIABSAEcA
-QgAgAEcAZQBuAOkAcgBpAGMAbwQXBDAEMwQwBDsETAQ9BDgEOQAgBD8EQAQ+BEQEMAQ5BDsAIABSAEcA
-QgBQAHIAbwBmAGkAbAAgAGcA6QBuAOkAcgBpAHEAdQBlACAAUgBWAEIAwQBsAHQAYQBsAOEAbgBvAHMA
-IABSAEcAQgAgAHAAcgBvAGYAaQBskBp1KAAgAFIARwBCACCCcl9pY8+P8ABHAGUAbgBlAHIAaQBzAGsA
-IABSAEcAQgAtAHAAcgBvAGYAaQBsAE8AYgBlAGMAbgD9ACAAUgBHAEIAIABwAHIAbwBmAGkAbAXkBegF
-1QXkBdkF3AAgAFIARwBCACAF2wXcBdwF2QBQAHIAbwBmAGkAbABvACAAUgBHAEIAIABnAGUAbgBlAHIA
-aQBjAG8AUAByAG8AZgBpAGwAIABSAEcAQgAgAGcAZQBuAGUAcgBpAGMAQQBsAGwAZwBlAG0AZQBpAG4A
-ZQBzACAAUgBHAEIALQBQAHIAbwBmAGkAbMd8vBgAIABSAEcAQgAg1QS4XNMMx3xmbpAaACAAUgBHAEIA
-IGPPj/Blh072TgCCLAAgAFIARwBCACAw1zDtMNUwoTCkMOsDkwO1A70DuQO6A8wAIAPAA8EDvwPGA68D
-uwAgAFIARwBCAFAAZQByAGYAaQBsACAAUgBHAEIAIABnAGUAbgDpAHIAaQBjAG8AQQBsAGcAZQBtAGUA
-ZQBuACAAUgBHAEIALQBwAHIAbwBmAGkAZQBsDkIOGw4jDkQOHw4lDkwAIABSAEcAQgAgDhcOMQ5IDicO
-RA4bAEcAZQBuAGUAbAAgAFIARwBCACAAUAByAG8AZgBpAGwAaQBZAGwAZQBpAG4AZQBuACAAUgBHAEIA
-LQBwAHIAbwBmAGkAaQBsAGkARwBlAG4AZQByAGkBDQBrAGkAIABSAEcAQgAgAHAAcgBvAGYAaQBsAFUA
-bgBpAHcAZQByAHMAYQBsAG4AeQAgAHAAcgBvAGYAaQBsACAAUgBHAEIEHgQxBEkEOAQ5ACAEPwRABD4E
-RAQ4BDsETAAgAFIARwBCBkUGRAZBACAGKgY5BjEGSgZBACAAUgBHAEIAIAYnBkQGOQYnBkUARwBlAG4A
-ZQByAGkAYwAgAFIARwBCACAAUAByAG8AZgBpAGwAZXRleHQAAAAAQ29weXJpZ2h0IDIwMDcgQXBwbGUg
-SW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC4AWFlaIAAAAAAAAPNSAAEAAAABFs9YWVogAAAAAAAAdE0A
-AD3uAAAD0FhZWiAAAAAAAABadQAArHMAABc0WFlaIAAAAAAAACgaAAAVnwAAuDZjdXJ2AAAAAAAAAAEB
-zQAAc2YzMgAAAAAAAQxCAAAF3v//8yYAAAeSAAD9kf//+6L///2jAAAD3AAAwGzSJSYnKFokY2xhc3Nu
-YW1lWCRjbGFzc2VzXxAQTlNCaXRtYXBJbWFnZVJlcKMnKSpaTlNJbWFnZVJlcFhOU09iamVjdNIlJiwt
-V05TQXJyYXmiLCrSJSYvMF5OU011dGFibGVBcnJheaMvLCrTMjMKNDU2V05TV2hpdGVcTlNDb2xvclNw
-YWNlRDAgMAAQA4AM0iUmODlXTlNDb2xvcqI4KtIlJjs8V05TSW1hZ2WiOypfEA9OU0tleWVkQXJjaGl2
-ZXLRP0BUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwApwCp
-AKsArQCyALUAtwC5ALsAvQDCANkA2wDdGX8ZhBmPGZgZqxmvGboZwxnIGdAZ0xnYGecZ6xnyGfoaBxoM
-Gg4aEBoVGh0aIBolGi0aMBpCGkUaSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAABpMA
-</mutableData>
-        </image>
         <image name="HeartRate" width="256" height="256"/>
         <image name="Info" width="32" height="32"/>
         <image name="SystolicPressure" width="256" height="256"/>
+        <image name="UserSelect" width="32" height="32"/>
     </resources>
 </document>

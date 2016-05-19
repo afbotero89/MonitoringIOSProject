@@ -84,6 +84,9 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.averagePressurePlot.title = "Average pressure"
         self.heartRatePressurePlot.title = "Heart rate"
         
+        self.pressuresGraph.title = "Pressure graphics"
+        self.heartRateGraph.title = "Heart rate graphic"
+            
         self.pressuresGraph.addPlot(self.systolicPressurePlot)
         self.pressuresGraph.addPlot(self.diastolicPressurePlot)
         self.pressuresGraph.addPlot(self.averagePressurePlot)

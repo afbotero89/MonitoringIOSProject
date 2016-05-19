@@ -120,6 +120,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         averagePressurePlot.title = "Average pressure"
         heartRatePressurePlot.title = "Heart rate"
         
+        pressuresGraph.title = "Pressure graphics"
+        heartRateGraph.title = "Heart rate graphic"
+        
         pressuresGraph.addPlot(systolicPressurePlot)
         pressuresGraph.addPlot(diastolicPressurePlot)
         pressuresGraph.addPlot(averagePressurePlot)
@@ -370,12 +373,33 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     func insertPoint(){
 
         if VectorPhysiologicalVariables.systolicPressure.count > 0 && VectorPhysiologicalVariables.diastolicPressure.count > 0 && VectorPhysiologicalVariables.averagePressure.count > 0 && VectorPhysiologicalVariables.heartRate.count > 0{
-        
             pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
         pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
             pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
             heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
-        
+            /*
+            let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
+            
+            var locations = Set<NSNumber>()
+            var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
+            let xAxis = axisSet.xAxis!
+            //xAxis.labelingPolicy = .None
+            //xAxis.hidden = false
+            let style = CPTMutableTextStyle()
+            style.color = CPTColor.blackColor()
+            style.fontName = "Helvetica-Neue"
+            style.fontSize = 12.0
+
+            let xLabel = CPTAxisLabel.init(text: String(1), textStyle: style)
+            xLabel.tickLocation = VectorPhysiologicalVariables.vectorNumberOfSamples.last!
+            
+            locations.insert(VectorPhysiologicalVariables.vectorNumberOfSamples.last!)
+            
+            xLabel.offset = 0
+            labels.insert(xLabel)
+            xAxis.majorTickLocations = locations
+            xAxis.axisLabels = labels
+            */
             // Label update with latest measures
             labelPressure.text = " Last messure \n\n Systolic:  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n Average:  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
             labelHeartRate.text = " Last messure \n\n Heart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
@@ -547,10 +571,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 statusConnectionLabel.frame = CGRect(x: 20, y: 70, width: 188, height: 21)
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
+                labelPressure.frame = CGRect(x: 230, y: 160, width: 150, height: 120)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
+                labelHeartRate.frame = CGRect(x: 230, y: 300, width: 150, height: 80)
                 
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
