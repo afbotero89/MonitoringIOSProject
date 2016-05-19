@@ -138,7 +138,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
                 case .iPhone:
                     let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
-                    self.navigationController?.pushViewController(popoverContent!, animated: true)
+                    //self.navigationController?.pushViewController(popoverContent!, animated: true)
+                    self.presentViewController(popoverContent!, animated: true, completion: nil)
                     
                 }
                 

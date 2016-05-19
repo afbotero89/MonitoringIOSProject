@@ -16,6 +16,8 @@ var activeMeasurementTimeFlag = false
 
 var userSelectViewController : UserSelectViewPrincipalViewController?
 
+var typeError:Int?
+
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
     let systolicPressurePlot = CPTScatterPlot()
@@ -61,6 +63,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         notifications()
         
+        
+        let a = "º57"
+
+        if Double(a) != nil{
+            print("valor bueno")
+            print(Double(a))
+        }else{
+            print("valor nulo")
+            print(Double(a))
+        }
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 0
         diastolicPressurePlot.identifier = 1
@@ -125,7 +137,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
-        //uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+        uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -187,6 +199,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          selector: #selector(ViewController.displayAlertThereIsNoDataController),
                                                          
                                                          name: "displayAlertThereIsNoDataNotification",
+                                                         
+                                                         object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayErrorMessage),
+                                                         
+                                                         name: "displayErrorMessage",
                                                          
                                                          object: nil)
         
@@ -655,7 +675,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func displayAlertThereIsNoDataController(){
-        let alertController = UIAlertController(title: "There is no data", message: "", preferredStyle:UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "There is not data", message: "", preferredStyle:UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Done", style: .Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -684,6 +704,29 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             navigationController?.pushViewController(popoverContent!, animated: true)
         }
         
+    }
+    
+    func displayErrorMessage(){
+        let alertController:UIAlertController?
+        
+        switch typeError!{
+        case 1:
+            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Desconexión de manguera", preferredStyle:UIAlertControllerStyle.Alert)
+        case 2:
+            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Fugas en el circuito", preferredStyle:UIAlertControllerStyle.Alert)
+        case 3:
+            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Presión incorrecta", preferredStyle:UIAlertControllerStyle.Alert)
+        case 4:
+            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Se cancela medición desde el monitor", preferredStyle:UIAlertControllerStyle.Alert)
+        case 5:
+            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). No se pudo calcular frecuencia cardiaca", preferredStyle:UIAlertControllerStyle.Alert)
+        case 6:
+            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Presión incorrecta", preferredStyle:UIAlertControllerStyle.Alert)
+        default:
+            alertController = UIAlertController(title: "Device error", message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+        }
+        alertController!.addAction(UIAlertAction(title: "Done", style: .Default, handler: nil))
+        self.presentViewController(alertController!, animated: true, completion: nil)
     }
 
     // MARK: - Buttons
@@ -734,7 +777,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     @IBAction func currentMeasurementButton(sender: AnyObject) {
         //displayCurrentMeasurementPopover()
         
-        currentMeasurementLabel.setTitle("Current measurement", forState: .Normal)
+        currentMeasurementLabel.setTitle("Get a measure", forState: .Normal)
         
         activeCurrentMeasurementFlag = true
         
@@ -795,7 +838,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("calendarViewControllerIPhone")
             
-            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+            //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
             navigationController?.pushViewController(documentationTableViewController, animated: true)
         }
     }

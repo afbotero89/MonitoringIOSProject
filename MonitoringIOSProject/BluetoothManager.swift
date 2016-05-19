@@ -176,9 +176,37 @@ class BluetoothManager: NSObject{
             VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
         }
         
-        
         var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
+        
+        var error = false
         print(currentMeasurement)
+        for i in currentMeasurement{
+            if i == "e1"{
+                typeError = 1
+                error = true
+                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+            }else if i == "e2"{
+                typeError = 2
+                error = true
+                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+            }else if i == "e3"{
+                typeError = 3
+                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+            }else if i == "e4"{
+                typeError = 4
+                error = true
+                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+            }else if i == "e5"{
+                typeError = 5
+                error = true
+                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+            }else if i == "e6"{
+                typeError = 6
+                error = true
+                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+            }
+        }
+        
         for i in currentMeasurement{
             if (i == "255" || i == "2" || i == "55") && activeCurrentHourFlag == true{
                 let date = NSDate()
@@ -205,9 +233,9 @@ class BluetoothManager: NSObject{
                 activeMeasurementTimeFlag = false
                 let str:String?
                 if UserSelectedConfiguration.userSelectMeasurementTime < 10{
-                    str = "00:00:0\(UserSelectedConfiguration.userSelectMeasurementTime)254,"
+                    str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }else{
-                    str = "00:00:\(UserSelectedConfiguration.userSelectMeasurementTime)254,"
+                    str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }
                 
                 print("tiempo de medida enviado")
@@ -228,21 +256,47 @@ class BluetoothManager: NSObject{
                 var counterVariablesToGraph = 0
                 
                 for i in 0...(currentMeasurement.count - 1){
+                    // Systolic pressure
                     if currentMeasurement[i] == "s" {
-                        counterVariablesToGraph = counterVariablesToGraph + 1
-                        VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
+                        if Double(currentMeasurement[i+1]) == nil{
+                            
+                        }else{
+                            counterVariablesToGraph = counterVariablesToGraph + 1
+                            VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
+                        }
+                    // Diastolic pressure
                     }else if(currentMeasurement[i] == "d"){
-                        counterVariablesToGraph = counterVariablesToGraph + 1
-                        VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
+                        if Double(currentMeasurement[i+1]) == nil{
+                            
+                        }else{
+                            counterVariablesToGraph = counterVariablesToGraph + 1
+                            VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
+                        }
+                    // Mean pressure
                     }else if(currentMeasurement[i] == "m"){
-                        counterVariablesToGraph = counterVariablesToGraph + 1
-                        VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
+                        if Double(currentMeasurement[i+1]) == nil{
+                            
+                        }else{
+                            counterVariablesToGraph = counterVariablesToGraph + 1
+                            VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
+                        }
+                    // Battery level
                     }else if(currentMeasurement[i] == "b"){
-                        counterVariablesToGraph = counterVariablesToGraph + 1
-                        VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
+                        if Double(currentMeasurement[i+1]) == nil{
+                            
+                        }else{
+                            counterVariablesToGraph = counterVariablesToGraph + 1
+                            VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
+                        }
+                    // Heart rate
                     }else if(currentMeasurement[i] == "f"){
-                        counterVariablesToGraph = counterVariablesToGraph + 1
-                        VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
+                        if Double(currentMeasurement[i+1]) == nil{
+                        
+                        }else{
+                            counterVariablesToGraph = counterVariablesToGraph + 1
+                            VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
+                        }
+                    // Measurement time
                     }else if(currentMeasurement[i] == "h"){
                         counterVariablesToGraph = counterVariablesToGraph + 1
                         VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
@@ -251,7 +305,7 @@ class BluetoothManager: NSObject{
                 }
                 
                 
-                if activeCurrentMeasurementFlag == true{
+                if activeCurrentMeasurementFlag == true && error == false{
                     
                     activeCurrentMeasurementFlag = false
                     

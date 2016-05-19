@@ -33,73 +33,78 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dispatch_async(dispatch_get_main_queue(), {
+            // code here
+        
         
         // Do any additional setup after loading the view, typically from a nib.
-        systolicPressurePlot.identifier = 4
-        diastolicPressurePlot.identifier = 5
-        averagePressurePlot.identifier = 6
-        heartRatePressurePlot.identifier = 7
+        self.systolicPressurePlot.identifier = 4
+        self.diastolicPressurePlot.identifier = 5
+        self.averagePressurePlot.identifier = 6
+        self.heartRatePressurePlot.identifier = 7
         
         // Set the lineStyle for the plot
-        systolicPressurePlot.dataSource = self
-        diastolicPressurePlot.dataSource = self
-        averagePressurePlot.dataSource = self
-        heartRatePressurePlot.dataSource = self
+        self.systolicPressurePlot.dataSource = self
+        self.diastolicPressurePlot.dataSource = self
+        self.averagePressurePlot.dataSource = self
+        self.heartRatePressurePlot.dataSource = self
         
         // Plot simbol
         let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
         lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
         lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
         
-        averagePressurePlot.plotSymbol = lowSymbol
+        self.averagePressurePlot.plotSymbol = lowSymbol
         // Sensitivity level when the user touches the symbol
-        systolicPressurePlot.plotSymbolMarginForHitDetection = 20
-        diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
-        averagePressurePlot.plotSymbolMarginForHitDetection = 20
-        heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
+        self.systolicPressurePlot.plotSymbolMarginForHitDetection = 20
+        self.diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
+        self.averagePressurePlot.plotSymbolMarginForHitDetection = 20
+        self.heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
         
-        let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
+        let plotLineStyle = self.systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 1.5
         
         plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
-        systolicPressurePlot.dataLineStyle = plotLineStyle
+        self.systolicPressurePlot.dataLineStyle = plotLineStyle
         lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0))
-        systolicPressurePlot.plotSymbol = lowSymbol
+        self.systolicPressurePlot.plotSymbol = lowSymbol
         
         plotLineStyle.lineColor = CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0))
-        diastolicPressurePlot.dataLineStyle = plotLineStyle
-        diastolicPressurePlot.plotSymbol = lowSymbol
+        self.diastolicPressurePlot.dataLineStyle = plotLineStyle
+        self.diastolicPressurePlot.plotSymbol = lowSymbol
         
         plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
         lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
-        heartRatePressurePlot.dataLineStyle = plotLineStyle
-        heartRatePressurePlot.plotSymbol = lowSymbol
+        self.heartRatePressurePlot.dataLineStyle = plotLineStyle
+        self.heartRatePressurePlot.plotSymbol = lowSymbol
         
-        systolicPressurePlot.title = "Systolic pressure"
-        diastolicPressurePlot.title = "Diastolic pressure"
-        averagePressurePlot.title = "Average pressure"
-        heartRatePressurePlot.title = "Heart rate"
+        self.systolicPressurePlot.title = "Systolic pressure"
+        self.diastolicPressurePlot.title = "Diastolic pressure"
+        self.averagePressurePlot.title = "Average pressure"
+        self.heartRatePressurePlot.title = "Heart rate"
         
-        pressuresGraph.addPlot(systolicPressurePlot)
-        pressuresGraph.addPlot(diastolicPressurePlot)
-        pressuresGraph.addPlot(averagePressurePlot)
-        heartRateGraph.addPlot(heartRatePressurePlot)
+        self.pressuresGraph.addPlot(self.systolicPressurePlot)
+        self.pressuresGraph.addPlot(self.diastolicPressurePlot)
+        self.pressuresGraph.addPlot(self.averagePressurePlot)
+        self.heartRateGraph.addPlot(self.heartRatePressurePlot)
         
-        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        let plotSpacePressureGraph = self.pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
         
-        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
+        let plotSpaceHeartRateGraph = self.heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
         
-        setLegendGraph()
+        self.setLegendGraph()
         
-        addAttributesToContainerGraph()
+        self.addAttributesToContainerGraph()
         
-        autoSetXYGraph()
+        self.autoSetXYGraph()
         
-        titleLabelUserSelectedDate.text = PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser
+        self.titleLabelUserSelectedDate.text = PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser
         // Do any additional setup after loading the view.
+ 
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -150,7 +155,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     func deviceRotated(){
         
         // 2*navigationController, because navigation bar and button bar
-        graphicsEnabledHeight = Double(view.frame.height) - 4*Double((navigationController?.navigationBar.frame.height)!)
+        graphicsEnabledHeight = Double(view.frame.height) - 4*40
         
         graphicsEnabledWidth = Double(view.frame.width)
         
