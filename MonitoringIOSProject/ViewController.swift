@@ -62,17 +62,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         self.bluetoothManager = BluetoothManager()
         
         notifications()
-        
-        
-        let a = "º57"
 
-        if Double(a) != nil{
-            print("valor bueno")
-            print(Double(a))
-        }else{
-            print("valor nulo")
-            print(Double(a))
-        }
         // Do any additional setup after loading the view, typically from a nib.
         systolicPressurePlot.identifier = 0
         diastolicPressurePlot.identifier = 1
@@ -699,9 +689,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func displayAlertThereIsNoDataController(){
-        let alertController = UIAlertController(title: "There is not data", message: "", preferredStyle:UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Done", style: .Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        if internetConnectionError == true{
+            let alert = UIAlertController(title: "Connection fail", message: "Check your internet connection", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+            self.presentViewController(alert, animated: true){}
+        }else{
+            let alert = UIAlertController(title: "Connection fail", message: "There is not data", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+            self.presentViewController(alert, animated: true){}
+        }
+
     }
     
     func displaySavedHistoryGraphs(){

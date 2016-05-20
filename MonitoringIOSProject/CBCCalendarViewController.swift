@@ -8,6 +8,8 @@
 
 import UIKit
 
+var internetConnectionError = false
+
 struct PhysiologicalVariablesStoredInDatabaseSQL{
     static var systolicPressure:[Double] = []
     static var diastolicPressure:[Double] = []
@@ -86,6 +88,14 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             data, response, error in
             
             if error != nil {
+                
+                self.dismissViewControllerAnimated(true, completion:  {
+                     internetConnectionError = true
+                     NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                    
+                })
+
+                print("no hay datos en la base de datos")
                 print("error=\(error)")
                 return
             }
@@ -95,9 +105,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             
             if (String(self.responseString).isEmpty){
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
-                
-                NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                self.dismissViewControllerAnimated(true, completion:  {
+                    internetConnectionError = false
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                })
                 
                 print("no hay datos en la base de datos")
                 

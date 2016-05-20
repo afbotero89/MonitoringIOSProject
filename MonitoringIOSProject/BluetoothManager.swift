@@ -76,7 +76,7 @@ class BluetoothManager: NSObject{
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     
-    static let monitorServiceName:String = "Sensor presion"
+    static let monitorServiceName:String = "Pressure Monitor"
     
     /// Read characteristic string UUID for the BLEBee Service
     //static let rxBLEBeeSeviceCharacteristicUUIDString:String = "A1E8F5B1-696B-4E4C-87C6-69DFE0B0093B"
@@ -401,7 +401,9 @@ extension BluetoothManager:CBCentralManagerDelegate{
         
         //TODO:Verify if a more rigurous selection of the device is requiered. What if several devices have the same services?
         // It is important to have a reference to the peripheral that will be connected. Otherwise, the connection does not succeed (seems to be a bug?)
-        if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
+        print(peripheral.name)
+        //if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
+        if peripheral.name == BluetoothManager.monitorServiceName{
             print("Will attempt to connect. The peripheral UUID \(peripheral.identifier)")
             self.monitorPeripheral = peripheral
             centralManager.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnNotificationKey: NSNumber(bool:true)])
@@ -550,7 +552,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         
-        if monitorPeripheral != nil{
+        if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             print("enviado t254")
             print(data)
             activeCurrentHourFlag = true
@@ -570,7 +572,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
     
-        if monitorPeripheral != nil{
+        if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             print("enviado h254")
             print(data)
             activeMeasurementTimeFlag = true
@@ -590,7 +592,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         let str = "i254,"
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-        if monitorPeripheral != nil{
+        if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             print("enviado i254")
             print(data)
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
@@ -617,13 +619,13 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     func timerPrueba(){
         
-        if activeMeasurementTimeFlag == true{
+        if activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil{
             let str = "i254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }
         
-        if (activeMeasurementTimeFlag == true){
+        if (activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil){
             let str = "h254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)
             print(str)
@@ -631,7 +633,7 @@ extension BluetoothManager:CBPeripheralDelegate{
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }
         
-        if (activeCurrentHourFlag == true){
+        if (activeCurrentHourFlag == true && self.monitorWritableCharacteristic != nil){
             activeCurrentHourFlag = true
             let str = "t254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)
