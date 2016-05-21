@@ -32,7 +32,8 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
                 var set = Set<CalendarLogic>()
                 set.insert(CalendarLogic(date: baseDate!))
                 // advance one year
-                for var i = 0; i < kMonthRange; i++ {
+                for _ in 0..<kMonthRange{
+                //for var i = 0; i < kMonthRange; i++ {
                     dateIter1 = dateIter1.firstDayOfFollowingMonth
                     dateIter2 = dateIter2.firstDayOfPreviousMonth
                     
@@ -138,7 +139,8 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     func moveToSelectedDate(animated: Bool) {
         var index = -1
-        for var i = 0; i < collectionData.count; i++  {
+        for i in 0..<collectionData.count{
+        //for var i = 0; i < collectionData.count; i++  {
             let logic = collectionData[i]
             if logic.containsDate(selectedDate!) {
                 index = i

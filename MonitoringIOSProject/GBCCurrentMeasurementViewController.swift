@@ -33,6 +33,7 @@ class GBCCurrentMeasurementViewController: UIViewController {
     
     var batteryLevelString:String!
     
+    let gradientLayer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,12 +50,30 @@ class GBCCurrentMeasurementViewController: UIViewController {
         
         batteryLevel()
         
+        addAttributesToViewController()
+        
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func addAttributesToViewController(){
+        let color1 = UIColor.whiteColor().CGColor
+        
+        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.2).CGColor
+        
+        gradientLayer.colors = [color1, color2]
+        
+        gradientLayer.locations = [0.2, 1]
+        
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+        
+        gradientLayer.accessibilityElementAtIndex(0)
+        
+        view.layer.insertSublayer(gradientLayer, atIndex:0)
     }
     
     func batteryLevel(){

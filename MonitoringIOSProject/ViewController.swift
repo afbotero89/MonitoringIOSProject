@@ -253,9 +253,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     func addAttributesToViewController(){
-
-        //let color1 = UIColor.clearColor().CGColor as CGColorRef
-        //let color2 = UIColor(white: 0.0, alpha: 0.2).CGColor as CGColorRef
         
         let color1 = UIColor.whiteColor().CGColor
         
@@ -643,10 +640,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             let nav = UINavigationController(rootViewController: popoverContent)
             nav.modalPresentationStyle = UIModalPresentationStyle.Popover
             let popover = nav.popoverPresentationController
-            popoverContent.preferredContentSize = CGSizeMake(500,600)
+            popoverContent.preferredContentSize = CGSizeMake(500,500)
             popover!.delegate = self
             popover!.sourceView = self.view
-            popover!.sourceRect = CGRectMake(100,100,0,0)
+            popover!.sourceRect = CGRectMake(self.view.frame.width/2,self.view.frame.height/6,0,0)
             
             self.presentViewController(nav, animated: true, completion: nil)
         case .iPhone:
