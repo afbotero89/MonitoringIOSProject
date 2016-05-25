@@ -92,7 +92,8 @@ class CalendarLogic: Hashable {
         var dates = [Date]()
         let numberOfDaysInMonth = baseDate.numberOfDaysInMonth
         let component = baseDate.monthDayAndYearComponents
-        for var i = 1; i <= numberOfDaysInMonth; i++ {
+        for i in 1...numberOfDaysInMonth{
+        //for var i = 1; i <= numberOfDaysInMonth; i++ {
             dates.append(Date(day: i, month: component.month, year: component.year))
         }
         return dates
@@ -107,8 +108,13 @@ class CalendarLogic: Hashable {
         let numberOfVisibleDays = numberOfDaysInPreviousPartialWeek
         let parts = date.monthDayAndYearComponents
         
-        for var i = numberOfDaysInMonth - (numberOfVisibleDays - 1); i <= numberOfDaysInMonth; i++ {
-            dates.append(Date(day: i, month: parts.month, year: parts.year))
+        print(numberOfDaysInMonth)
+        print(numberOfVisibleDays)
+        if (numberOfDaysInMonth - (numberOfVisibleDays - 1) <= numberOfDaysInMonth){
+            for i in (numberOfDaysInMonth - (numberOfVisibleDays - 1))...numberOfDaysInMonth{
+            //for var i = numberOfDaysInMonth - (numberOfVisibleDays - 1); i <= numberOfDaysInMonth; i++ {
+                dates.append(Date(day: i, month: parts.month, year: parts.year))
+            }
         }
         return dates
     }
@@ -120,8 +126,10 @@ class CalendarLogic: Hashable {
         let numberOfDays = numberOfVisibleDaysforFollowingMonth
         let parts  = date.monthDayAndYearComponents
         
-        for var i = 1; i <= numberOfDays; i++ {
+        for i in 1...numberOfDays{
+        //for var i = 1; i <= numberOfDays; i++ {
             dates.append(Date(day: i, month: parts.month, year: parts.year))
+            
         }
         return dates
     }

@@ -106,25 +106,25 @@ class GBCPlotsViewController: UIViewController {
         // X
         // Grid line styles. For the X axis
         var majorGridLineStyle = CPTMutableLineStyle()
-        majorGridLineStyle.lineWidth = 0.75
-        majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.75))
+        majorGridLineStyle.lineWidth = 0.35
+        majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.35))
         majorGridLineStyle.dashPattern = [CGFloat(3), CGFloat(3)]
         var minorGridLineStyle = CPTMutableLineStyle()
-        minorGridLineStyle.lineWidth = 0.25
+        minorGridLineStyle.lineWidth = 0.5
         minorGridLineStyle.lineColor = CPTColor.blackColor().colorWithAlphaComponent(CGFloat(0.1))
         minorGridLineStyle.dashPattern = [CGFloat(3), CGFloat(3)]
         
         let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
         
         let xAxis = axisSet.xAxis!
-        xAxis.title = "Measure"
+        xAxis.title = "Hour"
         
         var locations = Set<NSNumber>()
         
         switch userSelectViewController!{
             
         case .realTimeViewController:
-            xAxis.labelingPolicy = .Automatic
+            xAxis.labelingPolicy = .None
             
         case .hitorialViewController:
             var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
@@ -190,7 +190,7 @@ class GBCPlotsViewController: UIViewController {
         // Grid line styles. For the Y axis
         majorGridLineStyle = CPTMutableLineStyle()
         majorGridLineStyle.lineWidth = 0.75
-        majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.1))
+        majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.2))
         majorGridLineStyle.dashPattern = [CGFloat(3), CGFloat(3)]
         minorGridLineStyle = CPTMutableLineStyle()
         minorGridLineStyle.lineWidth = 0.25
@@ -226,8 +226,8 @@ class GBCPlotsViewController: UIViewController {
         // X
         // Grid line styles. For the X axis
         var majorGridLineStyleHeartRate = CPTMutableLineStyle()
-        majorGridLineStyleHeartRate.lineWidth = 0.75
-        majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.75))
+        majorGridLineStyleHeartRate.lineWidth = 0.35
+        majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).colorWithAlphaComponent(CGFloat(0.35))
         majorGridLineStyleHeartRate.dashPattern = [CGFloat(3), CGFloat(3)]
         var minorGridLineStyleHeartRate = CPTMutableLineStyle()
         minorGridLineStyleHeartRate.lineWidth = 0.25
@@ -245,11 +245,11 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.majorTickLineStyle = nil
         xAxisHeartRate.minorTickLineStyle = nil
         xAxisHeartRate.minorTicksPerInterval = 2
-        xAxisHeartRate.title = "Measure"
+        xAxisHeartRate.title = "Hour"
         switch userSelectViewController!{
             
         case .realTimeViewController:
-            xAxisHeartRate.labelingPolicy = .Automatic
+            xAxisHeartRate.labelingPolicy = .None
             
         case .hitorialViewController:
             var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
@@ -420,6 +420,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
     }
     
     func dataLabelForPlot(plot: CPTPlot, recordIndex idx: UInt) -> CPTLayer? {
+        //tickLocation
         
         let style = CPTMutableTextStyle()
         style.color = CPTColor.blackColor()

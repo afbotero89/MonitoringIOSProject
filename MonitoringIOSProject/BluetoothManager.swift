@@ -97,6 +97,8 @@ class BluetoothManager: NSObject{
     let servicesDescriptors:[ServiceDescriptor] = BluetoothManager.loadServicesDescriptors();
     
     var timer:NSTimer?
+    
+    var tiempoEncendidoDispositivoRecibido = false
     //MARK: Methods
     
     override init() {
@@ -208,10 +210,26 @@ class BluetoothManager: NSObject{
         }
         
         for i in currentMeasurement{
+            
+            var hour = i.componentsSeparatedByString("-")
+            let measureHour = hour[0].componentsSeparatedByString(":")
+
+            if measureHour.count == 3 && tiempoEncendidoDispositivoRecibido == false{
+                
+                tiempoEncendidoDispositivoRecibido = true
+                hourOnDevice = hour[0]
+                print("hora encendido del dispositivo")
+                print(hourOnDevice)
+                
+            }
+
+            
             if (i == "255" || i == "2" || i == "55") && activeCurrentHourFlag == true{
                 let date = NSDate()
                 let fmt = NSDateFormatter()
                 fmt.dateFormat = "HH:mm:ss"
+                configurationHour = fmt.stringFromDate(date)
+                
                 let str:String = fmt.stringFromDate(date) + "254,"
                 print("hora actual enviada")
                 print(str)
@@ -219,6 +237,12 @@ class BluetoothManager: NSObject{
                 activeCurrentHourFlag = false
                 //VectorPhysiologicalVariables.currentMeasures.removeAll()
                 //currentMeasurement.removeAll()
+                
+                
+                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                
+                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 
             }
@@ -262,7 +286,7 @@ class BluetoothManager: NSObject{
                             
                         }else{
                             counterVariablesToGraph = counterVariablesToGraph + 1
-                            VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
+                            
                         }
                     // Diastolic pressure
                     }else if(currentMeasurement[i] == "d"){
@@ -270,7 +294,7 @@ class BluetoothManager: NSObject{
                             
                         }else{
                             counterVariablesToGraph = counterVariablesToGraph + 1
-                            VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
+                            
                         }
                     // Mean pressure
                     }else if(currentMeasurement[i] == "m"){
@@ -278,7 +302,7 @@ class BluetoothManager: NSObject{
                             
                         }else{
                             counterVariablesToGraph = counterVariablesToGraph + 1
-                            VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
+                            
                         }
                     // Battery level
                     }else if(currentMeasurement[i] == "b"){
@@ -286,7 +310,7 @@ class BluetoothManager: NSObject{
                             
                         }else{
                             counterVariablesToGraph = counterVariablesToGraph + 1
-                            VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
+                            
                         }
                     // Heart rate
                     }else if(currentMeasurement[i] == "f"){
@@ -294,16 +318,59 @@ class BluetoothManager: NSObject{
                         
                         }else{
                             counterVariablesToGraph = counterVariablesToGraph + 1
-                            VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
+                           
                         }
                     // Measurement time
                     }else if(currentMeasurement[i] == "h"){
                         counterVariablesToGraph = counterVariablesToGraph + 1
-                        VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
+                        
                     }
                     
                 }
-                
+                if counterVariablesToGraph == 6{
+                    for i in 0...(currentMeasurement.count - 1){
+                        // Systolic pressure
+                        if currentMeasurement[i] == "s" {
+                            if Double(currentMeasurement[i+1]) == nil{
+                                
+                            }else{
+                                VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
+                            }
+                            // Diastolic pressure
+                        }else if(currentMeasurement[i] == "d"){
+                            if Double(currentMeasurement[i+1]) == nil{
+                                
+                            }else{
+                                VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
+                            }
+                            // Mean pressure
+                        }else if(currentMeasurement[i] == "m"){
+                            if Double(currentMeasurement[i+1]) == nil{
+                                
+                            }else{
+                                VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
+                            }
+                            // Battery level
+                        }else if(currentMeasurement[i] == "b"){
+                            if Double(currentMeasurement[i+1]) == nil{
+                                
+                            }else{
+                                VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
+                            }
+                            // Heart rate
+                        }else if(currentMeasurement[i] == "f"){
+                            if Double(currentMeasurement[i+1]) == nil{
+                                
+                            }else{
+                                VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
+                            }
+                            // Measurement time
+                        }else if(currentMeasurement[i] == "h"){
+                            VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
+                        }
+                        
+                    }
+                }
                 
                 if activeCurrentMeasurementFlag == true && error == false{
                     
@@ -313,6 +380,7 @@ class BluetoothManager: NSObject{
                 }
                 
                 if counterVariablesToGraph == 6{
+                    
                     
                     VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
                     
@@ -402,8 +470,8 @@ extension BluetoothManager:CBCentralManagerDelegate{
         //TODO:Verify if a more rigurous selection of the device is requiered. What if several devices have the same services?
         // It is important to have a reference to the peripheral that will be connected. Otherwise, the connection does not succeed (seems to be a bug?)
         print(peripheral.name)
-        //if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
-        if peripheral.name == BluetoothManager.monitorServiceName{
+        if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
+        //if peripheral.name == BluetoothManager.monitorServiceName{
             print("Will attempt to connect. The peripheral UUID \(peripheral.identifier)")
             self.monitorPeripheral = peripheral
             centralManager.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnNotificationKey: NSNumber(bool:true)])
@@ -557,6 +625,8 @@ extension BluetoothManager:CBPeripheralDelegate{
             print(data)
             activeCurrentHourFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            
+ 
         }else{
             print("no peticion de tiempo actual")
             NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)

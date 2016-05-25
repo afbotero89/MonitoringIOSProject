@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SystemConfiguration
+
 
 var activeCurrentMeasurementFlag = false
 
@@ -17,6 +19,10 @@ var activeMeasurementTimeFlag = false
 var userSelectViewController : UserSelectViewPrincipalViewController?
 
 var typeError:Int?
+
+var configurationHour:String?
+
+var hourOnDevice:String?
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
@@ -46,6 +52,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     var graphicsEnabledWidth:Double?
     
+    var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
+    
+    var locations = Set<NSNumber>()
+    
+    var labelsHeartRate:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
+    
+    var locationsHeartRate = Set<NSNumber>()
+    
+    let configurationHourInstance = GBCSettingsHour()
+    
     @IBOutlet weak var currentMeasurementLabel: UIButton!
     
     @IBOutlet weak var statusConnectionLabel: UILabel!
@@ -56,6 +72,27 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var vector = [1,2,3,4,5]
+        vector.append(6)
+        vector.insert(6, atIndex: 0)
+        print(vector)
+        
+        /* Configuracion hora
+        ////////////
+        let horaConexion = "19:38:19"
+        let tiempoDispositivoEncendido = "00:30:42"
+        let startDeviceHour = configurationHourInstance.horaInicioDispositivo(horaConexion,tiempoDispositivoEncendido: tiempoDispositivoEncendido)
+        
+        let horaActual = "00:30:42"
+        let horaEncendidoDispositivo = startDeviceHour
+        let meassureHour = configurationHourInstance.horaNoConfigurada(horaActual,horaEncendidoDispositivo: horaEncendidoDispositivo)
+        print(startDeviceHour)
+        print(meassureHour)
+        ///////////
+        */
+        let conexion = Reachability.isConnectedToNetwork()
+        print("conexion!!!")
+        print(conexion)
         addAttributesToViewController()
         
         // Initialize the bluetooth manager.
@@ -110,8 +147,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         averagePressurePlot.title = "Average pressure"
         heartRatePressurePlot.title = "Heart rate"
         
+        let attrs = [
+            NSForegroundColorAttributeName : UIColor.blackColor(),
+            NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
+            
+        ]
+        
         pressuresGraph.title = "Pressure graphics"
+        pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
         heartRateGraph.title = "Heart rate graphic"
+        heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
         
         pressuresGraph.addPlot(systolicPressurePlot)
         pressuresGraph.addPlot(diastolicPressurePlot)
@@ -218,7 +263,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelPressure.layer.cornerRadius = 5
-        labelPressure.font = UIFont(name: "HelveticaNeue-Light", size: 16)
+        
         
         // Label2: heart rate value
         labelHeartRate.numberOfLines = 10
@@ -226,7 +271,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelHeartRate.layer.cornerRadius = 10
-        labelHeartRate.font = UIFont(name: "HelveticaNeue-Light", size: 16)
+        
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            labelPressure.font = UIFont(name: "HelveticaNeue-Light", size: 16)
+            labelHeartRate.font = UIFont(name: "HelveticaNeue-Light", size: 16)
+        case .iPhone:
+            labelPressure.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+            labelHeartRate.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+        }
         
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 1
@@ -335,8 +389,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         case .iPhone:
             theLegend.swatchSize = CGSizeMake(20.0, 7.0)
             theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
-            pressuresGraph.legendDisplacement = CGPointMake(170.0, -5.0)
-            heartRateGraph.legendDisplacement = CGPointMake(170.0, -5.0)
             attrsLegend = [
                 NSForegroundColorAttributeName : UIColor.blackColor(),
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
@@ -360,8 +412,97 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     func insertPoint(){
 
         if VectorPhysiologicalVariables.systolicPressure.count > 0 && VectorPhysiologicalVariables.diastolicPressure.count > 0 && VectorPhysiologicalVariables.averagePressure.count > 0 && VectorPhysiologicalVariables.heartRate.count > 0{
+            
+            let style = CPTMutableTextStyle()
+            style.color = CPTColor.blackColor()
+            style.fontName = "Helvetica-Neue"
+            style.fontSize = 12.0
+            
+            var text =  VectorPhysiologicalVariables.measuringTime.last
+            
+            let hourMS = text?.componentsSeparatedByString(":")
+            let currentHour = Int(hourMS![0])
+            let currentMinute = Int(hourMS![1])
+            let currentSecond = hourMS![2]
+            let configureOrNotConfigureHour = currentSecond.componentsSeparatedByString(".")
+            
+            /*
+            let horaActual = "00:30:42"
+            
+            let meassureHour = configurationHourInstance.horaNoConfigurada(horaActual,horaEncendidoDispositivo: horaEncendidoDispositivo)
+            print(startDeviceHour)
+            print(meassureHour)
+ 
+             */
+            /////////
+            //var configurationHour:String?
+            
+            //var hourOnDevice:String?
+            
+            
+            // Hour
+            if configureOrNotConfigureHour[1] == "c"{
+                
+                text = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
+                print("hora configurada")
+                
+            }else{
+                
+                    ////////// Calcula la hora en que se encendio el monitor
+                
+                    let horaConexion = configurationHour
+                    let tiempoDispositivoEncendido = hourOnDevice
+                    let startDeviceHour = configurationHourInstance.horaInicioDispositivo(horaConexion!,tiempoDispositivoEncendido: (tiempoDispositivoEncendido?.componentsSeparatedByString(".")[0])!)
+                
+                    print("hora de encendido del monitor")
+                    print(startDeviceHour)
+                    print("tiempo dispositivo encendido")
+                    print(tiempoDispositivoEncendido)
+                    print("hora actual recibida")
+                    print("\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])")
+                
+                    if horaConexion != nil {
+                        // Calcula horas no configuradas
+                        let horaEncendidoDispositivo = startDeviceHour
+                        
+                        let currentHour = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
+                        
+                        text = configurationHourInstance.horaNoConfigurada(currentHour,horaEncendidoDispositivo: horaEncendidoDispositivo)
+                }
+            }
+            
+            
+            // xAxis pressure graph
+            let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
+            
+            let xAxis = axisSet.xAxis!
+            
+            let xLabel = CPTAxisLabel.init(text: String(text!), textStyle: style)
+            xLabel.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
+            if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
+                locations.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+            }
+            xLabel.offset = 0
+            labels.insert(xLabel)
+            xAxis.majorTickLocations = locations
+            xAxis.axisLabels = labels
+            
+            
+            // xAxis heart rate graph
+            let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
+            let xAxisHeartRate = axisSetHeartRate.xAxis!
+            let xLabelHeartRate = CPTAxisLabel.init(text: String(text!), textStyle: style)
+            xLabelHeartRate.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
+            if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
+                locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+            }
+            xLabelHeartRate.offset = 0
+            labelsHeartRate.insert(xLabelHeartRate)
+            xAxisHeartRate.majorTickLocations = locationsHeartRate
+            xAxisHeartRate.axisLabels = labelsHeartRate
+            
             pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
-        pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
+            pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
             pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
             heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
             /*
@@ -519,12 +660,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func deviceRotated(){
         
-        // 2*navigationController, because navigation bar and button bar
         graphicsEnabledHeight = Double(view.frame.height) - 4*Double((navigationController?.navigationBar.frame.height)!)
         
         graphicsEnabledWidth = Double(view.frame.width)
         
-        print(graphicsEnabledHeight)
         
         if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
         {
@@ -558,16 +697,21 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 statusConnectionLabel.frame = CGRect(x: 20, y: 70, width: 188, height: 21)
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 230, y: 160, width: 150, height: 120)
+                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!/2)-20, width: 130, height: 80)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 230, y: 300, width: 150, height: 80)
+                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!)+20, width: 130, height: 50)
+                
+                
+                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
+                
+                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 120, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 110, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
             }
             
         }else{
@@ -597,22 +741,26 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPhone:
                 
                 // Image status connection
-                imageStatusConnection.frame = CGRect(x: 0, y: 80, width: 21, height: 21)
+                imageStatusConnection.frame = CGRect(x: 0, y: 40, width: 21, height: 21)
                 
                 // Status connection label
-                statusConnectionLabel.frame = CGRect(x: 20, y: 80, width: 188, height: 21)
+                statusConnectionLabel.frame = CGRect(x: 20, y: 40, width: 188, height: 21)
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
+                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 80)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
+                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!)-140, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 50)
+                
+                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
+                
+                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 20, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                pressureContainerGraph.frame = CGRect(x: 20, y: 70, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 70, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
             }
   
         }
@@ -647,8 +795,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             self.presentViewController(nav, animated: true, completion: nil)
         case .iPhone:
-            
-            navigationController?.pushViewController(popoverContent, animated: true)
+            let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
+            navigationController?.pushViewController(popoverContentIPhone, animated: true)
         }
     }
     
@@ -897,5 +1045,22 @@ extension ViewController{
         
     }
 
+}
+public class Reachability {
+    class func isConnectedToNetwork() -> Bool {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+        }
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
+    }
 }
 

@@ -90,12 +90,25 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             if error != nil {
                 
                 self.dismissViewControllerAnimated(true, completion:  {
-                     internetConnectionError = true
-                     NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                    internetConnectionError = true
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
                     
-                })
-
-                print("no hay datos en la base de datos")
+                    })
+                
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    print("iPad")
+                case .iPhone:
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let alert = UIAlertController(title: "Connection fail", message: "Check your internet connection", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                    
+                }
+                
+                print("no hay datos en la base de datos1")
                 print("error=\(error)")
                 return
             }
@@ -108,9 +121,23 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 self.dismissViewControllerAnimated(true, completion:  {
                     internetConnectionError = false
                     NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                            
+                        
+                    
                 })
-                
-                print("no hay datos en la base de datos")
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    print("iPad")
+                case .iPhone:
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let alert = UIAlertController(title: "Connection fail", message: "There is not data", preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                    
+                }
+                print("no hay datos en la base de datos2")
                 
             }else{
                 
@@ -148,9 +175,13 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
                 case .iPhone:
-                    let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
+                        self.showViewController(popoverContent!, sender: nil)
+                    })
                     //self.navigationController?.pushViewController(popoverContent!, animated: true)
-                    self.presentViewController(popoverContent!, animated: true, completion: nil)
+                    //self.navigationController?.presentViewController(popoverContent!, animated: true, completion: nil)
+                    //self.presentViewController(popoverContent!, animated: true, completion: nil)
                     
                 }
                 

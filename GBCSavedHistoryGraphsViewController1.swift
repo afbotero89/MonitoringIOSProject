@@ -84,8 +84,16 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.averagePressurePlot.title = "Average pressure"
         self.heartRatePressurePlot.title = "Heart rate"
         
+        let attrs = [
+            NSForegroundColorAttributeName : UIColor.blackColor(),
+            NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
+                
+        ]
+            
         self.pressuresGraph.title = "Pressure graphics"
+        self.pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
         self.heartRateGraph.title = "Heart rate graphic"
+        self.heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
             
         self.pressuresGraph.addPlot(self.systolicPressurePlot)
         self.pressuresGraph.addPlot(self.diastolicPressurePlot)
@@ -106,6 +114,8 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         
         self.titleLabelUserSelectedDate.text = PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser
         // Do any additional setup after loading the view.
+            
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
  
         })
     }
@@ -116,7 +126,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+
         
     }
     func addAttributesToContainerGraph(){
@@ -162,8 +172,6 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         
         graphicsEnabledWidth = Double(view.frame.width)
         
-        print(graphicsEnabledHeight)
-        
         if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
         {
             // Portrait
@@ -178,11 +186,15 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 
             case .iPhone:
                 
+                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.6), -20.0)
+                
+                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.6), -20.0)
+                
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                pressureContainerGraph.frame = CGRect(x: 10, y: 120, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 120, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 130, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
             }
             
         }else{
@@ -192,18 +204,22 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
             case .iPad:
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 230, y: 80, width: 650, height: 300)
+                pressureContainerGraph.frame = CGRect(x: 230, y: 120, width: 650, height: 300)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
+                heartRateContainerGraph.frame = CGRect(x: 230, y: 440, width: 650, height: 300)
                 
             case .iPhone:
                 
+                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
+                
+                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
+                
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 20, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                pressureContainerGraph.frame = CGRect(x: 20, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 40, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
             }
             
         }
@@ -257,8 +273,6 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         case .iPhone:
             theLegend.swatchSize = CGSizeMake(20.0, 7.0)
             theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
-            pressuresGraph.legendDisplacement = CGPointMake(170.0, -5.0)
-            heartRateGraph.legendDisplacement = CGPointMake(170.0, -5.0)
             attrsLegend = [
                 NSForegroundColorAttributeName : UIColor.blackColor(),
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,

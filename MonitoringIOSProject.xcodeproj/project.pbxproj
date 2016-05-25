@@ -32,6 +32,7 @@
 		B505D3EA1CE820F10054E2BC /* WeekHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B505D3D41CE820F10054E2BC /* WeekHeaderView.xib */; };
 		B505D3FD1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */; };
 		B505D3FE1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */; };
+		B5FA03371CF428F0003EB9E6 /* GBCSettingsHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA03361CF428F0003EB9E6 /* GBCSettingsHour.swift */; };
 		D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */; };
 		D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F1E1CD137C900300593 /* AppDelegate.swift */; };
 		D83E0F211CD137C900300593 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F201CD137C900300593 /* ViewController.swift */; };
@@ -58,6 +59,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B5FA03321CF270A2003EB9E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
+			remoteInfo = "CorePlot tvOS";
+		};
+		B5FA03341CF270A2003EB9E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
+			remoteInfo = "UnitTests tvOS";
+		};
 		D83E0F331CD137C900300593 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D83E0F131CD137C900300593 /* Project object */;
@@ -130,6 +145,7 @@
 		B505D3D31CE820F10054E2BC /* WeekHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekHeaderView.swift; sourceTree = "<group>"; };
 		B505D3D41CE820F10054E2BC /* WeekHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekHeaderView.xib; sourceTree = "<group>"; };
 		B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CBCCalendarViewController.swift; path = MonitoringIOSProject/CBCCalendarViewController.swift; sourceTree = "<group>"; };
+		B5FA03361CF428F0003EB9E6 /* GBCSettingsHour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCSettingsHour.swift; sourceTree = "<group>"; };
 		D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCConfigurationMeasuringTimeViewController.swift; sourceTree = "<group>"; };
 		D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonitoringIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83E0F1E1CD137C900300593 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,12 +238,12 @@
 				D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */,
 				D83E0F691CD1386700300593 /* Accelerate.framework */,
 				D83E0F6B1CD1387500300593 /* QuartzCore.framework */,
+				D83E0F1D1CD137C900300593 /* MonitoringIOSProject */,
 				D83E0F771CD157D200300593 /* Plots */,
 				D84CD8401CD7F9EA00B35B18 /* SliderConfiguration */,
 				B505D3C91CE820F10054E2BC /* CalendarKit */,
 				D83E0F7A1CD167CF00300593 /* Bluetooth */,
 				B505D4021CE83ABA0054E2BC /* SavedHistoryGraphs */,
-				D83E0F1D1CD137C900300593 /* MonitoringIOSProject */,
 				D83E0F351CD137C900300593 /* MonitoringIOSProjectTests */,
 				D83E0F1C1CD137C900300593 /* Products */,
 				D83E0F6E1CD1388B00300593 /* OtherSource */,
@@ -249,8 +265,9 @@
 			isa = PBXGroup;
 			children = (
 				D83E0F1E1CD137C900300593 /* AppDelegate.swift */,
-				D83E0F201CD137C900300593 /* ViewController.swift */,
 				D83E0F751CD1565100300593 /* GBCEnumerations.swift */,
+				D83E0F201CD137C900300593 /* ViewController.swift */,
+				B5FA03361CF428F0003EB9E6 /* GBCSettingsHour.swift */,
 				D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */,
 				D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */,
 				D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */,
@@ -291,6 +308,8 @@
 				D83E0F631CD1381200300593 /* UnitTests iOS.xctest */,
 				D83E0F651CD1381200300593 /* libCorePlot-CocoaTouch.a */,
 				D83E0F671CD1381200300593 /* CorePlot-CocoaTouchTests.xctest */,
+				B5FA03331CF270A2003EB9E6 /* CorePlot.framework */,
+				B5FA03351CF270A2003EB9E6 /* UnitTests tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -443,6 +462,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		B5FA03331CF270A2003EB9E6 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = B5FA03321CF270A2003EB9E6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B5FA03351CF270A2003EB9E6 /* UnitTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests tvOS.xctest";
+			remoteRef = B5FA03341CF270A2003EB9E6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D83E0F5D1CD1381200300593 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -529,6 +562,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */,
+				B5FA03371CF428F0003EB9E6 /* GBCSettingsHour.swift in Sources */,
 				B505D3DD1CE820F10054E2BC /* DayCollectionCell.swift in Sources */,
 				D8FDC8A71CD9091F002A702F /* GBCCurrentMeasurementViewController.swift in Sources */,
 				D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
