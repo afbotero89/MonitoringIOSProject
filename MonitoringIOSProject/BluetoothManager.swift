@@ -66,9 +66,9 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
     
-    //let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AE"
+    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AA"
     
     //let monitorDeviceUUIDString:String = "BB8DC5A4-5AA4-6656-00FD-188D16815EB2"
     
@@ -180,8 +180,10 @@ class BluetoothManager: NSObject{
         
         var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
         
-        var error = false
         print(currentMeasurement)
+        
+        var error = false
+        
         for i in currentMeasurement{
             if i == "e1"{
                 typeError = 1
@@ -222,9 +224,11 @@ class BluetoothManager: NSObject{
                 print(hourOnDevice)
                 
             }
-
+            if i.componentsSeparatedByString("-").count >= 2{
+                activeCurrentHourFlag = false
+            }
             
-            if (i == "255" || i == "2" || i == "55") && activeCurrentHourFlag == true{
+            if (i == "255") && activeCurrentHourFlag == true{
                 let date = NSDate()
                 let fmt = NSDateFormatter()
                 fmt.dateFormat = "HH:mm:ss"
@@ -234,14 +238,10 @@ class BluetoothManager: NSObject{
                 print("hora actual enviada")
                 print(str)
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-                activeCurrentHourFlag = false
+                
                 //VectorPhysiologicalVariables.currentMeasures.removeAll()
                 //currentMeasurement.removeAll()
                 
-                
-                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
-                
-                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 
@@ -328,6 +328,8 @@ class BluetoothManager: NSObject{
                     
                 }
                 if counterVariablesToGraph == 6{
+                    
+                    
                     for i in 0...(currentMeasurement.count - 1){
                         // Systolic pressure
                         if currentMeasurement[i] == "s" {
@@ -367,6 +369,7 @@ class BluetoothManager: NSObject{
                             // Measurement time
                         }else if(currentMeasurement[i] == "h"){
                             VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
+                            
                         }
                         
                     }
@@ -380,8 +383,11 @@ class BluetoothManager: NSObject{
                 }
                 
                 if counterVariablesToGraph == 6{
-                    
-                    
+                    if VectorPhysiologicalVariables.diastolicPressure.last > VectorPhysiologicalVariables.averagePressure.last{
+                        let comodin = VectorPhysiologicalVariables.diastolicPressure.last
+                        VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1] = VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1]
+                        VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1] = comodin!
+                    }
                     VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
@@ -470,8 +476,8 @@ extension BluetoothManager:CBCentralManagerDelegate{
         //TODO:Verify if a more rigurous selection of the device is requiered. What if several devices have the same services?
         // It is important to have a reference to the peripheral that will be connected. Otherwise, the connection does not succeed (seems to be a bug?)
         print(peripheral.name)
-        if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
-        //if peripheral.name == BluetoothManager.monitorServiceName{
+        //if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
+        if peripheral.name == BluetoothManager.monitorServiceName{
             print("Will attempt to connect. The peripheral UUID \(peripheral.identifier)")
             self.monitorPeripheral = peripheral
             centralManager.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnNotificationKey: NSNumber(bool:true)])
@@ -624,9 +630,11 @@ extension BluetoothManager:CBPeripheralDelegate{
             print("enviado t254")
             print(data)
             activeCurrentHourFlag = true
-            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            for i in 0...1{
+                print(i)
+                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            }
             
- 
         }else{
             print("no peticion de tiempo actual")
             NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)

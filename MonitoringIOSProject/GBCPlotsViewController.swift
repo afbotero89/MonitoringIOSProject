@@ -349,7 +349,6 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         switch plot.identifier as! NSInteger{
         case 0,1,2,3:
-            
             return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
         case 4,5,6,7:
             return UInt(PhysiologicalVariablesStoredInDatabaseSQL.hour.count)
@@ -368,7 +367,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             
             switch plot.identifier as! NSInteger{
             case 0,1,2,3:
-            
+                print(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
                 return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)]
             case 4,5,6,7:
                 return Double(idx)/10

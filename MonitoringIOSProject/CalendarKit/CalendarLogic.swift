@@ -107,9 +107,7 @@ class CalendarLogic: Hashable {
         
         let numberOfVisibleDays = numberOfDaysInPreviousPartialWeek
         let parts = date.monthDayAndYearComponents
-        
-        print(numberOfDaysInMonth)
-        print(numberOfVisibleDays)
+
         if (numberOfDaysInMonth - (numberOfVisibleDays - 1) <= numberOfDaysInMonth){
             for i in (numberOfDaysInMonth - (numberOfVisibleDays - 1))...numberOfDaysInMonth{
             //for var i = numberOfDaysInMonth - (numberOfVisibleDays - 1); i <= numberOfDaysInMonth; i++ {

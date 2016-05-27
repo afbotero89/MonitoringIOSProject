@@ -116,7 +116,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             self.responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
             
             
-            if (String(self.responseString).isEmpty){
+            if (String(self.responseString).isEmpty || self.responseString == "s-d-a-f-h"){
                 
                 self.dismissViewControllerAnimated(true, completion:  {
                     internetConnectionError = false
@@ -141,29 +141,45 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 
             }else{
                 
-                print("responseString = \(self.responseString)")
+                //print("responseStringXX = \(self.responseString)")
                 PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.heartRate.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.hour.removeAll()
                 
-                let vector = self.responseString.componentsSeparatedByString(";")
-                
-                for i in vector{
-                    var vector1 = i.componentsSeparatedByString(",")
+                let vector = self.responseString.componentsSeparatedByString("-")
+                print(vector.count)
+                for i in 0..<vector.count{
+                    var vector1 = vector[i].componentsSeparatedByString(",")
+                    
                     for j in 0...(vector1.count - 1){
-                        if vector1[j] == "s"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[j+1])!)
-                        }else if vector1[j] == "d"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[j+1])!)
-                        }else if vector1[j] == "a"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[j+1])!)
-                        }else if vector1[j] == "f"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[j+1])!)
-                        }else if vector1[j] == "h"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(UTF8String: vector1[j+1])!)
+                        
+                        if i == 0 && vector1[j] != "s"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[j])!)
                         }
+                        if i == 1 && vector1[j] != "d"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[j])!)
+                        }
+                        if i == 2 && vector1[j] != "a"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[j])!)
+                        }
+                        if i == 3 && vector1[j] != "f"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[j])!)
+                        }
+                        if i == 4 && vector1[j] != "h"{
+                            PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(UTF8String: vector1[j])!)
+                        }
+                    }
+                }
+                if PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count > 80{
+                    for _ in 0..<(PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count - 75){
+                        PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.removeAtIndex(0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.removeAtIndex(0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.removeAtIndex(0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.heartRate.removeAtIndex(0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.hour.removeAtIndex(0)
+                        
                     }
                 }
                 
@@ -176,7 +192,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
                 case .iPhone:
                     dispatch_async(dispatch_get_main_queue(), {
-                        let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
+                    let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
                         self.showViewController(popoverContent!, sender: nil)
                     })
                     //self.navigationController?.pushViewController(popoverContent!, animated: true)

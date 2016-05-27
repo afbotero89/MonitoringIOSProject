@@ -71,12 +71,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var vector = [1,2,3,4,5]
-        vector.append(6)
-        vector.insert(6, atIndex: 0)
-        print(vector)
-        
+
         /* Configuracion hora
         ////////////
         let horaConexion = "19:38:19"
@@ -90,9 +85,24 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         print(meassureHour)
         ///////////
         */
-        let conexion = Reachability.isConnectedToNetwork()
-        print("conexion!!!")
-        print(conexion)
+        
+        
+        /*
+        var vector1 = [1,2,3,4]
+        var comodin = vector1[3]
+        vector1[3] = vector1[2]
+        vector1[2] = comodin
+        print(vector1)
+        */
+        var vector1 = [1,2,3,4]
+        /*
+        let comodin = vector1[vector1.count - 1]
+        vector1.removeAtIndex(vector1.count - 1)
+        vector1.insert(comodin, atIndex: 0)
+         */
+        vector1.removeAtIndex(0)
+        print(vector1)
+        
         addAttributesToViewController()
         
         // Initialize the bluetooth manager.
@@ -175,7 +185,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
-        uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+        //uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -441,6 +451,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             
             // Hour
+            if configureOrNotConfigureHour.count > 1{
             if configureOrNotConfigureHour[1] == "c"{
                 
                 text = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
@@ -468,43 +479,160 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                         let currentHour = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
                         
                         text = configurationHourInstance.horaNoConfigurada(currentHour,horaEncendidoDispositivo: horaEncendidoDispositivo)
+                        VectorPhysiologicalVariables.measuringTime[VectorPhysiologicalVariables.measuringTime.count - 1] = text!
+                    }
                 }
             }
             
+            var reloadGraphData = false
             
-            // xAxis pressure graph
-            let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
+            if configureOrNotConfigureHour.count > 1{
             
-            let xAxis = axisSet.xAxis!
-            
-            let xLabel = CPTAxisLabel.init(text: String(text!), textStyle: style)
-            xLabel.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
-            if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
-                locations.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+                if configureOrNotConfigureHour[1] == "c"{
+                
+                    reloadGraphData = false
+                
+                }else{
+                    
+                    reloadGraphData = true
+                
+                }
             }
-            xLabel.offset = 0
-            labels.insert(xLabel)
-            xAxis.majorTickLocations = locations
-            xAxis.axisLabels = labels
             
+            if reloadGraphData == false{
+                
+                let measuringHour =  VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0]
+                var hour = measuringHour?.componentsSeparatedByString(":")[0]
+                var minutes = measuringHour?.componentsSeparatedByString(":")[1]
+                var seconds = measuringHour?.componentsSeparatedByString(":")[2]
+                
+                if Int(hour!)! < 10{
+                    hour = "0" + hour!
+                }
+                if Int(minutes!)! < 10{
+                    minutes = "0" + minutes!
+                }
+                if Int(seconds!)! < 10{
+                    seconds = "0" + seconds!
+                }
+                
+                // xAxis pressure graph
+                let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
+                
+                let xAxis = axisSet.xAxis!
+                
+                let xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                xLabel.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
+                if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
+                    locations.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+                }
+                xLabel.offset = 0
+                labels.insert(xLabel)
+                xAxis.majorTickLocations = locations
+                xAxis.axisLabels = labels
+                
+                
+                // xAxis heart rate graph
+                let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
+                let xAxisHeartRate = axisSetHeartRate.xAxis!
+                let xLabelHeartRate = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                xLabelHeartRate.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
+                if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
+                    locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+                }
+                xLabelHeartRate.offset = 0
+                labelsHeartRate.insert(xLabelHeartRate)
+                xAxisHeartRate.majorTickLocations = locationsHeartRate
+                xAxisHeartRate.axisLabels = labelsHeartRate
+                
+                
+                pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
+                pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
+                pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
+                heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
+            }else{
+                
+                let pressureSystolicLastElement = VectorPhysiologicalVariables.systolicPressure[VectorPhysiologicalVariables.heartRate.count - 1]
+                let pressureDiastolicLastElement = VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1]
+                let averagePressureLastElement = VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1]
+                let heartRateLastElement = VectorPhysiologicalVariables.heartRate[VectorPhysiologicalVariables.heartRate.count - 1]
+                let measuringTimeLastElement = VectorPhysiologicalVariables.measuringTime[VectorPhysiologicalVariables.measuringTime.count - 1]
+                
+                VectorPhysiologicalVariables.systolicPressure.removeAtIndex(VectorPhysiologicalVariables.systolicPressure.count - 1)
+                VectorPhysiologicalVariables.diastolicPressure.removeAtIndex(VectorPhysiologicalVariables.diastolicPressure.count - 1)
+                VectorPhysiologicalVariables.averagePressure.removeAtIndex(VectorPhysiologicalVariables.averagePressure.count - 1)
+                
+                VectorPhysiologicalVariables.heartRate.removeAtIndex(VectorPhysiologicalVariables.heartRate.count - 1)
+                VectorPhysiologicalVariables.measuringTime.removeAtIndex(VectorPhysiologicalVariables.measuringTime.count - 1)
+                
+                
+                VectorPhysiologicalVariables.systolicPressure.insert(pressureSystolicLastElement, atIndex: 0)
+                VectorPhysiologicalVariables.diastolicPressure.insert(pressureDiastolicLastElement, atIndex: 0)
+                VectorPhysiologicalVariables.averagePressure.insert(averagePressureLastElement, atIndex: 0)
+                VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, atIndex: 0)
+                VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, atIndex: 0)
+                
+                for i in 0..<VectorPhysiologicalVariables.measuringTime.count{
+                    let measuringHour:String?
+                    if VectorPhysiologicalVariables.measuringTime[i].componentsSeparatedByString(".").count >= 1{
+                        measuringHour =  VectorPhysiologicalVariables.measuringTime[i].componentsSeparatedByString(".")[0]
+                    }else{
+                        measuringHour =  VectorPhysiologicalVariables.measuringTime[i]
+                    }
+                
+                print("hora !!!")
+                print(measuringHour)
+                var xLabelHour = measuringHour!.componentsSeparatedByString(":")
+                var hour = xLabelHour[0]
+                let minute = xLabelHour[1]
+                var seconds = xLabelHour[2]
+                
+                if Int(seconds)<10{
+                    seconds = "0" + seconds
+                }
+                    
+                if Int(minute)<10{
+                    hour = hour + ":" + "0" + minute + ":" + seconds
+                }else{
+                    hour = measuringHour!
+                }
+                
             
-            // xAxis heart rate graph
-            let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
-            let xAxisHeartRate = axisSetHeartRate.xAxis!
-            let xLabelHeartRate = CPTAxisLabel.init(text: String(text!), textStyle: style)
-            xLabelHeartRate.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
-            if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
-                locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+                    
+                // xAxis pressure graph
+                let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
+                
+                let xAxis = axisSet.xAxis!
+                
+                let xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                xLabel.tickLocation = Double(i + 1)/10.0
+                if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
+                    locations.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+                }
+                xLabel.offset = 0
+                labels.insert(xLabel)
+                xAxis.majorTickLocations = locations
+                xAxis.axisLabels = labels
+                
+                
+                // xAxis heart rate graph
+                let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
+                let xAxisHeartRate = axisSetHeartRate.xAxis!
+                let xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                xLabelHeartRate.tickLocation = Double(i + 1)/10.0
+                if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
+                    locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
+                }
+                xLabelHeartRate.offset = 0
+                labelsHeartRate.insert(xLabelHeartRate)
+                xAxisHeartRate.majorTickLocations = locationsHeartRate
+                xAxisHeartRate.axisLabels = labelsHeartRate
+                }
+                
+                pressuresGraph.reloadData()
+                heartRateGraph.reloadData()
             }
-            xLabelHeartRate.offset = 0
-            labelsHeartRate.insert(xLabelHeartRate)
-            xAxisHeartRate.majorTickLocations = locationsHeartRate
-            xAxisHeartRate.axisLabels = labelsHeartRate
             
-            pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
-            pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
-            pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
-            heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
             /*
             let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
             
@@ -537,12 +665,17 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             autoSetXYRangePressureGraphAndHeartRateGraph()
         
             if defaults.arrayForKey("VectorToUpLoadServer")?.count > 0{
-                for i in defaults.arrayForKey("VectorToUpLoadServer")!{
-                    upLoadLostDataToServer(i as! String)
+                // Check internet connection to upload lost data
+                let conexion = Reachability.isConnectedToNetwork()
+                
+                if conexion == true{
+                    for i in defaults.arrayForKey("VectorToUpLoadServer")!{
+                        upLoadLostDataToServer(i as! String)
+                    }
                 }
             }
             
-            uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:VectorPhysiologicalVariables.measuringTime.last!)
+            uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
         }
     }
     
@@ -574,15 +707,15 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
 
             print("response = \(response)")
             
-            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print("responseString = \(responseString)")
+            //let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            //print("responseString = \(responseString)")
         }
         task.resume()
     }
     
     func upLoadLostDataToServer(lostData:String){
         
-        print(defaults.arrayForKey("VectorToUpLoadServer")?.count)
+        //print(defaults.arrayForKey("VectorToUpLoadServer")?.count)
         
         let postString = lostData
         requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -597,8 +730,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             print("response = \(response)")
             
-            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print("responseString = \(responseString)")
+            //let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            //print("responseString = \(responseString)")
             defaults.removeObjectForKey("VectorToUpLoadServer")
         }
         task.resume()
@@ -624,7 +757,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         additionalInformationPopup.valueHeartRateString = String(VectorPhysiologicalVariables.heartRate[indexPoint]) + " BPM"
         
-        additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint]
+        if VectorPhysiologicalVariables.measuringTime[indexPoint].componentsSeparatedByString(".").count >= 1{
+            additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint].componentsSeparatedByString(".")[0]
+        }else{
+            additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint]
+        }
         
         let presentationController = additionalInformationPopup.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
