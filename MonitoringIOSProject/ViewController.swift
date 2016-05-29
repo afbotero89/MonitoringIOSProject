@@ -71,7 +71,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         /* Configuracion hora
         ////////////
         let horaConexion = "19:38:19"
@@ -486,19 +486,46 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             var reloadGraphData = false
             
+            if VectorPhysiologicalVariables.measuringTime.count >= 2{
+                let measuringHourLast =  VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0]
+                let hourLast = measuringHourLast?.componentsSeparatedByString(":")[0]
+                let minutesLast = measuringHourLast?.componentsSeparatedByString(":")[1]
+                let secondsLast = measuringHourLast?.componentsSeparatedByString(":")[2]
+            
+                let measuringHourPenultimate =  VectorPhysiologicalVariables.measuringTime[VectorPhysiologicalVariables.measuringTime.count - 2].componentsSeparatedByString(".")[0]
+                let hourPenultimate = measuringHourPenultimate.componentsSeparatedByString(":")[0]
+                let minutesPenultimate = measuringHourPenultimate.componentsSeparatedByString(":")[1]
+                let secondsPenultimate = measuringHourPenultimate.componentsSeparatedByString(":")[2]
+        
             if configureOrNotConfigureHour.count > 1{
             
-                if configureOrNotConfigureHour[1] == "c"{
+                if configureOrNotConfigureHour[1] == "n" || (Int(hourLast!)! < Int(hourPenultimate)!) || ((Int(minutesLast!)! == Int(minutesPenultimate)!) && (Int(minutesLast!)! == Int(minutesPenultimate)!) && (Int(secondsLast!)! < Int(secondsPenultimate)!) || (Int(hourLast!)! == Int(hourPenultimate)!) && (Int(minutesLast!)! < Int(minutesPenultimate)!)){
                 
-                    reloadGraphData = false
+                    reloadGraphData = true
                 
                 }else{
                     
-                    reloadGraphData = true
+                    reloadGraphData = false
                 
                 }
             }
+            }else{
             
+                if configureOrNotConfigureHour.count > 1{
+                    
+                    if configureOrNotConfigureHour[1] == "n" {
+                        
+                        reloadGraphData = true
+                        
+                    }else{
+                        
+                        reloadGraphData = false
+                        
+                    }
+                }
+                
+            
+            }
             if reloadGraphData == false{
                 
                 let measuringHour =  VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0]
@@ -550,7 +577,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
                 pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
                 heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
+                
+                uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
             }else{
+                
                 
                 let pressureSystolicLastElement = VectorPhysiologicalVariables.systolicPressure[VectorPhysiologicalVariables.heartRate.count - 1]
                 let pressureDiastolicLastElement = VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1]
@@ -572,6 +602,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, atIndex: 0)
                 VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, atIndex: 0)
                 
+                uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
+                
                 for i in 0..<VectorPhysiologicalVariables.measuringTime.count{
                     let measuringHour:String?
                     if VectorPhysiologicalVariables.measuringTime[i].componentsSeparatedByString(".").count >= 1{
@@ -587,18 +619,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let minute = xLabelHour[1]
                 var seconds = xLabelHour[2]
                 
-                if Int(seconds)<10{
+                if Int(seconds)<10 && seconds.characters.count == 1{
                     seconds = "0" + seconds
                 }
                     
-                if Int(minute)<10{
+                if Int(minute)<10 && minute.characters.count == 1{
                     hour = hour + ":" + "0" + minute + ":" + seconds
                 }else{
                     hour = measuringHour!
                 }
-                
-            
-                    
+   
                 // xAxis pressure graph
                 let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
                 
@@ -674,8 +704,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     }
                 }
             }
-            
-            uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
         }
     }
     
@@ -922,6 +950,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
+            
             let nav = UINavigationController(rootViewController: popoverContent)
             nav.modalPresentationStyle = UIModalPresentationStyle.Popover
             let popover = nav.popoverPresentationController
@@ -931,6 +960,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             popover!.sourceRect = CGRectMake(self.view.frame.width/2,self.view.frame.height/6,0,0)
             
             self.presentViewController(nav, animated: true, completion: nil)
+ 
         case .iPhone:
             let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
             navigationController?.pushViewController(popoverContentIPhone, animated: true)
@@ -1014,6 +1044,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         switch typeError!{
         case 1:
+            //
             alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Desconexión de manguera", preferredStyle:UIAlertControllerStyle.Alert)
         case 2:
             alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Fugas en el circuito", preferredStyle:UIAlertControllerStyle.Alert)
