@@ -79,8 +79,8 @@ class BWCircularSlider: UIControl {
         textField?.textAlignment = .Center
         textField?.font = font
         if UserSelectedConfiguration.userSelectMeasurementTime == nil{
-            angle = 0
-            UserSelectedConfiguration.userSelectMeasurementTime = 0
+            angle = 3
+            UserSelectedConfiguration.userSelectMeasurementTime = 3
         }
         angle = UserSelectedConfiguration.userSelectMeasurementTime*6
         textField?.text = "\(UserSelectedConfiguration.userSelectMeasurementTime) min"
@@ -225,6 +225,10 @@ class BWCircularSlider: UIControl {
         
         //Store the new angle
         angle = Int(360 - angleInt)
+        
+        if angle/6 <= 2{
+            angle = 18
+        }
         
         //Update the textfield
         textField!.text = "\(angle/6) min"

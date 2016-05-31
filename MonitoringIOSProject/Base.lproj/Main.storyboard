@@ -1023,7 +1023,7 @@
         <image name="BatteryLevel10" width="128" height="128"/>
         <image name="Bluetooth_Disconnected" width="256" height="256"/>
         <image name="Calendar" width="32" height="32"/>
-        <image name="Configuration" width="32" height="32"/>
+        <image name="Configuration" width="40" height="40"/>
         <image name="DiastolicPressure" width="256" height="256"/>
         <image name="HeartRate" width="256" height="256"/>
         <image name="Info" width="32" height="32"/>

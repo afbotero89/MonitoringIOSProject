@@ -185,12 +185,17 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
+        
         //uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
     }
     
     override func viewWillAppear(animated: Bool) {
         
         userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
+        
+    }
+    override func viewDidAppear(animated: Bool) {
+        deviceRotated()
     }
 
     override func didReceiveMemoryWarning() {
@@ -306,8 +311,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
         
-        // Function call to determine the orientation of the device
-        deviceRotated()
         
         // Insert subviews
         view.addSubview(pressureContainerGraph)
@@ -961,8 +964,23 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             self.presentViewController(nav, animated: true, completion: nil)
  
+            //let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
+            /*
+            let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
+            popoverContentIPhone.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
+            popoverContentIPhone.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
+            popoverContentIPhone.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
+            popoverContentIPhone.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
+            popoverContentIPhone.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
+            navigationController?.pushViewController(popoverContentIPhone, animated: true)
+             */
         case .iPhone:
             let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
+            popoverContentIPhone.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
+            popoverContentIPhone.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
+            popoverContentIPhone.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
+            popoverContentIPhone.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
+            popoverContentIPhone.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
             navigationController?.pushViewController(popoverContentIPhone, animated: true)
         }
     }
@@ -1044,18 +1062,18 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         switch typeError!{
         case 1:
-            //
-            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Desconexión de manguera", preferredStyle:UIAlertControllerStyle.Alert)
+            // Desconexion de manguera
+            alertController = UIAlertController(title: "Device error", message: "Disconnect hose", preferredStyle:UIAlertControllerStyle.Alert)
         case 2:
-            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Fugas en el circuito", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "Device error", message: "Circuit leaks", preferredStyle:UIAlertControllerStyle.Alert)
         case 3:
-            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Presión incorrecta", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "Device error", message: "Incorrect pressure", preferredStyle:UIAlertControllerStyle.Alert)
         case 4:
-            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Se cancela medición desde el monitor", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "Device error", message: "Monitor measure canceled", preferredStyle:UIAlertControllerStyle.Alert)
         case 5:
-            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). No se pudo calcular frecuencia cardiaca", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "Device error", message: "heart rate not caculated", preferredStyle:UIAlertControllerStyle.Alert)
         case 6:
-            alertController = UIAlertController(title: "Device error", message: "e\(typeError!). Presión incorrecta", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "Device error", message: "Incorrect pressure", preferredStyle:UIAlertControllerStyle.Alert)
         default:
             alertController = UIAlertController(title: "Device error", message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
         }
