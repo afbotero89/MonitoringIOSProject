@@ -59,20 +59,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B5FA03321CF270A2003EB9E6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
-			remoteInfo = "CorePlot tvOS";
-		};
-		B5FA03341CF270A2003EB9E6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
-			remoteInfo = "UnitTests tvOS";
-		};
 		D83E0F331CD137C900300593 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D83E0F131CD137C900300593 /* Project object */;
@@ -308,8 +294,6 @@
 				D83E0F631CD1381200300593 /* UnitTests iOS.xctest */,
 				D83E0F651CD1381200300593 /* libCorePlot-CocoaTouch.a */,
 				D83E0F671CD1381200300593 /* CorePlot-CocoaTouchTests.xctest */,
-				B5FA03331CF270A2003EB9E6 /* CorePlot.framework */,
-				B5FA03351CF270A2003EB9E6 /* UnitTests tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,20 +446,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B5FA03331CF270A2003EB9E6 /* CorePlot.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CorePlot.framework;
-			remoteRef = B5FA03321CF270A2003EB9E6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B5FA03351CF270A2003EB9E6 /* UnitTests tvOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "UnitTests tvOS.xctest";
-			remoteRef = B5FA03341CF270A2003EB9E6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D83E0F5D1CD1381200300593 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -745,7 +715,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = GBC.MonitoringIOSProject;
+				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";
@@ -766,7 +736,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = GBC.MonitoringIOSProject;
+				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";

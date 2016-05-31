@@ -72,36 +72,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* Configuracion hora
-        ////////////
-        let horaConexion = "19:38:19"
-        let tiempoDispositivoEncendido = "00:30:42"
-        let startDeviceHour = configurationHourInstance.horaInicioDispositivo(horaConexion,tiempoDispositivoEncendido: tiempoDispositivoEncendido)
-        
-        let horaActual = "00:30:42"
-        let horaEncendidoDispositivo = startDeviceHour
-        let meassureHour = configurationHourInstance.horaNoConfigurada(horaActual,horaEncendidoDispositivo: horaEncendidoDispositivo)
-        print(startDeviceHour)
-        print(meassureHour)
-        ///////////
-        */
-        
-        
-        /*
-        var vector1 = [1,2,3,4]
-        var comodin = vector1[3]
-        vector1[3] = vector1[2]
-        vector1[2] = comodin
-        print(vector1)
-        */
-        var vector1 = [1,2,3,4]
-        /*
-        let comodin = vector1[vector1.count - 1]
-        vector1.removeAtIndex(vector1.count - 1)
-        vector1.insert(comodin, atIndex: 0)
-         */
-        vector1.removeAtIndex(0)
-        print(vector1)
         
         addAttributesToViewController()
         
@@ -184,9 +154,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         addAttributesToContainerGraph()
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
-        
-        
-        //uploadToServerDataBaseSQL(180,diastolicPressure: 80,mediumPressure: 100,heartRate: 60,hour:"10:30:60")
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -439,20 +407,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             let currentSecond = hourMS![2]
             let configureOrNotConfigureHour = currentSecond.componentsSeparatedByString(".")
             
-            /*
-            let horaActual = "00:30:42"
-            
-            let meassureHour = configurationHourInstance.horaNoConfigurada(horaActual,horaEncendidoDispositivo: horaEncendidoDispositivo)
-            print(startDeviceHour)
-            print(meassureHour)
- 
-             */
-            /////////
-            //var configurationHour:String?
-            
-            //var hourOnDevice:String?
-            
-            
             // Hour
             if configureOrNotConfigureHour.count > 1{
             if configureOrNotConfigureHour[1] == "c"{
@@ -467,13 +421,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     let horaConexion = configurationHour
                     let tiempoDispositivoEncendido = hourOnDevice
                     let startDeviceHour = configurationHourInstance.horaInicioDispositivo(horaConexion!,tiempoDispositivoEncendido: (tiempoDispositivoEncendido?.componentsSeparatedByString(".")[0])!)
-                
-                    print("hora de encendido del monitor")
-                    print(startDeviceHour)
-                    print("tiempo dispositivo encendido")
-                    print(tiempoDispositivoEncendido)
-                    print("hora actual recibida")
-                    print("\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])")
                 
                     if horaConexion != nil {
                         // Calcula horas no configuradas
@@ -614,9 +561,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     }else{
                         measuringHour =  VectorPhysiologicalVariables.measuringTime[i]
                     }
-                
-                print("hora !!!")
-                print(measuringHour)
+
                 var xLabelHour = measuringHour!.componentsSeparatedByString(":")
                 var hour = xLabelHour[0]
                 let minute = xLabelHour[1]
@@ -666,29 +611,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateGraph.reloadData()
             }
             
-            /*
-            let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
-            
-            var locations = Set<NSNumber>()
-            var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
-            let xAxis = axisSet.xAxis!
-            //xAxis.labelingPolicy = .None
-            //xAxis.hidden = false
-            let style = CPTMutableTextStyle()
-            style.color = CPTColor.blackColor()
-            style.fontName = "Helvetica-Neue"
-            style.fontSize = 12.0
 
-            let xLabel = CPTAxisLabel.init(text: String(1), textStyle: style)
-            xLabel.tickLocation = VectorPhysiologicalVariables.vectorNumberOfSamples.last!
-            
-            locations.insert(VectorPhysiologicalVariables.vectorNumberOfSamples.last!)
-            
-            xLabel.offset = 0
-            labels.insert(xLabel)
-            xAxis.majorTickLocations = locations
-            xAxis.axisLabels = labels
-            */
             // Label update with latest measures
             labelPressure.text = " Last messure \n\n Systolic:  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n Average:  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
             labelHeartRate.text = " Last messure \n\n Heart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
@@ -725,7 +648,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             data, response, error in
             
             if error != nil {
-                //print("error=\(error)")
+                
                 if defaults.arrayForKey("VectorToUpLoadServer")?.count > 0{
                     VectorPhysiologicalVariables.vectorToUploadServer = defaults.arrayForKey("VectorToUpLoadServer")!
                 }
@@ -737,16 +660,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             }
 
             print("response = \(response)")
-            
-            //let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            //print("responseString = \(responseString)")
+
         }
         task.resume()
     }
     
     func upLoadLostDataToServer(lostData:String){
-        
-        //print(defaults.arrayForKey("VectorToUpLoadServer")?.count)
         
         let postString = lostData
         requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -761,8 +680,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             print("response = \(response)")
             
-            //let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            //print("responseString = \(responseString)")
             defaults.removeObjectForKey("VectorToUpLoadServer")
         }
         task.resume()
@@ -964,16 +881,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             self.presentViewController(nav, animated: true, completion: nil)
  
-            //let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
-            /*
-            let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
-            popoverContentIPhone.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
-            popoverContentIPhone.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
-            popoverContentIPhone.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
-            popoverContentIPhone.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
-            popoverContentIPhone.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
-            navigationController?.pushViewController(popoverContentIPhone, animated: true)
-             */
         case .iPhone:
             let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
             popoverContentIPhone.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"

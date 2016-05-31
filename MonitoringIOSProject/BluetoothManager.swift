@@ -220,8 +220,6 @@ class BluetoothManager: NSObject{
                 
                 tiempoEncendidoDispositivoRecibido = true
                 hourOnDevice = hour[0]
-                print("hora encendido del dispositivo")
-                print(hourOnDevice)
                 
             }
             if i.componentsSeparatedByString("-").count >= 2{
@@ -235,22 +233,13 @@ class BluetoothManager: NSObject{
                 configurationHour = fmt.stringFromDate(date)
                 
                 let str:String = fmt.stringFromDate(date) + "254,"
-                print("hora actual enviada")
-                print(str)
+                
                 let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-                
-                //VectorPhysiologicalVariables.currentMeasures.removeAll()
-                //currentMeasurement.removeAll()
-                
-                
+
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                 
             }
-            /*
-            if i == "255" && activeCurrentMeasurementFlag == true{
-                //print("dato recivido")
-                //activeCurrentMeasurementFlag = false
-            }*/
+
             
             if (i == "255" || i == "2" || i == "55") && activeMeasurementTimeFlag == true{
                 
@@ -262,8 +251,6 @@ class BluetoothManager: NSObject{
                     str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }
                 
-                print("tiempo de medida enviado")
-                print(str)
                 let data = str!.dataUsingEncoding(NSUTF8StringEncoding)
                 activeCurrentHourFlag = false
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
@@ -406,29 +393,7 @@ class BluetoothManager: NSObject{
  
             }
         }
-        /**
-        //To read received data as integer
-         var buffer:UInt8 = 0x0
-         data.getBytes(&buffer, length: buffer.count)
-        var bpm:UInt16?
-        if (buffer.count >= 2){
-            if (buffer[0] & 0x01 == 0){
-                bpm = UInt16(buffer[1]);
-            }else {
-                bpm = UInt16(buffer[1]) << 8
-                bpm =  bpm! | UInt16(buffer[2])
-            }
-        }
-        
-        if let actualBpm = bpm{
-            print(actualBpm)
-        }else {
-            print(bpm)
-        }
-        */
-        
-        //let newStr = NSString(UTF8String:&buffer)
-        //print(newStr)
+
     }
 }
 
@@ -512,7 +477,6 @@ extension BluetoothManager:CBCentralManagerDelegate{
         
     }
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        print("desconectado!!!!")
         // Send notification that Bluetooth is connected and all required characteristics are discovered
         self.sendBTServiceNotificationWithIsBluetoothConnected(false)
         centralManager.scanForPeripheralsWithServices(nil, options: nil)
@@ -567,12 +531,6 @@ extension BluetoothManager:CBPeripheralDelegate{
                         self.monitorWritableCharacteristic = characteristic
                         monitorPeripheral?.setNotifyValue(true, forCharacteristic: characteristic)
                         
-                        //let str = "254"
-                        
-                        //let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-                        
-                        //monitorPeripheral?.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
-                        
                         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
                     default:
                         break
@@ -586,31 +544,8 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         
-        //print("Now read the value from the Monitor readable characteristic")
         readDataFromPeripheral(characteristic.value!)
         
-        
-        /*
-        //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
-        
-        let service = characteristic.service
-        if let serviceDescriptor = self.serviceDescriptorForService(service), let characteristicName = serviceDescriptor.characteristicNameForCharacteristicUUID(characteristic.UUID){
-            //print("Did receive update notification for characterisitic with name: \(characteristic)")
-            if characteristicName == CharacteristicsNames.ReadFromBLEBeeKey.rawValue{
-                //print("Now read the value from the Monitor readable characteristic")
-                readDataFromPeripheral(characteristic.value!)
-                
-                let str = "enviado"
-                
-                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-                
-                peripheral.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
-            }
-            if characteristicName  == CharacteristicsNames.SendToBLEBeeKey.rawValue{
-                print("envia dato")
-                
-            }
-        }*/
     }
     func sendBTServiceNotificationWithIsBluetoothConnected(isBluetoothConnected: Bool) {
         let connectionDetails = ["isConnected": isBluetoothConnected]
@@ -627,8 +562,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
-            print("enviado t254")
-            print(data)
+            
             activeCurrentHourFlag = true
             for i in 0...1{
                 print(i)
@@ -651,12 +585,11 @@ extension BluetoothManager:CBPeripheralDelegate{
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
     
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
-            print("enviado h254")
-            print(data)
+            
             activeMeasurementTimeFlag = true
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }else{
-            print("no envia tiempo de medida")
+            
             NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
         }
     
@@ -671,11 +604,10 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
-            print("enviado i254")
-            print(data)
+        
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }else{
-            print("no activa medida actual")
+            
             NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
         }
     }
@@ -706,8 +638,6 @@ extension BluetoothManager:CBPeripheralDelegate{
         if (activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil){
             let str = "h254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-            print(str)
-            print(data)
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
         }
         
