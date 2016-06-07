@@ -276,6 +276,7 @@
 		B544D9AD1D04F2CE00248390 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
 		B544D9B21D04F48000248390 /* CBCAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544D9B11D04F48000248390 /* CBCAnimationViewController.swift */; };
 		B544D9B31D04F48000248390 /* CBCAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544D9B11D04F48000248390 /* CBCAnimationViewController.swift */; };
+		B544D9D41D077D2000248390 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B544D9D61D077D2000248390 /* Localizable.strings */; };
 		B5FA03371CF428F0003EB9E6 /* GBCSettingsHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA03361CF428F0003EB9E6 /* GBCSettingsHour.swift */; };
 		D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */; };
 		D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F1E1CD137C900300593 /* AppDelegate.swift */; };
@@ -512,6 +513,10 @@
 		B544D9AA1D04F2CE00248390 /* GBCAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GBCAnimationView.h; path = MonitoringIOSProjectTests/GBCAnimationView.h; sourceTree = SOURCE_ROOT; };
 		B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GBCAnimationView.m; path = MonitoringIOSProjectTests/GBCAnimationView.m; sourceTree = SOURCE_ROOT; };
 		B544D9B11D04F48000248390 /* CBCAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CBCAnimationViewController.swift; path = ../CBCAnimationViewController.swift; sourceTree = "<group>"; };
+		B544D9C21D077D0800248390 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		B544D9D01D077D0800248390 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B544D9D51D077D2000248390 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B544D9D71D077D2700248390 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B5FA03361CF428F0003EB9E6 /* GBCSettingsHour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCSettingsHour.swift; sourceTree = "<group>"; };
 		D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCConfigurationMeasuringTimeViewController.swift; sourceTree = "<group>"; };
 		D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonitoringIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -741,6 +746,7 @@
 		D83E0F121CD137C900300593 = {
 			isa = PBXGroup;
 			children = (
+				B544D9D61D077D2000248390 /* Localizable.strings */,
 				D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */,
 				D83E0F691CD1386700300593 /* Accelerate.framework */,
 				D83E0F6B1CD1387500300593 /* QuartzCore.framework */,
@@ -950,6 +956,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = D83E0F121CD137C900300593;
 			productRefGroup = D83E0F1C1CD137C900300593 /* Products */;
@@ -1127,6 +1134,7 @@
 				B544D9051D04F21100248390 /* AnimCurva1920x1080V1.00038.jpg in Resources */,
 				B544D9291D04F21100248390 /* AnimCurva1920x1080V1.00056.jpg in Resources */,
 				B544D9971D04F21100248390 /* AnimCurva1920x1080V1.00111.jpg in Resources */,
+				B544D9D41D077D2000248390 /* Localizable.strings in Resources */,
 				B544D9991D04F21100248390 /* AnimCurva1920x1080V1.00112.jpg in Resources */,
 				B544D92D1D04F21100248390 /* AnimCurva1920x1080V1.00058.jpg in Resources */,
 				B544D8CB1D04F21100248390 /* AnimCurva1920x1080V1.00009.jpg in Resources */,
@@ -1380,10 +1388,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B544D9D61D077D2000248390 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B544D9D51D077D2000248390 /* Base */,
+				B544D9D71D077D2700248390 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		D83E0F221CD137C900300593 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D83E0F231CD137C900300593 /* Base */,
+				B544D9C21D077D0800248390 /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1392,6 +1410,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D83E0F2B1CD137C900300593 /* Base */,
+				B544D9D01D077D0800248390 /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

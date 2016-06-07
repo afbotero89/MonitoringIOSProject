@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0Zv-zC-LBd"; */
+"0Zv-zC-LBd.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1OL-rj-RdI"; */
+"1OL-rj-RdI.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Display "; ObjectID = "8ax-y8-VOS"; */
+"8ax-y8-VOS.normalTitle" = "Display ";
+
+/* Class = "UIViewController"; title = "Historical graphics stored"; ObjectID = "9RS-rQ-aTU"; */
+"9RS-rQ-aTU.title" = "Historical graphics stored";
+
+/* Class = "UIButton"; normalTitle = "Get a measure"; ObjectID = "ANx-on-6rY"; */
+"ANx-on-6rY.normalTitle" = "Get a measure";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "EC4-vm-8ET"; */
+"EC4-vm-8ET.normalTitle" = "Done";
+
+/* Class = "UINavigationItem"; title = "User configuration"; ObjectID = "HLj-xb-ybs"; */
+"HLj-xb-ybs.title" = "User configuration";
+
+/* Class = "UINavigationItem"; title = "Monitoring"; ObjectID = "P3e-lu-W6G"; */
+"P3e-lu-W6G.title" = "Monitoring";
+
+/* Class = "UINavigationItem"; title = "Current Measurement"; ObjectID = "SMK-6i-THj"; */
+"SMK-6i-THj.title" = "Current Measurement";
+
+/* Class = "UINavigationItem"; title = "Calendar"; ObjectID = "YIy-mh-rqL"; */
+"YIy-mh-rqL.title" = "Calendar";
+
+/* Class = "UINavigationItem"; title = "General information"; ObjectID = "eL1-BG-yux"; */
+"eL1-BG-yux.title" = "General information";
+
+/* Class = "UINavigationItem"; title = "Current Measurement"; ObjectID = "qej-n6-Hty"; */
+"qej-n6-Hty.title" = "Current Measurement";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "unJ-wc-41X"; */
+"unJ-wc-41X.normalTitle" = "Done";

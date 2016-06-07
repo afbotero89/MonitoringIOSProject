@@ -142,7 +142,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
         ]
         
-        pressuresGraph.title = "Pressure graphics"
+        pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
         pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
         heartRateGraph.title = "Heart rate graphic"
         heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
