@@ -191,6 +191,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
                 case .iPhone:
+                    userSelectViewController = UserSelectViewPrincipalViewController.hitorialViewController
+                    
                     dispatch_async(dispatch_get_main_queue(), {
                     let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
                         self.showViewController(popoverContent!, sender: nil)

@@ -372,7 +372,6 @@ class BluetoothManager: NSObject{
                 if activeCurrentMeasurementFlag == true && error == false{
                     
                     activeCurrentMeasurementFlag = false
-                    
                     NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
                 }
                 

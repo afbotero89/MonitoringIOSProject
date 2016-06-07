@@ -186,9 +186,9 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 
             case .iPhone:
                 
-                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.6), -20.0)
+                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
                 
-                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.6), -20.0)
+                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
                 
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 10, y: 120, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))

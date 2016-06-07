@@ -85,7 +85,15 @@ class GBCPlotsViewController: UIViewController {
         pressuresGraph.paddingLeft   = 50.0
         pressuresGraph.paddingRight  = 0.0
         pressuresGraph.paddingTop    = 0.0
-        pressuresGraph.paddingBottom = 50.0
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            pressuresGraph.paddingBottom = 50.0
+            heartRateGraph.paddingBottom = 50.0
+        case .iPhone:
+            pressuresGraph.paddingBottom = 45.0
+            heartRateGraph.paddingBottom = 45.0
+        }
         
         plotAreaFrame.paddingTop    = 15.0
         plotAreaFrame.paddingRight  = 15.0
@@ -95,7 +103,6 @@ class GBCPlotsViewController: UIViewController {
         heartRateGraph.paddingLeft   = 50.0
         heartRateGraph.paddingRight  = 0.0
         heartRateGraph.paddingTop    = 0.0
-        heartRateGraph.paddingBottom = 50.0
         
         plotAreaFrameHeartRate.paddingTop    = 15.0
         plotAreaFrameHeartRate.paddingRight  = 15.0
@@ -138,16 +145,29 @@ class GBCPlotsViewController: UIViewController {
             let text =  PhysiologicalVariablesStoredInDatabaseSQL.hour
             
             for i in 0..<text.count{
-                
-                let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
-                xLabel.tickLocation = Double(i)/10.0
-                if i%2 == 0{
-                    locations.insert(Double(i)/10.0)
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
+                    xLabel.tickLocation = Double(i)/10.0
+                    if i%2 == 0{
+                        locations.insert(Double(i)/10.0)
+                    }
+                    xLabel.offset = 0
+                    labels.insert(xLabel)
+                    xAxis.majorTickLocations = locations
+                    xAxis.axisLabels = labels
+                case .iPhone:
+                    let xLabel = CPTAxisLabel.init(text: text[i].componentsSeparatedByString(":")[0] + ":" + text[i].componentsSeparatedByString(":")[1], textStyle: style)
+                    xLabel.tickLocation = Double(i)/10.0
+                    if i%2 == 0{
+                        locations.insert(Double(i)/10.0)
+                    }
+                    xLabel.offset = 0
+                    labels.insert(xLabel)
+                    xAxis.majorTickLocations = locations
+                    xAxis.axisLabels = labels
                 }
-                xLabel.offset = 0
-                labels.insert(xLabel)
-                xAxis.majorTickLocations = locations
-                xAxis.axisLabels = labels
+                
    
             }
         }
@@ -179,7 +199,7 @@ class GBCPlotsViewController: UIViewController {
                                NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 12)!]
         case .iPhone:
             attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
-                               NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 10)!]
+                               NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 8)!]
         }
         
         let labelTextStyle = CPTMutableTextStyle(attributes: attributes)
@@ -252,6 +272,7 @@ class GBCPlotsViewController: UIViewController {
             xAxisHeartRate.labelingPolicy = .None
             
         case .hitorialViewController:
+            print("entra historial!!!")
             var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
             xAxisHeartRate.labelingPolicy = .None
             //xAxis.hidden = false
@@ -261,13 +282,23 @@ class GBCPlotsViewController: UIViewController {
             style.fontSize = 12.0
             let text =  PhysiologicalVariablesStoredInDatabaseSQL.hour
             for i in 0..<text.count{
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
+                    xLabel.tickLocation = Double(i)/10.0
+                    xLabel.offset = 0
+                    xAxisHeartRate.majorTickLocations = locations
+                    labels.insert(xLabel)
+                    xAxisHeartRate.axisLabels = labels
+                case .iPhone:
+                    let xLabel = CPTAxisLabel.init(text: text[i].componentsSeparatedByString(":")[0] + ":" + text[i].componentsSeparatedByString(":")[1], textStyle: style)
+                    xLabel.tickLocation = Double(i)/10.0
+                    xLabel.offset = 0
+                    xAxisHeartRate.majorTickLocations = locations
+                    labels.insert(xLabel)
+                    xAxisHeartRate.axisLabels = labels
+                }
                 
-                let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
-                xLabel.tickLocation = Double(i)/10.0
-                xLabel.offset = 0
-                xAxisHeartRate.majorTickLocations = locations
-                labels.insert(xLabel)
-                xAxisHeartRate.axisLabels = labels
                 
             }
         }
@@ -289,7 +320,7 @@ class GBCPlotsViewController: UIViewController {
                                        NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 12)!]
         case .iPhone:
             attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
-                                       NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 10)!]
+                                       NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 8)!]
         }
         
         let labelTextStyleHeartRate = CPTMutableTextStyle(attributes: attributesHeartRate)
