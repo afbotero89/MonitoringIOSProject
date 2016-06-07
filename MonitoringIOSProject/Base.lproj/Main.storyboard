@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5K-N6-6Ak">
-                                <rect key="frame" x="206" y="84" width="188" height="41"/>
+                                <rect key="frame" x="206" y="74" width="188" height="41"/>
                                 <color key="backgroundColor" red="0.043137254901960784" green="0.17254901960784313" blue="0.25490196078431371" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="87e-vy-dMZ"/>
@@ -38,14 +38,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="jKl-Bq-YWP">
-                                <rect key="frame" x="138" y="80" width="60" height="50"/>
+                                <rect key="frame" x="138" y="70" width="60" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Ak8-nH-ITd"/>
                                     <constraint firstAttribute="height" constant="50" id="DsT-oG-do0"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-on-6rY">
-                                <rect key="frame" x="205" y="547" width="190" height="35"/>
+                                <rect key="frame" x="205" y="553" width="190" height="35"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="3lj-79-PfY"/>
@@ -59,7 +59,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuE-21-oHP">
-                                <rect key="frame" x="350" y="547" width="34" height="35"/>
+                                <rect key="frame" x="350" y="553" width="34" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="fsb-bI-JXa"/>
                                     <constraint firstAttribute="width" constant="34" id="p20-R6-xnb"/>
@@ -72,14 +72,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="18" id="015-Ov-5SH"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="12" id="015-Ov-5SH"/>
                             <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgy-eZ-hUF"/>
-                            <constraint firstItem="jKl-Bq-YWP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="FaS-86-Bye"/>
+                            <constraint firstItem="jKl-Bq-YWP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="6" id="FaS-86-Bye"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="G90-uC-S44"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RFn-sd-I0N"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-45" id="WLA-5H-TQg"/>
                             <constraint firstItem="C5K-N6-6Ak" firstAttribute="leading" secondItem="jKl-Bq-YWP" secondAttribute="trailing" constant="8" id="dz0-xl-Kce"/>
-                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="jEu-i4-t9m"/>
+                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="jEu-i4-t9m"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
@@ -108,8 +108,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="xkJ-IC-4MD"/>
+                        <outlet property="heightConstraintStatusImage" destination="DsT-oG-do0" id="zUm-wy-reL"/>
+                        <outlet property="heightConstraintStatusLabel" destination="87e-vy-dMZ" id="ehx-M5-Eme"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
                         <outlet property="statusConnectionLabel" destination="C5K-N6-6Ak" id="0kf-Rs-qT4"/>
+                        <outlet property="widthConstraintStatusImage" destination="Ak8-nH-ITd" id="hrn-p8-SoC"/>
+                        <outlet property="widthConstraintStatusLabel" destination="UTX-Ho-tz0" id="HDK-Ui-KSM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

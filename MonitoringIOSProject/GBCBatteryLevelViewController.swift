@@ -71,9 +71,11 @@ class GBCBatteryLevelViewController: UIViewController {
             batteryLevelImage.image = UIImage(named: "BatteryLevel10")
             
         // Battery level default
-        }else{
+        }else if(VectorPhysiologicalVariables.batteryLevel.last > 100){
             batteryLevelImage.image = UIImage(named: "BatteryCharging")
             batteryLevelPercentage.text = "Battery charging"
+        }else{
+            batteryLevelImage.image = UIImage(named: "BatteryLevel5")
         }
         
         

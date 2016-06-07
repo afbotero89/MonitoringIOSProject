@@ -71,10 +71,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
+    @IBOutlet weak var widthConstraintStatusImage: NSLayoutConstraint!
+    
+    @IBOutlet weak var heightConstraintStatusImage: NSLayoutConstraint!
+    
+    @IBOutlet weak var heightConstraintStatusLabel: NSLayoutConstraint!
+    
+    @IBOutlet weak var widthConstraintStatusLabel: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         addAttributesToViewController()
         
@@ -771,18 +777,26 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
                 
             case .iPhone:
+                heightConstraintStatusImage.constant = 21
+                widthConstraintStatusImage.constant = 21
+                heightConstraintStatusLabel.constant = 21
+                widthConstraintStatusLabel.constant = 188
                 
+                statusConnectionLabel.clipsToBounds = true
+                
+                statusConnectionLabel.layer.cornerRadius = 5
+                /*
                 // Image status connection
                 imageStatusConnection.frame = CGRect(x: 0, y: 70, width: 21, height: 21)
                 
                 // Status connection label
                 statusConnectionLabel.frame = CGRect(x: 20, y: 70, width: 188, height: 21)
-                
+                */
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!/2)-20, width: 130, height: 80)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!)+20, width: 130, height: 50)
+                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!)+25, width: 130, height: 50)
                 
                 
                 pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
@@ -793,7 +807,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 110, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
+                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 115, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
             }
             
         }else{
@@ -821,13 +835,21 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
 
             case .iPhone:
-                
+                /*
                 // Image status connection
                 imageStatusConnection.frame = CGRect(x: 0, y: 40, width: 21, height: 21)
                 
                 // Status connection label
                 statusConnectionLabel.frame = CGRect(x: 20, y: 40, width: 188, height: 21)
+                */
+                heightConstraintStatusImage.constant = 21
+                widthConstraintStatusImage.constant = 21
+                heightConstraintStatusLabel.constant = 21
+                widthConstraintStatusLabel.constant = 188
                 
+                statusConnectionLabel.clipsToBounds = true
+                
+                statusConnectionLabel.layer.cornerRadius = 5
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 80)
                 
