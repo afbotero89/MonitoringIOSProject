@@ -12,6 +12,8 @@ import SystemConfiguration
 
 var activeCurrentMeasurementFlag = false
 
+var measureRequestedFlag = false
+
 var activeCurrentHourFlag = false
 
 var activeMeasurementTimeFlag = false
@@ -23,6 +25,7 @@ var typeError:Int?
 var configurationHour:String?
 
 var hourOnDevice:String?
+
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
@@ -200,13 +203,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          
                                                          object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.displayCurrentMeasurementPopover),
-                                                         
-                                                         name: "displayCurrentMeasurementPopoverNotification",
-                                                         
-                                                         object: nil)
+
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
                                                          selector: #selector(ViewController.displaySavedHistoryGraphs),
@@ -225,9 +222,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
-                                                         selector: #selector(ViewController.displayErrorMessage),
+                                                         selector: #selector(ViewController.startAnimation),
                                                          
-                                                         name: "displayErrorMessage",
+                                                         name: "startAnimation",
                                                          
                                                          object: nil)
         
@@ -857,40 +854,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         //let alertController = UIAlertController(title: "There is no connection", message: "Check connection", preferredStyle:UIAlertControllerStyle.Alert)
         //self.presentViewController(alertController, animated: true, completion: nil)
     }
-
-    func displayCurrentMeasurementPopover(){
-        
-        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurement"))! as! GBCCurrentMeasurementViewController
-        
-        popoverContent.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
-        popoverContent.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
-        popoverContent.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
-        popoverContent.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
-        popoverContent.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
-        
-        switch UserSelectedConfiguration.typeOfDevice!{
-        case .iPad:
-            
-            let nav = UINavigationController(rootViewController: popoverContent)
-            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
-            let popover = nav.popoverPresentationController
-            popoverContent.preferredContentSize = CGSizeMake(500,500)
-            popover!.delegate = self
-            popover!.sourceView = self.view
-            popover!.sourceRect = CGRectMake(self.view.frame.width/2,self.view.frame.height/6,0,0)
-            
-            self.presentViewController(nav, animated: true, completion: nil)
- 
-        case .iPhone:
-            let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("currentMeasurementiPhone"))! as! GBCCurrentMeasurementViewController
-            popoverContentIPhone.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
-            popoverContentIPhone.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
-            popoverContentIPhone.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
-            popoverContentIPhone.heartRatePressureString = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
-            popoverContentIPhone.batteryLevelString = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
-            navigationController?.pushViewController(popoverContentIPhone, animated: true)
-        }
-    }
     
     /**
      Auto set XY range
@@ -964,28 +927,27 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
     }
     
-    func displayErrorMessage(){
-        let alertController:UIAlertController?
+    func startAnimation(){
+        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("animationViewController"))! as! CBCAnimationViewController
         
-        switch typeError!{
-        case 1:
-            // Desconexion de manguera
-            alertController = UIAlertController(title: "Device error", message: "Disconnect hose", preferredStyle:UIAlertControllerStyle.Alert)
-        case 2:
-            alertController = UIAlertController(title: "Device error", message: "Circuit leaks", preferredStyle:UIAlertControllerStyle.Alert)
-        case 3:
-            alertController = UIAlertController(title: "Device error", message: "Incorrect pressure", preferredStyle:UIAlertControllerStyle.Alert)
-        case 4:
-            alertController = UIAlertController(title: "Device error", message: "Monitor measure canceled", preferredStyle:UIAlertControllerStyle.Alert)
-        case 5:
-            alertController = UIAlertController(title: "Device error", message: "heart rate not caculated", preferredStyle:UIAlertControllerStyle.Alert)
-        case 6:
-            alertController = UIAlertController(title: "Device error", message: "Incorrect pressure", preferredStyle:UIAlertControllerStyle.Alert)
-        default:
-            alertController = UIAlertController(title: "Device error", message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            
+            let nav = UINavigationController(rootViewController: popoverContent)
+            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover = nav.popoverPresentationController
+            popoverContent.preferredContentSize = CGSizeMake(500,500)
+            popover!.delegate = self
+            popover!.sourceView = self.view
+            popover!.sourceRect = CGRectMake(self.view.frame.width/2,self.view.frame.height/6,0,0)
+            
+            self.presentViewController(nav, animated: true, completion: nil)
+            
+        case .iPhone:
+            let popoverContentIPhone = (self.storyboard?.instantiateViewControllerWithIdentifier("animationViewController"))! as! CBCAnimationViewController
+
+            navigationController?.pushViewController(popoverContentIPhone, animated: true)
         }
-        alertController!.addAction(UIAlertAction(title: "Done", style: .Default, handler: nil))
-        self.presentViewController(alertController!, animated: true, completion: nil)
     }
 
     // MARK: - Buttons
@@ -1031,6 +993,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
         popover.delegate = self
         self.presentViewController(documentationTableViewController, animated: true, completion: nil)
+        
+        
     }
     
     @IBAction func currentMeasurementButton(sender: AnyObject) {
@@ -1040,7 +1004,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         activeCurrentMeasurementFlag = true
         
+        measureRequestedFlag = true
+        
         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+        
+        //NSNotificationCenter.defaultCenter().postNotificationName("startAnimation", object: nil, userInfo: nil)
         /*
         if activeCurrentMeasurementFlag == false{
             

@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 
+var contador = 0
 
 enum CharacteristicsNames:String {
     case ReadFromBLEBeeKey = "ReadFromBLEBee"
@@ -224,6 +225,12 @@ class BluetoothManager: NSObject{
             }
             if i.componentsSeparatedByString("-").count >= 2{
                 activeCurrentHourFlag = false
+            }
+            
+            if (i == "255" && measureRequestedFlag == true){
+                measureRequestedFlag = false
+                //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("startAnimation", object: nil, userInfo: nil)
             }
             
             if (i == "255") && activeCurrentHourFlag == true{
@@ -628,7 +635,14 @@ extension BluetoothManager:CBPeripheralDelegate{
         }*/
     }
     func timerPrueba(){
-        
+        contador = contador + 1
+        if contador == 30{
+            contador = 0
+            
+            //NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
+            //NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+        }
+        //print(contador)
         if activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil{
             let str = "i254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)

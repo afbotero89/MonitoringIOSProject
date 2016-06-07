@@ -40,8 +40,8 @@ class BWCircularSlider: UIControl {
     var textField:UITextField?
     var radius:CGFloat = 0
     var angle:Int!
-    var startColor = UIColor.blueColor()
-    var endColor = UIColor.purpleColor()
+    var startColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
+    var endColor = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 1.0)
     
     // Custom initializer
     convenience init(startColor:UIColor, endColor:UIColor, frame:CGRect){

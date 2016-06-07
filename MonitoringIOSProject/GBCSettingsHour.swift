@@ -9,7 +9,7 @@
 import UIKit
 
 class GBCSettingsHour: NSObject {
-
+    
     
     func horaInicioDispositivo(horaConexion:String, tiempoDispositivoEncendido:String)->String{
         // Hora de inicio del dispositivo

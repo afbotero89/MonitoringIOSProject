@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -135,14 +135,6 @@
                                     <constraint firstAttribute="width" constant="347" id="QBv-FV-fXV"/>
                                     <constraint firstAttribute="height" constant="306" id="SgY-B3-OZS"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unJ-wc-41X">
                                 <rect key="frame" x="270" y="466" width="61" height="30"/>
@@ -326,6 +318,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qwc-IJ-vf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3636" y="1552"/>
+        </scene>
+        <!--Animation View Controller-->
+        <scene sceneID="Jte-On-Lxv">
+            <objects>
+                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kCW-lP-h5P"/>
+                        <viewControllerLayoutGuide type="bottom" id="lk2-k1-6jL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UqV-TU-0NF" customClass="GBCAnimationView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="currentView" destination="UqV-TU-0NF" id="JNR-Z1-0on"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ad-sJ-K50" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2156" y="173"/>
         </scene>
         <!--Current Measurement-->
         <scene sceneID="5Oa-du-Yqc">
@@ -975,11 +988,27 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC4-vm-8ET">
+                                <rect key="frame" x="273" y="392" width="55" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="pay-UN-hg2"/>
+                                    <constraint firstAttribute="height" constant="30" id="yuU-KB-nAk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButton:" destination="3s2-5p-4id" eventType="touchUpInside" id="hn5-ff-ThC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="GHS-8B-uUI" firstAttribute="leading" secondItem="OgG-za-CzD" secondAttribute="trailing" constant="8" id="0Wf-DT-xvV"/>
                             <constraint firstItem="OgG-za-CzD" firstAttribute="top" secondItem="hXq-Or-0hk" secondAttribute="bottom" constant="38" id="5sp-g2-LyX"/>
+                            <constraint firstItem="EC4-vm-8ET" firstAttribute="top" secondItem="uVt-FP-cgx" secondAttribute="bottom" constant="35" id="7tU-TI-Mme"/>
                             <constraint firstItem="cea-V7-0W9" firstAttribute="leading" secondItem="rtp-My-1NT" secondAttribute="trailing" constant="15" id="CiR-rF-WRN"/>
                             <constraint firstItem="uD8-Zc-cHv" firstAttribute="centerX" secondItem="btj-IO-w0I" secondAttribute="centerX" id="EBs-ac-X0T"/>
                             <constraint firstItem="uVt-FP-cgx" firstAttribute="leading" secondItem="6hY-Ty-G10" secondAttribute="trailing" constant="15" id="GCA-eq-3qR"/>
@@ -987,6 +1016,7 @@
                             <constraint firstItem="u4n-3s-EZZ" firstAttribute="top" secondItem="f6K-AW-Afk" secondAttribute="bottom" constant="33" id="OWb-ZY-FeA"/>
                             <constraint firstItem="XAZ-Hf-EKb" firstAttribute="leading" secondItem="hXq-Or-0hk" secondAttribute="trailing" constant="8" id="PcV-Ip-Q1r"/>
                             <constraint firstItem="uD8-Zc-cHv" firstAttribute="leading" secondItem="u4n-3s-EZZ" secondAttribute="trailing" constant="15" id="UjF-N2-sjf"/>
+                            <constraint firstItem="EC4-vm-8ET" firstAttribute="centerX" secondItem="btj-IO-w0I" secondAttribute="centerX" id="W2V-SX-QV9"/>
                             <constraint firstItem="uVt-FP-cgx" firstAttribute="top" secondItem="OgG-za-CzD" secondAttribute="bottom" constant="41" id="WKz-g9-UiH"/>
                             <constraint firstItem="c2x-ds-Fc7" firstAttribute="leading" secondItem="uVt-FP-cgx" secondAttribute="trailing" constant="8" id="YwY-3n-QGe"/>
                             <constraint firstItem="gXL-j6-eHV" firstAttribute="leading" secondItem="uD8-Zc-cHv" secondAttribute="trailing" constant="8" id="aWr-oz-ofn"/>
@@ -1008,6 +1038,7 @@
                         <outlet property="averagePressureValue" destination="XAZ-Hf-EKb" id="g4w-CZ-sfn"/>
                         <outlet property="batteryLevelImage" destination="6hY-Ty-G10" id="qB5-Rn-IYl"/>
                         <outlet property="diastolicPressureValue" destination="kix-D6-u41" id="CFx-6K-fs0"/>
+                        <outlet property="doneButtonIphone" destination="EC4-vm-8ET" id="9ib-SR-u2k"/>
                         <outlet property="heartRateValue" destination="GHS-8B-uUI" id="iX5-GS-7ny"/>
                         <outlet property="systolicPressureValue" destination="gXL-j6-eHV" id="PLC-xm-R1x"/>
                     </connections>

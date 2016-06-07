@@ -12,3 +12,4 @@
 
 #endif /* MonitoringIOSProject_Header_File_h */
 #import "CorePlot-CocoaTouch.h"
+#import "GBCAnimationView.h"

@@ -10,6 +10,7 @@ import UIKit
 
 class GBCCurrentMeasurementViewController: UIViewController {
 
+    @IBOutlet weak var doneButtonIphone: UIButton!
     
     @IBOutlet weak var systolicPressureValue: UILabel!
     
@@ -52,6 +53,7 @@ class GBCCurrentMeasurementViewController: UIViewController {
         
         addAttributesToViewController()
         
+        self.navigationItem.setHidesBackButton(true, animated:true)
         // Do any additional setup after loading the view.
     }
 
@@ -61,6 +63,16 @@ class GBCCurrentMeasurementViewController: UIViewController {
     }
     
     func addAttributesToViewController(){
+        
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            print("iPhone")
+        case .iPhone:
+            doneButtonIphone.clipsToBounds = true
+            doneButtonIphone.layer.cornerRadius = 10
+        }
+
+        
         let color1 = UIColor.whiteColor().CGColor
         
         let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.2).CGColor
@@ -136,4 +148,8 @@ class GBCCurrentMeasurementViewController: UIViewController {
         }
     }
 
+    @IBAction func doneButton(sender: AnyObject) {
+        print("done")
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
 }
