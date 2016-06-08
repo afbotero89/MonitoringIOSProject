@@ -26,7 +26,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     @IBOutlet weak var displayRecordButton: UIButton!
     
     
-    
     let requestGetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
     
     var responseString:NSString!
@@ -37,6 +36,9 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         // todays date.
         let date = NSDate()
         
+        title = NSLocalizedString("Calendar", comment: "")
+        
+        displayRecordButton.setTitle(NSLocalizedString("Display", comment: ""), forState: .Normal)
         // create an instance of calendar view with
         // base date (Calendar shows 12 months range from current base date)
         // selected date (marked dated in the calendar)
@@ -101,8 +103,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 case .iPhone:
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        let alert = UIAlertController(title: "Connection fail", message: "Check your internet connection", preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your internet connection", comment: ""), preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
                         self.presentViewController(alert, animated: true, completion: nil)
                     })
                     
@@ -131,8 +133,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 case .iPhone:
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        let alert = UIAlertController(title: "Connection fail", message: "There is not data", preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("There is not data", comment: ""), preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
                         self.presentViewController(alert, animated: true, completion: nil)
                     })
                     

@@ -16,7 +16,7 @@ class CBCAnimationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Measuring...."
+        title = NSLocalizedString("Measuring", comment: "") + "...."
         
         // Do any additional setup after loading the view.
         // An array with the name of the frames composing the animation
@@ -109,22 +109,22 @@ class CBCAnimationViewController: UIViewController {
         switch typeError!{
         case 1:
             // Desconexion de manguera
-            alertController = UIAlertController(title: "Device error", message: "Disconnect hose", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 2:
-            alertController = UIAlertController(title: "Device error", message: "Circuit leaks", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 3:
-            alertController = UIAlertController(title: "Device error", message: "Incorrect pressure", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 4:
-            alertController = UIAlertController(title: "Device error", message: "Monitor measure canceled", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 5:
-            alertController = UIAlertController(title: "Device error", message: "heart rate not caculated", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 6:
-            alertController = UIAlertController(title: "Device error", message: "Incorrect pressure", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         default:
-            alertController = UIAlertController(title: "Device error", message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
         }
         
-        alertController!.addAction(UIAlertAction(title: "Done", style: .Default, handler: {
+        alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {
             action in
             
             switch UserSelectedConfiguration.typeOfDevice!{

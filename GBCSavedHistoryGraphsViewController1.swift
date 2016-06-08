@@ -79,10 +79,10 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.heartRatePressurePlot.dataLineStyle = plotLineStyle
         self.heartRatePressurePlot.plotSymbol = lowSymbol
         
-        self.systolicPressurePlot.title = "Systolic pressure"
-        self.diastolicPressurePlot.title = "Diastolic pressure"
-        self.averagePressurePlot.title = "Average pressure"
-        self.heartRatePressurePlot.title = "Heart rate"
+        self.systolicPressurePlot.title = NSLocalizedString("Systolic pressure", comment: "")
+        self.diastolicPressurePlot.title = NSLocalizedString("Diastolic pressure", comment: "")
+        self.averagePressurePlot.title = NSLocalizedString("Average pressure", comment: "")
+        self.heartRatePressurePlot.title = NSLocalizedString("Heart rate", comment: "")
         
         let attrs = [
             NSForegroundColorAttributeName : UIColor.blackColor(),
@@ -90,9 +90,9 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 
         ]
             
-        self.pressuresGraph.title = "Pressure graphics"
+        self.pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
         self.pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
-        self.heartRateGraph.title = "Heart rate graphic"
+        self.heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
         self.heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
             
         self.pressuresGraph.addPlot(self.systolicPressurePlot)

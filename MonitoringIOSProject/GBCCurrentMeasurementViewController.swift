@@ -92,7 +92,7 @@ class GBCCurrentMeasurementViewController: UIViewController {
         if VectorPhysiologicalVariables.batteryLevel.last != nil{
             BatteryLevel.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
         }else{
-            BatteryLevel.text = "Device disconnected" + " %"
+            BatteryLevel.text = NSLocalizedString("Device disconnected", comment: "") + " %"
         }
         //BatteryLevel.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
@@ -143,7 +143,7 @@ class GBCCurrentMeasurementViewController: UIViewController {
             // Battery level default
         }else{
             batteryLevelImage.image = UIImage(named: "BatteryCharging")
-            BatteryLevel.text = "Battery charging"
+            BatteryLevel.text = NSLocalizedString("Battery charging", comment: "")
             
         }
     }

@@ -34,7 +34,7 @@ class GBCAditionalInformationPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         valueSystolicPressure.text = valueSystolicPressureString
         valueAveragePressure.text = valueAveragePressureString
         valueDiastolicPressure.text = valueDiastolicPressureString

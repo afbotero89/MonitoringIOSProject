@@ -79,8 +79,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var widthConstraintStatusLabel: NSLayoutConstraint!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title =  NSLocalizedString("Monitoring", comment: "")
+        
+        statusConnectionLabel.text = NSLocalizedString("Scanning bluetooth", comment: "") + "..."
+        
+        currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), forState: .Normal)
         
         addAttributesToViewController()
         
@@ -131,10 +139,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         heartRatePressurePlot.dataLineStyle = plotLineStyle
         heartRatePressurePlot.plotSymbol = lowSymbol
         
-        systolicPressurePlot.title = "Systolic pressure"
-        diastolicPressurePlot.title = "Diastolic pressure"
-        averagePressurePlot.title = "Average pressure"
-        heartRatePressurePlot.title = "Heart rate"
+        systolicPressurePlot.title = NSLocalizedString("Systolic pressure", comment: "")
+        diastolicPressurePlot.title = NSLocalizedString("Diastolic pressure", comment: "")
+        averagePressurePlot.title =  NSLocalizedString("Average pressure", comment: "")
+        heartRatePressurePlot.title = NSLocalizedString("Heart rate", comment: "")
         
         let attrs = [
             NSForegroundColorAttributeName : UIColor.blackColor(),
@@ -144,7 +152,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
         pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
-        heartRateGraph.title = "Heart rate graphic"
+        heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
         heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
         
         pressuresGraph.addPlot(systolicPressurePlot)
@@ -245,7 +253,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Labe1: pressure value
         labelPressure.numberOfLines = 10
-        labelPressure.text = " Last messure \n\n Systolic:\n Diastolic:\n Average:"
+        labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):\n \(NSLocalizedString("Diastolic", comment: "")):\n \(NSLocalizedString("Average", comment: "")):"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelPressure.layer.cornerRadius = 5
@@ -253,7 +261,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Label2: heart rate value
         labelHeartRate.numberOfLines = 10
-        labelHeartRate.text = " Last messure \n\n Heart Rate:"
+        labelHeartRate.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Heart Rate", comment: "")):"
         labelHeartRate.textColor = UIColor.whiteColor()
         labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelHeartRate.layer.cornerRadius = 10
@@ -616,8 +624,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
 
             // Label update with latest measures
-            labelPressure.text = " Last messure \n\n Systolic:  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n Diastolic: \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n Average:  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
-            labelHeartRate.text = " Last messure \n\n Heart Rate: \(VectorPhysiologicalVariables.heartRate.last!) BPM"
+            labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n \(NSLocalizedString("Diastolic", comment: "")): \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n \(NSLocalizedString("Average", comment: "")):  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
+            labelHeartRate.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Heart Rate", comment: "")): \(VectorPhysiologicalVariables.heartRate.last!) BPM"
         
             //Change the x and y range.
         
@@ -695,7 +703,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Display popup
         let storyboard = UIStoryboard(name: "AditionalInformationPopPup", bundle: nil)
         let additionalInformationPopup = storyboard.instantiateViewControllerWithIdentifier("aditionalInformationPopup") as! GBCAditionalInformationPopupViewController
-        additionalInformationPopup.title = "General information"
+        additionalInformationPopup.title = NSLocalizedString("General information", comment: "")
         additionalInformationPopup.modalPresentationStyle = UIModalPresentationStyle.Popover
         
         //let plotSelected = PhysiologicalVariables(rawValue: plotIdentifier)?.displayString()
@@ -735,11 +743,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             if let isConnected: Bool = userInfo["isConnected"] {
                 if isConnected {
                     self.imageStatusConnection.image = UIImage(named: "Bluetooth_Connected")
-                    self.statusConnectionLabel.text = "Connected"
+                    self.statusConnectionLabel.text = NSLocalizedString("Connected", comment: "")
                 
                 } else {
                     self.imageStatusConnection.image = UIImage(named: "Bluetooth_Disconnected")
-                    self.statusConnectionLabel.text = "Disconnected"
+                    self.statusConnectionLabel.text = NSLocalizedString("Disconnected", comment: "")
                   
                 }
             }
@@ -912,12 +920,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func displayAlertThereIsNoDataController(){
         if internetConnectionError == true{
-            let alert = UIAlertController(title: "Connection fail", message: "Check your internet connection", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+            let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your internet connection", comment: ""), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
             self.presentViewController(alert, animated: true){}
         }else{
-            let alert = UIAlertController(title: "Connection fail", message: "There is not data", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Done", style: .Default) { _ in })
+            let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("There is not data", comment: ""), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
             self.presentViewController(alert, animated: true){}
         }
 
@@ -1022,7 +1030,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     @IBAction func currentMeasurementButton(sender: AnyObject) {
         //displayCurrentMeasurementPopover()
         
-        currentMeasurementLabel.setTitle("Get a measure", forState: .Normal)
+        currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), forState: .Normal)
         
         activeCurrentMeasurementFlag = true
         
@@ -1103,7 +1111,7 @@ extension ViewController{
     
     func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
         let navController = UINavigationController(rootViewController: controller.presentedViewController)
-        let barButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ViewController.dismissPopover(_:)))
+        let barButtonItem = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: UIBarButtonItemStyle.Done, target: self, action: #selector(ViewController.dismissPopover(_:)))
         navController.topViewController!.navigationItem.rightBarButtonItem = barButtonItem
         return navController
     }

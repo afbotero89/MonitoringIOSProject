@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -45,10 +45,10 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-on-6rY">
-                                <rect key="frame" x="205" y="553" width="190" height="35"/>
+                                <rect key="frame" x="190" y="553" width="220" height="35"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="190" id="3lj-79-PfY"/>
+                                    <constraint firstAttribute="width" constant="220" id="3lj-79-PfY"/>
                                     <constraint firstAttribute="height" constant="35" id="XhG-ka-aqi"/>
                                 </constraints>
                                 <state key="normal" title="Get a measure">
@@ -59,7 +59,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuE-21-oHP">
-                                <rect key="frame" x="350" y="553" width="34" height="35"/>
+                                <rect key="frame" x="365" y="553" width="34" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="fsb-bI-JXa"/>
                                     <constraint firstAttribute="width" constant="34" id="p20-R6-xnb"/>
@@ -111,7 +111,7 @@
                         <outlet property="heightConstraintStatusImage" destination="DsT-oG-do0" id="zUm-wy-reL"/>
                         <outlet property="heightConstraintStatusLabel" destination="87e-vy-dMZ" id="ehx-M5-Eme"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
-                        <outlet property="statusConnectionLabel" destination="C5K-N6-6Ak" id="0kf-Rs-qT4"/>
+                        <outlet property="statusConnectionLabel" destination="C5K-N6-6Ak" id="3LX-hK-1KF"/>
                         <outlet property="widthConstraintStatusImage" destination="Ak8-nH-ITd" id="hrn-p8-SoC"/>
                         <outlet property="widthConstraintStatusLabel" destination="UTX-Ho-tz0" id="HDK-Ui-KSM"/>
                     </connections>
@@ -141,10 +141,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unJ-wc-41X">
-                                <rect key="frame" x="270" y="466" width="61" height="30"/>
+                                <rect key="frame" x="255" y="466" width="91" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="61" id="2Ov-IE-K6S"/>
+                                    <constraint firstAttribute="width" constant="91" id="2Ov-IE-K6S"/>
                                     <constraint firstAttribute="height" constant="30" id="j8t-O5-aFj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -185,6 +185,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="User configuration" id="HLj-xb-ybs"/>
                     <connections>
+                        <outlet property="adjustMeasuringTimeLabel" destination="qGN-hQ-gUw" id="Ryr-i3-vTh"/>
                         <outlet property="doneButtonLayer" destination="unJ-wc-41X" id="APO-ah-Hs5"/>
                     </connections>
                 </viewController>
@@ -205,10 +206,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtT-Jz-Stx">
-                                <rect key="frame" x="244" y="44" width="112" height="21"/>
+                                <rect key="frame" x="224" y="44" width="152" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="fcs-kE-8JY"/>
-                                    <constraint firstAttribute="width" constant="112" id="xPe-FU-Dvs"/>
+                                    <constraint firstAttribute="width" constant="152" id="xPe-FU-Dvs"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Battery Level:">
@@ -265,6 +266,7 @@
                     <connections>
                         <outlet property="batteryLevelImage" destination="NGK-iA-mfL" id="Z2F-zq-M4L"/>
                         <outlet property="batteryLevelPercentage" destination="1OL-rj-RdI" id="42U-c9-Gyr"/>
+                        <outlet property="batteryLevelTitleLabel" destination="ZtT-Jz-Stx" id="61A-hR-aGJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xjY-Ks-ome" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -661,11 +663,11 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-y8-VOS">
-                                <rect key="frame" x="262" y="551" width="77" height="30"/>
+                                <rect key="frame" x="212" y="551" width="177" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LbN-Ij-NrY"/>
-                                    <constraint firstAttribute="width" constant="77" id="ecR-mV-9zZ"/>
+                                    <constraint firstAttribute="width" constant="177" id="ecR-mV-9zZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Display ">

@@ -124,7 +124,7 @@ class GBCPlotsViewController: UIViewController {
         let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
         
         let xAxis = axisSet.xAxis!
-        xAxis.title = "Hour"
+        xAxis.title = NSLocalizedString("Hour", comment: "")
         
         var locations = Set<NSNumber>()
         
@@ -225,7 +225,7 @@ class GBCPlotsViewController: UIViewController {
         yAxis.majorTickLineStyle = nil
         yAxis.minorTickLineStyle = nil
         yAxis.minorTicksPerInterval = 2
-        yAxis.title = "Pressure (mmHg)"
+        yAxis.title = NSLocalizedString("Pressure", comment: "") + "(mmHg)"
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         yAxis.labelFormatter = nil
         //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis
@@ -265,7 +265,7 @@ class GBCPlotsViewController: UIViewController {
         xAxisHeartRate.majorTickLineStyle = nil
         xAxisHeartRate.minorTickLineStyle = nil
         xAxisHeartRate.minorTicksPerInterval = 2
-        xAxisHeartRate.title = "Hour"
+        xAxisHeartRate.title = NSLocalizedString("Hour", comment: "")
         switch userSelectViewController!{
             
         case .realTimeViewController:
@@ -346,7 +346,7 @@ class GBCPlotsViewController: UIViewController {
         yAxisHeartRate.majorTickLineStyle = nil
         yAxisHeartRate.minorTickLineStyle = nil
         yAxisHeartRate.minorTicksPerInterval = 2
-        yAxisHeartRate.title = "Beats per minute (BPM)"
+        yAxisHeartRate.title = NSLocalizedString("Beats per minute", comment: "") + "(BPM)"
         yAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         yAxisHeartRate.labelFormatter = nil
         //xAxis.labelExclusionRanges = [CPTPlotRange(location: 0.0, length: 0.1)] // Do not show the vertical dashed line over the yAxis

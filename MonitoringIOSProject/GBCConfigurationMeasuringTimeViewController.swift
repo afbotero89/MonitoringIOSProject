@@ -13,8 +13,16 @@ class GBCConfigurationMeasuringTimeViewController: UIViewController {
     
     @IBOutlet weak var doneButtonLayer: UIButton!
     
+    @IBOutlet weak var adjustMeasuringTimeLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = NSLocalizedString("User configuration", comment: "") 
+        
+        doneButtonLayer.setTitle(NSLocalizedString("Done", comment: ""), forState: .Normal)
+        
+        adjustMeasuringTimeLabel.text = NSLocalizedString("Adjust measurement time", comment: "")
         
         doneButtonLayer.layer.cornerRadius = 5
         // Do any additional setup after loading the view.

@@ -15,14 +15,20 @@ class GBCBatteryLevelViewController: UIViewController {
     
     @IBOutlet weak var batteryLevelPercentage: UILabel!
     
+    @IBOutlet weak var batteryLevelTitleLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = NSLocalizedString("General information", comment: "")
+        
+        batteryLevelTitleLabel.text = NSLocalizedString("Battery Level", comment: "")
         
         if VectorPhysiologicalVariables.batteryLevel.last != nil{
             batteryLevelPercentage.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
         }else{
-            batteryLevelPercentage.text = "Device disconnected" + " %"
+            batteryLevelPercentage.text = NSLocalizedString("Device disconnected", comment: "") + " %"
         }
         batteryLevelPercentage.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
@@ -73,7 +79,7 @@ class GBCBatteryLevelViewController: UIViewController {
         // Battery level default
         }else if(VectorPhysiologicalVariables.batteryLevel.last > 100){
             batteryLevelImage.image = UIImage(named: "BatteryCharging")
-            batteryLevelPercentage.text = "Battery charging"
+            batteryLevelPercentage.text = NSLocalizedString("Battery charging", comment: "")
         }else{
             batteryLevelImage.image = UIImage(named: "BatteryLevel5")
         }
