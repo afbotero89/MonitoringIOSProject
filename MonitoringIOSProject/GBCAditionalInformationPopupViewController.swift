@@ -10,6 +10,17 @@ import UIKit
 
 class GBCAditionalInformationPopupViewController: UIViewController {
     
+    
+    @IBOutlet weak var systolicPressureTitleLabel: UILabel!
+    
+    @IBOutlet weak var averagePressureTitleLabel: UILabel!
+    
+    @IBOutlet weak var diastolicPressureTitleLabel: UILabel!
+    
+    @IBOutlet weak var heartRateTitleLabel: UILabel!
+    
+    @IBOutlet weak var measurementTimeTitleLabel: UILabel!
+    
     @IBOutlet weak var valueSystolicPressure: UILabel!
     
     @IBOutlet weak var valueAveragePressure: UILabel!
@@ -34,6 +45,12 @@ class GBCAditionalInformationPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        systolicPressureTitleLabel.text = NSLocalizedString("Systolic pressure", comment: "")
+        diastolicPressureTitleLabel.text = NSLocalizedString("Diastolic pressure", comment: "")
+        averagePressureTitleLabel.text = NSLocalizedString("Average pressure", comment: "")
+        heartRateTitleLabel.text = NSLocalizedString("Heart Rate", comment: "")
+        measurementTimeTitleLabel.text = NSLocalizedString("Measurement time", comment: "")
         
         valueSystolicPressure.text = valueSystolicPressureString
         valueAveragePressure.text = valueAveragePressureString

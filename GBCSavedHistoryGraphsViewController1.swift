@@ -36,7 +36,8 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         dispatch_async(dispatch_get_main_queue(), {
             // code here
         
-        
+        self.title = NSLocalizedString("Historical", comment: "")
+            
         // Do any additional setup after loading the view, typically from a nib.
         self.systolicPressurePlot.identifier = 4
         self.diastolicPressurePlot.identifier = 5

@@ -189,26 +189,52 @@ class BluetoothManager: NSObject{
             if i == "e1"{
                 typeError = 1
                 error = true
-                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                if userSelectViewController == .realTimeViewController{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                }
             }else if i == "e2"{
                 typeError = 2
                 error = true
-                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                if userSelectViewController == .realTimeViewController{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                }
             }else if i == "e3"{
                 typeError = 3
-                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                error = true
+                if userSelectViewController == .realTimeViewController{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                }
             }else if i == "e4"{
                 typeError = 4
                 error = true
-                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                if userSelectViewController == .realTimeViewController{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                }
             }else if i == "e5"{
                 typeError = 5
                 error = true
-                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                if userSelectViewController == .realTimeViewController{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                }
+                
             }else if i == "e6"{
                 typeError = 6
                 error = true
-                NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                if userSelectViewController == .realTimeViewController{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                }
             }
         }
         
@@ -229,6 +255,7 @@ class BluetoothManager: NSObject{
             
             if (i == "255" && measureRequestedFlag == true){
                 measureRequestedFlag = false
+                
                 //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
                 NSNotificationCenter.defaultCenter().postNotificationName("startAnimation", object: nil, userInfo: nil)
             }
@@ -248,7 +275,7 @@ class BluetoothManager: NSObject{
             }
 
             
-            if (i == "255" || i == "2" || i == "55") && activeMeasurementTimeFlag == true{
+            if (i == "255") && activeMeasurementTimeFlag == true{
                 
                 activeMeasurementTimeFlag = false
                 let str:String?
@@ -570,7 +597,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             
             activeCurrentHourFlag = true
-            for i in 0...1{
+            for i in 0...2{
                 print(i)
                 monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
             }
@@ -635,18 +662,19 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     func timerPrueba(){
         contador = contador + 1
+        
         if contador == 30{
             contador = 0
-            
+            print(contador)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
         }
-        //print(contador)
-        if activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil{
+        /*
+        if activeCurrentMeasurementFlag == true && self.monitorWritableCharacteristic != nil{
             let str = "i254,"
             let data = str.dataUsingEncoding(NSUTF8StringEncoding)
             monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
-        }
+        }*/
         
         if (activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil){
             let str = "h254,"

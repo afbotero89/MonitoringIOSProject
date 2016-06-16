@@ -24,6 +24,17 @@ class GBCCurrentMeasurementViewController: UIViewController {
     
     @IBOutlet weak var batteryLevelImage: UIImageView!
     
+    // Titles
+    @IBOutlet weak var systolicPressureTitleLabel: UILabel!
+    
+    @IBOutlet weak var averagePressureTitleLabel: UILabel!
+    
+    @IBOutlet weak var diastolicPressureTitleLabel: UILabel!
+    
+    @IBOutlet weak var heartRateTitleLabel: UILabel!
+    
+    @IBOutlet weak var batteryLevelTitleLabel: UILabel!
+    
     var systolicPressureString:String!
     
     var diastolicPressureString:String!
@@ -39,6 +50,13 @@ class GBCCurrentMeasurementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = NSLocalizedString("Current measure", comment: "")
+        
+        systolicPressureTitleLabel.text = NSLocalizedString("Systolic pressure", comment: "")
+        diastolicPressureTitleLabel.text = NSLocalizedString("Diastolic pressure", comment: "")
+        averagePressureTitleLabel.text = NSLocalizedString("Average pressure", comment: "")
+        heartRateTitleLabel.text = NSLocalizedString("Heart Rate", comment: "")
+        batteryLevelTitleLabel.text = NSLocalizedString("Battery Level", comment: "")
         
         if systolicPressureString != nil && diastolicPressureValue != nil && averagePressureString != nil && heartRatePressureString != nil && batteryLevelString != nil{
         
@@ -63,13 +81,14 @@ class GBCCurrentMeasurementViewController: UIViewController {
     }
     
     func addAttributesToViewController(){
-        
+        //UserSelectedConfiguration.typeOfDevice = .iPhone
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
             print("iPhone")
         case .iPhone:
             doneButtonIphone.clipsToBounds = true
             doneButtonIphone.layer.cornerRadius = 10
+            doneButtonIphone.setTitle(NSLocalizedString("Done", comment: ""), forState: .Normal)
         }
 
         
@@ -142,8 +161,8 @@ class GBCCurrentMeasurementViewController: UIViewController {
             
             // Battery level default
         }else{
-            batteryLevelImage.image = UIImage(named: "BatteryCharging")
-            BatteryLevel.text = NSLocalizedString("Battery charging", comment: "")
+            batteryLevelImage.image = UIImage(named: "BatteryLevel10")
+            BatteryLevel.text = "100" + " %"
             
         }
     }

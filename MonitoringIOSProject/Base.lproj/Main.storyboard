@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IG1-hq-OhC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,40 +19,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5K-N6-6Ak">
-                                <rect key="frame" x="206" y="74" width="188" height="41"/>
-                                <color key="backgroundColor" red="0.043137254901960784" green="0.17254901960784313" blue="0.25490196078431371" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="87e-vy-dMZ"/>
-                                    <constraint firstAttribute="width" constant="188" id="UTX-Ho-tz0"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Scanning Bluetooth...">
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="jKl-Bq-YWP">
-                                <rect key="frame" x="138" y="70" width="60" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Ak8-nH-ITd"/>
-                                    <constraint firstAttribute="height" constant="50" id="DsT-oG-do0"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-on-6rY">
                                 <rect key="frame" x="190" y="553" width="220" height="35"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.043137254901960784" green="0.17254901960784313" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="3lj-79-PfY"/>
                                     <constraint firstAttribute="height" constant="35" id="XhG-ka-aqi"/>
                                 </constraints>
                                 <state key="normal" title="Get a measure">
-                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="csp-0c-O9B"/>
@@ -69,17 +44,37 @@
                                     <action selector="currentMeasurementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jnS-aD-jZ1"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Si4-00-uDv">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="uST-cI-jLf">
+                                        <barButtonItem key="rightBarButtonItem" image="AutoSet" id="3ON-pm-D1D">
+                                            <connections>
+                                                <action selector="autoSetGraph:" destination="BYZ-38-t0r" id="9eW-nB-g2s"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="jKl-Bq-YWP">
+                                <rect key="frame" x="420" y="557" width="35" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="Ak8-nH-ITd"/>
+                                    <constraint firstAttribute="height" constant="28" id="DsT-oG-do0"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="12" id="015-Ov-5SH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Si4-00-uDv" secondAttribute="trailing" constant="-20" id="1LM-Tp-LYQ"/>
                             <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgy-eZ-hUF"/>
-                            <constraint firstItem="jKl-Bq-YWP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="6" id="FaS-86-Bye"/>
+                            <constraint firstItem="Si4-00-uDv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="CTg-Pt-Mqf"/>
+                            <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FRc-ab-eos"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="G90-uC-S44"/>
-                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RFn-sd-I0N"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-45" id="WLA-5H-TQg"/>
-                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="leading" secondItem="jKl-Bq-YWP" secondAttribute="trailing" constant="8" id="dz0-xl-Kce"/>
-                            <constraint firstItem="C5K-N6-6Ak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="jEu-i4-t9m"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jKl-Bq-YWP" secondAttribute="bottom" constant="15" id="noF-EL-RuF"/>
+                            <constraint firstItem="jKl-Bq-YWP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="10" id="wa0-6f-Cev"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
@@ -94,11 +89,6 @@
                                     <action selector="configurationButton:" destination="BYZ-38-t0r" id="sQX-sp-B3A"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="AutoSet" id="3ON-pm-D1D">
-                                <connections>
-                                    <action selector="autoSetGraph:" destination="BYZ-38-t0r" id="9eW-nB-g2s"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem image="Calendar" id="OVw-zc-wUw">
                                 <connections>
                                     <action selector="displayCalendar:" destination="BYZ-38-t0r" id="ZN0-hf-AmW"/>
@@ -107,13 +97,9 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="constraintSeparation" destination="wa0-6f-Cev" id="XOT-Lc-Uvv"/>
                         <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="xkJ-IC-4MD"/>
-                        <outlet property="heightConstraintStatusImage" destination="DsT-oG-do0" id="zUm-wy-reL"/>
-                        <outlet property="heightConstraintStatusLabel" destination="87e-vy-dMZ" id="ehx-M5-Eme"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
-                        <outlet property="statusConnectionLabel" destination="C5K-N6-6Ak" id="3LX-hK-1KF"/>
-                        <outlet property="widthConstraintStatusImage" destination="Ak8-nH-ITd" id="hrn-p8-SoC"/>
-                        <outlet property="widthConstraintStatusLabel" destination="UTX-Ho-tz0" id="HDK-Ui-KSM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -359,9 +345,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZH-HO-BAX">
-                                <rect key="frame" x="213" y="70" width="173" height="24"/>
+                                <rect key="frame" x="208" y="70" width="183" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="173" id="Eql-RO-JWp"/>
+                                    <constraint firstAttribute="width" constant="183" id="Eql-RO-JWp"/>
                                     <constraint firstAttribute="height" constant="24" id="z0d-7W-Wfi"/>
                                 </constraints>
                                 <attributedString key="attributedText">
@@ -375,7 +361,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Pl-Fu-Mm6">
-                                <rect key="frame" x="403" y="70" width="100" height="21"/>
+                                <rect key="frame" x="391" y="70" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="V9n-bv-yEM"/>
                                     <constraint firstAttribute="width" constant="100" id="wRs-hR-Voh"/>
@@ -391,10 +377,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw4-FQ-tyW">
-                                <rect key="frame" x="223" y="157" width="172" height="28"/>
+                                <rect key="frame" x="208" y="157" width="183" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="WFB-x1-4mT"/>
-                                    <constraint firstAttribute="width" constant="172" id="p9e-82-eM2"/>
+                                    <constraint firstAttribute="width" constant="183" id="p9e-82-eM2"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Average pressure:">
@@ -408,10 +394,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUk-LF-35n">
-                                <rect key="frame" x="223" y="253" width="163" height="27"/>
+                                <rect key="frame" x="208" y="253" width="183" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="JDQ-Zd-iSz"/>
-                                    <constraint firstAttribute="width" constant="163" id="chb-cV-bjA"/>
+                                    <constraint firstAttribute="width" constant="183" id="chb-cV-bjA"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Diastolic pressure:">
@@ -425,9 +411,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cy4-Ys-7oF">
-                                <rect key="frame" x="223" y="352" width="107" height="21"/>
+                                <rect key="frame" x="208" y="352" width="183" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="107" id="bPT-zi-1ch"/>
+                                    <constraint firstAttribute="width" constant="183" id="bPT-zi-1ch"/>
                                     <constraint firstAttribute="height" constant="21" id="orr-I8-FeZ"/>
                                 </constraints>
                                 <attributedString key="attributedText">
@@ -441,10 +427,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFr-yB-5HQ">
-                                <rect key="frame" x="223" y="443" width="129" height="31"/>
+                                <rect key="frame" x="208" y="443" width="183" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="9xp-4c-vz9"/>
-                                    <constraint firstAttribute="width" constant="129" id="NwO-PH-e6T"/>
+                                    <constraint firstAttribute="width" constant="183" id="NwO-PH-e6T"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Battery level:">
@@ -458,7 +444,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkm-4r-rcP">
-                                <rect key="frame" x="403" y="157" width="100" height="28"/>
+                                <rect key="frame" x="391" y="157" width="100" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="cZD-F4-NXG"/>
                                     <constraint firstAttribute="height" constant="28" id="pbe-2q-1fO"/>
@@ -474,7 +460,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzo-xn-ubw">
-                                <rect key="frame" x="403" y="352" width="100" height="21"/>
+                                <rect key="frame" x="391" y="352" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Qzz-Ew-aFT"/>
                                     <constraint firstAttribute="height" constant="21" id="r0O-P5-TP3"/>
@@ -490,7 +476,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfF-c0-AkX">
-                                <rect key="frame" x="403" y="448" width="100" height="21"/>
+                                <rect key="frame" x="391" y="448" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="mJF-Sf-Kt3"/>
                                     <constraint firstAttribute="height" constant="21" id="svi-h4-nDa"/>
@@ -506,7 +492,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="obF-xb-v3F">
-                                <rect key="frame" x="115" y="34" width="90" height="470"/>
+                                <rect key="frame" x="110" y="34" width="90" height="470"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SystolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="jlQ-uV-g4C">
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
@@ -590,7 +576,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWw-4h-yHf">
-                                <rect key="frame" x="403" y="255" width="100" height="27"/>
+                                <rect key="frame" x="391" y="255" width="100" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="RpF-5k-aOP"/>
                                     <constraint firstAttribute="height" constant="27" id="Uzh-JV-iVO"/>
@@ -611,34 +597,39 @@
                             <constraint firstItem="qkm-4r-rcP" firstAttribute="top" secondItem="5Pl-Fu-Mm6" secondAttribute="bottom" constant="66" id="2pa-mf-cWu"/>
                             <constraint firstItem="jlQ-uV-g4C" firstAttribute="top" secondItem="GT2-RM-9QH" secondAttribute="bottom" constant="14" id="5Lm-xq-Mte"/>
                             <constraint firstItem="jFr-yB-5HQ" firstAttribute="top" secondItem="cy4-Ys-7oF" secondAttribute="bottom" constant="70" id="6td-AP-HD6"/>
-                            <constraint firstItem="cw4-FQ-tyW" firstAttribute="leading" secondItem="f9w-1k-9Yi" secondAttribute="trailing" constant="18" id="81O-cQ-d8q"/>
+                            <constraint firstItem="cw4-FQ-tyW" firstAttribute="leading" secondItem="f9w-1k-9Yi" secondAttribute="trailing" constant="8" id="81O-cQ-d8q"/>
                             <constraint firstItem="pWw-4h-yHf" firstAttribute="top" secondItem="qkm-4r-rcP" secondAttribute="bottom" constant="70" id="9fU-ud-vAK"/>
                             <constraint firstItem="Xzo-xn-ubw" firstAttribute="top" secondItem="pWw-4h-yHf" secondAttribute="bottom" constant="70" id="AKj-sI-p8b"/>
-                            <constraint firstItem="pWw-4h-yHf" firstAttribute="leading" secondItem="lUk-LF-35n" secondAttribute="trailing" constant="17" id="AyL-Rk-oaE"/>
+                            <constraint firstItem="pWw-4h-yHf" firstAttribute="leading" secondItem="lUk-LF-35n" secondAttribute="trailing" id="AyL-Rk-oaE"/>
                             <constraint firstItem="cy4-Ys-7oF" firstAttribute="top" secondItem="lUk-LF-35n" secondAttribute="bottom" constant="72" id="BDt-ki-WvW"/>
-                            <constraint firstItem="BfF-c0-AkX" firstAttribute="leading" secondItem="jFr-yB-5HQ" secondAttribute="trailing" constant="51" id="BJd-xJ-zA3"/>
-                            <constraint firstItem="5Pl-Fu-Mm6" firstAttribute="leading" secondItem="iZH-HO-BAX" secondAttribute="trailing" constant="17" id="Hau-yJ-2iX"/>
+                            <constraint firstItem="BfF-c0-AkX" firstAttribute="leading" secondItem="jFr-yB-5HQ" secondAttribute="trailing" id="BJd-xJ-zA3"/>
+                            <constraint firstItem="5Pl-Fu-Mm6" firstAttribute="leading" secondItem="iZH-HO-BAX" secondAttribute="trailing" id="Hau-yJ-2iX"/>
                             <constraint firstItem="5Pl-Fu-Mm6" firstAttribute="top" secondItem="GT2-RM-9QH" secondAttribute="bottom" constant="50" id="Hwi-gg-yPh"/>
-                            <constraint firstItem="Xzo-xn-ubw" firstAttribute="leading" secondItem="cy4-Ys-7oF" secondAttribute="trailing" constant="73" id="KGA-Zf-UTw"/>
+                            <constraint firstItem="Xzo-xn-ubw" firstAttribute="leading" secondItem="cy4-Ys-7oF" secondAttribute="trailing" id="KGA-Zf-UTw"/>
                             <constraint firstItem="iZH-HO-BAX" firstAttribute="centerX" secondItem="wN0-h9-JA4" secondAttribute="centerX" id="NbC-j6-eKm"/>
-                            <constraint firstItem="cy4-Ys-7oF" firstAttribute="leading" secondItem="HLo-Fx-GWp" secondAttribute="trailing" constant="18" id="Yh9-39-ifH"/>
+                            <constraint firstItem="cy4-Ys-7oF" firstAttribute="leading" secondItem="HLo-Fx-GWp" secondAttribute="trailing" constant="8" id="Yh9-39-ifH"/>
                             <constraint firstItem="iZH-HO-BAX" firstAttribute="leading" secondItem="jlQ-uV-g4C" secondAttribute="trailing" constant="8" id="cV2-vv-EXR"/>
-                            <constraint firstItem="jFr-yB-5HQ" firstAttribute="leading" secondItem="9FB-i2-aNL" secondAttribute="trailing" constant="18" id="geQ-9m-SeF"/>
+                            <constraint firstItem="jFr-yB-5HQ" firstAttribute="leading" secondItem="9FB-i2-aNL" secondAttribute="trailing" constant="8" id="geQ-9m-SeF"/>
                             <constraint firstItem="BfF-c0-AkX" firstAttribute="top" secondItem="Xzo-xn-ubw" secondAttribute="bottom" constant="75" id="pEr-he-eSb"/>
                             <constraint firstItem="lUk-LF-35n" firstAttribute="top" secondItem="cw4-FQ-tyW" secondAttribute="bottom" constant="68" id="pye-oA-vUw"/>
                             <constraint firstItem="cw4-FQ-tyW" firstAttribute="top" secondItem="iZH-HO-BAX" secondAttribute="bottom" constant="63" id="vAb-wm-Et8"/>
                             <constraint firstItem="iZH-HO-BAX" firstAttribute="top" secondItem="GT2-RM-9QH" secondAttribute="bottom" constant="50" id="vcD-MT-ibj"/>
-                            <constraint firstItem="lUk-LF-35n" firstAttribute="leading" secondItem="cxy-jh-vpr" secondAttribute="trailing" constant="18" id="wiS-aE-Ehz"/>
-                            <constraint firstItem="qkm-4r-rcP" firstAttribute="leading" secondItem="cw4-FQ-tyW" secondAttribute="trailing" constant="8" id="wo5-vw-vxd"/>
+                            <constraint firstItem="lUk-LF-35n" firstAttribute="leading" secondItem="cxy-jh-vpr" secondAttribute="trailing" constant="8" id="wiS-aE-Ehz"/>
+                            <constraint firstItem="qkm-4r-rcP" firstAttribute="leading" secondItem="cw4-FQ-tyW" secondAttribute="trailing" id="wo5-vw-vxd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Current Measurement" id="SMK-6i-THj"/>
                     <connections>
                         <outlet property="BatteryLevel" destination="BfF-c0-AkX" id="C0V-9d-G7D"/>
-                        <outlet property="averagePressureValue" destination="pWw-4h-yHf" id="H7R-Ic-g5k"/>
+                        <outlet property="averagePressureTitleLabel" destination="cw4-FQ-tyW" id="AzP-It-deU"/>
+                        <outlet property="averagePressureValue" destination="qkm-4r-rcP" id="Ocw-iZ-Jkl"/>
                         <outlet property="batteryLevelImage" destination="9FB-i2-aNL" id="ipQ-qJ-APF"/>
-                        <outlet property="diastolicPressureValue" destination="qkm-4r-rcP" id="VCa-sT-V5e"/>
+                        <outlet property="batteryLevelTitleLabel" destination="jFr-yB-5HQ" id="w18-Sm-e5m"/>
+                        <outlet property="diastolicPressureTitleLabel" destination="lUk-LF-35n" id="jvt-8c-gtl"/>
+                        <outlet property="diastolicPressureValue" destination="pWw-4h-yHf" id="Mem-AZ-WIQ"/>
+                        <outlet property="heartRateTitleLabel" destination="cy4-Ys-7oF" id="T9O-lX-kMp"/>
                         <outlet property="heartRateValue" destination="Xzo-xn-ubw" id="QK7-pe-fN3"/>
+                        <outlet property="systolicPressureTitleLabel" destination="iZH-HO-BAX" id="jp8-dI-itN"/>
                         <outlet property="systolicPressureValue" destination="5Pl-Fu-Mm6" id="RX5-IV-DmR"/>
                     </connections>
                 </viewController>
@@ -995,10 +986,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC4-vm-8ET">
-                                <rect key="frame" x="273" y="392" width="55" height="30"/>
+                                <rect key="frame" x="258" y="392" width="85" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="55" id="pay-UN-hg2"/>
+                                    <constraint firstAttribute="width" constant="85" id="pay-UN-hg2"/>
                                     <constraint firstAttribute="height" constant="30" id="yuU-KB-nAk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -1041,11 +1032,16 @@
                     <navigationItem key="navigationItem" title="Current Measurement" id="qej-n6-Hty"/>
                     <connections>
                         <outlet property="BatteryLevel" destination="c2x-ds-Fc7" id="NnM-kw-cf0"/>
-                        <outlet property="averagePressureValue" destination="XAZ-Hf-EKb" id="g4w-CZ-sfn"/>
+                        <outlet property="averagePressureTitleLabel" destination="cea-V7-0W9" id="6is-Cz-uNQ"/>
+                        <outlet property="averagePressureValue" destination="kix-D6-u41" id="oYD-9c-gpF"/>
                         <outlet property="batteryLevelImage" destination="6hY-Ty-G10" id="qB5-Rn-IYl"/>
-                        <outlet property="diastolicPressureValue" destination="kix-D6-u41" id="CFx-6K-fs0"/>
+                        <outlet property="batteryLevelTitleLabel" destination="uVt-FP-cgx" id="hMR-Om-czK"/>
+                        <outlet property="diastolicPressureTitleLabel" destination="hXq-Or-0hk" id="43e-ac-Elv"/>
+                        <outlet property="diastolicPressureValue" destination="XAZ-Hf-EKb" id="4HC-1i-SyQ"/>
                         <outlet property="doneButtonIphone" destination="EC4-vm-8ET" id="9ib-SR-u2k"/>
+                        <outlet property="heartRateTitleLabel" destination="OgG-za-CzD" id="Xvy-1j-cDW"/>
                         <outlet property="heartRateValue" destination="GHS-8B-uUI" id="iX5-GS-7ny"/>
+                        <outlet property="systolicPressureTitleLabel" destination="uD8-Zc-cHv" id="6CT-pQ-1fE"/>
                         <outlet property="systolicPressureValue" destination="gXL-j6-eHV" id="PLC-xm-R1x"/>
                     </connections>
                 </viewController>
@@ -1059,7 +1055,7 @@
         <image name="AveragePressure" width="256" height="256"/>
         <image name="Batery" width="256" height="256"/>
         <image name="BatteryLevel10" width="128" height="128"/>
-        <image name="Bluetooth_Disconnected" width="256" height="256"/>
+        <image name="Bluetooth_Disconnected" width="128" height="128"/>
         <image name="Calendar" width="32" height="32"/>
         <image name="Configuration" width="40" height="40"/>
         <image name="DiastolicPressure" width="256" height="256"/>

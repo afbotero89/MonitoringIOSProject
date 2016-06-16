@@ -46,7 +46,7 @@ enum TypeOfDevice:Int{
 }
 
 enum UserSelectViewPrincipalViewController:Int{
-    case realTimeViewController = 0, hitorialViewController
+    case realTimeViewController = 0, hitorialViewController, animationViewController
 }
 
 // MARK: - Structs

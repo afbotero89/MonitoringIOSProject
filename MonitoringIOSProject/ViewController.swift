@@ -18,6 +18,8 @@ var activeCurrentHourFlag = false
 
 var activeMeasurementTimeFlag = false
 
+var measurementTimeConfirmed = false
+
 var userSelectViewController : UserSelectViewPrincipalViewController?
 
 var typeError:Int?
@@ -71,14 +73,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
-    @IBOutlet weak var widthConstraintStatusImage: NSLayoutConstraint!
-    
-    @IBOutlet weak var heightConstraintStatusImage: NSLayoutConstraint!
-    
-    @IBOutlet weak var heightConstraintStatusLabel: NSLayoutConstraint!
-    
-    @IBOutlet weak var widthConstraintStatusLabel: NSLayoutConstraint!
-    
+    @IBOutlet weak var constraintSeparation: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
@@ -86,7 +81,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         title =  NSLocalizedString("Monitoring", comment: "")
         
-        statusConnectionLabel.text = NSLocalizedString("Scanning bluetooth", comment: "") + "..."
+        //statusConnectionLabel.text = NSLocalizedString("Scanning bluetooth", comment: "") + "..."
         
         currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), forState: .Normal)
         
@@ -142,7 +137,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         systolicPressurePlot.title = NSLocalizedString("Systolic pressure", comment: "")
         diastolicPressurePlot.title = NSLocalizedString("Diastolic pressure", comment: "")
         averagePressurePlot.title =  NSLocalizedString("Average pressure", comment: "")
-        heartRatePressurePlot.title = NSLocalizedString("Heart rate", comment: "")
+        heartRatePressurePlot.title = NSLocalizedString("Heart Rate", comment: "")
         
         let attrs = [
             NSForegroundColorAttributeName : UIColor.blackColor(),
@@ -175,7 +170,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        print("vista principal")
         userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
         
     }
@@ -242,6 +237,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          
                                                          object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayErrorMessageMainView),
+                                                         
+                                                         name: "displayErrorMessageMainViewNotification",
+                                                         
+                                                         object: nil)
+        
         // Watch Bluetooth connection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
         
@@ -253,7 +256,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Labe1: pressure value
         labelPressure.numberOfLines = 10
-        labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):\n \(NSLocalizedString("Diastolic", comment: "")):\n \(NSLocalizedString("Average", comment: "")):"
+        labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):\n \(NSLocalizedString("Average", comment: "")):\n \(NSLocalizedString("Diastolic", comment: "")):"
         labelPressure.textColor = UIColor.whiteColor()
         labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
         labelPressure.layer.cornerRadius = 5
@@ -333,9 +336,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         currentMeasurementLabel.layer.cornerRadius = 10
         
-        statusConnectionLabel.clipsToBounds = true
+        //statusConnectionLabel.clipsToBounds = true
         
-        statusConnectionLabel.layer.cornerRadius = 10
+        //statusConnectionLabel.layer.cornerRadius = 10
     }
     
     func setLegendGraph(){
@@ -408,7 +411,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             let style = CPTMutableTextStyle()
             style.color = CPTColor.blackColor()
             style.fontName = "Helvetica-Neue"
-            style.fontSize = 12.0
+            switch UserSelectedConfiguration.typeOfDevice!{
+            case .iPad:
+                style.fontSize = 12.0
+            case .iPhone:
+                style.fontSize = 8.0
+            }
+            
             
             var text =  VectorPhysiologicalVariables.measuringTime.last
             
@@ -508,14 +517,25 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
                 
                 let xAxis = axisSet.xAxis!
+                print("hora!!!!!!!!!!")
+                print(measuringHour)
+                let xLabel:CPTAxisLabel?
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                case .iPhone:
+                    
+                    xLabel = CPTAxisLabel.init(text: (measuringHour?.componentsSeparatedByString(":")[0])! + ":" + (measuringHour?.componentsSeparatedByString(":")[1])!, textStyle: style)
+                    xLabel?.rotation = 3.14/3.0;
+                    
+                }
                 
-                let xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
-                xLabel.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
+                xLabel!.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
                 if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
                     locations.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
                 }
-                xLabel.offset = 0
-                labels.insert(xLabel)
+                xLabel!.offset = 0
+                labels.insert(xLabel!)
                 xAxis.majorTickLocations = locations
                 xAxis.axisLabels = labels
                 
@@ -524,6 +544,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
                 let xAxisHeartRate = axisSetHeartRate.xAxis!
                 let xLabelHeartRate = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                xLabelHeartRate.rotation = 3.14/3.0;
                 xLabelHeartRate.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
                 if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
                     locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
@@ -592,14 +613,22 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
                 
                 let xAxis = axisSet.xAxis!
+                    
+                    let xLabel:CPTAxisLabel?
+                    switch UserSelectedConfiguration.typeOfDevice!{
+                    case .iPad:
+                        xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                    case .iPhone:
+                        xLabel = CPTAxisLabel.init(text: hour.componentsSeparatedByString(":")[0] + ":" + hour.componentsSeparatedByString(":")[1], textStyle: style)
+                        xLabel?.rotation = 3.14/3.0;
+                    }
                 
-                let xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
-                xLabel.tickLocation = Double(i + 1)/10.0
+                xLabel!.tickLocation = Double(i + 1)/10.0
                 if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
                     locations.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
                 }
-                xLabel.offset = 0
-                labels.insert(xLabel)
+                xLabel!.offset = 0
+                labels.insert(xLabel!)
                 xAxis.majorTickLocations = locations
                 xAxis.axisLabels = labels
                 
@@ -607,13 +636,24 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 // xAxis heart rate graph
                 let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
                 let xAxisHeartRate = axisSetHeartRate.xAxis!
-                let xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
-                xLabelHeartRate.tickLocation = Double(i + 1)/10.0
+                print("hora 1!!!!!!!!")
+                let xLabelHeartRate:CPTAxisLabel?
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                case .iPhone:
+                    
+                    xLabelHeartRate = CPTAxisLabel.init(text: hour.componentsSeparatedByString(":")[0] + ":" + hour.componentsSeparatedByString(":")[1], textStyle: style)
+                    xLabelHeartRate?.rotation = 3.14/3.0;
+                    
+                }
+                
+                xLabelHeartRate!.tickLocation = Double(i + 1)/10.0
                 if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
                     locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
                 }
-                xLabelHeartRate.offset = 0
-                labelsHeartRate.insert(xLabelHeartRate)
+                xLabelHeartRate!.offset = 0
+                labelsHeartRate.insert(xLabelHeartRate!)
                 xAxisHeartRate.majorTickLocations = locationsHeartRate
                 xAxisHeartRate.axisLabels = labelsHeartRate
                 }
@@ -624,7 +664,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
 
             // Label update with latest measures
-            labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n \(NSLocalizedString("Diastolic", comment: "")): \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg\n \(NSLocalizedString("Average", comment: "")):  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg"
+            labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n \(NSLocalizedString("Average", comment: "")):  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg\n \(NSLocalizedString("Diastolic", comment: "")): \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg"
             labelHeartRate.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Heart Rate", comment: "")): \(VectorPhysiologicalVariables.heartRate.last!) BPM"
         
             //Change the x and y range.
@@ -702,35 +742,42 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Display popup
         let storyboard = UIStoryboard(name: "AditionalInformationPopPup", bundle: nil)
-        let additionalInformationPopup = storyboard.instantiateViewControllerWithIdentifier("aditionalInformationPopup") as! GBCAditionalInformationPopupViewController
-        additionalInformationPopup.title = NSLocalizedString("General information", comment: "")
-        additionalInformationPopup.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let additionalInformationPopup:GBCAditionalInformationPopupViewController?
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            additionalInformationPopup = storyboard.instantiateViewControllerWithIdentifier("aditionalInformationPopupIpad") as? GBCAditionalInformationPopupViewController
+        case .iPhone:
+            additionalInformationPopup = storyboard.instantiateViewControllerWithIdentifier("aditionalInformationPopupIphone") as? GBCAditionalInformationPopupViewController
+        }
+        
+        additionalInformationPopup!.title = NSLocalizedString("General information", comment: "")
+        additionalInformationPopup!.modalPresentationStyle = UIModalPresentationStyle.Popover
         
         //let plotSelected = PhysiologicalVariables(rawValue: plotIdentifier)?.displayString()
         
-        additionalInformationPopup.valueSystolicPressureString = String(VectorPhysiologicalVariables.systolicPressure[indexPoint]) + " mmHg"
+        additionalInformationPopup!.valueSystolicPressureString = String(VectorPhysiologicalVariables.systolicPressure[indexPoint]) + " mmHg"
         
-        additionalInformationPopup.valueAveragePressureString = String(VectorPhysiologicalVariables.averagePressure[indexPoint]) + " mmHg"
+        additionalInformationPopup!.valueAveragePressureString = String(VectorPhysiologicalVariables.averagePressure[indexPoint]) + " mmHg"
         
-        additionalInformationPopup.valueDiastolicPressureString = String(VectorPhysiologicalVariables.diastolicPressure[indexPoint]) + " mmHg"
+        additionalInformationPopup!.valueDiastolicPressureString = String(VectorPhysiologicalVariables.diastolicPressure[indexPoint]) + " mmHg"
         
-        additionalInformationPopup.valueHeartRateString = String(VectorPhysiologicalVariables.heartRate[indexPoint]) + " BPM"
+        additionalInformationPopup!.valueHeartRateString = String(VectorPhysiologicalVariables.heartRate[indexPoint]) + " BPM"
         
         if VectorPhysiologicalVariables.measuringTime[indexPoint].componentsSeparatedByString(".").count >= 1{
-            additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint].componentsSeparatedByString(".")[0]
+            additionalInformationPopup!.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint].componentsSeparatedByString(".")[0]
         }else{
-            additionalInformationPopup.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint]
+            additionalInformationPopup!.measuringTimeString = VectorPhysiologicalVariables.measuringTime[indexPoint]
         }
         
-        let presentationController = additionalInformationPopup.popoverPresentationController!
+        let presentationController = additionalInformationPopup!.popoverPresentationController!
         presentationController.permittedArrowDirections = UIPopoverArrowDirection.Any
-        additionalInformationPopup.preferredContentSize = CGSize(width: 320, height: 200)
+        additionalInformationPopup!.preferredContentSize = CGSize(width: 320, height: 200)
         presentationController.sourceView = self.view
         let rect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
         presentationController.sourceRect = rect
         // Set this object as the delegate
         presentationController.delegate = self
-        presentViewController(additionalInformationPopup, animated: true, completion: nil)
+        presentViewController(additionalInformationPopup!, animated: true, completion: nil)
     }
     
     func connectionChanged(notification: NSNotification) {
@@ -743,11 +790,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             if let isConnected: Bool = userInfo["isConnected"] {
                 if isConnected {
                     self.imageStatusConnection.image = UIImage(named: "Bluetooth_Connected")
-                    self.statusConnectionLabel.text = NSLocalizedString("Connected", comment: "")
+                    //self.statusConnectionLabel.text = NSLocalizedString("Connected", comment: "")
                 
                 } else {
                     self.imageStatusConnection.image = UIImage(named: "Bluetooth_Disconnected")
-                    self.statusConnectionLabel.text = NSLocalizedString("Disconnected", comment: "")
+                    //self.statusConnectionLabel.text = NSLocalizedString("Disconnected", comment: "")
                   
                 }
             }
@@ -766,11 +813,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             // Portrait
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
+                constraintSeparation.constant = 120
                 // Image status connection
-                imageStatusConnection.frame = CGRect(x: 240, y: 80, width: 50, height: 50)
+                //imageStatusConnection.frame = CGRect(x: 240, y: 80, width: 50, height: 50)
                 
                 // Status connection label
-                statusConnectionLabel.frame = CGRect(x: 290, y: 80, width: 188, height: 41)
+                //statusConnectionLabel.frame = CGRect(x: 290, y: 80, width: 188, height: 41)
                 
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
@@ -785,14 +833,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
                 
             case .iPhone:
-                heightConstraintStatusImage.constant = 21
-                widthConstraintStatusImage.constant = 21
-                heightConstraintStatusLabel.constant = 21
-                widthConstraintStatusLabel.constant = 188
                 
-                statusConnectionLabel.clipsToBounds = true
                 
-                statusConnectionLabel.layer.cornerRadius = 5
+                //statusConnectionLabel.clipsToBounds = true
+                
+                //statusConnectionLabel.layer.cornerRadius = 5
                 /*
                 // Image status connection
                 imageStatusConnection.frame = CGRect(x: 0, y: 70, width: 21, height: 21)
@@ -823,12 +868,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             // Landscape
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
-                
+                constraintSeparation.constant = 120
                 // Image status connection
-                imageStatusConnection.frame = CGRect(x: 10, y: 140, width: 50, height: 50)
+                //imageStatusConnection.frame = CGRect(x: 10, y: 140, width: 50, height: 50)
                 
                 // Status connection label
-                statusConnectionLabel.frame = CGRect(x: 10, y: 80, width: 188, height: 41)
+                //statusConnectionLabel.frame = CGRect(x: 10, y: 80, width: 188, height: 41)
                 
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: 680, y: 200, width: 190, height: 120)
@@ -850,14 +895,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 // Status connection label
                 statusConnectionLabel.frame = CGRect(x: 20, y: 40, width: 188, height: 21)
                 */
-                heightConstraintStatusImage.constant = 21
-                widthConstraintStatusImage.constant = 21
-                heightConstraintStatusLabel.constant = 21
-                widthConstraintStatusLabel.constant = 188
                 
-                statusConnectionLabel.clipsToBounds = true
+                //statusConnectionLabel.clipsToBounds = true
                 
-                statusConnectionLabel.layer.cornerRadius = 5
+                //statusConnectionLabel.layer.cornerRadius = 5
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 80)
                 
@@ -979,6 +1020,45 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             navigationController?.pushViewController(popoverContentIPhone, animated: true)
         }
     }
+    
+    func displayErrorMessageMainView(){
+        activeCurrentMeasurementFlag = false
+        let alertController:UIAlertController?
+        //typeError = 1
+        
+        switch typeError!{
+        case 1:
+            // Desconexion de manguera
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 2:
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 3:
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 4:
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 5:
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 6:
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        default:
+            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+        }
+        
+        alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {
+            action in
+            
+            switch UserSelectedConfiguration.typeOfDevice!{
+            case .iPad:
+                self.dismissViewControllerAnimated(true, completion: nil)
+            case .iPhone:
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            
+        }))
+        self.presentViewController(alertController!, animated: true, completion: nil)
+        
+    }
+    
 
     // MARK: - Buttons
     

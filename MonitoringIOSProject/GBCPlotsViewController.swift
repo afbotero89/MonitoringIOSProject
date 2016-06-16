@@ -170,6 +170,8 @@ class GBCPlotsViewController: UIViewController {
                 
    
             }
+        case .animationViewController:
+            print("animation view controller")
         }
 
         xAxis.hidden = false
@@ -301,6 +303,8 @@ class GBCPlotsViewController: UIViewController {
                 
                 
             }
+        case .animationViewController:
+            print("animation view controller")
         }
         xAxisHeartRate.axisConstraints = CPTConstraints(lowerOffset: 0.0) // Fixes the axis to low left corner of the graph
         xAxisHeartRate.labelFormatter = nil

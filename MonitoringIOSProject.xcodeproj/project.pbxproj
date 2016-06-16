@@ -746,7 +746,6 @@
 		D83E0F121CD137C900300593 = {
 			isa = PBXGroup;
 			children = (
-				B544D9D61D077D2000248390 /* Localizable.strings */,
 				D83E0F4F1CD1381200300593 /* CorePlot.xcodeproj */,
 				D83E0F691CD1386700300593 /* Accelerate.framework */,
 				D83E0F6B1CD1387500300593 /* QuartzCore.framework */,
@@ -831,6 +830,7 @@
 		D83E0F6E1CD1388B00300593 /* OtherSource */ = {
 			isa = PBXGroup;
 			children = (
+				B544D9D61D077D2000248390 /* Localizable.strings */,
 				D83E0F701CD13A9F00300593 /* MonitoringIOSProject-Header-File.h */,
 			);
 			name = OtherSource;

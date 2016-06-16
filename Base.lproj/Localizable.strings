@@ -10,8 +10,7 @@
 "Systolic pressure" = "Systolic pressure";
 "Diastolic pressure" = "Diastolic pressure";
 "Average pressure" = "Average pressure";
-"Heart rate" = "Heart rate";
-"Heart rate graphic" = "Heart rate graphic";
+"Heart Rate" = "Heart Rate";
 "Last messure" = "Last messure";
 "Systolic" = "Systolic";
 "Diastolic" = "Diastolic";
@@ -46,3 +45,6 @@
 "Calendar" = "Calendar";
 "Get a measure" = "Get a measure";
 "Display" = "Display";
+"Historical" = "Historical";
+"Current measure" = "Current measure";
+"Measurement time" = "Measurement time";

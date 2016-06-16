@@ -5,13 +5,12 @@
   Created by Felipe Botero on 7/06/16.
   Copyright © 2016 FING156561. All rights reserved.
 */
-"Pressure graphics" = "Gráficos de presión";
-"Heart rate graphic" = "Gráfico de frecuencia cardiaca";
+"Pressure graphics" = "Presión arterial";
+"Heart rate graphic" = "Frecuencia cardiaca";
 "Systolic pressure" = "Presión sistólica";
 "Diastolic pressure" = "Presión diastólica";
 "Average pressure" = "Presíon media";
-"Heart rate" = "Frecuencia cardiaca";
-"Heart rate graphic" = "Gráfico de frecuencia cardiaca";
+"Heart Rate" = "Frecuencia cardiaca";
 "Last messure" = "Última medida";
 "Systolic" = "Sistólica";
 "Diastolic" = "Diastólica";
@@ -27,7 +26,7 @@
 "Battery charging" = "Bateria cargando";
 "Device disconnected" = "Dispositivo desconectado";
 "Measuring" = "Midiendo";
-"Device error" = "Error del dispositivo";
+"Device error" = "";
 "Disconnect hose" = "Manguera desconectada";
 "Circuit leaks" = "Fugas en el circuito";
 "Incorrect pressure" = "Presión incorrecta";
@@ -46,3 +45,6 @@
 "Calendar" = "Calendario";
 "Get a measure" = "Obtener una medida";
 "Display" = "Mostrar historial";
+"Historical" = "Historial";
+"Current measure" = "Medida actual";
+"Measurement time" = "Hora de medida";
