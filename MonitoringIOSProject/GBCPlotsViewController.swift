@@ -15,10 +15,6 @@ class GBCPlotsViewController: UIViewController {
     
     let heartRateGraph = CPTXYGraph(frame: CGRectZero)
     
-    let savedGraph = [0.1,0.2,0.3,0.4]
-    
-    let savedGraphY = [10,20,30,40]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let device = UIDevice.currentDevice().model
@@ -158,6 +154,7 @@ class GBCPlotsViewController: UIViewController {
                     xAxis.axisLabels = labels
                 case .iPhone:
                     let xLabel = CPTAxisLabel.init(text: text[i].componentsSeparatedByString(":")[0] + ":" + text[i].componentsSeparatedByString(":")[1], textStyle: style)
+                    xLabel.rotation = 3.14/3.0;
                     xLabel.tickLocation = Double(i)/10.0
                     if i%2 == 0{
                         locations.insert(Double(i)/10.0)
@@ -294,6 +291,7 @@ class GBCPlotsViewController: UIViewController {
                     xAxisHeartRate.axisLabels = labels
                 case .iPhone:
                     let xLabel = CPTAxisLabel.init(text: text[i].componentsSeparatedByString(":")[0] + ":" + text[i].componentsSeparatedByString(":")[1], textStyle: style)
+                    xLabel.rotation = 3.14/3.0;
                     xLabel.tickLocation = Double(i)/10.0
                     xLabel.offset = 0
                     xAxisHeartRate.majorTickLocations = locations
@@ -436,19 +434,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
                 yLabel = 0
                 
             }
-            /*
-            if (plot.identifier as! NSInteger == 0){
-                yLabel = VectorPhysiologicalVariables.systolicPressure[Int(idx)]
-            //Diastolic pressure
-            }else if(plot.identifier as! NSInteger == 1){
-                yLabel = VectorPhysiologicalVariables.diastolicPressure[Int(idx)]
-            //Average pressure
-            }else if(plot.identifier as! NSInteger == 2){
-                yLabel = VectorPhysiologicalVariables.averagePressure[Int(idx)]
-            //Heart rate pressure
-            }else{
-                yLabel = VectorPhysiologicalVariables.heartRate[Int(idx)]
-            }*/
+
             return yLabel
         }
     }

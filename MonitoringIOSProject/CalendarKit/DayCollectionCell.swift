@@ -7,7 +7,9 @@
 //
 
 import UIKit
+
 var insertaIndicadorRegistro = false
+
 class DayCollectionCell: UICollectionViewCell {
     
     @IBOutlet var label: UILabel!
@@ -15,53 +17,61 @@ class DayCollectionCell: UICollectionViewCell {
     @IBOutlet var markedView: UIView!
     @IBOutlet var markedViewWidth: NSLayoutConstraint!
     @IBOutlet var markedViewHeight: NSLayoutConstraint!
-
+    
+    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    
+    var serverResponse:NSString?
+    
+    var vectorDatesStoredInDataBases:[String]?
+    
     var date: Date? {
         didSet {
+            
             if date != nil {
-                label.text = "\(date!.day)"
-                view.frame = CGRect(x: 35, y: 5, width: 5, height: 5)
-                print(date?.day)
-                if "\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "8-6-2016" && insertaIndicadorRegistro == false{
-                    
-                    view.backgroundColor = UIColor.redColor()
-                    label.insertSubview(view, atIndex: 0)
-                    
-                }else if("\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "9-6-2016" && insertaIndicadorRegistro == false){
-                    
-                    view.backgroundColor = UIColor.redColor()
-                    label.insertSubview(view, atIndex: 0)
-                    
-                }else if("\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "14-6-2016" && insertaIndicadorRegistro == false){
-                    
-                    view.backgroundColor = UIColor.redColor()
-                    label.insertSubview(view, atIndex: 0)
-                }else if("\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "15-6-2016" && insertaIndicadorRegistro == false){
-                    
-                    view.backgroundColor = UIColor.redColor()
-                    label.insertSubview(view, atIndex: 0)
+                
+                if PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL == nil{
+    
+                    getDataFromDataBaseSQLDayMonthYear()
+    
+                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.componentsSeparatedByString(",")
                 }else{
-                    
-                    view.backgroundColor = UIColor.groupTableViewBackgroundColor()
-                    label.insertSubview(view, atIndex: 0)
+                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.componentsSeparatedByString(",")
                 }
                 
-                /*
-                if "\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "8-6-2016" && insertaIndicadorRegistro == false{
-                    print("fecha!!")
-                    print("\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)")
-                    label.insertSubview(view, atIndex: 0)
+                label.text = "\(date!.day)"
+                view.frame = CGRect(x: 35, y: 5, width: 5, height: 5)
+                
+            view.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                
+            if vectorDatesStoredInDataBases != nil{
+                
+                for i in vectorDatesStoredInDataBases!{
+                    
+                    var monthString:String!
+                    
+                    var dayString:String!
+                    
+                    if date!.month < 10{
+                        monthString = "0" + "\(date!.month)"
+                    }else{
+                        monthString = "\(date!.month)"
+                    }
+                    
+                    if date!.day < 10{
+                        dayString = "0" + "\(date!.day)"
+                    }else{
+                        dayString = "\(date!.day)"
+                    }
+                    
+                    if "\(date!.year)" + "-" + "\(monthString)" + "-" + "\(dayString)" == i {
+                        view.backgroundColor = UIColor.redColor()
+                        
+                    }
                 }
-                if "\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "9-6-2016" && insertaIndicadorRegistro == false{
-                    label.insertSubview(view, atIndex: 0)
-                }
-                if "\(date!.day)" + "-" + "\(date!.month)" + "-" + "\(date!.year)" == "14-6-2016" && insertaIndicadorRegistro == false{
-                    label.insertSubview(view, atIndex: 0)
-                    insertaIndicadorRegistro = true
-                }*/
-
-                //label.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
-            } else {
+                label.insertSubview(view, atIndex: 0)
+            }
+                
+              }else{
                 label.text = ""
             }
         }
@@ -87,8 +97,36 @@ class DayCollectionCell: UICollectionViewCell {
         }
     }
     
+    func getDataFromDataBaseSQLDayMonthYear(){
+        
+        requestGetDayMonthYearDataBaseSQL.HTTPMethod = "POST"
+        
+        let postString = "month=2016-06-21"
+        
+        requestGetDayMonthYearDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDayMonthYearDataBaseSQL) {
+            data, response, error in
+            
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            print("entra a la funcion !!!!")
+            
+            self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            
+            PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
+            
+        }
+        
+        task.resume()
+        
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         markedViewWidth!.constant = min(self.frame.width, self.frame.height)
         markedViewHeight!.constant = min(self.frame.width, self.frame.height)
         markedView!.layer.cornerRadius = min(self.frame.width, self.frame.height) / 2.0

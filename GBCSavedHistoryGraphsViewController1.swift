@@ -53,7 +53,13 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         // Plot simbol
         let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
         lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
-        lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
+            
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
+        case .iPhone:
+            lowSymbol.size = CGSize(width: 3, height: 3) //Inflection point size
+        }
         
         self.averagePressurePlot.plotSymbol = lowSymbol
         // Sensitivity level when the user touches the symbol
@@ -226,10 +232,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         }
         
     }
-    
-    func autoSetXYRange(){
-        
-    }
+
     
     func setLegendGraph(){
         // Set legend pressure graph

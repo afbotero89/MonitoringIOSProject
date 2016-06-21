@@ -17,6 +17,7 @@ struct PhysiologicalVariablesStoredInDatabaseSQL{
     static var heartRate:[Double] = []
     static var hour:[String] = []
     static var dateSelectedByTheUser:String?
+    static var dayMonthYearDataBaseSQL:NSString?
 }
 
 class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
@@ -24,7 +25,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     @IBOutlet var placeholderView: UIView!
     
     @IBOutlet weak var displayRecordButton: UIButton!
-    
     
     let requestGetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
     
@@ -52,7 +52,13 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         placeholderView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
         
         displayRecordButton.layer.cornerRadius = 5
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +78,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         
         getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
         
-
     }
     
     /**

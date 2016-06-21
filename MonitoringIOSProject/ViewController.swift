@@ -45,6 +45,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     let requestSetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
     
+    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    
+    var serverResponse:NSString?
+    
     var bluetoothManager:BluetoothManager!
     
     let labelPressure = UILabel()
@@ -107,7 +111,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Plot simbol
         let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
         lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
-        lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
+        case .iPhone:
+            lowSymbol.size = CGSize(width: 3, height: 3) //Inflection point size
+        }
+        
     
         averagePressurePlot.plotSymbol = lowSymbol
         // Sensitivity level when the user touches the symbol
@@ -166,11 +176,31 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         addAttributesToContainerGraph()
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
+        
+        getDataFromDataBaseSQLDayMonthYear()
 
+        /*
+        VectorPhysiologicalVariables.systolicPressure.append(120)
+        VectorPhysiologicalVariables.averagePressure.append(100)
+        VectorPhysiologicalVariables.diastolicPressure.append(80)
+        VectorPhysiologicalVariables.heartRate.append(66)
+        VectorPhysiologicalVariables.measuringTime.append("14:25:15")
+        VectorPhysiologicalVariables.vectorNumberOfSamples.append(0.1)
+        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+        
+        VectorPhysiologicalVariables.systolicPressure.append(140)
+        VectorPhysiologicalVariables.averagePressure.append(120)
+        VectorPhysiologicalVariables.diastolicPressure.append(100)
+        VectorPhysiologicalVariables.heartRate.append(76)
+        VectorPhysiologicalVariables.measuringTime.append("14:26:15")
+        VectorPhysiologicalVariables.vectorNumberOfSamples.append(0.2)
+        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+ */
+        
     }
     
     override func viewWillAppear(animated: Bool) {
-        print("vista principal")
+        
         userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
         
     }
@@ -410,12 +440,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             let style = CPTMutableTextStyle()
             style.color = CPTColor.blackColor()
-            style.fontName = "Helvetica-Neue"
+            style.fontName = "HelveticaNeue-Light"
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
                 style.fontSize = 12.0
             case .iPhone:
-                style.fontSize = 8.0
+                style.fontSize = 10.0
             }
             
             
@@ -517,15 +547,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
                 
                 let xAxis = axisSet.xAxis!
-                print("hora!!!!!!!!!!")
-                print(measuringHour)
                 let xLabel:CPTAxisLabel?
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
                 case .iPhone:
                     
-                    xLabel = CPTAxisLabel.init(text: (measuringHour?.componentsSeparatedByString(":")[0])! + ":" + (measuringHour?.componentsSeparatedByString(":")[1])!, textStyle: style)
+                    xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
                     xLabel?.rotation = 3.14/3.0;
                     
                 }
@@ -544,7 +572,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
                 let xAxisHeartRate = axisSetHeartRate.xAxis!
                 let xLabelHeartRate = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
-                xLabelHeartRate.rotation = 3.14/3.0;
+                switch UserSelectedConfiguration.typeOfDevice!{
+                case .iPad:
+                    print("ipad")
+                case .iPhone:
+                    xLabelHeartRate.rotation = 3.14/3.0;
+                }
                 xLabelHeartRate.tickLocation = Double(VectorPhysiologicalVariables.measuringTime.count)/10.0
                 if (VectorPhysiologicalVariables.measuringTime.count - 1)%2 == 0{
                     locationsHeartRate.insert(Double(VectorPhysiologicalVariables.measuringTime.count)/10.0)
@@ -554,7 +587,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 xAxisHeartRate.majorTickLocations = locationsHeartRate
                 xAxisHeartRate.axisLabels = labelsHeartRate
                 
-                
                 pressuresGraph.plotWithIdentifier(0)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
                 pressuresGraph.plotWithIdentifier(1)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
                 pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
@@ -562,7 +594,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
             }else{
-                
                 
                 let pressureSystolicLastElement = VectorPhysiologicalVariables.systolicPressure[VectorPhysiologicalVariables.heartRate.count - 1]
                 let pressureDiastolicLastElement = VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1]
@@ -619,7 +650,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     case .iPad:
                         xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
                     case .iPhone:
-                        xLabel = CPTAxisLabel.init(text: hour.componentsSeparatedByString(":")[0] + ":" + hour.componentsSeparatedByString(":")[1], textStyle: style)
+                        xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
                         xLabel?.rotation = 3.14/3.0;
                     }
                 
@@ -636,14 +667,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 // xAxis heart rate graph
                 let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
                 let xAxisHeartRate = axisSetHeartRate.xAxis!
-                print("hora 1!!!!!!!!")
                 let xLabelHeartRate:CPTAxisLabel?
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
                 case .iPhone:
                     
-                    xLabelHeartRate = CPTAxisLabel.init(text: hour.componentsSeparatedByString(":")[0] + ":" + hour.componentsSeparatedByString(":")[1], textStyle: style)
+                    xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
                     xLabelHeartRate?.rotation = 3.14/3.0;
                     
                 }
@@ -813,12 +843,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             // Portrait
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
-                constraintSeparation.constant = 120
-                // Image status connection
-                //imageStatusConnection.frame = CGRect(x: 240, y: 80, width: 50, height: 50)
-                
-                // Status connection label
-                //statusConnectionLabel.frame = CGRect(x: 290, y: 80, width: 188, height: 41)
+                constraintSeparation.constant = 170
                 
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
@@ -834,17 +859,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
             case .iPhone:
                 
-                
-                //statusConnectionLabel.clipsToBounds = true
-                
-                //statusConnectionLabel.layer.cornerRadius = 5
-                /*
-                // Image status connection
-                imageStatusConnection.frame = CGRect(x: 0, y: 70, width: 21, height: 21)
-                
-                // Status connection label
-                statusConnectionLabel.frame = CGRect(x: 20, y: 70, width: 188, height: 21)
-                */
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!/2)-20, width: 130, height: 80)
                 
@@ -868,12 +882,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             // Landscape
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
-                constraintSeparation.constant = 120
-                // Image status connection
-                //imageStatusConnection.frame = CGRect(x: 10, y: 140, width: 50, height: 50)
-                
-                // Status connection label
-                //statusConnectionLabel.frame = CGRect(x: 10, y: 80, width: 188, height: 41)
+                constraintSeparation.constant = 200
                 
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: 680, y: 200, width: 190, height: 120)
@@ -888,17 +897,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
 
             case .iPhone:
-                /*
-                // Image status connection
-                imageStatusConnection.frame = CGRect(x: 0, y: 40, width: 21, height: 21)
                 
-                // Status connection label
-                statusConnectionLabel.frame = CGRect(x: 20, y: 40, width: 188, height: 21)
-                */
-                
-                //statusConnectionLabel.clipsToBounds = true
-                
-                //statusConnectionLabel.layer.cornerRadius = 5
                 // Labe1: pressure value
                 labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 80)
                 
@@ -1059,6 +1058,32 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
     }
     
+    func getDataFromDataBaseSQLDayMonthYear(){
+        
+        requestGetDayMonthYearDataBaseSQL.HTTPMethod = "POST"
+        
+        let postString = "month=2016-06-21"
+        
+        requestGetDayMonthYearDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDayMonthYearDataBaseSQL) {
+            data, response, error in
+            
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            print("entra a la funcion !!!!")
+            
+            self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            
+            PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
+            
+        }
+        
+        task.resume()
+        
+    }
 
     // MARK: - Buttons
     
