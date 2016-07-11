@@ -9,11 +9,32 @@
 import UIKit
 
 class GBCUserConfigurationDetailTableViewController: UITableViewController {
-
-    var numeroDeCeldas = 2
+    
+    var userSelectPatient = 0
+    
+    @IBOutlet weak var userNameCell: UITableViewCell!
+    
+    @IBOutlet weak var userNameTextLabel: UILabel!
+    
+    @IBOutlet weak var userIdLabel: UILabel!
+    
+    @IBOutlet weak var ageLabel: UILabel!
+    
+    @IBOutlet weak var genderLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(GBCUserConfigurationDetailTableViewController.add_editNewUser),
+                                                         
+                                                         name: "add_editNewUser",
+                                                         
+                                                         object: nil)
+
+        userNameCell.imageView?.image = UIImage(named: "User")
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -22,13 +43,29 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
+            userNameTextLabel.text = Users.userName[userSelectPatient]
+            userIdLabel.text = Users.userId[userSelectPatient]
+            ageLabel.text = Users.age[userSelectPatient]
+            genderLabel.text = Users.gender[userSelectPatient]
+        }
+    }
+    
+    // Buttons
+
+    
+    
+    
 
     // MARK: - Table view data source
-
+/*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
@@ -44,11 +81,18 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellUserConfigurationDetail", forIndexPath: indexPath)
 
         cell.textLabel?.text = "user"
+        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         // Configure the cell...
 
         return cell
-    }
+    }*/
     
+    // MARK: - Functions
+    func add_editNewUser(){
+        let add_editUserViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
+        navigationController?.pushViewController(add_editUserViewController, animated: true)
+        print("add edit new user notification")
+    }
 
     /*
     // Override to support conditional editing of the table view.

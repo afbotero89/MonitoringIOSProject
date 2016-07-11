@@ -1,59 +1,93 @@
 //
-//  GBCUserConfigurationMasterTableViewController.swift
+//  GBCAdd_EditNewUserTableViewController.swift
 //  MonitoringIOSProject
 //
-//  Created by FING156561 on 8/7/16.
+//  Created by FING156561 on 11/7/16.
 //  Copyright © 2016 FING156561. All rights reserved.
 //
 
 import UIKit
 
-class GBCUserConfigurationMasterTableViewController: UITableViewController {
+class GBCAdd_EditNewUserTableViewController: UITableViewController {
+
+    @IBOutlet weak var cell1: UITableViewCell!
     
-    var numeroDeCeldasDetailView = 0
+    @IBOutlet weak var userNameLabel: UITextField!
+
+    @IBOutlet weak var userIdLabel: UITextField!
     
-    var activeAdd_EditUserViewController = false
+    @IBOutlet weak var userAgeLabel: UITextField!
     
-    var add_editNewUserDelegate = GBCAdd_EditNewUserTableViewController()
+    @IBOutlet weak var userGenderLabel: UITextField!
+    
+    
+    var editOrAddNewUser : UserConfigurationEditOrAddNewPatient = .editNewPatient {
+
+        didSet {
+            print("edita didSet 1")
+            print(editOrAddNewUser)
+            
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.splitViewController?.preferredDisplayMode = .AllVisible
+        cell1.imageView!.image = UIImage(named: "User")
+        cell1.textLabel?.text = "User name"
+        cell1.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
+        print("edita view did load 1")
+        print(editOrAddNewUser)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(GBCUserConfigurationMasterTableViewController.reloadTableViewController),
-                                                         
-                                                         name: "reloadMasterTableViewController",
-                                                         
-                                                         object: nil)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func addNewUser(sender: AnyObject) {
-        print("add new user")
-        print(activeAdd_EditUserViewController)
-        if (activeAdd_EditUserViewController == false){
-            add_editNewUserDelegate.editOrAddNewUser = .addNewPatient
-            activeAdd_EditUserViewController = true
-            NSNotificationCenter.defaultCenter().postNotificationName("add_editNewUser", object: nil, userInfo: nil)
+    override func viewWillAppear(animated: Bool) {
+        changeLabelsValues()
+    }
+    
+    // MARK: - Buttons
+    @IBAction func cancelButton(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func okButton(sender: AnyObject) {
+        
+        if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != ""{
+        
+            Users.userName.append(userNameLabel.text!)
+            Users.userId.append(userIdLabel.text!)
+            Users.age.append(userAgeLabel.text!)
+            Users.gender.append(userGenderLabel.text!)
+            NSNotificationCenter.defaultCenter().postNotificationName("reloadMasterTableViewController", object: nil, userInfo: nil)
+
+            navigationController?.popViewControllerAnimated(true)
         }
     }
     
+    // MARK: - Functions
+    func changeLabelsValues(){
+        switch editOrAddNewUser {
+        case .addNewPatient:
+            userNameLabel.text = "1"
+        case .editNewPatient:
+            userNameLabel.text = "editar usuario"
+        }
+    }
     
     // MARK: - Table view data source
-
+/*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -61,33 +95,19 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (Users.userName.count)
+        return 4
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellUserConfigurationMaster", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("add_editNewUserCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = Users.userName[indexPath.row]
-        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+
         return cell
     }
-    
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("celda")
-        numeroDeCeldasDetailView = indexPath.row
-        self.performSegueWithIdentifier("userConfigurationMasterDetail", sender: self)
-    }
-    
-    //MARK: - Functions
-    
-    func reloadTableViewController(){
-        activeAdd_EditUserViewController = false
-        self.tableView.reloadData()
-    }
-    
+ */
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -123,17 +143,14 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("prepare for segue")
-        let controller = (segue.destinationViewController as! UINavigationController).topViewController as! GBCUserConfigurationDetailTableViewController
-        controller.userSelectPatient = numeroDeCeldasDetailView
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    
+    */
 
 }

@@ -303,6 +303,7 @@
 		D86DC69A1D30377400B3D69B /* UserConfiguration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */; };
 		D86DC6AF1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */; };
 		D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */; };
+		D889758B1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */; };
 		D8FDC8A71CD9091F002A702F /* GBCCurrentMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -537,6 +538,7 @@
 		D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserConfiguration.storyboard; path = ../UserConfiguration.storyboard; sourceTree = "<group>"; };
 		D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationMasterTableViewController.swift; sourceTree = "<group>"; };
 		D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationDetailTableViewController.swift; sourceTree = "<group>"; };
+		D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCAdd_EditNewUserTableViewController.swift; sourceTree = "<group>"; };
 		D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -862,6 +864,7 @@
 			children = (
 				D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */,
 				D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */,
+				D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */,
 			);
 			name = UserConfiguration;
 			sourceTree = "<group>";
@@ -1330,6 +1333,7 @@
 				B544D9AC1D04F2CE00248390 /* GBCAnimationView.m in Sources */,
 				B505D3D51CE820F10054E2BC /* CalendarLogic.swift in Sources */,
 				B505D3E51CE820F10054E2BC /* NSDateAdditions.swift in Sources */,
+				D889758B1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift in Sources */,
 				D83E0F271CD137C900300593 /* MonitoringIOSProject.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

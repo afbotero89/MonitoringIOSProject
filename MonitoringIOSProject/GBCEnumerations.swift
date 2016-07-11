@@ -49,6 +49,10 @@ enum UserSelectViewPrincipalViewController:Int{
     case realTimeViewController = 0, hitorialViewController, animationViewController
 }
 
+enum UserConfigurationEditOrAddNewPatient:Int{
+    case editNewPatient = 0, addNewPatient
+}
+
 // MARK: - Structs
 
 struct VectorPhysiologicalVariables{
@@ -69,6 +73,13 @@ struct UserSelectedConfiguration{
     static var typeOfDevice:TypeOfDevice?
     static var userSelectMeasurementTime:Int!
     
+}
+
+struct Users{
+    static var userName:[String] = []
+    static var userId:[String] = []
+    static var age:[String] = []
+    static var gender:[String] = []
 }
 
 
