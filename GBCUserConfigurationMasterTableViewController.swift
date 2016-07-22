@@ -29,6 +29,13 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
                                                          name: "reloadMasterTableViewController",
                                                          
                                                          object: nil)
+        
+        let nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.Black
+        nav?.tintColor = UIColor.whiteColor()
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,10 +49,9 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     }
 
     @IBAction func addNewUser(sender: AnyObject) {
-        print("add new user")
-        print(activeAdd_EditUserViewController)
+
         if (activeAdd_EditUserViewController == false){
-            add_editNewUserDelegate.editOrAddNewUser = .addNewPatient
+            editOrAddNewUser = .addNewPatient
             activeAdd_EditUserViewController = true
             NSNotificationCenter.defaultCenter().postNotificationName("add_editNewUser", object: nil, userInfo: nil)
         }
@@ -69,14 +75,13 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellUserConfigurationMaster", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = Users.userName[indexPath.row]
+        //cell.textLabel?.text = Users.userName.
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         return cell
     }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("celda")
         numeroDeCeldasDetailView = indexPath.row
         self.performSegueWithIdentifier("userConfigurationMasterDetail", sender: self)
     }
@@ -86,6 +91,10 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     func reloadTableViewController(){
         activeAdd_EditUserViewController = false
         self.tableView.reloadData()
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        //cell.layer.cornerRadius = 10.0
     }
     
     /*
@@ -129,8 +138,8 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("prepare for segue")
-        let controller = (segue.destinationViewController as! UINavigationController).topViewController as! GBCUserConfigurationDetailTableViewController
-        controller.userSelectPatient = numeroDeCeldasDetailView
+        //let controller = (segue.destinationViewController as! UINavigationController).topViewController as! GBCUserConfigurationDetailTableViewController
+        userSelectPatient = numeroDeCeldasDetailView
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }

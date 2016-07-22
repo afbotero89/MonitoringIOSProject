@@ -8,9 +8,9 @@
 
 import UIKit
 
+var userSelectPatient = 0
+
 class GBCUserConfigurationDetailTableViewController: UITableViewController {
-    
-    var userSelectPatient = 0
     
     @IBOutlet weak var userNameCell: UITableViewCell!
     
@@ -36,6 +36,13 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
 
         userNameCell.imageView?.image = UIImage(named: "User")
         
+        let nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.Black
+        nav?.tintColor = UIColor.whiteColor()
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -51,7 +58,7 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
-            userNameTextLabel.text = Users.userName[userSelectPatient]
+            userNameTextLabel.text = Users.userName.first
             userIdLabel.text = Users.userId[userSelectPatient]
             ageLabel.text = Users.age[userSelectPatient]
             genderLabel.text = Users.gender[userSelectPatient]
@@ -59,10 +66,18 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     }
     
     // Buttons
+    @IBAction func homeButton(sender: AnyObject) {
 
-    
-    
-    
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    @IBAction func editButton(sender: AnyObject) {
+        print("edita paciente !!!!")
+        editOrAddNewUser = .editNewPatient
+        let add_editTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
+        navigationController?.pushViewController(add_editTableViewController, animated: true)
+        
+    }
 
     // MARK: - Table view data source
 /*
@@ -91,7 +106,10 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     func add_editNewUser(){
         let add_editUserViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
         navigationController?.pushViewController(add_editUserViewController, animated: true)
-        print("add edit new user notification")
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.layer.cornerRadius = 5.0
     }
 
     /*

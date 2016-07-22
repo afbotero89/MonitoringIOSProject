@@ -25,6 +25,7 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 
     private var collectionData = [CalendarLogic]()
     var baseDate: NSDate? {
+        
         didSet {
             collectionData = [CalendarLogic]()
             if baseDate != nil {

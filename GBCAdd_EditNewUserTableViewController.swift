@@ -8,6 +8,8 @@
 
 import UIKit
 
+var editOrAddNewUser:UserConfigurationEditOrAddNewPatient = .editNewPatient
+
 class GBCAdd_EditNewUserTableViewController: UITableViewController {
 
     @IBOutlet weak var cell1: UITableViewCell!
@@ -19,27 +21,15 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     @IBOutlet weak var userAgeLabel: UITextField!
     
     @IBOutlet weak var userGenderLabel: UITextField!
-    
-    
-    var editOrAddNewUser : UserConfigurationEditOrAddNewPatient = .editNewPatient {
 
-        didSet {
-            print("edita didSet 1")
-            print(editOrAddNewUser)
-            
-        }
-    }
-    
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cell1.imageView!.image = UIImage(named: "User")
-        cell1.textLabel?.text = "User name"
-        cell1.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
-        
-        print("edita view did load 1")
+        print("view did load 1")
         print(editOrAddNewUser)
+        
+        cell1.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -48,13 +38,19 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        print("view will view appear 3")
+        print(editOrAddNewUser)
+        changeLabelsValues()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     override func viewWillAppear(animated: Bool) {
-        changeLabelsValues()
+        //changeLabelsValues()
     }
     
     // MARK: - Buttons
@@ -66,7 +62,9 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
         
         if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != ""{
         
-            Users.userName.append(userNameLabel.text!)
+            Users.userName.insert(userNameLabel.text!)
+            print("usuarios !!!")
+            print(Users.userName)
             Users.userId.append(userIdLabel.text!)
             Users.age.append(userAgeLabel.text!)
             Users.gender.append(userGenderLabel.text!)
@@ -80,10 +78,28 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     func changeLabelsValues(){
         switch editOrAddNewUser {
         case .addNewPatient:
-            userNameLabel.text = "1"
+            
+            userNameLabel.text = ""
+            userIdLabel.text = ""
+            userAgeLabel.text = ""
+            userGenderLabel.text = ""
+            
+            cell1.imageView!.image = UIImage(named: "User")
+            cell1.textLabel?.text = "New user"
+            
         case .editNewPatient:
-            userNameLabel.text = "editar usuario"
+            userNameLabel.text = "Edit User"
+            if (Users.userName.count>0 && Users.userId.count>0 && Users.age.count>0 && Users.gender.count>0){
+                userNameLabel.text = Users.userName.first
+                userIdLabel.text = Users.userId[userSelectPatient]
+                userAgeLabel.text = Users.age[userSelectPatient]
+                userGenderLabel.text = Users.gender[userSelectPatient]
+            }
         }
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.layer.cornerRadius = 5.0
     }
     
     // MARK: - Table view data source

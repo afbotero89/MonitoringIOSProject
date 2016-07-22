@@ -40,6 +40,7 @@ class DayCollectionCell: UICollectionViewCell {
                 
                 label.text = "\(date!.day)"
                 view.frame = CGRect(x: 35, y: 5, width: 5, height: 5)
+                view.layer.cornerRadius = 3
                 
             view.backgroundColor = UIColor.groupTableViewBackgroundColor()
                 

@@ -22,6 +22,7 @@ var measurementTimeConfirmed = false
 
 var userSelectViewController : UserSelectViewPrincipalViewController?
 
+/// There are 6 types of error: Disconnect hose, Circuit leaks, Incorrect pressure, Monitor measure canceled, heart rate not caculated, Incorrect pressure
 var typeError:Int?
 
 var configurationHour:String?
@@ -31,24 +32,34 @@ var hourOnDevice:String?
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
+    /// Systolic pressure graph core plot
     let systolicPressurePlot = CPTScatterPlot()
     
+    /// Systolic pressure graph core plot
     let diastolicPressurePlot = CPTScatterPlot()
     
+    /// Average pressure graph core plot
     let averagePressurePlot = CPTScatterPlot()
     
+    /// heart rate graph core plot
     let heartRatePressurePlot = CPTScatterPlot()
     
+    /// Graphics container pressure(systolic, average and diastolic pressure)
     var pressureContainerGraph = CPTGraphHostingView()
     
+    /// Graphic container heart rate
     var heartRateContainerGraph = CPTGraphHostingView()
     
+    /// Request to remote data base sql: Type post
     let requestSetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
     
+    /// Request to remote data base sql: Type get
     let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
     
+    /// Remote server response
     var serverResponse:NSString?
     
+    /// Bluetooth manager
     var bluetoothManager:BluetoothManager!
     
     let labelPressure = UILabel()
@@ -78,6 +89,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
     @IBOutlet weak var constraintSeparation: NSLayoutConstraint!
+    
+    @IBOutlet weak var batteryLevelImageView: UIImageView!
     
     
     override func viewDidLoad() {
@@ -179,23 +192,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         getDataFromDataBaseSQLDayMonthYear()
 
-        /*
-        VectorPhysiologicalVariables.systolicPressure.append(120)
-        VectorPhysiologicalVariables.averagePressure.append(100)
-        VectorPhysiologicalVariables.diastolicPressure.append(80)
-        VectorPhysiologicalVariables.heartRate.append(66)
-        VectorPhysiologicalVariables.measuringTime.append("14:25:15")
-        VectorPhysiologicalVariables.vectorNumberOfSamples.append(0.1)
-        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
-        
-        VectorPhysiologicalVariables.systolicPressure.append(140)
-        VectorPhysiologicalVariables.averagePressure.append(120)
-        VectorPhysiologicalVariables.diastolicPressure.append(100)
-        VectorPhysiologicalVariables.heartRate.append(76)
-        VectorPhysiologicalVariables.measuringTime.append("14:26:15")
-        VectorPhysiologicalVariables.vectorNumberOfSamples.append(0.2)
-        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
- */
         
     }
     
@@ -206,6 +202,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     override func viewDidAppear(animated: Bool) {
         deviceRotated()
+        batteryLevelImageView.image = UIImage(named: "BatteryLevel0")
     }
 
     override func didReceiveMemoryWarning() {
@@ -1086,6 +1083,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
 
     // MARK: - Buttons
+    
+    @IBAction func userManagerButton(sender: AnyObject) {
+        print("user manager button")
+        let storyBoardUserManager = UIStoryboard(name: "UserConfiguration", bundle: nil)
+        let userManagerSplitViewController = storyBoardUserManager.instantiateViewControllerWithIdentifier("splitRootViewController")
+        //navigationController?.pushViewController(userManagerSplitViewController, animated: true)
+        self.presentViewController(userManagerSplitViewController, animated: true, completion: nil)
+    }
     
     @IBAction func configurationButton(sender: AnyObject) {
         

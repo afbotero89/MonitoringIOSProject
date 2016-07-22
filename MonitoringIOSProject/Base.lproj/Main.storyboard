@@ -63,24 +63,33 @@
                                     <constraint firstAttribute="height" constant="28" id="DsT-oG-do0"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BatteryLevel0" translatesAutoresizingMaskIntoConstraints="NO" id="SM6-zv-a7x">
+                                <rect key="frame" x="20" y="68" width="50" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="7kj-rR-Dz8"/>
+                                    <constraint firstAttribute="width" constant="50" id="Tyr-pY-7d5"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="12" id="015-Ov-5SH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Si4-00-uDv" secondAttribute="trailing" constant="-20" id="1LM-Tp-LYQ"/>
+                            <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="SM6-zv-a7x" secondAttribute="trailing" constant="-70" id="3lN-Sw-haP"/>
                             <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgy-eZ-hUF"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="CTg-Pt-Mqf"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FRc-ab-eos"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="G90-uC-S44"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-45" id="WLA-5H-TQg"/>
+                            <constraint firstItem="SM6-zv-a7x" firstAttribute="top" secondItem="Si4-00-uDv" secondAttribute="bottom" constant="-40" id="Z6A-z9-O6L"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jKl-Bq-YWP" secondAttribute="bottom" constant="15" id="noF-EL-RuF"/>
                             <constraint firstItem="jKl-Bq-YWP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="10" id="wa0-6f-Cev"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
-                        <barButtonItem key="leftBarButtonItem" image="Info" id="Act-aA-cum">
+                        <barButtonItem key="leftBarButtonItem" image="userAdministration" id="hNM-xV-H5o">
                             <connections>
-                                <action selector="generalInformation:" destination="BYZ-38-t0r" id="j4n-2o-T3i"/>
+                                <action selector="userManagerButton:" destination="BYZ-38-t0r" id="A5j-Eu-far"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -97,6 +106,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="batteryLevelImageView" destination="SM6-zv-a7x" id="kjH-Cl-APt"/>
                         <outlet property="constraintSeparation" destination="wa0-6f-Cev" id="XOT-Lc-Uvv"/>
                         <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="xkJ-IC-4MD"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
@@ -650,38 +660,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNg-0v-MpS">
-                                <rect key="frame" x="0.0" y="74" width="600" height="456"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="496"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ax-y8-VOS">
-                                <rect key="frame" x="212" y="551" width="177" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="LbN-Ij-NrY"/>
-                                    <constraint firstAttribute="width" constant="177" id="ecR-mV-9zZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Display ">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="displayRecordButton:" destination="DC9-27-pkX" eventType="touchUpInside" id="mak-VU-rBv"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="8ax-y8-VOS" firstAttribute="centerX" secondItem="G90-P3-30I" secondAttribute="centerX" id="ItR-nv-q9p"/>
-                            <constraint firstItem="8ax-y8-VOS" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="21" id="OV8-8O-53W"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UNg-0v-MpS" secondAttribute="trailing" constant="-20" id="WDH-Yp-hSH"/>
                             <constraint firstItem="UNg-0v-MpS" firstAttribute="leading" secondItem="G90-P3-30I" secondAttribute="leadingMargin" constant="-20" id="ZjC-0R-TQK"/>
                             <constraint firstItem="UNg-0v-MpS" firstAttribute="top" secondItem="MGD-RA-nv8" secondAttribute="bottom" constant="10" id="gda-bU-X1K"/>
-                            <constraint firstItem="SGx-S2-dhf" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="70" id="hDG-XK-Dgq"/>
+                            <constraint firstItem="SGx-S2-dhf" firstAttribute="top" secondItem="UNg-0v-MpS" secondAttribute="bottom" constant="30" id="hDG-XK-Dgq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Calendar" id="YIy-mh-rqL"/>
                     <connections>
-                        <outlet property="displayRecordButton" destination="8ax-y8-VOS" id="eGB-wJ-41P"/>
                         <outlet property="placeholderView" destination="UNg-0v-MpS" id="EZB-9C-aAI"/>
                     </connections>
                 </viewController>
@@ -1054,14 +1046,15 @@
         <image name="AutoSet" width="21" height="21"/>
         <image name="AveragePressure" width="256" height="256"/>
         <image name="Batery" width="256" height="256"/>
+        <image name="BatteryLevel0" width="128" height="128"/>
         <image name="BatteryLevel10" width="128" height="128"/>
         <image name="Bluetooth_Disconnected" width="128" height="128"/>
         <image name="Calendar" width="32" height="32"/>
         <image name="Configuration" width="40" height="40"/>
         <image name="DiastolicPressure" width="256" height="256"/>
         <image name="HeartRate" width="256" height="256"/>
-        <image name="Info" width="32" height="32"/>
         <image name="SystolicPressure" width="256" height="256"/>
         <image name="UserSelect" width="32" height="32"/>
+        <image name="userAdministration" width="32" height="32"/>
     </resources>
 </document>

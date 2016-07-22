@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1P-rV-HBx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -309,9 +309,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="oXK-dZ-lok">
+                        <barButtonItem key="leftBarButtonItem" image="home" id="8ke-RE-lsw">
+                            <connections>
+                                <action selector="homeButton:" destination="eN9-yb-ccD" id="Tg9-Q9-abV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="bDm-OA-cxw">
                             <connections>
-                                <segue destination="dQA-ds-xka" kind="show" id="cab-BA-LI9"/>
+                                <action selector="editButton:" destination="eN9-yb-ccD" id="ac4-hB-wZC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -339,9 +344,9 @@
                             <tableViewSection id="EcW-63-8zp">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="68" id="Fib-fD-o6Q">
-                                        <rect key="frame" x="0.0" y="99" width="600" height="68"/>
+                                        <rect key="frame" x="0.0" y="35" width="600" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fib-fD-o6Q">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fib-fD-o6Q" id="EyJ-7D-m0e">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
@@ -351,7 +356,7 @@
                             <tableViewSection id="Nny-7J-H1e">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="35" id="xfy-NB-GVu">
-                                        <rect key="frame" x="0.0" y="203" width="600" height="35"/>
+                                        <rect key="frame" x="0.0" y="139" width="600" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xfy-NB-GVu" id="vxF-dF-mOQ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
@@ -376,7 +381,7 @@
                             <tableViewSection id="PN9-Kx-rTk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="35" id="FCE-Ib-YB1">
-                                        <rect key="frame" x="0.0" y="274" width="600" height="35"/>
+                                        <rect key="frame" x="0.0" y="210" width="600" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FCE-Ib-YB1" id="YRR-ci-9mG">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
@@ -401,7 +406,7 @@
                             <tableViewSection id="HqG-qC-0vh">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="35" id="Qe2-b0-DIe">
-                                        <rect key="frame" x="0.0" y="345" width="600" height="35"/>
+                                        <rect key="frame" x="0.0" y="281" width="600" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qe2-b0-DIe" id="Yra-o8-tUk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
@@ -426,7 +431,7 @@
                             <tableViewSection id="B4e-Kt-yRT">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="35" id="mgz-k0-JIQ">
-                                        <rect key="frame" x="0.0" y="416" width="600" height="35"/>
+                                        <rect key="frame" x="0.0" y="352" width="600" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mgz-k0-JIQ" id="3rv-hN-24O">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
@@ -481,7 +486,7 @@
         <!--Split View Controller-->
         <scene sceneID="HbH-b6-n90">
             <objects>
-                <splitViewController id="H1P-rV-HBx" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="splitRootViewController" id="H1P-rV-HBx" sceneMemberID="viewController">
                     <connections>
                         <segue destination="j1V-WG-ABA" kind="relationship" relationship="masterViewController" id="Tf7-Cg-uOM"/>
                         <segue destination="rfR-9g-aoN" kind="relationship" relationship="detailViewController" id="Rjv-uu-mjA"/>
@@ -510,7 +515,10 @@
             <point key="canvasLocation" x="707" y="746"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="home" width="32" height="32"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qrp-gL-lLx"/>
+        <segue reference="Rjv-uu-mjA"/>
     </inferredMetricsTieBreakers>
 </document>

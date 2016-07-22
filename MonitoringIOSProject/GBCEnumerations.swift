@@ -76,7 +76,7 @@ struct UserSelectedConfiguration{
 }
 
 struct Users{
-    static var userName:[String] = []
+    static var userName:Set<String> = Set<String>()
     static var userId:[String] = []
     static var age:[String] = []
     static var gender:[String] = []

@@ -30,6 +30,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     var responseString:NSString!
     
+    var activeCalendarViewController = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,7 +40,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         
         title = NSLocalizedString("Calendar", comment: "")
         
-        displayRecordButton.setTitle(NSLocalizedString("Display", comment: ""), forState: .Normal)
+        //displayRecordButton.setTitle(NSLocalizedString("Display", comment: ""), forState: .Normal)
         // create an instance of calendar view with
         // base date (Calendar shows 12 months range from current base date)
         // selected date (marked dated in the calendar)
@@ -51,13 +53,14 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         placeholderView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
         placeholderView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
         
-        displayRecordButton.layer.cornerRadius = 5
+        //displayRecordButton.layer.cornerRadius = 5
         
         
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(animated: Bool) {
+        print("activa vista")
         
     }
 
@@ -68,15 +71,21 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     func didSelectDate(date: NSDate) {
         PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
+        print("dia seleccionado por el usuario")
         print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
+        
+        if activeCalendarViewController == true{
+            getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
+        }
+        activeCalendarViewController = true
     }
     
     
     // MARK: - Buttons
     
     @IBAction func displayRecordButton(sender: AnyObject) {
-        
-        getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
+        print("botones consulta")
+        //getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
         
     }
     
@@ -124,14 +133,14 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             
             
             if (String(self.responseString).isEmpty || self.responseString == "s-d-a-f-h"){
-                
-                self.dismissViewControllerAnimated(true, completion:  {
-                    internetConnectionError = false
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                internetConnectionError = false
+                //self.dismissViewControllerAnimated(true, completion:  {
+                    //internetConnectionError = false
+                    //NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
                             
                         
                     
-                })
+                //})
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     print("iPad")
