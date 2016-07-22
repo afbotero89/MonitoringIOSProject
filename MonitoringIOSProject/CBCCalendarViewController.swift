@@ -205,7 +205,13 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     
                     userSelectViewController = UserSelectViewPrincipalViewController.hitorialViewController
                     
-                    NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
+                    switch appVersion!{
+                    case .patientVersion:
+                        NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotificationPatientVersion", object: nil, userInfo: nil)
+                    case .adminVersion:
+                        NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
+                    }
+                    
                 case .iPhone:
                     userSelectViewController = UserSelectViewPrincipalViewController.hitorialViewController
                     

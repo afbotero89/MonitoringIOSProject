@@ -9,14 +9,18 @@
 import UIKit
 import CoreData
 
+var appVersion:AppVersion?
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        appVersion = AppVersion.patientVersion
+        
         return true
     }
     

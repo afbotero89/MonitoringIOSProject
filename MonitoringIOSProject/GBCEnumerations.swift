@@ -53,6 +53,10 @@ enum UserConfigurationEditOrAddNewPatient:Int{
     case editNewPatient = 0, addNewPatient
 }
 
+enum AppVersion:Int{
+    case patientVersion = 0, adminVersion
+}
+
 // MARK: - Structs
 
 struct VectorPhysiologicalVariables{
