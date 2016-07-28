@@ -22,6 +22,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     
     @IBOutlet weak var userGenderLabel: UITextField!
 
+    let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,18 +61,18 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     
     @IBAction func okButton(sender: AnyObject) {
         
-        if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != ""{
-        
+        //if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != ""{
+            print("entra !!!")
+            queriesUserAdmin.insertNewPatient_postRequest()
+            
             Users.userName.insert(userNameLabel.text!)
-            print("usuarios !!!")
-            print(Users.userName)
             Users.userId.append(userIdLabel.text!)
             Users.age.append(userAgeLabel.text!)
             Users.gender.append(userGenderLabel.text!)
             NSNotificationCenter.defaultCenter().postNotificationName("reloadMasterTableViewController", object: nil, userInfo: nil)
 
             navigationController?.popViewControllerAnimated(true)
-        }
+        //}
     }
     
     // MARK: - Functions

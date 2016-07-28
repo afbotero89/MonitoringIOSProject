@@ -306,6 +306,7 @@
 		D86DC69A1D30377400B3D69B /* UserConfiguration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */; };
 		D86DC6AF1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */; };
 		D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */; };
+		D875659F1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */; };
 		D889758B1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */; };
 		D8FDC8A71CD9091F002A702F /* GBCCurrentMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */; };
 /* End PBXBuildFile section */
@@ -544,6 +545,7 @@
 		D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserConfiguration.storyboard; sourceTree = "<group>"; };
 		D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationMasterTableViewController.swift; sourceTree = "<group>"; };
 		D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationDetailTableViewController.swift; sourceTree = "<group>"; };
+		D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCDataBaseQueriesUserAdmin.swift; sourceTree = "<group>"; };
 		D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCAdd_EditNewUserTableViewController.swift; sourceTree = "<group>"; };
 		D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -906,6 +908,7 @@
 				D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */,
 				D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */,
 				D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */,
+				D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */,
 			);
 			name = UserConfiguration;
 			sourceTree = "<group>";
@@ -1373,6 +1376,7 @@
 				B50341401CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,
 				D81015251D42879500735568 /* GBCCurrentMeasurementViewControllerPatientVersion.swift in Sources */,
+				D875659F1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift in Sources */,
 				D83E0F791CD167C700300593 /* BluetoothManager.swift in Sources */,
 				B544D9AC1D04F2CE00248390 /* GBCAnimationView.m in Sources */,
 				B505D3D51CE820F10054E2BC /* CalendarLogic.swift in Sources */,
