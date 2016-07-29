@@ -12,6 +12,10 @@ let defaults = NSUserDefaults.standardUserDefaults()
 
 // MARK: - Enumerations
 
+struct PatientListStruct{
+    static var patientList:AnyObject?
+}
+
 enum PhysiologicalVariables:Int{
     case systolicPressure=0, diastolicPressure, averagePressure, heartRate
     

@@ -21,14 +21,13 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     @IBOutlet weak var userAgeLabel: UITextField!
     
     @IBOutlet weak var userGenderLabel: UITextField!
-
+    
+    @IBOutlet weak var emailLabel: UITextField!
+    
     let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("view did load 1")
-        print(editOrAddNewUser)
         
         cell1.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
@@ -40,8 +39,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        print("view will view appear 3")
-        print(editOrAddNewUser)
+
         changeLabelsValues()
     }
     
@@ -62,15 +60,15 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     @IBAction func okButton(sender: AnyObject) {
         
         //if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != ""{
-            print("entra !!!")
-            queriesUserAdmin.insertNewPatient_postRequest()
             
             Users.userName.insert(userNameLabel.text!)
             Users.userId.append(userIdLabel.text!)
             Users.age.append(userAgeLabel.text!)
             Users.gender.append(userGenderLabel.text!)
             NSNotificationCenter.defaultCenter().postNotificationName("reloadMasterTableViewController", object: nil, userInfo: nil)
-
+            
+            queriesUserAdmin.insertNewPatient_postRequest()
+            
             navigationController?.popViewControllerAnimated(true)
         //}
     }
@@ -89,13 +87,21 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
             cell1.textLabel?.text = "New user"
             
         case .editNewPatient:
-            userNameLabel.text = "Edit User"
-            if (Users.userName.count>0 && Users.userId.count>0 && Users.age.count>0 && Users.gender.count>0){
-                userNameLabel.text = Users.userName.first
-                userIdLabel.text = Users.userId[userSelectPatient]
-                userAgeLabel.text = Users.age[userSelectPatient]
-                userGenderLabel.text = Users.gender[userSelectPatient]
-            }
+            
+            //if (Users.userName.count>0 && Users.userId.count>0 && Users.age.count>0 && Users.gender.count>0){
+                
+                let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
+                let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
+                let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
+                let gender = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("gender")
+                let email = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("email")
+                
+                userNameLabel.text = String(name!)
+                userIdLabel.text = String(document!)
+                userAgeLabel.text = String(age!)
+                userGenderLabel.text = String(gender!)
+                emailLabel.text = String(email!)
+            //}
         }
     }
     

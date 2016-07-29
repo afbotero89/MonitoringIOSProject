@@ -33,7 +33,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="All groups" id="CLZ-vX-KVr">
-                        <barButtonItem key="leftBarButtonItem" title="Groups" id="YDp-MN-RIY"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="y1c-lZ-Ec1">
                             <connections>
                                 <action selector="addNewUser:" destination="ErI-z1-3B1" id="kC5-Wd-q6b"/>
@@ -149,7 +148,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0g9-vr-FGW">
                                                     <rect key="frame" x="8" y="3" width="584" height="21"/>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="User id:">
+                                                        <fragment content="Document:">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
@@ -302,6 +301,61 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="IIa-tO-zDa">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellUserConfigurationDetail" rowHeight="29" id="NQ3-F9-6Sh">
+                                        <rect key="frame" x="0.0" y="581" width="600" height="29"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NQ3-F9-6Sh" id="J6B-qR-JBS">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="28"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQr-fy-y2L">
+                                                    <rect key="frame" x="8" y="3" width="584" height="21"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Email:">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UQr-fy-y2L" firstAttribute="trailing" secondItem="J6B-qR-JBS" secondAttribute="trailingMargin" id="HDO-Ie-iS9"/>
+                                                <constraint firstItem="UQr-fy-y2L" firstAttribute="leading" secondItem="J6B-qR-JBS" secondAttribute="leadingMargin" id="e6b-7b-3qQ"/>
+                                                <constraint firstItem="UQr-fy-y2L" firstAttribute="top" secondItem="J6B-qR-JBS" secondAttribute="topMargin" constant="-5" id="io3-uc-fEl"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UQr-fy-y2L" secondAttribute="bottom" constant="-4" id="q7a-uF-SeL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellUserConfigurationDetail" rowHeight="29" id="Mjq-hq-KAb">
+                                        <rect key="frame" x="0.0" y="610" width="600" height="29"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mjq-hq-KAb" id="YUu-ui-oi2">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="28"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gp5-tI-MgJ">
+                                                    <rect key="frame" x="8" y="3" width="584" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gp5-tI-MgJ" firstAttribute="leading" secondItem="YUu-ui-oi2" secondAttribute="leadingMargin" id="3Yd-Aq-tSQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gp5-tI-MgJ" secondAttribute="bottom" constant="-4" id="RSE-Ve-VfK"/>
+                                                <constraint firstItem="gp5-tI-MgJ" firstAttribute="top" secondItem="YUu-ui-oi2" secondAttribute="topMargin" constant="-5" id="m0n-fa-kzE"/>
+                                                <constraint firstItem="gp5-tI-MgJ" firstAttribute="trailing" secondItem="YUu-ui-oi2" secondAttribute="trailingMargin" id="tMx-b3-Cbx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="eN9-yb-ccD" id="GrH-5L-gYV"/>
@@ -322,6 +376,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ageLabel" destination="krS-nq-tZE" id="7rS-q1-3nR"/>
+                        <outlet property="emailLabel" destination="gp5-tI-MgJ" id="oo8-7O-OzG"/>
                         <outlet property="genderLabel" destination="Mt3-S7-0Ew" id="oJ1-rR-S79"/>
                         <outlet property="userIdLabel" destination="fM9-nC-QqZ" id="qFT-YJ-X5Q"/>
                         <outlet property="userNameCell" destination="nch-c9-hRx" id="8AW-oq-Xzh"/>
@@ -498,6 +553,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cell1" destination="Fib-fD-o6Q" id="AI6-K3-kNr"/>
+                        <outlet property="emailLabel" destination="BbC-YF-GA7" id="4z5-zj-spW"/>
                         <outlet property="userAgeLabel" destination="scH-C2-GXw" id="7kb-Lv-Fnx"/>
                         <outlet property="userGenderLabel" destination="LW9-aQ-M4x" id="IDe-ZV-wdJ"/>
                         <outlet property="userIdLabel" destination="3zh-St-1Vu" id="iCq-C0-1t6"/>

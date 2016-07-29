@@ -121,6 +121,13 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         
         self.titleLabelUserSelectedDate.text = PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser
         // Do any additional setup after loading the view.
+        let areaColor = CPTColor.blueColor()
+        let areaGradient = CPTGradient(beginningColor: areaColor.colorWithAlphaComponent(0.2), endingColor: CPTColor.clearColor())
+        areaGradient.angle = -90
+        let areaGradientFill = CPTFill.init(gradient: areaGradient)
+            //CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+        self.systolicPressurePlot.areaFill = areaGradientFill
+        self.systolicPressurePlot.areaBaseValue = 0
             
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
  

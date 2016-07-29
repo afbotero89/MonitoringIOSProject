@@ -22,6 +22,7 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var genderLabel: UILabel!
     
+    @IBOutlet weak var emailLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +58,23 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
-            userNameTextLabel.text = Users.userName.first
-            userIdLabel.text = Users.userId[userSelectPatient]
-            ageLabel.text = Users.age[userSelectPatient]
-            genderLabel.text = Users.gender[userSelectPatient]
-        }
+        
+        //if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
+        
+            print(PatientListStruct.patientList!.valueForKey("result"))
+        
+            let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
+            let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
+            let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
+            let gender = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("gender")
+            let email = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("email")
+            userNameTextLabel.text = String(name!)
+            userIdLabel.text = String(document!)
+            ageLabel.text = String(age!)
+            genderLabel.text = String(gender!)
+            emailLabel.text = String(email!)
+        //}
+
     }
     
     // Buttons
@@ -72,7 +84,7 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     }
 
     @IBAction func editButton(sender: AnyObject) {
-        print("edita paciente !!!!")
+        
         editOrAddNewUser = .editNewPatient
         let add_editTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
         navigationController?.pushViewController(add_editTableViewController, animated: true)

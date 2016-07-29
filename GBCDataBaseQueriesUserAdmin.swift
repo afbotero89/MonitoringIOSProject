@@ -12,7 +12,7 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
     
     let requestSetDataBaseSQL_GETMethod = NSMutableURLRequest(URL: NSURL(string:"http://testgibic.com/app_slim/v1/public/pressure/patient/all")!)
     
-    let requestSetDataBaseSQL_POSTMethod = NSMutableURLRequest(URL: NSURL(string:"http://testgibic.com/app_slim/v1/public/pressure/patient/save")!)
+    let requestSetDataBaseSQL_POSTMethod = NSMutableURLRequest(URL: NSURL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/patient/save")!)
 
     
     func getInfoPatient_getRequest(){
@@ -21,8 +21,10 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         
         requestSetDataBaseSQL_GETMethod.allHTTPHeaderFields = ["X-Token":""]
         
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL_GETMethod) {
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(self.requestSetDataBaseSQL_GETMethod) {
             data, response, error in
+            
+            var json:AnyObject?
             
             if error != nil {
                 print("error = \(error)")
@@ -31,36 +33,35 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
             
             print("response = \(response)")
             
-            var json:AnyObject?
             do {
                 try json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
             }catch{
                 print("exception")
             }
             
+            PatientListStruct.patientList = json
             print(json)
-            
         }
         
         task.resume()
+        
+        //return PatientListStruct.patientList!
+        
     }
     
     func insertNewPatient_postRequest(){
         
-        // create the request & response
-        let request = NSMutableURLRequest(URL: NSURL(string: "http://www.testgibic.com/app_slim/v1/public/pressure/patient/save")!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
-        
         // create some JSON data and configure the request
-        let jsonString = "data={\"branch_id\":\"1\",\"name\":\"content\",\"document\":\"content\",\"age\":\"content\",\"gender\":\"content\",\"email\":\"content\",\"pass\":\"content\",\"token\":\"content\"}"
-        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        request.HTTPMethod = "POST"
-        request.setValue("", forHTTPHeaderField: "X-Token")
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        let jsonString = "data={\"branch_id\":\"1\",\"name\":\"usuario6\",\"document\":\"67890\",\"age\":\"45\",\"gender\":\"F\"}"
+        requestSetDataBaseSQL_POSTMethod.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        requestSetDataBaseSQL_POSTMethod.HTTPMethod = "POST"
+        requestSetDataBaseSQL_POSTMethod.setValue("", forHTTPHeaderField: "X-Token")
+        requestSetDataBaseSQL_POSTMethod.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: config)
         
-        let task = session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
+        let task = session.dataTaskWithRequest(requestSetDataBaseSQL_POSTMethod, completionHandler: {(data, response, error) in
             var json:AnyObject?
             do {
                 try json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
@@ -76,7 +77,7 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         });
         
         task.resume()
-    
+        getInfoPatient_getRequest()
     }
     
 }

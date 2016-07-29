@@ -92,6 +92,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var batteryLevelImageView: UIImageView!
     
+    let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,6 +199,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     override func viewWillAppear(animated: Bool) {
         
         userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
+        
+        queriesUserAdmin.getInfoPatient_getRequest()
         
     }
     override func viewDidAppear(animated: Bool) {

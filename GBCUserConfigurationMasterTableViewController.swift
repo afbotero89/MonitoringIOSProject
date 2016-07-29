@@ -15,6 +15,8 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     var activeAdd_EditUserViewController = false
     
     var add_editNewUserDelegate = GBCAdd_EditNewUserTableViewController()
+    
+    var numberOfPatientsInDataBases:Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,14 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        print("detail vista !!!")
+    }
+    
+    func detailPatientList(){
+    
+    }
 
     @IBAction func addNewUser(sender: AnyObject) {
 
@@ -62,20 +72,28 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (Users.userName.count)
+        numberOfPatientsInDataBases = PatientListStruct.patientList?.valueForKey("result")?.count
+        if numberOfPatientsInDataBases == nil{
+            numberOfPatientsInDataBases = 0
+        }
+        return (numberOfPatientsInDataBases)!
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("cellUserConfigurationMaster", forIndexPath: indexPath)
-
+        
+        let name = PatientListStruct.patientList!.valueForKey("result")![indexPath.row].valueForKey("name")
+        
         // Configure the cell...
-        //cell.textLabel?.text = Users.userName.
+        cell.textLabel?.text = String(name!)
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         return cell
     }
