@@ -14,6 +14,7 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
     
     let requestSetDataBaseSQL_POSTMethod = NSMutableURLRequest(URL: NSURL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/patient/save")!)
 
+    let requestEditUser_POSTMethod = NSMutableURLRequest(URL: NSURL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/patient/save")!)
     
     func getInfoPatient_getRequest(){
         
@@ -49,10 +50,11 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         
     }
     
-    func insertNewPatient_postRequest(){
+    func insertNewPatient_postRequest(branch_id:String,name:String,document:String,age:String,gender:String,email:String){
         
         // create some JSON data and configure the request
-        let jsonString = "data={\"branch_id\":\"1\",\"name\":\"usuario6\",\"document\":\"67890\",\"age\":\"45\",\"gender\":\"F\"}"
+        let jsonString = "data={\"branch_id\":\"\(branch_id)\",\"name\":\"\(name)\",\"document\":\"\(document)\",\"age\":\"\(age)\",\"gender\":\"\(gender)\"}"
+        //let jsonString = "data={\"branch_id\":\"\(branch_id)\",\"name\":\"\(name)\",\"document\":\"\(document)\",\"age\":\"\(age)\",\"gender\":\"\(gender)\"}"
         requestSetDataBaseSQL_POSTMethod.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         requestSetDataBaseSQL_POSTMethod.HTTPMethod = "POST"
         requestSetDataBaseSQL_POSTMethod.setValue("", forHTTPHeaderField: "X-Token")
@@ -70,6 +72,8 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
             }
             print("respuesta !!!!")
             print(json)
+            self.getInfoPatient_getRequest()
+            
             // notice that I can omit the types of data, response and error
             
             // your code
@@ -77,7 +81,40 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         });
         
         task.resume()
-        getInfoPatient_getRequest()
+        
+    }
+    
+    func editPatientByID(patient_id:Int,branch_id: String,name:String,document:String,age:String,gender:String,email:String){
+        // create some JSON data and configure the request
+        let jsonString = "data={\"id\":\"\(patient_id)\",\"branch_id\":\"\(branch_id)\",\"name\":\"\(name)\",\"document\":\"\(document)\",\"age\":\"\(age)\",\"gender\":\"\(gender)\",\"email\":\"\(email)\",\"pass\":\"\("23456")\"}"
+        //let jsonString = "data={\"branch_id\":\"\(branch_id)\",\"name\":\"\(name)\",\"document\":\"\(document)\",\"age\":\"\(age)\",\"gender\":\"\(gender)\"}"
+        requestEditUser_POSTMethod.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        requestEditUser_POSTMethod.HTTPMethod = "POST"
+        requestEditUser_POSTMethod.setValue("", forHTTPHeaderField: "X-Token")
+        requestEditUser_POSTMethod.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        
+        let task = session.dataTaskWithRequest(requestEditUser_POSTMethod, completionHandler: {(data, response, error) in
+            var json:AnyObject?
+            do {
+                try json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+            }catch{
+                print("exception")
+            }
+            print("edita !!!!!!!!!!!!!!")
+            print(json)
+            self.getInfoPatient_getRequest()
+            
+            // notice that I can omit the types of data, response and error
+            
+            // your code
+            
+        });
+        
+        task.resume()
+    
     }
     
 }

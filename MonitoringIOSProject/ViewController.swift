@@ -56,6 +56,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     /// Request to remote data base sql: Type get
     let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
     
+    /// Request to remote data base sql: Type post to GIBIC server
+    let uploadMeassuresToRemoteServer = GBCUploadMeassuresAndSignalsToRemoteServer()
+    
     /// Remote server response
     var serverResponse:NSString?
     
@@ -193,7 +196,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         getDataFromDataBaseSQLDayMonthYear()
 
+        /*
+        VectorPhysiologicalVariables.systolicPressure.append(120)
+        VectorPhysiologicalVariables.diastolicPressure.append(80)
+        VectorPhysiologicalVariables.averagePressure.append(100)
+        VectorPhysiologicalVariables.heartRate.append(60)
+        VectorPhysiologicalVariables.measuringTime.append("18:22:56.c")
         
+        
+        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: "ACSignal", DCSignal: "DCSignal", date: "01/08/2016")
+         */
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -593,6 +605,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
                 
                 uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
+                
+                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: "ACSignal", DCSignal: "DCSignal", date: "01/07/2016")
             }else{
                 
                 let pressureSystolicLastElement = VectorPhysiologicalVariables.systolicPressure[VectorPhysiologicalVariables.heartRate.count - 1]

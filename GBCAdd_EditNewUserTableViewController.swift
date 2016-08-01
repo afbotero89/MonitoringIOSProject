@@ -25,6 +25,8 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     @IBOutlet weak var emailLabel: UITextField!
     
     let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
+    
+    var alertController:UIAlertController?
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,18 +61,34 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     
     @IBAction func okButton(sender: AnyObject) {
         
-        //if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != ""{
-            
-            Users.userName.insert(userNameLabel.text!)
-            Users.userId.append(userIdLabel.text!)
-            Users.age.append(userAgeLabel.text!)
-            Users.gender.append(userGenderLabel.text!)
+        if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != "" && emailLabel.text! != ""{
+            let branch_id = "1"
+            switch editOrAddNewUser{
+            case .addNewPatient:
+                Users.userName.insert(userNameLabel.text!)
+                Users.userId.append(userIdLabel.text!)
+                Users.age.append(userAgeLabel.text!)
+                Users.gender.append(userGenderLabel.text!)
+                
+                
+                queriesUserAdmin.insertNewPatient_postRequest(branch_id,name:userNameLabel.text!,document:userIdLabel.text!,age:userAgeLabel.text!,gender:userGenderLabel.text!,email:emailLabel.text!)
+
+            case .editNewPatient:
+                
+                print("edita usuario !!!")
+                queriesUserAdmin.editPatientByID(1, branch_id: branch_id, name:userNameLabel.text!, document:userIdLabel.text!, age:userAgeLabel.text!, gender:userGenderLabel.text!, email:emailLabel.text!)
+                
+            }
             NSNotificationCenter.defaultCenter().postNotificationName("reloadMasterTableViewController", object: nil, userInfo: nil)
             
-            queriesUserAdmin.insertNewPatient_postRequest()
-            
             navigationController?.popViewControllerAnimated(true)
-        //}
+
+        }else{
+            
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Please fill out all fields", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: nil))
+            presentViewController(alertController!, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Functions
@@ -84,23 +102,28 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
             userGenderLabel.text = ""
             
             cell1.imageView!.image = UIImage(named: "User")
-            cell1.textLabel?.text = "New user"
+            cell1.textLabel?.text = "New patient"
             
         case .editNewPatient:
             
             //if (Users.userName.count>0 && Users.userId.count>0 && Users.age.count>0 && Users.gender.count>0){
+            
+                cell1.imageView!.image = UIImage(named: "User")
+                cell1.textLabel?.text = "Edit patient"
                 
-                let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
-                let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
-                let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
-                let gender = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("gender")
-                let email = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("email")
+                if PatientListStruct.patientList != nil{
+                    let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
+                    let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
+                    let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
+                    let gender = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("gender")
+                    let email = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("email")
                 
-                userNameLabel.text = String(name!)
-                userIdLabel.text = String(document!)
-                userAgeLabel.text = String(age!)
-                userGenderLabel.text = String(gender!)
-                emailLabel.text = String(email!)
+                    userNameLabel.text = String(name!)
+                    userIdLabel.text = String(document!)
+                    userAgeLabel.text = String(age!)
+                    userGenderLabel.text = String(gender!)
+                    emailLabel.text = String(email!)
+                }
             //}
         }
     }
