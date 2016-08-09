@@ -14,6 +14,7 @@ let defaults = NSUserDefaults.standardUserDefaults()
 
 struct PatientListStruct{
     static var patientList:AnyObject?
+    static var editOrAddNewUser:UserConfigurationEditOrAddNewPatient?
 }
 
 enum PhysiologicalVariables:Int{
@@ -75,6 +76,11 @@ struct VectorPhysiologicalVariables{
     static var batteryLevel:[Double] = []
     static var vectorNumberOfSamples:[Double] = []
     static var vectorToUploadServer:[AnyObject] = []
+    
+    // AC and DC signals
+    static var fullSignal = ""
+    static var ACSignal:String = "AC"
+    static var DCSignal:String = "DC"
 }
 
 struct UserSelectedConfiguration{

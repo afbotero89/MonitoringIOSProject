@@ -8,11 +8,11 @@
 
 import UIKit
 
+var activeAdd_EditUserViewController = false
+
 class GBCUserConfigurationMasterTableViewController: UITableViewController {
     
     var numeroDeCeldasDetailView = 0
-    
-    var activeAdd_EditUserViewController = false
     
     var add_editNewUserDelegate = GBCAdd_EditNewUserTableViewController()
     
@@ -52,6 +52,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         print("detail vista !!!")
+        
     }
     
     func detailPatientList(){
@@ -61,7 +62,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     @IBAction func addNewUser(sender: AnyObject) {
 
         if (activeAdd_EditUserViewController == false){
-            editOrAddNewUser = .addNewPatient
+            editOrAddNewUser = UserConfigurationEditOrAddNewPatient.addNewPatient
             activeAdd_EditUserViewController = true
             NSNotificationCenter.defaultCenter().postNotificationName("add_editNewUser", object: nil, userInfo: nil)
         }

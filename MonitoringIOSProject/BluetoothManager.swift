@@ -100,6 +100,8 @@ class BluetoothManager: NSObject{
     var timer:NSTimer?
     
     var tiempoEncendidoDispositivoRecibido = false
+
+    var contadorDatosAC = 0
     //MARK: Methods
     
     override init() {
@@ -176,7 +178,14 @@ class BluetoothManager: NSObject{
         
         for i in buffer{
             characterValue = Character(UnicodeScalar(i))
+            if characterValue == "A"{
+                contadorDatosAC = contadorDatosAC + 1
+                //print(contadorDatosAC)
+            }
             VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
+            VectorPhysiologicalVariables.fullSignal.append(characterValue!)
+            
+            //print(characterValue)
         }
         
         var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
@@ -186,6 +195,7 @@ class BluetoothManager: NSObject{
         var error = false
         
         for i in currentMeasurement{
+            
             if i == "e1"{
                 typeError = 1
                 error = true
@@ -280,7 +290,8 @@ class BluetoothManager: NSObject{
                 activeMeasurementTimeFlag = false
                 let str:String?
                 if UserSelectedConfiguration.userSelectMeasurementTime < 10{
-                    str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
+                    str = "00:01:00254,"
+                    //str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }else{
                     str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }
@@ -350,7 +361,6 @@ class BluetoothManager: NSObject{
                 }
                 if counterVariablesToGraph == 6{
                     
-                    
                     for i in 0...(currentMeasurement.count - 1){
                         // Systolic pressure
                         if currentMeasurement[i] == "s" {
@@ -403,6 +413,30 @@ class BluetoothManager: NSObject{
                 }
                 
                 if counterVariablesToGraph == 6{
+                    
+                    
+                    let fullACSignal = VectorPhysiologicalVariables.fullSignal.componentsSeparatedByString(",")
+                    
+                    for i in fullACSignal{
+                        
+                        // Example component AC signal: A1234
+                        
+                        if i.componentsSeparatedByString("A").count == 2 && i.componentsSeparatedByString("A")[1] != ""{
+                            VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "," + i.componentsSeparatedByString("A")[1]
+                            
+                        }
+                        
+                        if i.characters.count == 4{
+                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "," + i
+                        }
+                        
+                    }
+                    
+                    VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + VectorPhysiologicalVariables.DCSignal
+                    print("tamaño ac signal")
+                    print(fullACSignal.count)
+                    print(fullACSignal)
+                    
                     if VectorPhysiologicalVariables.diastolicPressure.last > VectorPhysiologicalVariables.averagePressure.last{
                         let comodin = VectorPhysiologicalVariables.diastolicPressure.last
                         VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1] = VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1]
@@ -419,6 +453,10 @@ class BluetoothManager: NSObject{
                     let data = str.dataUsingEncoding(NSUTF8StringEncoding)
                     
                     monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                    
+                    contadorDatosAC = 0
+                    print("longitud del vector !!!")
+                    print(VectorPhysiologicalVariables.ACSignal.componentsSeparatedByString(",").count)
                 
                 }
                 

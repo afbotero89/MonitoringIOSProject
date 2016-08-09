@@ -27,6 +27,8 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
     
     var alertController:UIAlertController?
+    
+    //let userConfigurationDetail = GBCUserConfigurationMasterTableViewController()
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     
     // MARK: - Buttons
     @IBAction func cancelButton(sender: AnyObject) {
+        activeAdd_EditUserViewController = false
         navigationController?.popViewControllerAnimated(true)
     }
     
@@ -70,7 +73,6 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                 Users.age.append(userAgeLabel.text!)
                 Users.gender.append(userGenderLabel.text!)
                 
-                
                 queriesUserAdmin.insertNewPatient_postRequest(branch_id,name:userNameLabel.text!,document:userIdLabel.text!,age:userAgeLabel.text!,gender:userGenderLabel.text!,email:emailLabel.text!)
 
             case .editNewPatient:
@@ -79,6 +81,9 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                 queriesUserAdmin.editPatientByID(1, branch_id: branch_id, name:userNameLabel.text!, document:userIdLabel.text!, age:userAgeLabel.text!, gender:userGenderLabel.text!, email:emailLabel.text!)
                 
             }
+            
+            activeAdd_EditUserViewController = false
+            
             NSNotificationCenter.defaultCenter().postNotificationName("reloadMasterTableViewController", object: nil, userInfo: nil)
             
             navigationController?.popViewControllerAnimated(true)

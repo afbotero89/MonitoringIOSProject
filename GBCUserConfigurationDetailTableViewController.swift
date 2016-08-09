@@ -86,7 +86,7 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
 
     @IBAction func editButton(sender: AnyObject) {
         
-        editOrAddNewUser = .editNewPatient
+        editOrAddNewUser = UserConfigurationEditOrAddNewPatient.editNewPatient
         let add_editTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
         navigationController?.pushViewController(add_editTableViewController, animated: true)
         

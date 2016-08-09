@@ -35,9 +35,11 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
             }catch{
                 print("exception")
             }
-            print("respuesta !!!!")
+            print("respuesta measure !!!!")
             print(json)
-            
+            VectorPhysiologicalVariables.ACSignal = "AC"
+            VectorPhysiologicalVariables.DCSignal = "DC"
+            VectorPhysiologicalVariables.fullSignal = ""
             // notice that I can omit the types of data, response and error
             
             // your code
