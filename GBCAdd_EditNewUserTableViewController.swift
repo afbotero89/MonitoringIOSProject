@@ -77,7 +77,6 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
 
             case .editNewPatient:
                 
-                print("edita usuario !!!")
                 queriesUserAdmin.editPatientByID(1, branch_id: branch_id, name:userNameLabel.text!, document:userIdLabel.text!, age:userAgeLabel.text!, gender:userGenderLabel.text!, email:emailLabel.text!)
                 
             }

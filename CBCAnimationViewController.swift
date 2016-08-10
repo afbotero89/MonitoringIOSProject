@@ -34,7 +34,7 @@ class CBCAnimationViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         if (self.isViewLoaded() && self.view.window == nil){
-            print("disappear")
+            
             userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
             NSNotificationCenter.defaultCenter().removeObserver(self, name: "displayCurrentMeasurementPopoverNotification", object: nil)
             currentView.stopAnimating()
@@ -50,7 +50,7 @@ class CBCAnimationViewController: UIViewController {
     }
     
     deinit{
-        print("deinit!!!!!!!!!")
+        
         // Remove this object from any notification of notification center.
         //NSNotificationCenter.defaultCenter().removeObserver(self)
     }
@@ -82,7 +82,7 @@ class CBCAnimationViewController: UIViewController {
         if VectorPhysiologicalVariables.systolicPressure.last != nil && VectorPhysiologicalVariables.averagePressure.last != nil && VectorPhysiologicalVariables.diastolicPressure.last != nil && VectorPhysiologicalVariables.heartRate.last != nil && VectorPhysiologicalVariables.batteryLevel.last != nil{
             
             if VectorPhysiologicalVariables.diastolicPressure.last! > VectorPhysiologicalVariables.averagePressure.last!{
-                print("presion mayor")
+                
                 popoverContent.systolicPressureString = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
                 popoverContent.diastolicPressureString = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
                 popoverContent.averagePressureString = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
@@ -141,19 +141,21 @@ class CBCAnimationViewController: UIViewController {
         switch typeError!{
         case 1:
             // Desconexion de manguera
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 2:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 3:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 4:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 5:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 6:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 7:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect measure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         default:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title:"", message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
         }
         
         alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {

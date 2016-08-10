@@ -51,7 +51,6 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        print("detail vista !!!")
         
     }
     
@@ -156,7 +155,6 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("prepare for segue")
         //let controller = (segue.destinationViewController as! UINavigationController).topViewController as! GBCUserConfigurationDetailTableViewController
         userSelectPatient = numeroDeCeldasDetailView
         // Get the new view controller using segue.destinationViewController.

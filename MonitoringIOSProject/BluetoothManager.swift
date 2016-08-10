@@ -321,8 +321,8 @@ class BluetoothManager: NSObject{
                 
                 let str:String?
                 if UserSelectedConfiguration.userSelectMeasurementTime < 10{
-                    str = "00:01:00254,"
-                    //str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
+                    //str = "00:01:00254,"
+                    str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }else{
                     str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }
@@ -474,31 +474,42 @@ class BluetoothManager: NSObject{
                         VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1] = VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1]
                         VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1] = comodin!
                     }
-                    VectorPhysiologicalVariables.systolicPressure.append(90)
+                    
+                    VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+                    
                     if VectorPhysiologicalVariables.systolicPressure.last > 100 && VectorPhysiologicalVariables.heartRate.last > 40 && VectorPhysiologicalVariables.heartRate.last < 150{
-                    
-                        VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
-                    
+
                         NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
                     
                     }else{
                         
-                        if(VectorPhysiologicalVariables.diastolicPressure.last <= 100){
-                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "-Diastolica baja"
-                            print("presion sistolica baja")
+                        if(VectorPhysiologicalVariables.systolicPressure.last <= 100){
+                            
+                            VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Diastolica baja"
+                            
                         }
                         
                         if(VectorPhysiologicalVariables.heartRate.last <= 40){
-                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "-Frecuencia cardiaca baja"
-                            print("frecuencia cardiaca muy baja")
+                            
+                            VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Frecuencia cardiaca baja"
+                            
                         }
                         
                         if(VectorPhysiologicalVariables.heartRate.last>150){
-                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "-Frecuencia cardiaca alta"
-                            print("frecuencia cardiaca muy alta")
+                            
+                            VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Frecuencia cardiaca alta"
+                            
                         }
-                        
-                        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "01/07/2016")
+                        typeError = 7
+                        error = true
+                        if userSelectViewController == .realTimeViewController{
+                            NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        }else{
+                            NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        }
+                        // todays date.
+                        let date = NSDate()
+                        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
                         VectorPhysiologicalVariables.ACSignal = "AC"
                     
                     }

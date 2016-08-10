@@ -75,8 +75,6 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("entra a la funcion paciente")
-        
         title =  NSLocalizedString("Monitoring", comment: "")
         
         //statusConnectionLabel.text = NSLocalizedString("Scanning bluetooth", comment: "") + "..."
@@ -179,13 +177,10 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
     override func viewWillAppear(animated: Bool) {
         
         userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
-        print("view 0")
         
     }
     override func viewDidAppear(animated: Bool) {
         deviceRotated()
-        
-        print("view 1")
         
         batteryLevelImageView.image = UIImage(named: "BatteryLevel0")
         
@@ -442,7 +437,6 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
             if configureOrNotConfigureHour[1] == "c"{
                 
                 text = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
-                print("hora configurada")
                 
             }else{
                 
@@ -715,8 +709,7 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
                 }
                 VectorPhysiologicalVariables.vectorToUploadServer.append(postString)
                 defaults.setObject(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
-                print("variables almacenadas db sql")
-                print(defaults.arrayForKey("VectorToUpLoadServer"))
+
                 return
             }
 
@@ -991,19 +984,21 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
         switch typeError!{
         case 1:
             // Desconexion de manguera
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 2:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 3:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 4:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 5:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 6:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 7:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect measure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         default:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
         }
         
         alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {
@@ -1036,7 +1031,6 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
                 print("error=\(error)")
                 return
             }
-            print("entra a la funcion !!!!")
             
             self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
             
@@ -1051,7 +1045,7 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
     // MARK: - Buttons
     
     @IBAction func userManagerButton(sender: AnyObject) {
-        print("user manager button")
+        
         let storyBoardUserManager = UIStoryboard(name: "UserConfiguration", bundle: nil)
         let userManagerSplitViewController = storyBoardUserManager.instantiateViewControllerWithIdentifier("splitRootViewController")
         //navigationController?.pushViewController(userManagerSplitViewController, animated: true)

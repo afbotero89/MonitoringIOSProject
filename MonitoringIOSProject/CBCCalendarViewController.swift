@@ -60,7 +60,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        print("activa vista")
         
     }
 
@@ -71,8 +70,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     func didSelectDate(date: NSDate) {
         PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
-        print("dia seleccionado por el usuario")
-        print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
         
         if activeCalendarViewController == true{
             getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
@@ -84,7 +81,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     // MARK: - Buttons
     
     @IBAction func displayRecordButton(sender: AnyObject) {
-        print("botones consulta")
+
         //getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
         
     }
@@ -157,7 +154,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 
             }else{
                 
-                //print("responseStringXX = \(self.responseString)")
                 PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.removeAll()

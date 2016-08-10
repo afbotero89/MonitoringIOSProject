@@ -271,7 +271,7 @@ class GBCPlotsViewController: UIViewController {
             xAxisHeartRate.labelingPolicy = .None
             
         case .hitorialViewController:
-            print("entra historial!!!")
+            
             var labels:Set<CPTAxisLabel> = Set<CPTAxisLabel>()
             xAxisHeartRate.labelingPolicy = .None
             //xAxis.hidden = false

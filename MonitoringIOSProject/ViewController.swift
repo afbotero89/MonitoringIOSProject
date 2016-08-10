@@ -282,6 +282,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          
                                                          object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.disconnectBluetoothMessage),
+                                                         
+                                                         name: "displayDisconnectBluetoothAlertMessage",
+                                                         
+                                                         object: nil)
+        
         // Watch Bluetooth connection
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
         
@@ -456,19 +464,24 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
             
             var text =  VectorPhysiologicalVariables.measuringTime.last
-            
             let hourMS = text?.componentsSeparatedByString(":")
             let currentHour = Int(hourMS![0])
             let currentMinute = Int(hourMS![1])
             let currentSecond = hourMS![2]
             let configureOrNotConfigureHour = currentSecond.componentsSeparatedByString(".")
             
+            print("hora de mediada")
+            print(text)
+            print("hora de configuracion")
+            print(configurationHour)
+            print("hora de encendido del dispositivo")
+            print(hourOnDevice)
+            
             // Hour
             if configureOrNotConfigureHour.count > 1{
             if configureOrNotConfigureHour[1] == "c"{
                 
                 text = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
-                print("hora configurada")
                 
             }else{
                 
@@ -556,10 +569,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let xLabel:CPTAxisLabel?
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
-                    xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                    xLabel = CPTAxisLabel.init(text: (hour! + ":" + minutes! + ":" + seconds!), textStyle: style)
                 case .iPhone:
                     
-                    xLabel = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                    xLabel = CPTAxisLabel.init(text: (hour! + ":" + minutes! + ":" + seconds!), textStyle: style)
                     xLabel?.rotation = 3.14/3.0;
                     
                 }
@@ -724,12 +737,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
      Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour and date)
     */
     func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
-        
-        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "01/07/2016")
-        VectorPhysiologicalVariables.ACSignal = "AC"
-        
         // todays date.
         let date = NSDate()
+        
+        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
+        VectorPhysiologicalVariables.ACSignal = "AC"
         
         let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
         requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -1016,24 +1028,25 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     func displayErrorMessageMainView(){
         activeCurrentMeasurementFlag = false
         let alertController:UIAlertController?
-        //typeError = 1
-        
+
         switch typeError!{
         case 1:
             // Desconexion de manguera
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 2:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 3:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 4:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 5:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         case 6:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 7:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect measure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
         default:
-            alertController = UIAlertController(title: NSLocalizedString("Device error", comment: ""), message: "Default", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: "Default principal view", preferredStyle:UIAlertControllerStyle.Alert)
         }
         
         alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {
@@ -1133,7 +1146,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 print("error=\(error)")
                 return
             }
-            print("entra a la funcion !!!!")
             
             self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
             
@@ -1144,11 +1156,15 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         task.resume()
         
     }
+    
+    func disconnectBluetoothMessage(){
+
+    }
 
     // MARK: - Buttons
     
     @IBAction func userManagerButton(sender: AnyObject) {
-        print("user manager button")
+        
         let storyBoardUserManager = UIStoryboard(name: "UserConfiguration", bundle: nil)
         let userManagerSplitViewController = storyBoardUserManager.instantiateViewControllerWithIdentifier("splitRootViewController")
         //navigationController?.pushViewController(userManagerSplitViewController, animated: true)

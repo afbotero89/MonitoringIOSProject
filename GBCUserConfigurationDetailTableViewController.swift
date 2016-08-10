@@ -62,7 +62,7 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         //if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
         
         if PatientListStruct.patientList != nil{
-            print(PatientListStruct.patientList!.valueForKey("result"))
+           
             let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
             let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
             let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
