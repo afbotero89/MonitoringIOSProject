@@ -13,7 +13,9 @@ let defaults = NSUserDefaults.standardUserDefaults()
 // MARK: - Enumerations
 
 struct PatientListStruct{
+    
     static var patientList:AnyObject?
+    
     static var editOrAddNewUser:UserConfigurationEditOrAddNewPatient?
 }
 
@@ -38,6 +40,8 @@ enum PhysiologicalVariables:Int{
 
 enum DeviceVariables:Int{
     case batteryLevel=0, currentHour
+    
+    static var bluetoothConnected = false
     
     static let allValues = [batteryLevel, currentHour]
 }
@@ -81,6 +85,7 @@ struct VectorPhysiologicalVariables{
     static var fullSignal = ""
     static var ACSignal:String = "AC"
     static var DCSignal:String = "DC"
+    
 }
 
 struct UserSelectedConfiguration{

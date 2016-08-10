@@ -9,7 +9,6 @@
 import UIKit
 import SystemConfiguration
 
-
 var activeCurrentMeasurementFlag = false
 
 var measureRequestedFlag = false
@@ -87,15 +86,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var currentMeasurementLabel: UIButton!
     
-    @IBOutlet weak var statusConnectionLabel: UILabel!
-    
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
     @IBOutlet weak var constraintSeparation: NSLayoutConstraint!
     
     @IBOutlet weak var batteryLevelImageView: UIImageView!
     
+    @IBOutlet weak var batteryLevelTextLabel: UILabel!
+    
     let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,7 +197,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         getDataFromDataBaseSQLDayMonthYear()
 
         /*
-        VectorPhysiologicalVariables.systolicPressure.append(120)
+        VectorPhysiologicalVariables.systolicPressure.append(140)
         VectorPhysiologicalVariables.diastolicPressure.append(80)
         VectorPhysiologicalVariables.averagePressure.append(100)
         VectorPhysiologicalVariables.heartRate.append(60)
@@ -205,7 +205,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         
         uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: "ACSignal", DCSignal: "DCSignal", date: "01/08/2016")
-         */
+        */
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -214,10 +214,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         queriesUserAdmin.getInfoPatient_getRequest()
         
+        setBatteryLevel()
+        
     }
     override func viewDidAppear(animated: Bool) {
+        
         deviceRotated()
-        batteryLevelImageView.image = UIImage(named: "BatteryLevel0")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -243,14 +246,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                                                          selector: #selector(ViewController.insertPoint),
                                                          
                                                          name: "insertNewPlot",
-                                                         
-                                                         object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.displayDisconnectBluetoothMessage),
-                                                         
-                                                         name: "displayDisconnectBluetoothAlertMessage",
                                                          
                                                          object: nil)
         
@@ -377,10 +372,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         currentMeasurementLabel.clipsToBounds = true
         
         currentMeasurementLabel.layer.cornerRadius = 10
-        
-        //statusConnectionLabel.clipsToBounds = true
-        
-        //statusConnectionLabel.layer.cornerRadius = 10
+
     }
     
     func setLegendGraph(){
@@ -608,8 +600,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
                 
-                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "01/07/2016")
-                VectorPhysiologicalVariables.ACSignal = "AC"
+                
             }else{
                 
                 let pressureSystolicLastElement = VectorPhysiologicalVariables.systolicPressure[VectorPhysiologicalVariables.heartRate.count - 1]
@@ -621,10 +612,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.systolicPressure.removeAtIndex(VectorPhysiologicalVariables.systolicPressure.count - 1)
                 VectorPhysiologicalVariables.diastolicPressure.removeAtIndex(VectorPhysiologicalVariables.diastolicPressure.count - 1)
                 VectorPhysiologicalVariables.averagePressure.removeAtIndex(VectorPhysiologicalVariables.averagePressure.count - 1)
-                
                 VectorPhysiologicalVariables.heartRate.removeAtIndex(VectorPhysiologicalVariables.heartRate.count - 1)
                 VectorPhysiologicalVariables.measuringTime.removeAtIndex(VectorPhysiologicalVariables.measuringTime.count - 1)
-                
                 
                 VectorPhysiologicalVariables.systolicPressure.insert(pressureSystolicLastElement, atIndex: 0)
                 VectorPhysiologicalVariables.diastolicPressure.insert(pressureDiastolicLastElement, atIndex: 0)
@@ -736,6 +725,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     */
     func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
         
+        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "01/07/2016")
+        VectorPhysiologicalVariables.ACSignal = "AC"
+        
         // todays date.
         let date = NSDate()
         
@@ -837,11 +829,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             if let isConnected: Bool = userInfo["isConnected"] {
                 if isConnected {
                     self.imageStatusConnection.image = UIImage(named: "Bluetooth_Connected")
-                    //self.statusConnectionLabel.text = NSLocalizedString("Connected", comment: "")
+                    DeviceVariables.bluetoothConnected = true
+                    
                 
                 } else {
                     self.imageStatusConnection.image = UIImage(named: "Bluetooth_Disconnected")
-                    //self.statusConnectionLabel.text = NSLocalizedString("Disconnected", comment: "")
+                    DeviceVariables.bluetoothConnected = false
                   
                 }
             }
@@ -936,12 +929,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
  
     }
     
-    func displayDisconnectBluetoothMessage(){
-        print("revisar conexion bluetooth")
-        //let alertController = UIAlertController(title: "There is no connection", message: "Check connection", preferredStyle:UIAlertControllerStyle.Alert)
-        //self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     /**
      Auto set XY range
      */
@@ -994,18 +981,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            /*
-            let nav:UINavigationController?
-            nav = UINavigationController(rootViewController: popoverContent!)
-            nav!.modalPresentationStyle = UIModalPresentationStyle.Popover
-            let popover = nav!.popoverPresentationController
-            popoverContent!.preferredContentSize = CGSizeMake(self.view.frame.width,600)
-            popover!.delegate = self
-            popover!.sourceView = self.view
-            popover!.sourceRect = CGRectMake(100,100,0,0)
- 
-            self.presentViewController(nav!, animated: true, completion: nil)
-             */
+
             navigationController?.pushViewController(popoverContent!, animated: true)
         case .iPhone:
             
@@ -1082,11 +1058,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         //batteryLevelTitleLabel.text = NSLocalizedString("Battery Level", comment: "")
         
         if VectorPhysiologicalVariables.batteryLevel.last != nil{
-            //batteryLevelPercentage.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
+            batteryLevelTextLabel.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
         }else{
-            //batteryLevelPercentage.text = NSLocalizedString("Device disconnected", comment: "") + " %"
+            batteryLevelTextLabel.text = "50 %"
         }
-        //batteryLevelPercentage.font = UIFont(name: "HelveticaNeue-Light", size: 18)
+        batteryLevelTextLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         
         // Battery level 0%
         if VectorPhysiologicalVariables.batteryLevel.last == 0 {
@@ -1135,12 +1111,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             // Battery level default
         }else if(VectorPhysiologicalVariables.batteryLevel.last > 100){
             batteryLevelImageView.image = UIImage(named: "BatteryLevel10")
-            //batteryLevelPercentage.text = "100" + " %"
+            batteryLevelTextLabel.text = "100 %"
         }else{
             batteryLevelImageView.image = UIImage(named: "BatteryLevel5")
         }
     
     }
+
     func getDataFromDataBaseSQLDayMonthYear(){
         
         requestGetDayMonthYearDataBaseSQL.HTTPMethod = "POST"
@@ -1224,34 +1201,17 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     
     @IBAction func currentMeasurementButton(sender: AnyObject) {
-        //displayCurrentMeasurementPopover()
         
-        currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), forState: .Normal)
-        
-        activeCurrentMeasurementFlag = true
-        
-        measureRequestedFlag = true
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-        
-        //NSNotificationCenter.defaultCenter().postNotificationName("startAnimation", object: nil, userInfo: nil)
-        /*
-        if activeCurrentMeasurementFlag == false{
+        if DeviceVariables.bluetoothConnected == true{
             
-            currentMeasurementLabel.setTitle("Cancel measure", forState: .Normal)
-            
+            currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), forState: .Normal)
+        
             activeCurrentMeasurementFlag = true
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-        }else{
-            currentMeasurementLabel.setTitle("Current measurement", forState: .Normal)
-            
-            activeCurrentMeasurementFlag = false
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("cancelCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-            
-        }*/
         
+            measureRequestedFlag = true
+        
+            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+        }
     }
     
     @IBAction func autoSetGraph(sender: AnyObject) {

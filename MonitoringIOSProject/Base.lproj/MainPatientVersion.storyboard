@@ -63,8 +63,25 @@
                                     <constraint firstAttribute="height" constant="28" id="DsT-oG-do0"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXS-VY-0h4">
+                                <rect key="frame" x="4" y="75" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="IcH-6o-tAy"/>
+                                    <constraint firstAttribute="width" constant="42" id="yhp-hz-3eR"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="100 %">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BatteryLevel0" translatesAutoresizingMaskIntoConstraints="NO" id="SM6-zv-a7x">
-                                <rect key="frame" x="20" y="68" width="50" height="36"/>
+                                <rect key="frame" x="46" y="68" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="7kj-rR-Dz8"/>
                                     <constraint firstAttribute="width" constant="50" id="Tyr-pY-7d5"/>
@@ -75,14 +92,16 @@
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="12" id="015-Ov-5SH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Si4-00-uDv" secondAttribute="trailing" constant="-20" id="1LM-Tp-LYQ"/>
-                            <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="SM6-zv-a7x" secondAttribute="trailing" constant="-70" id="3lN-Sw-haP"/>
                             <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bgy-eZ-hUF"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="CTg-Pt-Mqf"/>
+                            <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="QXS-VY-0h4" secondAttribute="trailing" constant="-46" id="F9H-4v-cV8"/>
+                            <constraint firstItem="Si4-00-uDv" firstAttribute="top" secondItem="QXS-VY-0h4" secondAttribute="bottom" constant="-32" id="FPE-Ia-qiy"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FRc-ab-eos"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="G90-uC-S44"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-45" id="WLA-5H-TQg"/>
                             <constraint firstItem="SM6-zv-a7x" firstAttribute="top" secondItem="Si4-00-uDv" secondAttribute="bottom" constant="-40" id="Z6A-z9-O6L"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jKl-Bq-YWP" secondAttribute="bottom" constant="15" id="noF-EL-RuF"/>
+                            <constraint firstItem="SM6-zv-a7x" firstAttribute="leading" secondItem="QXS-VY-0h4" secondAttribute="trailing" id="oxG-04-Pis"/>
                             <constraint firstItem="jKl-Bq-YWP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="10" id="wa0-6f-Cev"/>
                         </constraints>
                     </view>
@@ -102,6 +121,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="batteryLevelImageView" destination="SM6-zv-a7x" id="kjH-Cl-APt"/>
+                        <outlet property="batteryLevelTextLabel" destination="QXS-VY-0h4" id="Sww-v1-8x8"/>
                         <outlet property="constraintSeparation" destination="wa0-6f-Cev" id="XOT-Lc-Uvv"/>
                         <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="xkJ-IC-4MD"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>

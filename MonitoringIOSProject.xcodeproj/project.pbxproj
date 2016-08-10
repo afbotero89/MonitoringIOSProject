@@ -304,6 +304,8 @@
 		D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */; };
 		D8642BF81D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8642BF71D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift */; };
+		D86639041D5A4C09007CE075 /* 60Hz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86639031D5A4C09007CE075 /* 60Hz.mp3 */; };
+		D86639051D5A4C09007CE075 /* 60Hz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86639031D5A4C09007CE075 /* 60Hz.mp3 */; };
 		D86DC69A1D30377400B3D69B /* UserConfiguration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */; };
 		D86DC6AF1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */; };
 		D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */; };
@@ -544,6 +546,7 @@
 		D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSliderView.swift; sourceTree = "<group>"; };
 		D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCBatteryLevelViewController.swift; sourceTree = "<group>"; };
 		D8642BF71D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUploadMeassuresAndSignalsToRemoteServer.swift; sourceTree = "<group>"; };
+		D86639031D5A4C09007CE075 /* 60Hz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 60Hz.mp3; sourceTree = "<group>"; };
 		D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserConfiguration.storyboard; sourceTree = "<group>"; };
 		D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationMasterTableViewController.swift; sourceTree = "<group>"; };
 		D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -872,6 +875,7 @@
 			children = (
 				B544D9D61D077D2000248390 /* Localizable.strings */,
 				D83E0F701CD13A9F00300593 /* MonitoringIOSProject-Header-File.h */,
+				D86639031D5A4C09007CE075 /* 60Hz.mp3 */,
 			);
 			name = OtherSource;
 			sourceTree = "<group>";
@@ -993,6 +997,7 @@
 				TargetAttributes = {
 					D83E0F1A1CD137C900300593 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = B3K3324H6Q;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1092,6 +1097,7 @@
 				B544D9691D04F21100248390 /* AnimCurva1920x1080V1.00088.jpg in Resources */,
 				B544D9771D04F21100248390 /* AnimCurva1920x1080V1.00095.jpg in Resources */,
 				D83E0F2C1CD137C900300593 /* LaunchScreen.storyboard in Resources */,
+				D86639041D5A4C09007CE075 /* 60Hz.mp3 in Resources */,
 				B505D3E31CE820F10054E2BC /* MonthCollectionCell.xib in Resources */,
 				B544D8E51D04F21100248390 /* AnimCurva1920x1080V1.00022.jpg in Resources */,
 				B544D98D1D04F21100248390 /* AnimCurva1920x1080V1.00106.jpg in Resources */,
@@ -1318,6 +1324,7 @@
 				B544D8BA1D04F21100248390 /* AnimCurva1920x1080V1.00000.jpg in Resources */,
 				B544D97A1D04F21100248390 /* AnimCurva1920x1080V1.00096.jpg in Resources */,
 				B544D8DE1D04F21100248390 /* AnimCurva1920x1080V1.00018.jpg in Resources */,
+				D86639051D5A4C09007CE075 /* 60Hz.mp3 in Resources */,
 				B544D8D41D04F21100248390 /* AnimCurva1920x1080V1.00013.jpg in Resources */,
 				B544D9421D04F21100248390 /* AnimCurva1920x1080V1.00068.jpg in Resources */,
 				B544D98A1D04F21100248390 /* AnimCurva1920x1080V1.00104.jpg in Resources */,

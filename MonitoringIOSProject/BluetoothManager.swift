@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import AVFoundation
 
 var contador = 0
 
@@ -100,8 +101,15 @@ class BluetoothManager: NSObject{
     var timer:NSTimer?
     
     var tiempoEncendidoDispositivoRecibido = false
+    
+    ///
+    var player: AVAudioPlayer?
 
     var contadorDatosAC = 0
+    
+    /// Request to remote data base sql: Type post to GIBIC server
+    let uploadMeassuresToRemoteServer = GBCUploadMeassuresAndSignalsToRemoteServer()
+    
     //MARK: Methods
     
     override init() {
@@ -142,7 +150,24 @@ class BluetoothManager: NSObject{
                                                          object: nil)
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BluetoothManager.timerPrueba), userInfo: nil, repeats: true)
     }
-
+    func playSound() {
+        let url = NSBundle.mainBundle().URLForResource("60Hz", withExtension: "mp3")!
+        
+        do {
+            player = try AVAudioPlayer(contentsOfURL: url)
+            guard let player = player else { return }
+            
+            player.prepareToPlay()
+            player.play()
+        } catch let error as NSError {
+            print(error.description)
+        }
+    }
+    func stopSound(){
+        
+        player?.stop()
+        
+    }
     /**
      Loads the descriptors for the sought services.
     */
@@ -177,11 +202,16 @@ class BluetoothManager: NSObject{
         var characterValue:Character?
         
         for i in buffer{
+            
             characterValue = Character(UnicodeScalar(i))
-            if characterValue == "A"{
-                contadorDatosAC = contadorDatosAC + 1
-                //print(contadorDatosAC)
+            
+            if characterValue == "k"{
+                playSound()
             }
+            if characterValue == "A"{
+                stopSound()
+            }
+            
             VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
             VectorPhysiologicalVariables.fullSignal.append(characterValue!)
             
@@ -190,7 +220,7 @@ class BluetoothManager: NSObject{
         
         var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
         
-        print(currentMeasurement)
+        //print(currentMeasurement)
         
         var error = false
         
@@ -288,6 +318,7 @@ class BluetoothManager: NSObject{
             if (i == "255") && activeMeasurementTimeFlag == true{
                 
                 activeMeasurementTimeFlag = false
+                
                 let str:String?
                 if UserSelectedConfiguration.userSelectMeasurementTime < 10{
                     str = "00:01:00254,"
@@ -317,6 +348,7 @@ class BluetoothManager: NSObject{
                         if Double(currentMeasurement[i+1]) == nil{
                             
                         }else{
+                            stopSound()
                             counterVariablesToGraph = counterVariablesToGraph + 1
                             
                         }
@@ -409,11 +441,11 @@ class BluetoothManager: NSObject{
                 if activeCurrentMeasurementFlag == true && error == false{
                     
                     activeCurrentMeasurementFlag = false
+                    
                     NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
                 }
                 
                 if counterVariablesToGraph == 6{
-                    
                     
                     let fullACSignal = VectorPhysiologicalVariables.fullSignal.componentsSeparatedByString(",")
                     
@@ -426,26 +458,50 @@ class BluetoothManager: NSObject{
                             
                         }
                         
-                        if i.characters.count == 4{
-                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "," + i
+                        // Example component AC signal: D1234
+                        
+                        if i.componentsSeparatedByString("D").count == 2 && i.componentsSeparatedByString("D")[1] != ""{
+                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "," + i.componentsSeparatedByString("D")[1]
+                            
                         }
                         
                     }
                     
                     VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + VectorPhysiologicalVariables.DCSignal
-                    print("tamaño ac signal")
-                    print(fullACSignal.count)
-                    print(fullACSignal)
                     
                     if VectorPhysiologicalVariables.diastolicPressure.last > VectorPhysiologicalVariables.averagePressure.last{
                         let comodin = VectorPhysiologicalVariables.diastolicPressure.last
                         VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1] = VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1]
                         VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1] = comodin!
                     }
-                    VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+                    VectorPhysiologicalVariables.systolicPressure.append(90)
+                    if VectorPhysiologicalVariables.systolicPressure.last > 100 && VectorPhysiologicalVariables.heartRate.last > 40 && VectorPhysiologicalVariables.heartRate.last < 150{
                     
-                    NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                        VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
                     
+                        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                    
+                    }else{
+                        
+                        if(VectorPhysiologicalVariables.diastolicPressure.last <= 100){
+                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "-Diastolica baja"
+                            print("presion sistolica baja")
+                        }
+                        
+                        if(VectorPhysiologicalVariables.heartRate.last <= 40){
+                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "-Frecuencia cardiaca baja"
+                            print("frecuencia cardiaca muy baja")
+                        }
+                        
+                        if(VectorPhysiologicalVariables.heartRate.last>150){
+                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "-Frecuencia cardiaca alta"
+                            print("frecuencia cardiaca muy alta")
+                        }
+                        
+                        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "01/07/2016")
+                        VectorPhysiologicalVariables.ACSignal = "AC"
+                    
+                    }
                     VectorPhysiologicalVariables.currentMeasures.removeAll()
                     
                     let str = "255,"
@@ -455,8 +511,6 @@ class BluetoothManager: NSObject{
                     monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
                     
                     contadorDatosAC = 0
-                    print("longitud del vector !!!")
-                    print(VectorPhysiologicalVariables.ACSignal.componentsSeparatedByString(",").count)
                 
                 }
                 

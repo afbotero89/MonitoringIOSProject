@@ -64,14 +64,13 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
     
     @IBOutlet weak var currentMeasurementLabel: UIButton!
     
-    @IBOutlet weak var statusConnectionLabel: UILabel!
-    
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
     @IBOutlet weak var constraintSeparation: NSLayoutConstraint!
     
     @IBOutlet weak var batteryLevelImageView: UIImageView!
     
+    @IBOutlet weak var batteryLevelTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -220,14 +219,6 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
                                                          selector: #selector(ViewController.insertPoint),
                                                          
                                                          name: "insertNewPlot",
-                                                         
-                                                         object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         
-                                                         selector: #selector(ViewController.displayDisconnectBluetoothMessage),
-                                                         
-                                                         name: "displayDisconnectBluetoothAlertMessage",
                                                          
                                                          object: nil)
         
@@ -907,13 +898,7 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
         }
  
     }
-    
-    func displayDisconnectBluetoothMessage(){
-        print("revisar conexion bluetooth")
-        //let alertController = UIAlertController(title: "There is no connection", message: "Check connection", preferredStyle:UIAlertControllerStyle.Alert)
-        //self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
+
     /**
      Auto set XY range
      */
@@ -966,18 +951,7 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            /*
-            let nav:UINavigationController?
-            nav = UINavigationController(rootViewController: popoverContent!)
-            nav!.modalPresentationStyle = UIModalPresentationStyle.Popover
-            let popover = nav!.popoverPresentationController
-            popoverContent!.preferredContentSize = CGSizeMake(self.view.frame.width,600)
-            popover!.delegate = self
-            popover!.sourceView = self.view
-            popover!.sourceRect = CGRectMake(100,100,0,0)
- 
-            self.presentViewController(nav!, animated: true, completion: nil)
-             */
+
             navigationController?.pushViewController(popoverContent!, animated: true)
         case .iPhone:
             
@@ -1130,7 +1104,6 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
     }
     
     @IBAction func currentMeasurementButton(sender: AnyObject) {
-        //displayCurrentMeasurementPopover()
         
         currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), forState: .Normal)
         
@@ -1139,24 +1112,6 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
         measureRequestedFlag = true
         
         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-        
-        //NSNotificationCenter.defaultCenter().postNotificationName("startAnimation", object: nil, userInfo: nil)
-        /*
-        if activeCurrentMeasurementFlag == false{
-            
-            currentMeasurementLabel.setTitle("Cancel measure", forState: .Normal)
-            
-            activeCurrentMeasurementFlag = true
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-        }else{
-            currentMeasurementLabel.setTitle("Current measurement", forState: .Normal)
-            
-            activeCurrentMeasurementFlag = false
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("cancelCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-            
-        }*/
         
     }
     
