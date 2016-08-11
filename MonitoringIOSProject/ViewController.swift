@@ -325,7 +325,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
         
         // attributes pressure container
-        pressureContainerGraph.layer.borderWidth = 1
+        pressureContainerGraph.layer.borderWidth = 0
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
@@ -333,7 +333,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         
         // attributes heart rate container graph
-        heartRateContainerGraph.layer.borderWidth = 1
+        heartRateContainerGraph.layer.borderWidth = 0
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
@@ -417,7 +417,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             theLegend.swatchSize = CGSizeMake(20.0, 20.0)
             theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
             pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
-            heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+            heartRateGraph.legendDisplacement = CGPointMake(430.0, -25.0)
             attrsLegend = [
                 NSForegroundColorAttributeName : UIColor.blackColor(),
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
@@ -907,16 +907,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 constraintSeparation.constant = 200
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 680, y: 200, width: 190, height: 120)
+                labelPressure.frame = CGRect(x: 680, y: 230, width: 190, height: 120)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 680, y: 550, width: 190, height: 80)
+                labelHeartRate.frame = CGRect(x: 680, y: 575, width: 190, height: 80)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 230, y: 80, width: 650, height: 300)
+                pressureContainerGraph.frame = CGRect(x: 230, y: 110, width: 650, height: 300)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 230, y: 390, width: 650, height: 300)
+                heartRateContainerGraph.frame = CGRect(x: 230, y: 415, width: 650, height: 300)
 
             case .iPhone:
                 

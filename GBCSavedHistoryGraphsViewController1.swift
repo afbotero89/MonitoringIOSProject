@@ -122,16 +122,20 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.titleLabelUserSelectedDate.text = PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser
         // Do any additional setup after loading the view.
             
-        /*
+        
         // Color gradient is added under the scatter plot
-        let areaColor = CPTColor.blueColor()
+
+        let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
         let areaGradient = CPTGradient(beginningColor: areaColor.colorWithAlphaComponent(0.2), endingColor: CPTColor.clearColor())
         areaGradient.angle = -90
         let areaGradientFill = CPTFill.init(gradient: areaGradient)
             //CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
         self.systolicPressurePlot.areaFill = areaGradientFill
         self.systolicPressurePlot.areaBaseValue = 0
-        */
+            
+        self.heartRatePressurePlot.areaFill = areaGradientFill
+        self.heartRatePressurePlot.areaBaseValue = 0
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
  
         })
@@ -160,15 +164,13 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         view.layer.insertSublayer(gradientLayer, atIndex:0)
         
         // attributes pressure container
-        pressureContainerGraph.layer.borderWidth = 1
+        pressureContainerGraph.layer.borderWidth = 0
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
         
-        
-        
         // attributes heart rate container graph
-        heartRateContainerGraph.layer.borderWidth = 1
+        heartRateContainerGraph.layer.borderWidth = 0
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
         heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
