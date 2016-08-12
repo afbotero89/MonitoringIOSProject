@@ -177,6 +177,19 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
         heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
         
+        // Color gradient is added under the scatter plot
+        
+        let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
+        let areaGradient = CPTGradient(beginningColor: areaColor.colorWithAlphaComponent(0.2), endingColor: CPTColor.clearColor())
+        areaGradient.angle = -90
+        let areaGradientFill = CPTFill.init(gradient: areaGradient)
+        //CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+        systolicPressurePlot.areaFill = areaGradientFill
+        systolicPressurePlot.areaBaseValue = 0
+        
+        heartRatePressurePlot.areaFill = areaGradientFill
+        heartRatePressurePlot.areaBaseValue = 0
+        
         pressuresGraph.addPlot(systolicPressurePlot)
         pressuresGraph.addPlot(diastolicPressurePlot)
         pressuresGraph.addPlot(averagePressurePlot)
@@ -196,16 +209,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         getDataFromDataBaseSQLDayMonthYear()
 
-        /*
-        VectorPhysiologicalVariables.systolicPressure.append(140)
-        VectorPhysiologicalVariables.diastolicPressure.append(80)
-        VectorPhysiologicalVariables.averagePressure.append(100)
-        VectorPhysiologicalVariables.heartRate.append(60)
-        VectorPhysiologicalVariables.measuringTime.append("18:22:56.c")
-        
-        
-        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: "ACSignal", DCSignal: "DCSignal", date: "01/08/2016")
-        */
     }
     
     override func viewWillAppear(animated: Bool) {

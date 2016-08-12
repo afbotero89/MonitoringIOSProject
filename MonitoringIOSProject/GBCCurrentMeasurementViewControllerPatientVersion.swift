@@ -35,6 +35,8 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     
     @IBOutlet weak var batteryLevelTitleLabel: UILabel!
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
     var systolicPressureString:String!
     
     var diastolicPressureString:String!
@@ -47,10 +49,18 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     
     let gradientLayer = CAGradientLayer()
     
+    /// Bluetooth manager
+    var bluetoothManager:BluetoothManager!
+    
+    @IBOutlet weak var imageStatusConnection: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = NSLocalizedString("Current measure", comment: "")
+        
+        // Initialize the bluetooth manager.
+        self.bluetoothManager = BluetoothManager()
         
         let device = UIDevice.currentDevice().model
         
@@ -64,7 +74,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         diastolicPressureTitleLabel.text = NSLocalizedString("Diastolic pressure", comment: "")
         averagePressureTitleLabel.text = NSLocalizedString("Average pressure", comment: "")
         heartRateTitleLabel.text = NSLocalizedString("Heart Rate", comment: "")
-        batteryLevelTitleLabel.text = NSLocalizedString("Battery Level", comment: "")
+        
         
         if systolicPressureString != nil && diastolicPressureValue != nil && averagePressureString != nil && heartRatePressureString != nil && batteryLevelString != nil{
         
@@ -91,6 +101,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     }
     
     func addNotifications(){
+        
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          
                                                          selector: #selector(GBCCurrentMeasurementViewControllerPatientVersion.displaySavedHistoryGraphs),
@@ -98,6 +109,16 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
                                                          name: "displaySavedHistoryGraphsNotificationPatientVersion",
                                                          
                                                          object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(GBCCurrentMeasurementViewControllerPatientVersion.displayMeasure),
+                                                         
+                                                         name: "displayMeasurePatientViewController",
+                                                         
+                                                         object: nil)
+        
+        // Watch Bluetooth connection
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
     }
     
     func addAttributesToViewController(){
@@ -116,7 +137,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
             }
             
         }
-
+        navigationBar.barTintColor = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 1)
         
         let color1 = UIColor.whiteColor().CGColor
         
@@ -142,9 +163,9 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     
     func batteryLevel(){
         if VectorPhysiologicalVariables.batteryLevel.last != nil{
-            BatteryLevel.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
+            batteryLevelTitleLabel.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
         }else{
-            BatteryLevel.text = NSLocalizedString("Device disconnected", comment: "") + " %"
+            batteryLevelTitleLabel.text = NSLocalizedString("Device disconnected", comment: "") + " %"
         }
         //BatteryLevel.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
@@ -195,7 +216,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
             // Battery level default
         }else{
             batteryLevelImage.image = UIImage(named: "BatteryLevel10")
-            BatteryLevel.text = "100" + " %"
+            batteryLevelTitleLabel.text = "100" + " %"
             
         }
     }
@@ -237,24 +258,42 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         
     }
     
+    func displayMeasure(){
+        systolicPressureValue.text = String(VectorPhysiologicalVariables.systolicPressure.last!)
+        averagePressureValue.text = String(VectorPhysiologicalVariables.averagePressure.last!)
+        diastolicPressureValue.text = String(VectorPhysiologicalVariables.diastolicPressure.last!)
+        heartRateValue.text = String(VectorPhysiologicalVariables.heartRate.last!)
+        batteryLevel()
+    }
+    
+    func connectionChanged(notification: NSNotification) {
+        
+        // Connection status changed. Indicate on GUI.
+        let userInfo = notification.userInfo as! [String: Bool]
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // Set image based on connection status
+            if let isConnected: Bool = userInfo["isConnected"] {
+                if isConnected {
+                    self.imageStatusConnection.image = UIImage(named: "Bluetooth_Connected")
+                    DeviceVariables.bluetoothConnected = true
+                    
+                    
+                } else {
+                    self.imageStatusConnection.image = UIImage(named: "Bluetooth_Disconnected")
+                    DeviceVariables.bluetoothConnected = false
+                    
+                }
+            }
+        });
+    }
+    
     func displaySavedHistoryGraphs(){
         
         let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            /*
-             let nav:UINavigationController?
-             nav = UINavigationController(rootViewController: popoverContent!)
-             nav!.modalPresentationStyle = UIModalPresentationStyle.Popover
-             let popover = nav!.popoverPresentationController
-             popoverContent!.preferredContentSize = CGSizeMake(self.view.frame.width,600)
-             popover!.delegate = self
-             popover!.sourceView = self.view
-             popover!.sourceRect = CGRectMake(100,100,0,0)
-             
-             self.presentViewController(nav!, animated: true, completion: nil)
-             */
             navigationController?.pushViewController(popoverContent!, animated: true)
         case .iPhone:
             

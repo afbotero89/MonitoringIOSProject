@@ -314,7 +314,6 @@ class BluetoothManager: NSObject{
                 
             }
 
-            
             if (i == "255") && activeMeasurementTimeFlag == true{
                 
                 activeMeasurementTimeFlag = false
@@ -477,10 +476,18 @@ class BluetoothManager: NSObject{
                     
                     VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
                     
+                    NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                    
                     if VectorPhysiologicalVariables.systolicPressure.last > 100 && VectorPhysiologicalVariables.heartRate.last > 40 && VectorPhysiologicalVariables.heartRate.last < 150{
 
-                        NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
-                    
+                        switch appVersion!{
+                        case .adminVersion:
+                            print("admin version")
+                            //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                        case .patientVersion:
+                            NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
+                        }
+
                     }else{
                         
                         if(VectorPhysiologicalVariables.systolicPressure.last <= 100){
