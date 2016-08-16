@@ -10,7 +10,10 @@ import UIKit
 
 class GBCSettingsHour: NSObject {
     
-    
+    /**
+    Hora de conexion: hora en la que se establecio la comunicacion bluetooth
+    tiempoDispositivoEncendido: tiempo que transcurrio desde que se encendio el monitor hasta que se establece la comunicacion bluetooth.
+    */
     func horaInicioDispositivo(horaConexion:String, tiempoDispositivoEncendido:String)->String{
         // Hora de inicio del dispositivo
         var horaInicioDispositivo:Int!

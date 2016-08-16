@@ -30,10 +30,12 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         
         let task = session.dataTaskWithRequest(requestSetDataBaseSQL, completionHandler: {(data, response, error) in
             var json:AnyObject?
-            do {
-                try json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
-            }catch{
-                print("exception")
+            if data != nil{
+                do {
+                    try json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+                }catch{
+                    print("exception")
+                }
             }
             print("respuesta measure !!!!")
             print(json)

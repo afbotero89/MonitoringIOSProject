@@ -473,15 +473,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             let currentSecond = hourMS![2]
             let configureOrNotConfigureHour = currentSecond.componentsSeparatedByString(".")
             
-            print("hora de mediada")
-            print(text)
-            print("hora de configuracion")
-            print(configurationHour)
-            print("hora de encendido del dispositivo")
-            print(hourOnDevice)
-            
             // Hour
             if configureOrNotConfigureHour.count > 1{
+                
             if configureOrNotConfigureHour[1] == "c"{
                 
                 text = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
@@ -494,6 +488,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     let tiempoDispositivoEncendido = hourOnDevice
                     let startDeviceHour = configurationHourInstance.horaInicioDispositivo(horaConexion!,tiempoDispositivoEncendido: (tiempoDispositivoEncendido?.componentsSeparatedByString(".")[0])!)
                 
+                    print("hora de mediada, no configurada")
+                    print(text)
+                    print("hora de configuracion")
+                    print(configurationHour)
+                    print("hora de encendido del dispositivo")
+                    print(hourOnDevice)
+                
                     if horaConexion != nil {
                         // Calcula horas no configuradas
                         let horaEncendidoDispositivo = startDeviceHour
@@ -501,6 +502,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                         let currentHour = "\(currentHour!):\(currentMinute!):\(configureOrNotConfigureHour[0])"
                         
                         text = configurationHourInstance.horaNoConfigurada(currentHour,horaEncendidoDispositivo: horaEncendidoDispositivo)
+                        
                         VectorPhysiologicalVariables.measuringTime[VectorPhysiologicalVariables.measuringTime.count - 1] = text!
                     }
                 }
@@ -545,7 +547,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                         
                     }
                 }
-                
             
             }
             if reloadGraphData == false{
@@ -555,13 +556,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 var minutes = measuringHour?.componentsSeparatedByString(":")[1]
                 var seconds = measuringHour?.componentsSeparatedByString(":")[2]
                 
-                if Int(hour!)! < 10{
+                if Int(hour!)! < 10 && hour!.characters.count == 1{
                     hour = "0" + hour!
                 }
-                if Int(minutes!)! < 10{
+                if Int(minutes!)! < 10 && minutes!.characters.count == 1{
                     minutes = "0" + minutes!
                 }
-                if Int(seconds!)! < 10{
+                if Int(seconds!)! < 10 && seconds!.characters.count == 1{
                     seconds = "0" + seconds!
                 }
                 
@@ -651,6 +652,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 var hour = xLabelHour[0]
                 let minute = xLabelHour[1]
                 var seconds = xLabelHour[2]
+                    
+                if Int(hour)<10 && hour.characters.count == 1{
+                    hour = "0" + hour
+                }
                 
                 if Int(seconds)<10 && seconds.characters.count == 1{
                     seconds = "0" + seconds
@@ -1230,6 +1235,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             measureRequestedFlag = true
         
             NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
+        }else{
+            
+            let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your Bluetooth connection", comment: ""), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
+            self.presentViewController(alert, animated: true){}
+        
         }
     }
     

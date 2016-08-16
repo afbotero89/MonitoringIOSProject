@@ -20,6 +20,7 @@
 "Disconnected" = "Desconectado";
 "Connection fail" = "Falló la conexión";
 "Check your internet connection" = "Verifica tu conexión a internet";
+"Check your Bluetooth connection" = "Verifica tu conexión Bluetooth";
 "Done" = "Aceptar";
 "There is not data" = "No hay datos almacenados";
 "Get a measure" = "Obtener una medida";
