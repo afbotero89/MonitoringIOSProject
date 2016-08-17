@@ -210,10 +210,10 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 10, y: 120, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                pressureContainerGraph.frame = CGRect(x: 0, y: 120, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2) + 15)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 130, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2))
+                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!/2) + 140, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2) + 15)
             }
             
         }else{
@@ -235,10 +235,10 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 20, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                pressureContainerGraph.frame = CGRect(x: 20, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!) + 20)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!) + 20)
             }
             
         }

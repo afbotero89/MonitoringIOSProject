@@ -888,10 +888,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPhone:
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!/2)-20, width: 130, height: 80)
+                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!/2), width: 130, height: 80)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 140, y: Int(graphicsEnabledHeight!)+25, width: 130, height: 50)
+                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!) + 40, width: 130, height: 50)
                 
                 
                 pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
@@ -899,10 +899,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 10, y: 100, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
+                pressureContainerGraph.frame = CGRect(x: 0, y: 110, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2)+10)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 10, y: Int(graphicsEnabledHeight!/2) + 115, width: Int(graphicsEnabledWidth!) - 20, height: Int(graphicsEnabledHeight!/2)+10)
+                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!/2) + 120, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2)+10)
             }
             
         }else{
@@ -927,20 +927,20 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPhone:
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 80)
+                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-30, width: 130, height: 80)
                 
                 // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!)-140, y: Int(graphicsEnabledHeight!)-40, width: 130, height: 50)
+                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!)-140, y: Int(graphicsEnabledHeight!)-30, width: 130, height: 50)
                 
                 pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
                 
                 heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 20, y: 70, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                pressureContainerGraph.frame = CGRect(x: 20, y: 80, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 70, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
+                heartRateContainerGraph.frame = CGRect(x: Int(graphicsEnabledWidth!/2) + 10, y: 80, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!))
             }
   
         }
