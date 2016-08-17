@@ -215,7 +215,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         userSelectViewController = UserSelectViewPrincipalViewController.realTimeViewController
         
-        queriesUserAdmin.getInfoPatient_getRequest()
+        //queriesUserAdmin.getInfoPatient_getRequest()
         
         setBatteryLevel()
         
@@ -451,6 +451,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func insertPoint(){
         
+        let date = NSDate()
+        let fmt = NSDateFormatter()
+        fmt.dateFormat = "HH:mm:ss"
+        let measuringTimeDevice = fmt.stringFromDate(date)
+        
         setBatteryLevel()
         
         if VectorPhysiologicalVariables.systolicPressure.count > 0 && VectorPhysiologicalVariables.diastolicPressure.count > 0 && VectorPhysiologicalVariables.averagePressure.count > 0 && VectorPhysiologicalVariables.heartRate.count > 0{
@@ -488,13 +493,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     let tiempoDispositivoEncendido = hourOnDevice
                     let startDeviceHour = configurationHourInstance.horaInicioDispositivo(horaConexion!,tiempoDispositivoEncendido: (tiempoDispositivoEncendido?.componentsSeparatedByString(".")[0])!)
                 
-                    print("hora de mediada, no configurada")
-                    print(text)
-                    print("hora de configuracion")
-                    print(configurationHour)
-                    print("hora de encendido del dispositivo")
-                    print(hourOnDevice)
-                
                     if horaConexion != nil {
                         // Calcula horas no configuradas
                         let horaEncendidoDispositivo = startDeviceHour
@@ -525,8 +523,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
                 if configureOrNotConfigureHour[1] == "n" || (Int(hourLast!)! < Int(hourPenultimate)!) || ((Int(minutesLast!)! == Int(minutesPenultimate)!) && (Int(minutesLast!)! == Int(minutesPenultimate)!) && (Int(secondsLast!)! < Int(secondsPenultimate)!) || (Int(hourLast!)! == Int(hourPenultimate)!) && (Int(minutesLast!)! < Int(minutesPenultimate)!)){
                 
-                    reloadGraphData = true
-                
+                    reloadGraphData = false
+                    
                 }else{
                     
                     reloadGraphData = false
@@ -538,8 +536,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 if configureOrNotConfigureHour.count > 1{
                     
                     if configureOrNotConfigureHour[1] == "n" {
-                        
-                        reloadGraphData = true
+                    
+                        reloadGraphData = false
                         
                     }else{
                         
@@ -573,10 +571,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let xLabel:CPTAxisLabel?
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
-                    xLabel = CPTAxisLabel.init(text: (hour! + ":" + minutes! + ":" + seconds!), textStyle: style)
+                    xLabel = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                 case .iPhone:
                     
-                    xLabel = CPTAxisLabel.init(text: (hour! + ":" + minutes! + ":" + seconds!), textStyle: style)
+                    xLabel = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                     xLabel?.rotation = 3.14/3.0;
                     
                 }
@@ -594,7 +592,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 // xAxis heart rate graph
                 let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
                 let xAxisHeartRate = axisSetHeartRate.xAxis!
-                let xLabelHeartRate = CPTAxisLabel.init(text: String(measuringHour!), textStyle: style)
+                let xLabelHeartRate = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     print("ipad")
@@ -675,9 +673,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                     let xLabel:CPTAxisLabel?
                     switch UserSelectedConfiguration.typeOfDevice!{
                     case .iPad:
-                        xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                        xLabel = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                     case .iPhone:
-                        xLabel = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                        xLabel = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                         xLabel?.rotation = 3.14/3.0;
                     }
                 
@@ -697,10 +695,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 let xLabelHeartRate:CPTAxisLabel?
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
-                    xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                    xLabelHeartRate = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                 case .iPhone:
                     
-                    xLabelHeartRate = CPTAxisLabel.init(text: String(hour), textStyle: style)
+                    xLabelHeartRate = CPTAxisLabel.init(text: measuringTimeDevice, textStyle: style)
                     xLabelHeartRate?.rotation = 3.14/3.0;
                     
                 }
@@ -748,7 +746,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // todays date.
         let date = NSDate()
         
-        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
+        //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
         VectorPhysiologicalVariables.ACSignal = "AC"
         
         let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
@@ -1081,7 +1079,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         if VectorPhysiologicalVariables.batteryLevel.last != nil{
             batteryLevelTextLabel.text = String(VectorPhysiologicalVariables.batteryLevel.last!) + " %"
         }else{
-            batteryLevelTextLabel.text = "50 %"
+            batteryLevelTextLabel.text = "-----"
         }
         batteryLevelTextLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         
@@ -1134,7 +1132,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             batteryLevelImageView.image = UIImage(named: "BatteryLevel10")
             batteryLevelTextLabel.text = "100 %"
         }else{
-            batteryLevelImageView.image = UIImage(named: "BatteryLevel5")
+            batteryLevelImageView.image = UIImage(named: "BatteryLevel10")
         }
     
     }

@@ -44,9 +44,15 @@ class GBCConfigurationMeasuringTimeViewController: UIViewController {
     }
 
     @IBAction func doneButton(sender: AnyObject) {
-        print(UserSelectedConfiguration.userSelectMeasurementTime)
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("sendMeasurementTimeToPeripheral", object: nil, userInfo: nil)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if DeviceVariables.bluetoothConnected == true{
+            NSNotificationCenter.defaultCenter().postNotificationName("sendMeasurementTimeToPeripheral", object: nil, userInfo: nil)
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }else{
+            
+            let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your Bluetooth connection", comment: ""), preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
+            self.presentViewController(alert, animated: true){}
+            
+        }
     }
 }

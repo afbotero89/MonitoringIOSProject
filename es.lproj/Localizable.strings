@@ -32,8 +32,9 @@
 "Circuit leaks" = "Fugas en el circuito";
 "Incorrect pressure" = "Presión incorrecta";
 "Monitor measure canceled" = "Medida cancelada desde el monitor";
-"heart rate not caculated" = "Frecuencia cardiaca no calculada";
-"Incorrect pressure" = "Presión incorrecta";
+"heart rate not caculated" = "Frecuencia cardiaca no calculada, nueva medida en curso";
+"Incorrect pressure" = "Presión incorrecta, nueva medida en curso";
+"Incorrect measure" = "Medida incorrecta";
 "Hour" = "Hora";
 "Pressure" = "Presión";
 "Beats per minute" = "Latidos por minuto";

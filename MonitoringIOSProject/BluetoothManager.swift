@@ -206,10 +206,10 @@ class BluetoothManager: NSObject{
             characterValue = Character(UnicodeScalar(i))
             
             if characterValue == "k"{
-                playSound()
+                //playSound()
             }
             if characterValue == "A"{
-                stopSound()
+                //stopSound()
             }
             
             VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
@@ -225,55 +225,90 @@ class BluetoothManager: NSObject{
         var error = false
         
         for i in currentMeasurement{
-            
+
             if i == "e1"{
                 typeError = 1
                 error = true
-                if userSelectViewController == .realTimeViewController{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
-                }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                
+                switch appVersion!{
+                case .adminVersion:
+                    if userSelectViewController == .realTimeViewController{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                    }else{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                    }
+                case .patientVersion:
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
                 }
+                
+
             }else if i == "e2"{
                 typeError = 2
                 error = true
-                if userSelectViewController == .realTimeViewController{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
-                }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                
+                switch appVersion!{
+                case .adminVersion:
+                    if userSelectViewController == .realTimeViewController{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                    }else{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                    }
+                case .patientVersion:
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
                 }
             }else if i == "e3"{
                 typeError = 3
                 error = true
-                if userSelectViewController == .realTimeViewController{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
-                }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                
+                switch appVersion!{
+                case .adminVersion:
+                    if userSelectViewController == .realTimeViewController{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                    }else{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                    }
+                case .patientVersion:
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
                 }
             }else if i == "e4"{
                 typeError = 4
                 error = true
-                if userSelectViewController == .realTimeViewController{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
-                }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                switch appVersion!{
+                case .adminVersion:
+                    if userSelectViewController == .realTimeViewController{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                    }else{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                    }
+                case .patientVersion:
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
                 }
             }else if i == "e5"{
                 typeError = 5
                 error = true
-                if userSelectViewController == .realTimeViewController{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
-                }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                switch appVersion!{
+                case .adminVersion:
+                    if userSelectViewController == .realTimeViewController{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                    }else{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                    }
+                case .patientVersion:
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
                 }
                 
             }else if i == "e6"{
                 typeError = 6
                 error = true
-                if userSelectViewController == .realTimeViewController{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
-                }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                switch appVersion!{
+                case .adminVersion:
+                    if userSelectViewController == .realTimeViewController{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                    }else{
+                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                    }
+                case .patientVersion:
+                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
                 }
             }
         }
@@ -474,21 +509,21 @@ class BluetoothManager: NSObject{
                         VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1] = comodin!
                     }
                     
-                    VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
-                    
-                    NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
                     
                     if VectorPhysiologicalVariables.systolicPressure.last > 100 && VectorPhysiologicalVariables.heartRate.last > 40 && VectorPhysiologicalVariables.heartRate.last < 150{
-
+                        
+                        VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+                        
                         switch appVersion!{
                         case .adminVersion:
                             print("admin version")
-                            //NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
                         case .patientVersion:
                             NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
                         }
 
                     }else{
+                        
                         
                         if(VectorPhysiologicalVariables.systolicPressure.last <= 100){
                             
@@ -502,22 +537,34 @@ class BluetoothManager: NSObject{
                             
                         }
                         
-                        if(VectorPhysiologicalVariables.heartRate.last>150){
+                        if(VectorPhysiologicalVariables.heartRate.last > 150){
                             
                             VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Frecuencia cardiaca alta"
                             
                         }
+                        
                         typeError = 7
+                        
                         error = true
+                        
                         if userSelectViewController == .realTimeViewController{
                             NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
                         }else{
                             NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
                         }
                         // todays date.
-                        let date = NSDate()
-                        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
+                        //let date = NSDate()
+                        //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
+                        
                         VectorPhysiologicalVariables.ACSignal = "AC"
+                        
+                        // The data is stored in database but is not plotted
+                        VectorPhysiologicalVariables.systolicPressure.removeLast()
+                        VectorPhysiologicalVariables.diastolicPressure.removeLast()
+                        VectorPhysiologicalVariables.averagePressure.removeLast()
+                        VectorPhysiologicalVariables.heartRate.removeLast()
+                        VectorPhysiologicalVariables.measuringTime.removeLast()
+                        VectorPhysiologicalVariables.batteryLevel.removeLast()
                     
                     }
                     VectorPhysiologicalVariables.currentMeasures.removeAll()
@@ -673,8 +720,10 @@ extension BluetoothManager:CBPeripheralDelegate{
                         print("Found writable characteristic")
                         self.monitorWritableCharacteristic = characteristic
                         monitorPeripheral?.setNotifyValue(true, forCharacteristic: characteristic)
+            
                         
                         NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+                        
                     default:
                         break
                     }
@@ -774,8 +823,11 @@ extension BluetoothManager:CBPeripheralDelegate{
         contador = contador + 1
         
         if contador == 30{
+            
             contador = 0
+            
             print(contador)
+            
             //NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
         }

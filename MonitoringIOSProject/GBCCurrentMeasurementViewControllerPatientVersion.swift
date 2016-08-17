@@ -78,10 +78,10 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         
         if systolicPressureString != nil && diastolicPressureValue != nil && averagePressureString != nil && heartRatePressureString != nil && batteryLevelString != nil{
         
-            systolicPressureValue.text = systolicPressureString!
-            diastolicPressureValue.text = diastolicPressureString!
-            averagePressureValue.text = averagePressureString!
-            heartRateValue.text = heartRatePressureString!
+            systolicPressureValue.text = systolicPressureString! + "mmHg"
+            diastolicPressureValue.text = diastolicPressureString! + "mmHg"
+            averagePressureValue.text = averagePressureString! + "mmHg"
+            heartRateValue.text = heartRatePressureString! + "BPM"
             //BatteryLevel.text = batteryLevelString!
         }
         
@@ -114,6 +114,13 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
                                                          selector: #selector(GBCCurrentMeasurementViewControllerPatientVersion.displayMeasure),
                                                          
                                                          name: "displayMeasurePatientViewController",
+                                                         
+                                                         object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         
+                                                         selector: #selector(ViewController.displayErrorMessageMainView),
+                                                         
+                                                         name: "displayErrorMessageMainViewNotificationPatientVersion",
                                                          
                                                          object: nil)
         
@@ -259,10 +266,11 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     }
     
     func displayMeasure(){
-        systolicPressureValue.text = String(VectorPhysiologicalVariables.systolicPressure.last!)
-        averagePressureValue.text = String(VectorPhysiologicalVariables.averagePressure.last!)
-        diastolicPressureValue.text = String(VectorPhysiologicalVariables.diastolicPressure.last!)
-        heartRateValue.text = String(VectorPhysiologicalVariables.heartRate.last!)
+        // Pendiente: Falta que se guarden los datos en la base de datos
+        systolicPressureValue.text = String(VectorPhysiologicalVariables.systolicPressure.last!) + "mmHg"
+        averagePressureValue.text = String(VectorPhysiologicalVariables.averagePressure.last!) + "mmHg"
+        diastolicPressureValue.text = String(VectorPhysiologicalVariables.diastolicPressure.last!) + "mmHg"
+        heartRateValue.text = String(VectorPhysiologicalVariables.heartRate.last!)  + "BPM"
         batteryLevel()
     }
     
@@ -286,6 +294,45 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
                 }
             }
         });
+    }
+    
+    func displayErrorMessageMainView(){
+        activeCurrentMeasurementFlag = false
+        let alertController:UIAlertController?
+        
+        switch typeError!{
+        case 1:
+            // Desconexion de manguera
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 2:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 3:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 4:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 5:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 6:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        case 7:
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect measure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+        default:
+            alertController = UIAlertController(title: "", message: "Default principal view", preferredStyle:UIAlertControllerStyle.Alert)
+        }
+        
+        alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {
+            action in
+            
+            switch UserSelectedConfiguration.typeOfDevice!{
+            case .iPad:
+                self.dismissViewControllerAnimated(true, completion: nil)
+            case .iPhone:
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            
+        }))
+        self.presentViewController(alertController!, animated: true, completion: nil)
+        
     }
     
     func displaySavedHistoryGraphs(){

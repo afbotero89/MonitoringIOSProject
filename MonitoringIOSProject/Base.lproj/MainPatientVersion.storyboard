@@ -369,7 +369,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw4-FQ-tyW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw4-FQ-tyW">
                                 <rect key="frame" x="208" y="298" width="183" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="183" id="Bae-hW-uZe"/>
@@ -398,7 +398,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUk-LF-35n">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUk-LF-35n">
                                 <rect key="frame" x="208" y="396" width="183" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="183" id="0Uf-oW-k2G"/>
@@ -427,7 +427,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cy4-Ys-7oF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cy4-Ys-7oF">
                                 <rect key="frame" x="208" y="493" width="183" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="1I6-4S-Xim"/>
@@ -456,14 +456,14 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkm-4r-rcP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkm-4r-rcP">
                                 <rect key="frame" x="249" y="334" width="100" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="224" id="IaY-sY-W8B"/>
+                                    <constraint firstAttribute="width" constant="350" id="IaY-sY-W8B"/>
                                     <constraint firstAttribute="height" constant="65" id="gmW-TD-Ioa"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="000 mmHg">
+                                    <fragment content="0000 mmHg">
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
@@ -485,14 +485,14 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWw-4h-yHf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWw-4h-yHf">
                                 <rect key="frame" x="248" y="431" width="100" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="ceG-a2-PAN"/>
-                                    <constraint firstAttribute="width" constant="224" id="kKU-IO-mWK"/>
+                                    <constraint firstAttribute="width" constant="350" id="kKU-IO-mWK"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="000 mmHg">
+                                    <fragment content="0000 mmHg">
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
@@ -550,7 +550,7 @@
                                     <constraint firstAttribute="width" constant="24" id="mfE-Wd-LAU"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HeartRate" translatesAutoresizingMaskIntoConstraints="NO" id="HLo-Fx-GWp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="HeartRate" translatesAutoresizingMaskIntoConstraints="NO" id="HLo-Fx-GWp">
                                 <rect key="frame" x="170" y="494" width="43" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="MuW-oS-C1y"/>
@@ -569,7 +569,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DiastolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="cxy-jh-vpr">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="DiastolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="cxy-jh-vpr">
                                 <rect key="frame" x="170" y="400" width="43" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="V59-bd-zsx"/>
@@ -588,7 +588,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AveragePressure" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-1k-9Yi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="AveragePressure" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-1k-9Yi">
                                 <rect key="frame" x="170" y="298" width="43" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="JvV-b4-t40"/>
@@ -631,14 +631,14 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Pl-Fu-Mm6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Pl-Fu-Mm6">
                                 <rect key="frame" x="188" y="205" width="224" height="65"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="224" id="aAX-iZ-F1T"/>
+                                    <constraint firstAttribute="width" constant="350" id="aAX-iZ-F1T"/>
                                     <constraint firstAttribute="height" constant="65" id="pNw-zS-cod"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="000 mmHg">
+                                    <fragment content="0000 mmHg">
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
@@ -648,14 +648,14 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzo-xn-ubw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzo-xn-ubw">
                                 <rect key="frame" x="248" y="528" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="JCZ-wg-bOp"/>
-                                    <constraint firstAttribute="width" constant="224" id="v1l-dh-yuQ"/>
+                                    <constraint firstAttribute="width" constant="350" id="v1l-dh-yuQ"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="000 BPM">
+                                    <fragment content="0000 BPM">
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
