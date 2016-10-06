@@ -58,9 +58,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     /// Request to remote data base sql: Type post to GIBIC server
     let uploadMeassuresToRemoteServer = GBCUploadMeassuresAndSignalsToRemoteServer()
     
-    /// Remote server response
-    var serverResponse:NSString?
-    
     /// Bluetooth manager
     var bluetoothManager:BluetoothManager!
     
@@ -111,95 +108,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
         
+        // Initialize notifications
         notifications()
-
-        // Do any additional setup after loading the view, typically from a nib.
-        systolicPressurePlot.identifier = 0
-        diastolicPressurePlot.identifier = 1
-        averagePressurePlot.identifier = 2
-        heartRatePressurePlot.identifier = 3
         
-        // Set the lineStyle for the plot
-        systolicPressurePlot.dataSource = self
-        diastolicPressurePlot.dataSource = self
-        averagePressurePlot.dataSource = self
-        heartRatePressurePlot.dataSource = self
-        
-        // Plot simbol
-        let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
-        lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
-        switch UserSelectedConfiguration.typeOfDevice!{
-        case .iPad:
-            lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
-        case .iPhone:
-            lowSymbol.size = CGSize(width: 3, height: 3) //Inflection point size
-        }
-        
-    
-        averagePressurePlot.plotSymbol = lowSymbol
-        // Sensitivity level when the user touches the symbol
-        systolicPressurePlot.plotSymbolMarginForHitDetection = 20
-        diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
-        averagePressurePlot.plotSymbolMarginForHitDetection = 20
-        heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
-        
-        let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
-        plotLineStyle.lineWidth = 1.5
-        
-        plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
-        systolicPressurePlot.dataLineStyle = plotLineStyle
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0))
-        systolicPressurePlot.plotSymbol = lowSymbol
-        
-        plotLineStyle.lineColor = CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0)
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0))
-        diastolicPressurePlot.dataLineStyle = plotLineStyle
-        diastolicPressurePlot.plotSymbol = lowSymbol
-        
-        plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
-        heartRatePressurePlot.dataLineStyle = plotLineStyle
-        heartRatePressurePlot.plotSymbol = lowSymbol
-        
-        systolicPressurePlot.title = NSLocalizedString("Systolic pressure", comment: "")
-        diastolicPressurePlot.title = NSLocalizedString("Diastolic pressure", comment: "")
-        averagePressurePlot.title =  NSLocalizedString("Average pressure", comment: "")
-        heartRatePressurePlot.title = NSLocalizedString("Heart Rate", comment: "")
-        
-        let attrs = [
-            NSForegroundColorAttributeName : UIColor.blackColor(),
-            NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
-            
-        ]
-        
-        pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
-        pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
-        heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
-        heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
-        
-        // Color gradient is added under the scatter plot
-        
-        let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
-        let areaGradient = CPTGradient(beginningColor: areaColor.colorWithAlphaComponent(0.2), endingColor: CPTColor.clearColor())
-        areaGradient.angle = -90
-        let areaGradientFill = CPTFill.init(gradient: areaGradient)
-        //CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
-        systolicPressurePlot.areaFill = areaGradientFill
-        systolicPressurePlot.areaBaseValue = 0
-        
-        heartRatePressurePlot.areaFill = areaGradientFill
-        heartRatePressurePlot.areaBaseValue = 0
-        
-        pressuresGraph.addPlot(systolicPressurePlot)
-        pressuresGraph.addPlot(diastolicPressurePlot)
-        pressuresGraph.addPlot(averagePressurePlot)
-        heartRateGraph.addPlot(heartRatePressurePlot)
-
-        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
-        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
-        
-        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
-        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        // Configure plots, identifiers, line style, point symbol, title plot
+        configurePlots()
         
         setLegendGraph()
         
@@ -207,7 +120,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         requestSetDataBaseSQL.HTTPMethod = "POST"
         
-        getDataFromDataBaseSQLDayMonthYear()
+        uploadMeassuresToRemoteServer.getDataFromDataBaseSQLDayMonthYear()
 
     }
     
@@ -299,6 +212,99 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
+    func configurePlots(){
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        systolicPressurePlot.identifier = 0
+        diastolicPressurePlot.identifier = 1
+        averagePressurePlot.identifier = 2
+        heartRatePressurePlot.identifier = 3
+        
+        // Set the lineStyle for the plot
+        systolicPressurePlot.dataSource = self
+        diastolicPressurePlot.dataSource = self
+        averagePressurePlot.dataSource = self
+        heartRatePressurePlot.dataSource = self
+        
+        // Plot simbol
+        let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+        lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
+        switch UserSelectedConfiguration.typeOfDevice!{
+        case .iPad:
+            lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
+        case .iPhone:
+            lowSymbol.size = CGSize(width: 3, height: 3) //Inflection point size
+        }
+        
+        
+        averagePressurePlot.plotSymbol = lowSymbol
+        // Sensitivity level when the user touches the symbol
+        systolicPressurePlot.plotSymbolMarginForHitDetection = 20
+        diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
+        averagePressurePlot.plotSymbolMarginForHitDetection = 20
+        heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
+        
+        let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
+        plotLineStyle.lineWidth = 1.5
+        
+        plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
+        systolicPressurePlot.dataLineStyle = plotLineStyle
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0))
+        systolicPressurePlot.plotSymbol = lowSymbol
+        
+        plotLineStyle.lineColor = CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0))
+        diastolicPressurePlot.dataLineStyle = plotLineStyle
+        diastolicPressurePlot.plotSymbol = lowSymbol
+        
+        plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
+        heartRatePressurePlot.dataLineStyle = plotLineStyle
+        heartRatePressurePlot.plotSymbol = lowSymbol
+        
+        systolicPressurePlot.title = NSLocalizedString("Systolic pressure", comment: "")
+        diastolicPressurePlot.title = NSLocalizedString("Diastolic pressure", comment: "")
+        averagePressurePlot.title =  NSLocalizedString("Average pressure", comment: "")
+        heartRatePressurePlot.title = NSLocalizedString("Heart Rate", comment: "")
+        
+        let attrs = [
+            NSForegroundColorAttributeName : UIColor.blackColor(),
+            NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
+            
+            ]
+        
+        pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
+        pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
+        heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
+        heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
+        
+        // Color gradient is added under the scatter plot
+        
+        let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
+        let areaGradient = CPTGradient(beginningColor: areaColor.colorWithAlphaComponent(0.2), endingColor: CPTColor.clearColor())
+        areaGradient.angle = -90
+        let areaGradientFill = CPTFill.init(gradient: areaGradient)
+        //CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+        systolicPressurePlot.areaFill = areaGradientFill
+        systolicPressurePlot.areaBaseValue = 0
+        
+        heartRatePressurePlot.areaFill = areaGradientFill
+        heartRatePressurePlot.areaBaseValue = 0
+        
+        pressuresGraph.addPlot(systolicPressurePlot)
+        pressuresGraph.addPlot(diastolicPressurePlot)
+        pressuresGraph.addPlot(averagePressurePlot)
+        heartRateGraph.addPlot(heartRatePressurePlot)
+        
+        let plotSpacePressureGraph = pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+        let plotSpaceHeartRateGraph = heartRateGraph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpaceHeartRateGraph.yRange = CPTPlotRange(location: 0, length: 200)
+        
+    
+    }
+    
     
     func addAttributesToContainerGraph(){
         
@@ -330,7 +336,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 0
         pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
-        pressureContainerGraph.layer.cornerRadius = 20
+        //pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
         pressureContainerGraph.addSubview(labelPressure)
         
@@ -338,7 +344,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // attributes heart rate container graph
         heartRateContainerGraph.layer.borderWidth = 0
         heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
-        heartRateContainerGraph.layer.cornerRadius = 20
+        //heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
         
         
@@ -613,7 +619,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressuresGraph.plotWithIdentifier(2)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
                 heartRateGraph.plotWithIdentifier(3)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
                 
-                uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
+                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_Sibxeco(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
+                
+                //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
                 
                 
             }else{
@@ -636,7 +644,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, atIndex: 0)
                 VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, atIndex: 0)
                 
-                uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
+                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_Sibxeco(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
+                
+                //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
                 
                 for i in 0..<VectorPhysiologicalVariables.measuringTime.count{
                     let measuringHour:String?
@@ -732,66 +742,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 if conexion == true{
                     for i in defaults.arrayForKey("VectorToUpLoadServer")!{
-                        upLoadLostDataToServer(i as! String)
+                        //upLoadLostDataToServer(i as! String)
+                        uploadMeassuresToRemoteServer.upLoadLostDataToServer(i as! String)
+                        
                     }
                 }
             }
         }
-    }
-    
-    /**
-     Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour and date)
-    */
-    func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
-        // todays date.
-        let date = NSDate()
-        
-        //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: (VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!, ACSignal: VectorPhysiologicalVariables.ACSignal, DCSignal: "DCSignal", date: "\(date.day)/\(date.month)/\(date.year)")
-        VectorPhysiologicalVariables.ACSignal = "AC"
-        
-        let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
-        requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL) {
-            data, response, error in
-            
-            if error != nil {
-                
-                if defaults.arrayForKey("VectorToUpLoadServer")?.count > 0{
-                    VectorPhysiologicalVariables.vectorToUploadServer = defaults.arrayForKey("VectorToUpLoadServer")!
-                }
-                VectorPhysiologicalVariables.vectorToUploadServer.append(postString)
-                defaults.setObject(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
-                print("variables almacenadas db sql")
-                print(defaults.arrayForKey("VectorToUpLoadServer"))
-                return
-            }
-
-            print("response = \(response)")
-
-        }
-        task.resume()
-    }
-    
-    func upLoadLostDataToServer(lostData:String){
-        
-        let postString = lostData
-        requestSetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL) {
-            data, response, error in
-            
-            if error != nil {
-                
-                return
-            }
-            
-            print("response = \(response)")
-            
-            defaults.removeObjectForKey("VectorToUpLoadServer")
-        }
-        task.resume()
-        
     }
     
     
@@ -1137,32 +1094,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     }
 
-    func getDataFromDataBaseSQLDayMonthYear(){
-        
-        requestGetDayMonthYearDataBaseSQL.HTTPMethod = "POST"
-        
-        let postString = "month=2016-06-21"
-        
-        requestGetDayMonthYearDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDayMonthYearDataBaseSQL) {
-            data, response, error in
-            
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            
-            self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            
-            PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
-            
-        }
-        
-        task.resume()
-        
-    }
-    
     func disconnectBluetoothMessage(){
 
     }

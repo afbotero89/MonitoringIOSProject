@@ -357,6 +357,393 @@
             </objects>
             <point key="canvasLocation" x="2156" y="173"/>
         </scene>
+        <!--Current measurement-->
+        <scene sceneID="o1c-eh-gxp">
+            <objects>
+                <tableViewController storyboardIdentifier="currentMeasurementiPad" id="9ZD-QJ-vpZ" customClass="GBCCurrentMeasurementPatientVersionTableViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="617" sectionHeaderHeight="18" sectionFooterHeight="18" id="h0S-4J-P3o">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="luX-oD-uoL">
+                            <rect key="frame" x="0.0" y="64" width="600" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BatteryLevel9" translatesAutoresizingMaskIntoConstraints="NO" id="ZZC-0t-5t8">
+                                    <rect key="frame" x="0.0" y="0.0" width="65" height="43"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bluetooth_Disconnected" translatesAutoresizingMaskIntoConstraints="NO" id="qa8-OK-KUE">
+                                    <rect key="frame" x="557" y="8" width="35" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="35" id="XuR-CW-9j6"/>
+                                        <constraint firstAttribute="height" constant="25" id="ZSD-t1-47Z"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.25098039215686274" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="qa8-OK-KUE" firstAttribute="top" secondItem="luX-oD-uoL" secondAttribute="top" constant="8" id="MpM-uO-dcQ"/>
+                                <constraint firstAttribute="trailing" secondItem="qa8-OK-KUE" secondAttribute="trailing" constant="8" id="usW-nj-MHp"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellPatientVersionIpad" rowHeight="617" id="wps-oh-n0T">
+                                <rect key="frame" x="0.0" y="157" width="600" height="617"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="cellPatientVersionIpad" tableViewCell="wps-oh-n0T" id="8LZ-E3-TeE">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="616"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w6u-52-TpT">
+                                            <rect key="frame" x="8" y="8" width="584" height="408"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1YT-Ww-akF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8he-kK-7Js">
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="110"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SystolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="ex8-2C-Hco">
+                                                                    <rect key="frame" x="163" y="251" width="43" height="43"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="43" id="289-l8-0Q4"/>
+                                                                        <constraint firstAttribute="width" constant="43" id="rOx-y6-yKd"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="289-l8-0Q4"/>
+                                                                            <exclude reference="rOx-y6-yKd"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                                        <mask key="constraints">
+                                                                            <include reference="289-l8-0Q4"/>
+                                                                            <include reference="rOx-y6-yKd"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2eO-aq-80B">
+                                                                    <rect key="frame" x="201" y="247" width="183" height="27"/>
+                                                                    <attributedString key="attributedText">
+                                                                        <fragment content="Systolic pressure:">
+                                                                            <attributes>
+                                                                                <color key="NSColor" red="0.0" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <font key="NSFont" size="20" name="HelveticaNeue-Light"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Zl-UW-A6D">
+                                                            <rect key="frame" x="241" y="282" width="100" height="27"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="0000 mmHg">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iHf-Mi-9EX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zqb-7j-mAH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="110"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AveragePressure" translatesAutoresizingMaskIntoConstraints="NO" id="hWI-fz-yBz">
+                                                                    <rect key="frame" x="163" y="251" width="43" height="43"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="43" id="RVB-vV-pH4"/>
+                                                                        <constraint firstAttribute="width" constant="43" id="dwv-wy-G2A"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="RVB-vV-pH4"/>
+                                                                            <exclude reference="dwv-wy-G2A"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                                        <mask key="constraints">
+                                                                            <include reference="RVB-vV-pH4"/>
+                                                                            <include reference="dwv-wy-G2A"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZC-Mr-r25">
+                                                                    <rect key="frame" x="201" y="247" width="183" height="27"/>
+                                                                    <attributedString key="attributedText">
+                                                                        <fragment content="Average pressure:">
+                                                                            <attributes>
+                                                                                <color key="NSColor" red="0.0" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <font key="NSFont" size="20" name="HelveticaNeue-Light"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOx-rW-zto">
+                                                            <rect key="frame" x="241" y="282" width="100" height="27"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="0000 mmHg">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zhe-Ng-obg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQH-Yv-hyG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="110"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiastolicPressure" translatesAutoresizingMaskIntoConstraints="NO" id="RL2-OR-iSJ">
+                                                                    <rect key="frame" x="163" y="251" width="43" height="43"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="43" id="uJV-Wo-fD5"/>
+                                                                        <constraint firstAttribute="width" constant="43" id="uhb-T8-xCa"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="uJV-Wo-fD5"/>
+                                                                            <exclude reference="uhb-T8-xCa"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                                        <mask key="constraints">
+                                                                            <include reference="uJV-Wo-fD5"/>
+                                                                            <include reference="uhb-T8-xCa"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRE-tQ-bIP">
+                                                                    <rect key="frame" x="201" y="247" width="183" height="27"/>
+                                                                    <attributedString key="attributedText">
+                                                                        <fragment content="Diastolic pressure:">
+                                                                            <attributes>
+                                                                                <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <font key="NSFont" size="20" name="HelveticaNeue-Light"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMq-Dt-uO1">
+                                                            <rect key="frame" x="241" y="282" width="100" height="27"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="0000 mmHg">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlc-Tm-LAe">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="42" id="S87-gS-tvo"/>
+                                                        <constraint firstAttribute="height" constant="21" id="fOR-Sn-e4E"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="S87-gS-tvo"/>
+                                                            <exclude reference="fOR-Sn-e4E"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="S87-gS-tvo"/>
+                                                            <include reference="fOR-Sn-e4E"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Whj-wg-0XK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvj-Yh-YK2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="110"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HeartRate" translatesAutoresizingMaskIntoConstraints="NO" id="lR0-NY-HCB">
+                                                                    <rect key="frame" x="163" y="345" width="43" height="43"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="43" id="eoI-E2-RAb"/>
+                                                                        <constraint firstAttribute="height" constant="43" id="uqP-g7-FB3"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="eoI-E2-RAb"/>
+                                                                            <exclude reference="uqP-g7-FB3"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                                        <mask key="constraints">
+                                                                            <include reference="eoI-E2-RAb"/>
+                                                                            <include reference="uqP-g7-FB3"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8V-pT-rbe">
+                                                                    <rect key="frame" x="201" y="247" width="183" height="27"/>
+                                                                    <attributedString key="attributedText">
+                                                                        <fragment content="Heart rate:">
+                                                                            <attributes>
+                                                                                <color key="NSColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <font key="NSFont" size="20" name="HelveticaNeue-Light"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5N-19-sX8">
+                                                            <rect key="frame" x="241" y="282" width="100" height="27"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="0000 BPM">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="44" name="HelveticaNeue-Light"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="jlc-Tm-LAe" firstAttribute="centerY" secondItem="w6u-52-TpT" secondAttribute="centerY" id="55t-2w-28q"/>
+                                                <constraint firstItem="1YT-Ww-akF" firstAttribute="centerX" secondItem="w6u-52-TpT" secondAttribute="centerX" id="7B1-iZ-dh0"/>
+                                                <constraint firstItem="q8V-pT-rbe" firstAttribute="top" secondItem="zhe-Ng-obg" secondAttribute="bottom" constant="37" id="B7N-3z-Vpt"/>
+                                                <constraint firstItem="iHf-Mi-9EX" firstAttribute="centerX" secondItem="w6u-52-TpT" secondAttribute="centerX" id="JXe-3u-WBN"/>
+                                                <constraint firstItem="jlc-Tm-LAe" firstAttribute="centerX" secondItem="w6u-52-TpT" secondAttribute="centerX" id="RTm-er-ebR"/>
+                                                <constraint firstItem="dRE-tQ-bIP" firstAttribute="top" secondItem="jlc-Tm-LAe" secondAttribute="bottom" constant="22" id="bmG-2Q-img"/>
+                                                <constraint firstItem="Whj-wg-0XK" firstAttribute="centerX" secondItem="w6u-52-TpT" secondAttribute="centerX" id="fz0-Id-KeN"/>
+                                                <constraint firstItem="jlc-Tm-LAe" firstAttribute="top" secondItem="fOx-rW-zto" secondAttribute="bottom" constant="35" id="nm3-my-bo9"/>
+                                                <constraint firstItem="iHf-Mi-9EX" firstAttribute="top" secondItem="7Zl-UW-A6D" secondAttribute="bottom" constant="35" id="y5D-PG-Hyd"/>
+                                                <constraint firstItem="zhe-Ng-obg" firstAttribute="centerX" secondItem="w6u-52-TpT" secondAttribute="centerX" id="ypq-3b-iLL"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="1YT-Ww-akF"/>
+                                                    <exclude reference="iHf-Mi-9EX"/>
+                                                    <exclude reference="zhe-Ng-obg"/>
+                                                    <exclude reference="jlc-Tm-LAe"/>
+                                                    <exclude reference="Whj-wg-0XK"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="55t-2w-28q"/>
+                                                    <exclude reference="RTm-er-ebR"/>
+                                                    <exclude reference="nm3-my-bo9"/>
+                                                    <exclude reference="7B1-iZ-dh0"/>
+                                                    <exclude reference="fz0-Id-KeN"/>
+                                                    <exclude reference="JXe-3u-WBN"/>
+                                                    <exclude reference="y5D-PG-Hyd"/>
+                                                    <exclude reference="ypq-3b-iLL"/>
+                                                    <exclude reference="bmG-2Q-img"/>
+                                                    <exclude reference="B7N-3z-Vpt"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="subviews">
+                                                    <include reference="1YT-Ww-akF"/>
+                                                    <include reference="iHf-Mi-9EX"/>
+                                                    <include reference="zhe-Ng-obg"/>
+                                                    <include reference="jlc-Tm-LAe"/>
+                                                    <include reference="Whj-wg-0XK"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="55t-2w-28q"/>
+                                                    <include reference="RTm-er-ebR"/>
+                                                    <include reference="nm3-my-bo9"/>
+                                                    <include reference="7B1-iZ-dh0"/>
+                                                    <include reference="fz0-Id-KeN"/>
+                                                    <include reference="JXe-3u-WBN"/>
+                                                    <include reference="y5D-PG-Hyd"/>
+                                                    <include reference="ypq-3b-iLL"/>
+                                                    <include reference="bmG-2Q-img"/>
+                                                    <include reference="B7N-3z-Vpt"/>
+                                                </mask>
+                                            </variation>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="trailing" secondItem="8LZ-E3-TeE" secondAttribute="trailingMargin" id="3RL-Tc-fJc"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="leading" secondItem="8LZ-E3-TeE" secondAttribute="leadingMargin" id="Efk-5Y-QQ0"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="leading" secondItem="8LZ-E3-TeE" secondAttribute="leadingMargin" id="FGh-yn-wvg"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="trailing" secondItem="8LZ-E3-TeE" secondAttribute="trailingMargin" id="HjA-Sz-sQw"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="top" secondItem="8LZ-E3-TeE" secondAttribute="topMargin" id="gby-TR-Rrw"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="bottom" secondItem="8LZ-E3-TeE" secondAttribute="bottomMargin" id="iL6-jJ-RgF"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="top" secondItem="8LZ-E3-TeE" secondAttribute="topMargin" id="mCi-8b-hBP"/>
+                                        <constraint firstItem="w6u-52-TpT" firstAttribute="bottom" secondItem="8LZ-E3-TeE" secondAttribute="bottomMargin" id="oef-4x-USt"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Efk-5Y-QQ0"/>
+                                            <exclude reference="HjA-Sz-sQw"/>
+                                            <exclude reference="gby-TR-Rrw"/>
+                                            <exclude reference="iL6-jJ-RgF"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=regular">
+                                        <mask key="constraints">
+                                            <exclude reference="3RL-Tc-fJc"/>
+                                            <include reference="Efk-5Y-QQ0"/>
+                                            <exclude reference="FGh-yn-wvg"/>
+                                            <include reference="HjA-Sz-sQw"/>
+                                            <include reference="gby-TR-Rrw"/>
+                                            <include reference="iL6-jJ-RgF"/>
+                                            <exclude reference="mCi-8b-hBP"/>
+                                            <exclude reference="oef-4x-USt"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9ZD-QJ-vpZ" id="l99-ms-P17"/>
+                            <outlet property="delegate" destination="9ZD-QJ-vpZ" id="YNY-Du-Sr5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Current measurement" id="bOW-KD-232">
+                        <barButtonItem key="rightBarButtonItem" image="Calendar" id="ZNz-ad-gnc"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a3L-a6-h8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3768" y="172.5"/>
+        </scene>
         <!--Current Measurement-->
         <scene sceneID="5Oa-du-Yqc">
             <objects>
@@ -1197,6 +1584,24 @@
             </objects>
             <point key="canvasLocation" x="2956" y="862"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zaa-yA-dWv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PVl-nh-wP4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="U4J-dd-F5d">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9ZD-QJ-vpZ" kind="relationship" relationship="rootViewController" id="3fD-xz-k7K"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VKb-iJ-WM6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2956" y="173"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AutoSet" width="21" height="21"/>
@@ -1204,6 +1609,7 @@
         <image name="Batery" width="256" height="256"/>
         <image name="BatteryLevel0" width="128" height="128"/>
         <image name="BatteryLevel10" width="128" height="128"/>
+        <image name="BatteryLevel9" width="128" height="128"/>
         <image name="Bluetooth_Disconnected" width="128" height="128"/>
         <image name="Calendar" width="32" height="32"/>
         <image name="Configuration" width="40" height="40"/>

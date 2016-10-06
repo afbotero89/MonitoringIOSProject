@@ -52,6 +52,9 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     /// Bluetooth manager
     var bluetoothManager:BluetoothManager!
     
+    /// Request to remote data base sql: Type post to GIBIC server
+    let uploadMeassuresToRemoteServer = GBCUploadMeassuresAndSignalsToRemoteServer()
+    
     @IBOutlet weak var imageStatusConnection: UIImageView!
     
     override func viewDidLoad() {
@@ -90,6 +93,8 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         addAttributesToViewController()
         
         addNotifications()
+        
+        uploadMeassuresToRemoteServer.getDataFromDataBaseSQLDayMonthYear()
         
         self.navigationItem.setHidesBackButton(true, animated:true)
         // Do any additional setup after loading the view.
@@ -266,11 +271,14 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     }
     
     func displayMeasure(){
-        // Pendiente: Falta que se guarden los datos en la base de datos
+        
         systolicPressureValue.text = String(VectorPhysiologicalVariables.systolicPressure.last!) + "mmHg"
         averagePressureValue.text = String(VectorPhysiologicalVariables.averagePressure.last!) + "mmHg"
         diastolicPressureValue.text = String(VectorPhysiologicalVariables.diastolicPressure.last!) + "mmHg"
         heartRateValue.text = String(VectorPhysiologicalVariables.heartRate.last!)  + "BPM"
+        
+        
+        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_Sibxeco(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: "12:22:22")
         batteryLevel()
     }
     

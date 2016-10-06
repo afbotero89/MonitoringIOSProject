@@ -304,6 +304,7 @@
 		D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */; };
 		D8642BF81D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8642BF71D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift */; };
+		D8646FA01DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8646F9F1DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift */; };
 		D86639041D5A4C09007CE075 /* 60Hz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86639031D5A4C09007CE075 /* 60Hz.mp3 */; };
 		D86639051D5A4C09007CE075 /* 60Hz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86639031D5A4C09007CE075 /* 60Hz.mp3 */; };
 		D86DC69A1D30377400B3D69B /* UserConfiguration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */; };
@@ -546,6 +547,7 @@
 		D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSliderView.swift; sourceTree = "<group>"; };
 		D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCBatteryLevelViewController.swift; sourceTree = "<group>"; };
 		D8642BF71D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUploadMeassuresAndSignalsToRemoteServer.swift; sourceTree = "<group>"; };
+		D8646F9F1DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GBCCurrentMeasurementPatientVersionTableViewController.swift; path = ../GBCCurrentMeasurementPatientVersionTableViewController.swift; sourceTree = "<group>"; };
 		D86639031D5A4C09007CE075 /* 60Hz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 60Hz.mp3; sourceTree = "<group>"; };
 		D86DC6991D30377400B3D69B /* UserConfiguration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserConfiguration.storyboard; sourceTree = "<group>"; };
 		D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationMasterTableViewController.swift; sourceTree = "<group>"; };
@@ -783,6 +785,7 @@
 			children = (
 				D81015261D42A00000735568 /* ViewControllerPatientVersion.swift */,
 				D81015241D42879500735568 /* GBCCurrentMeasurementViewControllerPatientVersion.swift */,
+				D8646F9F1DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift */,
 			);
 			name = controllersPatientVersion;
 			sourceTree = "<group>";
@@ -997,7 +1000,6 @@
 				TargetAttributes = {
 					D83E0F1A1CD137C900300593 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = B3K3324H6Q;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1386,6 +1388,7 @@
 				B505D3E11CE820F10054E2BC /* MonthCollectionCell.swift in Sources */,
 				D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */,
 				B505D3FD1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */,
+				D8646FA01DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift in Sources */,
 				D821AB841CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift in Sources */,
 				D8642BF81D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift in Sources */,
 				B544D9B21D04F48000248390 /* CBCAnimationViewController.swift in Sources */,
