@@ -18,7 +18,7 @@ class DayCollectionCell: UICollectionViewCell {
     @IBOutlet var markedViewWidth: NSLayoutConstraint!
     @IBOutlet var markedViewHeight: NSLayoutConstraint!
     
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")! as URL)
     
     var serverResponse:NSString?
     
@@ -33,16 +33,16 @@ class DayCollectionCell: UICollectionViewCell {
     
                     getDataFromDataBaseSQLDayMonthYear()
     
-                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.componentsSeparatedByString(",")
+                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
                 }else{
-                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.componentsSeparatedByString(",")
+                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
                 }
                 
                 label.text = "\(date!.day)"
                 view.frame = CGRect(x: 35, y: 5, width: 5, height: 5)
                 view.layer.cornerRadius = 3
                 
-            view.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            view.backgroundColor = UIColor.groupTableViewBackground
                 
             if vectorDatesStoredInDataBases != nil{
                 
@@ -65,11 +65,11 @@ class DayCollectionCell: UICollectionViewCell {
                     }
                     
                     if "\(date!.year)" + "-" + "\(monthString)" + "-" + "\(dayString)" == i {
-                        view.backgroundColor = UIColor.redColor()
+                        view.backgroundColor = UIColor.red
                         
                     }
                 }
-                label.insertSubview(view, atIndex: 0)
+                label.insertSubview(view, at: 0)
             }
                 
               }else{
@@ -91,22 +91,22 @@ class DayCollectionCell: UICollectionViewCell {
     var mark: Bool = false {
         didSet {
             if mark {
-                markedView!.hidden = false
+                markedView!.isHidden = false
             } else {
-                markedView!.hidden = true
+                markedView!.isHidden = true
             }
         }
     }
     
     func getDataFromDataBaseSQLDayMonthYear(){
         
-        requestGetDayMonthYearDataBaseSQL.HTTPMethod = "POST"
+        requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
         
         let postString = "month=2016-06-21"
         
-        requestGetDayMonthYearDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
 
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDayMonthYearDataBaseSQL) {
+        let task = URLSession.shared.dataTask(with: requestGetDayMonthYearDataBaseSQL as URLRequest) {
             data, response, error in
             
             if error != nil {
@@ -115,7 +115,7 @@ class DayCollectionCell: UICollectionViewCell {
             }
             print("entra a la funcion !!!!")
             
-            self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            self.serverResponse = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             
             PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
             

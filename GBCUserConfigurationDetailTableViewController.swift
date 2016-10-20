@@ -27,20 +27,20 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(GBCUserConfigurationDetailTableViewController.add_editNewUser),
                                                          
-                                                         name: "add_editNewUser",
+                                                         name: NSNotification.Name(rawValue: "add_editNewUser"),
                                                          
                                                          object: nil)
 
         userNameCell.imageView?.image = UIImage(named: "User")
         
         let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         
@@ -57,37 +57,38 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         //if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
         
         if PatientListStruct.patientList != nil{
-           
-            let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
-            let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
-            let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
-            let gender = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("gender")
-            let email = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("email")
+            /*
+            let name = PatientListStruct.patientList?.valueForKey("result")[userSelectPatient].valueForKey("name")
+            let document = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "document")
+            let age = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "age")
+            let gender = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "gender")
+            let email = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "email")
             userNameTextLabel.text = String(name!)
             userIdLabel.text = String(document!)
             ageLabel.text = String(age!)
-            genderLabel.text = String(gender!)
+            enderLabel.text = String(gender!)
             emailLabel.text = String(email!)
+ */
         }
         //}
 
     }
     
     // Buttons
-    @IBAction func homeButton(sender: AnyObject) {
+    @IBAction func homeButton(_ sender: AnyObject) {
 
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func editButton(sender: AnyObject) {
+    @IBAction func editButton(_ sender: AnyObject) {
         
         editOrAddNewUser = UserConfigurationEditOrAddNewPatient.editNewPatient
-        let add_editTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
+        let add_editTableViewController = self.storyboard?.instantiateViewController(withIdentifier: "add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
         navigationController?.pushViewController(add_editTableViewController, animated: true)
         
     }
@@ -117,11 +118,11 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     
     // MARK: - Functions
     func add_editNewUser(){
-        let add_editUserViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
+        let add_editUserViewController = self.storyboard?.instantiateViewController(withIdentifier: "add_editUserViewController") as! GBCAdd_EditNewUserTableViewController
         navigationController?.pushViewController(add_editUserViewController, animated: true)
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.layer.cornerRadius = 5.0
     }
 

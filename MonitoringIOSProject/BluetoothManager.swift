@@ -50,7 +50,7 @@ struct ServiceDescriptor {
     /**
      Returns the characteristic name, given the characteristic UUID
     */
-    func characteristicNameForCharacteristicUUID(UUID:CBUUID)->String?{
+    func characteristicNameForCharacteristicUUID(_ UUID:CBUUID)->String?{
         for (key, value) in characteristics{
             if value == UUID{
                 return key
@@ -98,7 +98,7 @@ class BluetoothManager: NSObject{
     /// Hold an array of `ServiceDescriptor`s  in order to identify the services that will be serched
     let servicesDescriptors:[ServiceDescriptor] = BluetoothManager.loadServicesDescriptors();
     
-    var timer:NSTimer?
+    var timer:Timer?
     
     var tiempoEncendidoDispositivoRecibido = false
     
@@ -117,44 +117,44 @@ class BluetoothManager: NSObject{
         // Initialize the central manager.
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(BluetoothManager.sendMeasurementTime),
                                                          
-                                                         name: "sendMeasurementTimeToPeripheral",
+                                                         name: NSNotification.Name(rawValue: "sendMeasurementTimeToPeripheral"),
                                                          
                                                          object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(BluetoothManager.sendCurrentTime),
                                                          
-                                                         name: "sendCurrentTimeToPeripheral",
+                                                         name: NSNotification.Name(rawValue: "sendCurrentTimeToPeripheral"),
                                                          
                                                          object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(BluetoothManager.activeCurrentMeasurement),
                                                          
-                                                         name: "sendCurrentMeasurementToPeripheral",
+                                                         name: NSNotification.Name(rawValue: "sendCurrentMeasurementToPeripheral"),
                                                          
                                                          object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(BluetoothManager.cancelCurrentMeasurement),
                                                          
-                                                         name: "cancelCurrentMeasurementToPeripheral",
+                                                         name: NSNotification.Name(rawValue: "cancelCurrentMeasurementToPeripheral"),
                                                          
                                                          object: nil)
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BluetoothManager.timerPrueba), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BluetoothManager.timerPrueba), userInfo: nil, repeats: true)
     }
     func playSound() {
-        let url = NSBundle.mainBundle().URLForResource("60Hz", withExtension: "mp3")!
+        let url = Bundle.main.url(forResource: "60Hz", withExtension: "mp3")!
         
         do {
-            player = try AVAudioPlayer(contentsOfURL: url)
+            player = try AVAudioPlayer(contentsOf: url)
             guard let player = player else { return }
             
             player.prepareToPlay()
@@ -183,8 +183,8 @@ class BluetoothManager: NSObject{
     /**
      Given a service, return the corresponding service descriptor.
     */
-    func serviceDescriptorForService(service:CBService)->ServiceDescriptor?{
-        let descriptors  = self.servicesDescriptors.filter({$0.UUIDString == service.UUID.UUIDString});
+    func serviceDescriptorForService(_ service:CBService)->ServiceDescriptor?{
+        let descriptors  = self.servicesDescriptors.filter({$0.UUIDString == service.uuid.uuidString});
         if descriptors.count>0{
             return descriptors.last!
         }
@@ -194,11 +194,11 @@ class BluetoothManager: NSObject{
     /**
      Reads the data received from peripheral. If a more sophisticated method is requiered, such as one including buffers of data, take a look at RedCodeMobile project.
     */
-    func readDataFromPeripheral(data:NSData){
+    func readDataFromPeripheral(_ data:Data){
         
         // Get data from buffer
-        var buffer = [UInt8](count:data.length, repeatedValue:0)
-        data.getBytes(&buffer, length: data.length)
+        var buffer = [UInt8](repeating: 0, count: data.count)
+        (data as NSData).getBytes(&buffer, length: data.count)
         var characterValue:Character?
         
         for i in buffer{
@@ -218,7 +218,7 @@ class BluetoothManager: NSObject{
             //print(characterValue)
         }
         
-        var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.componentsSeparatedByString(",")
+        var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.components(separatedBy: ",")
         
         //print(currentMeasurement)
         
@@ -233,12 +233,12 @@ class BluetoothManager: NSObject{
                 switch appVersion!{
                 case .adminVersion:
                     if userSelectViewController == .realTimeViewController{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                     }else{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                     }
                 case .patientVersion:
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"), object: nil, userInfo: nil)
                 }
                 
 
@@ -249,12 +249,12 @@ class BluetoothManager: NSObject{
                 switch appVersion!{
                 case .adminVersion:
                     if userSelectViewController == .realTimeViewController{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                     }else{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                     }
                 case .patientVersion:
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"), object: nil, userInfo: nil)
                 }
             }else if i == "e3"{
                 typeError = 3
@@ -263,12 +263,12 @@ class BluetoothManager: NSObject{
                 switch appVersion!{
                 case .adminVersion:
                     if userSelectViewController == .realTimeViewController{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                     }else{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                     }
                 case .patientVersion:
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"), object: nil, userInfo: nil)
                 }
             }else if i == "e4"{
                 typeError = 4
@@ -276,12 +276,12 @@ class BluetoothManager: NSObject{
                 switch appVersion!{
                 case .adminVersion:
                     if userSelectViewController == .realTimeViewController{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                     }else{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                     }
                 case .patientVersion:
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"), object: nil, userInfo: nil)
                 }
             }else if i == "e5"{
                 typeError = 5
@@ -289,12 +289,12 @@ class BluetoothManager: NSObject{
                 switch appVersion!{
                 case .adminVersion:
                     if userSelectViewController == .realTimeViewController{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                     }else{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                     }
                 case .patientVersion:
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"), object: nil, userInfo: nil)
                 }
                 
             }else if i == "e6"{
@@ -303,20 +303,20 @@ class BluetoothManager: NSObject{
                 switch appVersion!{
                 case .adminVersion:
                     if userSelectViewController == .realTimeViewController{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                     }else{
-                        NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                     }
                 case .patientVersion:
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotificationPatientVersion", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"), object: nil, userInfo: nil)
                 }
             }
         }
         
         for i in currentMeasurement{
             
-            var hour = i.componentsSeparatedByString("-")
-            let measureHour = hour[0].componentsSeparatedByString(":")
+            var hour = i.components(separatedBy: "-")
+            let measureHour = hour[0].components(separatedBy: ":")
 
             if measureHour.count == 3 && tiempoEncendidoDispositivoRecibido == false{
                 
@@ -324,7 +324,7 @@ class BluetoothManager: NSObject{
                 hourOnDevice = hour[0]
                 
             }
-            if i.componentsSeparatedByString("-").count >= 2{
+            if i.components(separatedBy: "-").count >= 2{
                 activeCurrentHourFlag = false
             }
             
@@ -332,20 +332,20 @@ class BluetoothManager: NSObject{
                 measureRequestedFlag = false
                 
                 //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentMeasurementToPeripheral", object: nil, userInfo: nil)
-                NSNotificationCenter.defaultCenter().postNotificationName("startAnimation", object: nil, userInfo: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "startAnimation"), object: nil, userInfo: nil)
             }
             
             if (i == "255") && activeCurrentHourFlag == true{
-                let date = NSDate()
-                let fmt = NSDateFormatter()
+                let date = Foundation.Date()
+                let fmt = DateFormatter()
                 fmt.dateFormat = "HH:mm:ss"
-                configurationHour = fmt.stringFromDate(date)
+                configurationHour = fmt.string(from: date)
                 
-                let str:String = fmt.stringFromDate(date) + "254,"
+                let str:String = fmt.string(from: date) + "254,"
                 
-                let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                let data = str.data(using: String.Encoding.utf8)
 
-                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
                 
             }
 
@@ -361,9 +361,9 @@ class BluetoothManager: NSObject{
                     str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
                 }
                 
-                let data = str!.dataUsingEncoding(NSUTF8StringEncoding)
+                let data = str!.data(using: String.Encoding.utf8)
                 activeCurrentHourFlag = false
-                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
             }
     
@@ -465,7 +465,7 @@ class BluetoothManager: NSObject{
                             }
                             // Measurement time
                         }else if(currentMeasurement[i] == "h"){
-                            VectorPhysiologicalVariables.measuringTime.append(String(UTF8String: currentMeasurement[i+1])!)
+                            VectorPhysiologicalVariables.measuringTime.append(String(validatingUTF8: currentMeasurement[i+1])!)
                             
                         }
                         
@@ -476,26 +476,26 @@ class BluetoothManager: NSObject{
                     
                     activeCurrentMeasurementFlag = false
                     
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayCurrentMeasurementPopoverNotification"), object: nil, userInfo: nil)
                 }
                 
                 if counterVariablesToGraph == 6{
                     
-                    let fullACSignal = VectorPhysiologicalVariables.fullSignal.componentsSeparatedByString(",")
+                    let fullACSignal = VectorPhysiologicalVariables.fullSignal.components(separatedBy: ",")
                     
                     for i in fullACSignal{
                         
                         // Example component AC signal: A1234
                         
-                        if i.componentsSeparatedByString("A").count == 2 && i.componentsSeparatedByString("A")[1] != ""{
-                            VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "," + i.componentsSeparatedByString("A")[1]
+                        if i.components(separatedBy: "A").count == 2 && i.components(separatedBy: "A")[1] != ""{
+                            VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "," + i.components(separatedBy: "A")[1]
                             
                         }
                         
                         // Example component AC signal: D1234
                         
-                        if i.componentsSeparatedByString("D").count == 2 && i.componentsSeparatedByString("D")[1] != ""{
-                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "," + i.componentsSeparatedByString("D")[1]
+                        if i.components(separatedBy: "D").count == 2 && i.components(separatedBy: "D")[1] != ""{
+                            VectorPhysiologicalVariables.DCSignal = VectorPhysiologicalVariables.DCSignal + "," + i.components(separatedBy: "D")[1]
                             
                         }
                         
@@ -503,41 +503,41 @@ class BluetoothManager: NSObject{
                     
                     VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + VectorPhysiologicalVariables.DCSignal
                     
-                    if VectorPhysiologicalVariables.diastolicPressure.last > VectorPhysiologicalVariables.averagePressure.last{
+                    if Double(VectorPhysiologicalVariables.diastolicPressure.last!) > Double(VectorPhysiologicalVariables.averagePressure.last!){
                         let comodin = VectorPhysiologicalVariables.diastolicPressure.last
                         VectorPhysiologicalVariables.diastolicPressure[VectorPhysiologicalVariables.diastolicPressure.count - 1] = VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1]
                         VectorPhysiologicalVariables.averagePressure[VectorPhysiologicalVariables.averagePressure.count - 1] = comodin!
                     }
                     
                     
-                    if VectorPhysiologicalVariables.systolicPressure.last > 100 && VectorPhysiologicalVariables.heartRate.last > 40 && VectorPhysiologicalVariables.heartRate.last < 150{
+                    if Double(VectorPhysiologicalVariables.systolicPressure.last!) > 100 && Double(VectorPhysiologicalVariables.heartRate.last!) > 40 && Double(VectorPhysiologicalVariables.heartRate.last!) < 150{
                         
                         VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
                         
                         switch appVersion!{
                         case .adminVersion:
                             print("admin version")
-                            NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
                         case .patientVersion:
-                            NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "displayMeasurePatientViewController"), object: nil, userInfo: nil)
                         }
 
                     }else{
                         
                         
-                        if(VectorPhysiologicalVariables.systolicPressure.last <= 100){
+                        if(Double(VectorPhysiologicalVariables.systolicPressure.last!) <= 100){
                             
                             VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Diastolica baja"
                             
                         }
                         
-                        if(VectorPhysiologicalVariables.heartRate.last <= 40){
+                        if(Double(VectorPhysiologicalVariables.heartRate.last!) <= 40){
                             
                             VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Frecuencia cardiaca baja"
                             
                         }
                         
-                        if(VectorPhysiologicalVariables.heartRate.last > 150){
+                        if(Double(VectorPhysiologicalVariables.heartRate.last!) > 150){
                             
                             VectorPhysiologicalVariables.ACSignal = VectorPhysiologicalVariables.ACSignal + "-Frecuencia cardiaca alta"
                             
@@ -548,9 +548,9 @@ class BluetoothManager: NSObject{
                         error = true
                         
                         if userSelectViewController == .realTimeViewController{
-                            NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessageMainViewNotification", object: nil, userInfo: nil)
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessageMainViewNotification"), object: nil, userInfo: nil)
                         }else{
-                            NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "displayErrorMessage"), object: nil, userInfo: nil)
                         }
                         // todays date.
                         //let date = NSDate()
@@ -571,9 +571,9 @@ class BluetoothManager: NSObject{
                     
                     let str = "255,"
                     
-                    let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+                    let data = str.data(using: String.Encoding.utf8)
                     
-                    monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                    monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
                     
                     contadorDatosAC = 0
                 
@@ -590,22 +590,22 @@ class BluetoothManager: NSObject{
 //MARK: - Bluetooth Manager Delegate Protocol conformance
 extension BluetoothManager:CBCentralManagerDelegate{
     
-    func centralManagerDidUpdateState(central: CBCentralManager) {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print("Central manager did update state")
         
         switch central.state{
-        case .PoweredOn:
+        case .poweredOn:
             print("poweredOn")
             
             // As soon as the device is on, try stablish connection with previously connected devices, if any, or scan for
             
             let servicesUUIDs:[CBUUID] = self.servicesDescriptors.map({$0.UUID()})
             print("services of interest:\(servicesUUIDs)")
-            let connectedPeripherals = centralManager.retrieveConnectedPeripheralsWithServices(servicesUUIDs)
+            let connectedPeripherals = centralManager.retrieveConnectedPeripherals(withServices: servicesUUIDs)
             
             if connectedPeripherals.count > 0{
                 for peripheralDevice in connectedPeripherals{
-                    self.centralManager.connectPeripheral(peripheralDevice, options: nil);
+                    self.centralManager.connect(peripheralDevice, options: nil);
                     
                 }
             }
@@ -613,18 +613,18 @@ extension BluetoothManager:CBCentralManagerDelegate{
                 print("Scanning for periopherals")
                 //centralManager.scanForPeripheralsWithServices(servicesUUIDs, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
                 // Send notification that Bluetooth is disconnected and start scanning
-                centralManager.scanForPeripheralsWithServices(nil, options: nil)
+                centralManager.scanForPeripherals(withServices: nil, options: nil)
             }
-        case .PoweredOff:
+        case .poweredOff:
             print("power off")
-        case .Resetting:
+        case .resetting:
             print("reseting")
         default:
             print(central.state)
         }
     }
     
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         // Attempt to connect to the discovered device.
         //centralManager.stopScan()
         
@@ -635,7 +635,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
         if peripheral.name == BluetoothManager.monitorServiceName{
             print("Will attempt to connect. The peripheral UUID \(peripheral.identifier)")
             self.monitorPeripheral = peripheral
-            centralManager.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnNotificationKey: NSNumber(bool:true)])
+            centralManager.connect(peripheral, options: [CBConnectPeripheralOptionNotifyOnNotificationKey: NSNumber(value: true as Bool)])
             // Send actual hour
             //sendCurrentTime()
             
@@ -643,7 +643,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
         print("Found peripheral \(peripheral)")
     }
     
-    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         
         print("did connnect to peripheral named \(peripheral.name!)")
         
@@ -655,21 +655,21 @@ extension BluetoothManager:CBCentralManagerDelegate{
         self.monitorPeripheral?.discoverServices(self.servicesDescriptors.map({$0.UUID()}))
     }
     
-    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         
         if error != nil{
-            print("The connection to peripheral", peripheral.name, "failed with error:", error?.description, separator: " ", terminator: "\n")
+            print("The connection to peripheral", peripheral.name, "failed with error:", error, separator: " ", terminator: "\n")
         }
         // Attempt a new connection to the device?
         if self.monitorPeripheral == peripheral{
-            self.centralManager.connectPeripheral(peripheral, options: nil);
+            self.centralManager.connect(peripheral, options: nil);
         }
         
     }
-    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         // Send notification that Bluetooth is connected and all required characteristics are discovered
         self.sendBTServiceNotificationWithIsBluetoothConnected(false)
-        centralManager.scanForPeripheralsWithServices(nil, options: nil)
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
 }
 
@@ -677,7 +677,7 @@ extension BluetoothManager:CBCentralManagerDelegate{
 //MARK: - Bluetooth Peripheral Delegate
 extension BluetoothManager:CBPeripheralDelegate{
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if error != nil{
             print("An error occured discovering services for peripheral")
         }
@@ -685,44 +685,44 @@ extension BluetoothManager:CBPeripheralDelegate{
             print("Services discovered")
             //For the given service, look up for the characteristics of interest
             for service in (monitorPeripheral?.services)!{
-                let serviceDescriptor = servicesDescriptors.filter({$0.UUID().UUIDString == service.UUID.UUIDString}).first
-                monitorPeripheral?.discoverCharacteristics(serviceDescriptor?.characteristicsUUID(), forService: service);
+                let serviceDescriptor = servicesDescriptors.filter({$0.UUID().uuidString == service.uuid.uuidString}).first
+                monitorPeripheral?.discoverCharacteristics(serviceDescriptor?.characteristicsUUID(), for: service);
                 print("Scanning characteristics for service \(serviceDescriptor?.name)");
             }
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
         if error != nil{
             print("an error ocurred during characteristics discovering process for the service",
-                  servicesDescriptors.filter({$0.UUID().UUIDString == service.UUID.UUIDString}).first,
+                  servicesDescriptors.filter({$0.UUID().uuidString == service.uuid.uuidString}).first,
                   "The error description:",
-                  error?.description, separator: " ", terminator: "\n")
+                  error, separator: " ", terminator: "\n")
             return
         }
         
         // Get notified of changes in the service characteristics
         for characteristic in service.characteristics!{
             // Print the and service for this characteristic
-            if let serviceDescriptor = self.serviceDescriptorForService(service), let characteristicName = serviceDescriptor.characteristicNameForCharacteristicUUID(characteristic.UUID) {
+            if let serviceDescriptor = self.serviceDescriptorForService(service), let characteristicName = serviceDescriptor.characteristicNameForCharacteristicUUID(characteristic.uuid) {
                 print("Found Characteristic", characteristicName , "of Service", serviceDescriptor.name, separator: " ", terminator: "\n")
                 //if serviceDescriptor.name == BluetoothManager.monitorServiceName{
-                    switch characteristic.UUID.UUIDString {
-                    case (serviceDescriptor.characteristics[CharacteristicsNames.ReadFromBLEBeeKey.rawValue]?.UUIDString)!:
+                    switch characteristic.uuid.uuidString {
+                    case (serviceDescriptor.characteristics[CharacteristicsNames.ReadFromBLEBeeKey.rawValue]?.uuidString)!:
                         print("Found ReadFromBLEBee characteristic")
                         // If the characteristic is readable, get notify when it chages
-                        if (characteristic.properties.rawValue & CBCharacteristicProperties.Read.rawValue) != 0 {
-                            monitorPeripheral?.setNotifyValue(true, forCharacteristic: characteristic)
-                            print("Will get notifications in changes of characteristic", characteristicName, "with uuid", characteristic.UUID,"of service", serviceDescriptor.name, separator: " ", terminator: "\n")
+                        if (characteristic.properties.rawValue & CBCharacteristicProperties.read.rawValue) != 0 {
+                            monitorPeripheral?.setNotifyValue(true, for: characteristic)
+                            print("Will get notifications in changes of characteristic", characteristicName, "with uuid", characteristic.uuid,"of service", serviceDescriptor.name, separator: " ", terminator: "\n")
                         }
-                    case (serviceDescriptor.characteristics[CharacteristicsNames.SendToBLEBeeKey.rawValue]?.UUIDString)!:
+                    case (serviceDescriptor.characteristics[CharacteristicsNames.SendToBLEBeeKey.rawValue]?.uuidString)!:
                         print("Found writable characteristic")
                         self.monitorWritableCharacteristic = characteristic
-                        monitorPeripheral?.setNotifyValue(true, forCharacteristic: characteristic)
+                        monitorPeripheral?.setNotifyValue(true, for: characteristic)
             
                         
-                        NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "sendCurrentTimeToPeripheral"), object: nil, userInfo: nil)
                         
                     default:
                         break
@@ -734,14 +734,14 @@ extension BluetoothManager:CBPeripheralDelegate{
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
         readDataFromPeripheral(characteristic.value!)
         
     }
-    func sendBTServiceNotificationWithIsBluetoothConnected(isBluetoothConnected: Bool) {
+    func sendBTServiceNotificationWithIsBluetoothConnected(_ isBluetoothConnected: Bool) {
         let connectionDetails = ["isConnected": isBluetoothConnected]
-        NSNotificationCenter.defaultCenter().postNotificationName(BLEServiceChangedStatusNotification, object: self, userInfo: connectionDetails)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: BLEServiceChangedStatusNotification), object: self, userInfo: connectionDetails)
     }
     
     /** 
@@ -751,19 +751,19 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         let str = "t254,"
         
-        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        let data = str.data(using: String.Encoding.utf8)
         
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             
             activeCurrentHourFlag = true
             for i in 0...2{
                 print(i)
-                monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+                monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
             }
             
         }else{
             print("no peticion de tiempo actual")
-            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "displayDisconnectBluetoothAlertMessage"), object: nil, userInfo: nil)
         }
     }
     
@@ -774,15 +774,15 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         let str = "h254,"
         
-        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        let data = str.data(using: String.Encoding.utf8)
     
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             
             activeMeasurementTimeFlag = true
-            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
         }else{
             
-            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "displayDisconnectBluetoothAlertMessage"), object: nil, userInfo: nil)
         }
     
     }
@@ -794,13 +794,13 @@ extension BluetoothManager:CBPeripheralDelegate{
         
         let str = "i254,"
         
-        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        let data = str.data(using: String.Encoding.utf8)
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
         
-            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
         }else{
             
-            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "displayDisconnectBluetoothAlertMessage"), object: nil, userInfo: nil)
         }
     }
     /**
@@ -835,22 +835,22 @@ extension BluetoothManager:CBPeripheralDelegate{
             VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
         //NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
             
-            NSNotificationCenter.defaultCenter().postNotificationName("insertNewPlot", object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
         }
         
         if (activeMeasurementTimeFlag == true && self.monitorWritableCharacteristic != nil){
             let str = "h254,"
-            let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            let data = str.data(using: String.Encoding.utf8)
+            monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
         }
         
         if (activeCurrentHourFlag == true && self.monitorWritableCharacteristic != nil){
             activeCurrentHourFlag = true
             let str = "t254,"
-            let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+            let data = str.data(using: String.Encoding.utf8)
+            monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
         }
     }
 }

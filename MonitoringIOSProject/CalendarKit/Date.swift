@@ -15,20 +15,20 @@ class Date: CustomStringConvertible, Equatable {
     var year: Int
     
     var isToday: Bool {
-        let today = Date(date: NSDate())
-        return (isEqual(today) == .OrderedSame)
+        let today = Date(date: Foundation.Date())
+        return (isEqual(today) == .orderedSame)
     }
     
-    func isEqual(date: Date) -> NSComparisonResult {
+    func isEqual(_ date: Date) -> ComparisonResult {
         let selfComposite = (year * 10000) + (month * 100) + day
         let otherComposite = (date.year * 10000) + (date.month * 100) + date.day
         
         if selfComposite < otherComposite {
-            return .OrderedAscending
+            return .orderedAscending
         } else if selfComposite == otherComposite {
-            return .OrderedSame
+            return .orderedSame
         } else {
-            return .OrderedDescending
+            return .orderedDescending
         }
     }
     
@@ -38,16 +38,16 @@ class Date: CustomStringConvertible, Equatable {
         self.year = year
     }
     
-    init(date: NSDate) {
+    init(date: Foundation.Date) {
         let part = date.monthDayAndYearComponents
         
-        self.day = part.day
-        self.month = part.month
-        self.year = part.year
+        self.day = part.day!
+        self.month = part.month!
+        self.year = part.year!
     }
     
-    var nsdate: NSDate {
-        return NSDate.date(day, month: month, year: year)
+    var nsdate: Foundation.Date {
+        return Foundation.Date.date(day, month: month, year: year)
     }
     
     var description: String {

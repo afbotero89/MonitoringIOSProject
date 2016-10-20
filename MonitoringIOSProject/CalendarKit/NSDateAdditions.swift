@@ -8,103 +8,103 @@
 
 import Foundation
 
-extension NSDate {
+extension Foundation.Date {
     
-    class func date(day: Int, month: Int, year: Int) -> NSDate {
-        let dateFormatter = NSDateFormatter()
+    static func date(_ day: Int, month: Int, year: Int) -> Foundation.Date {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
         let dayString = String(format: "%02d", day)
         let monthString = String(format: "%02d", month)
         let yearString = String(format: "%04d", year)
         
-        return dateFormatter.dateFromString(dayString + "/" + monthString + "/" + yearString)!
+        return dateFormatter.date(from: dayString + "/" + monthString + "/" + yearString)!
     }
    
-    var startOfDay: NSDate {
-        let components = self.components
+    var startOfDay: Foundation.Date {
+        var components = self.components
         
         components.hour = 0
         components.minute = 0
         components.second = 0
         
-        return NSCalendar.currentCalendar().dateFromComponents(components)!
+        return Calendar.current.date(from: components)!
     }
     
-    var endOfTheDay: NSDate {
-        let components = self.components
+    var endOfTheDay: Foundation.Date {
+        var components = self.components
         
         components.hour = 23
         components.minute = 59
         components.second = 59
         
-        return NSCalendar.currentCalendar().dateFromComponents(components)!
+        return Calendar.current.date(from: components)!
     }
 
-    var firstDayOfTheMonth: NSDate {
-        var date: NSDate?
-        NSCalendar.currentCalendar().rangeOfUnit(.Month, startDate:&date , interval: nil, forDate: self)
+    var firstDayOfTheMonth: Foundation.Date {
+        var date: Foundation.Date?
+        //(Calendar.current as NSCalendar).range(of: .month, start: date. , interval: nil, for: self)
         return date!
     }
 
-    var firstDayOfPreviousMonth: NSDate {
+    var firstDayOfPreviousMonth: Foundation.Date {
         return firstDay(false)
     }
     
-    var firstDayOfFollowingMonth: NSDate {
+    var firstDayOfFollowingMonth: Foundation.Date {
         return firstDay(true)
     }
     
-    var monthDayAndYearComponents: NSDateComponents {
-        let components: NSCalendarUnit = [.Year, .Month, .Day]
-        return NSCalendar.currentCalendar().components(components, fromDate: self)
+    var monthDayAndYearComponents: DateComponents {
+        let components: NSCalendar.Unit = [.year, .month, .day]
+        return (Calendar.current as NSCalendar).components(components, from: self)
     }
     
     var weekDay: Int {
-        return components.weekday
+        return components.weekday!
     }
     
     var numberOfDaysInMonth: Int {
-        return NSCalendar.currentCalendar().rangeOfUnit(.Day, inUnit: .Month, forDate: self).length
+        return (Calendar.current as NSCalendar).range(of: .day, in: .month, for: self).length
     }
     
     var day: Int {
-        return components.day
+        return components.day!
     }
     
     var month: Int {
-        return components.month
+        return components.month!
     }
     
     var year: Int {
-        return components.year
+        return components.year!
     }
     
     var minute: Int {
-        return components.minute
+        return components.minute!
     }
     
     var second: Int {
-        return components.second
+        return components.second!
     }
     
     var hour: Int {
-        return components.hour
+        return components.hour!
     }
     
     //MARK: Private variable and methods.
     
-    private var components: NSDateComponents {
-        let calendarUnit = NSCalendarUnit(rawValue: UInt.max)
-        let components = NSCalendar.currentCalendar().components(calendarUnit, fromDate: self)
+    fileprivate var components: DateComponents {
+        let calendarUnit = NSCalendar.Unit(rawValue: UInt.max)
+        let components = (Calendar.current as NSCalendar).components(calendarUnit, from: self)
         return components
     }
     
-    private func firstDay(followingMonth: Bool) -> NSDate {
-        let dateComponent = NSDateComponents()
+    fileprivate func firstDay(_ followingMonth: Bool) -> Foundation.Date {
+        var dateComponent = DateComponents()
         dateComponent.month = followingMonth ? 1: -1
         
-        let date = NSCalendar.currentCalendar().dateByAddingComponents(dateComponent, toDate: self, options: NSCalendarOptions(rawValue: 0))
+        let date = (Calendar.current as NSCalendar).date(byAdding: dateComponent, to: self, options: NSCalendar.Options(rawValue: 0))
         return date!.firstDayOfTheMonth
     }
 }

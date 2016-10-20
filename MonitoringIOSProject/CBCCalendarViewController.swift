@@ -26,7 +26,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     @IBOutlet weak var displayRecordButton: UIButton!
     
-    let requestGetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
+    let requestGetDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
     
     var responseString:NSString!
     
@@ -36,7 +36,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         super.viewDidLoad()
 
         // todays date.
-        let date = NSDate()
+        let date = Foundation.Date()
         
         title = NSLocalizedString("Calendar", comment: "")
         
@@ -50,8 +50,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         placeholderView.addSubview(calendarView)
         
         // Constraints for calendar view - Fill the parent view.
-        placeholderView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
-        placeholderView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
+        placeholderView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
+        placeholderView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[calendarView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["calendarView": calendarView]))
         
         //displayRecordButton.layer.cornerRadius = 5
         
@@ -59,7 +59,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
     }
 
@@ -68,7 +68,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func didSelectDate(date: NSDate) {
+    func didSelectDate(_ date: Foundation.Date) {
         PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
         
         if activeCalendarViewController == true{
@@ -80,7 +80,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     // MARK: - Buttons
     
-    @IBAction func displayRecordButton(sender: AnyObject) {
+    @IBAction func displayRecordButton(_ sender: AnyObject) {
 
         //getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
         
@@ -89,22 +89,22 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     /**
      Get data from data base SQL where date is selected by the user with the calendar
      */
-    func getDataFromServerDataBaseSQL(date: String){
+    func getDataFromServerDataBaseSQL(_ date: String){
         
         let postString = "date=\(date)"
         
-        requestGetDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        requestGetDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
         
-        requestGetDataBaseSQL.HTTPMethod = "POST"
+        requestGetDataBaseSQL.httpMethod = "POST"
         
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDataBaseSQL) {
+        let task = URLSession.shared.dataTask(with: requestGetDataBaseSQL as URLRequest, completionHandler: {
             data, response, error in
             
             if error != nil {
                 
-                self.dismissViewControllerAnimated(true, completion:  {
+                self.dismiss(animated: true, completion:  {
                     internetConnectionError = true
-                    NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayAlertThereIsNoDataNotification"), object: nil, userInfo: nil)
                     
                     })
                 
@@ -113,10 +113,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     print("iPad")
                 case .iPhone:
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your internet connection", comment: ""), preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
-                        self.presentViewController(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: {
+                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your internet connection", comment: ""), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default) { _ in })
+                        self.present(alert, animated: true, completion: nil)
                     })
                     
                 }
@@ -126,7 +126,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 return
             }
             
-            self.responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            self.responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             
             
             if (String(self.responseString).isEmpty || self.responseString == "s-d-a-f-h"){
@@ -143,10 +143,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                     print("iPad")
                 case .iPhone:
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("There is not data", comment: ""), preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .Default) { _ in })
-                        self.presentViewController(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: {
+                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("There is not data", comment: ""), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default) { _ in })
+                        self.present(alert, animated: true, completion: nil)
                     })
                     
                 }
@@ -160,10 +160,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 PhysiologicalVariablesStoredInDatabaseSQL.heartRate.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.hour.removeAll()
                 
-                let vector = self.responseString.componentsSeparatedByString("-")
+                let vector = self.responseString.components(separatedBy: "-")
                 print(vector.count)
                 for i in 0..<vector.count{
-                    var vector1 = vector[i].componentsSeparatedByString(",")
+                    var vector1 = vector[i].components(separatedBy: ",")
                     
                     for j in 0...(vector1.count - 1){
                         
@@ -180,40 +180,40 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                             PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[j])!)
                         }
                         if i == 4 && vector1[j] != "h"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(UTF8String: vector1[j])!)
+                            PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[j])!)
                         }
                     }
                 }
                 if PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count > 80{
                     for _ in 0..<(PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count - 75){
-                        PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.removeAtIndex(0)
-                        PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.removeAtIndex(0)
-                        PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.removeAtIndex(0)
-                        PhysiologicalVariablesStoredInDatabaseSQL.heartRate.removeAtIndex(0)
-                        PhysiologicalVariablesStoredInDatabaseSQL.hour.removeAtIndex(0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.remove(at: 0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.remove(at: 0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.remove(at: 0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.heartRate.remove(at: 0)
+                        PhysiologicalVariablesStoredInDatabaseSQL.hour.remove(at: 0)
                         
                     }
                 }
                 
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                     
                     userSelectViewController = UserSelectViewPrincipalViewController.hitorialViewController
                     
                     switch appVersion!{
                     case .patientVersion:
-                        NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotificationPatientVersion", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displaySavedHistoryGraphsNotificationPatientVersion"), object: nil, userInfo: nil)
                     case .adminVersion:
-                        NSNotificationCenter.defaultCenter().postNotificationName("displaySavedHistoryGraphsNotification", object: nil, userInfo: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "displaySavedHistoryGraphsNotification"), object: nil, userInfo: nil)
                     }
                     
                 case .iPhone:
                     userSelectViewController = UserSelectViewPrincipalViewController.hitorialViewController
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                    let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs")
-                        self.showViewController(popoverContent!, sender: nil)
+                    DispatchQueue.main.async(execute: {
+                    let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "savedHistoryGraphs")
+                        self.show(popoverContent!, sender: nil)
                     })
                     //self.navigationController?.pushViewController(popoverContent!, animated: true)
                     //self.navigationController?.presentViewController(popoverContent!, animated: true, completion: nil)
@@ -222,7 +222,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 }
                 
             }
-        }
+        }) 
         task.resume()
     }
 

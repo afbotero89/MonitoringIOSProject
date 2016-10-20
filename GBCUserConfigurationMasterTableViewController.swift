@@ -21,21 +21,21 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.splitViewController?.preferredDisplayMode = .AllVisible
+        self.splitViewController?.preferredDisplayMode = .allVisible
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(GBCUserConfigurationMasterTableViewController.reloadTableViewController),
                                                          
-                                                         name: "reloadMasterTableViewController",
+                                                         name: NSNotification.Name(rawValue: "reloadMasterTableViewController"),
                                                          
                                                          object: nil)
         
         let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
@@ -50,7 +50,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     
@@ -58,27 +58,27 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     
     }
 
-    @IBAction func addNewUser(sender: AnyObject) {
+    @IBAction func addNewUser(_ sender: AnyObject) {
 
         if (activeAdd_EditUserViewController == false){
             editOrAddNewUser = UserConfigurationEditOrAddNewPatient.addNewPatient
             activeAdd_EditUserViewController = true
-            NSNotificationCenter.defaultCenter().postNotificationName("add_editNewUser", object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "add_editNewUser"), object: nil, userInfo: nil)
         }
     }
     
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        numberOfPatientsInDataBases = PatientListStruct.patientList?.valueForKey("result")?.count
+        numberOfPatientsInDataBases = (PatientListStruct.patientList?.value(forKey: "result") as AnyObject).count
         if numberOfPatientsInDataBases == nil{
             numberOfPatientsInDataBases = 0
         }
@@ -86,22 +86,22 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellUserConfigurationMaster", forIndexPath: indexPath)
-        
-        let name = PatientListStruct.patientList!.valueForKey("result")![indexPath.row].valueForKey("name")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellUserConfigurationMaster", for: indexPath)
+        let name = PatientListStruct.patientList?.value(forKey: "result")
+        //let name = PatientListStruct.patientList!.value(forKey: "result")![(indexPath as NSIndexPath).row].value(forKey: "name")
         
         // Configure the cell...
-        cell.textLabel?.text = String(name!)
+        cell.textLabel?.text = String(describing: name!)
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         return cell
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        numeroDeCeldasDetailView = indexPath.row
-        self.performSegueWithIdentifier("userConfigurationMasterDetail", sender: self)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        numeroDeCeldasDetailView = (indexPath as NSIndexPath).row
+        self.performSegue(withIdentifier: "userConfigurationMasterDetail", sender: self)
     }
     
     //MARK: - Functions
@@ -111,7 +111,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         //cell.layer.cornerRadius = 10.0
     }
     
@@ -154,7 +154,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //let controller = (segue.destinationViewController as! UINavigationController).topViewController as! GBCUserConfigurationDetailTableViewController
         userSelectPatient = numeroDeCeldasDetailView
         // Get the new view controller using segue.destinationViewController.

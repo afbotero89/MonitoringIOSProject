@@ -30,7 +30,7 @@ import UIKit
         let slider:BWCircularSlider = BWCircularSlider(startColor:self.startColor, endColor:self.endColor, frame: self.bounds)
         
         // Attach an Action and a Target to the slider
-        slider.addTarget(self, action: #selector(BWCircularSliderView.valueChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        slider.addTarget(self, action: #selector(BWCircularSliderView.valueChanged(_:)), for: UIControlEvents.valueChanged)
         
         // Add the slider as subview of this view
         self.addSubview(slider)
@@ -38,7 +38,7 @@ import UIKit
     }
     #endif
     
-    func valueChanged(slider:BWCircularSlider){
+    func valueChanged(_ slider:BWCircularSlider){
         // Do something with the value...
         //print("Value changed \(angle)")
     }

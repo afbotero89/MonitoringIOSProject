@@ -42,7 +42,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 
         changeLabelsValues()
     }
@@ -52,17 +52,17 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         //changeLabelsValues()
     }
     
     // MARK: - Buttons
-    @IBAction func cancelButton(sender: AnyObject) {
+    @IBAction func cancelButton(_ sender: AnyObject) {
         activeAdd_EditUserViewController = false
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func okButton(sender: AnyObject) {
+    @IBAction func okButton(_ sender: AnyObject) {
         
         if userNameLabel.text != "" && userIdLabel.text != "" && userAgeLabel.text != "" && userGenderLabel.text != "" && emailLabel.text! != ""{
             let branch_id = "1"
@@ -83,15 +83,15 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
             
             activeAdd_EditUserViewController = false
             
-            NSNotificationCenter.defaultCenter().postNotificationName("reloadMasterTableViewController", object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterTableViewController"), object: nil, userInfo: nil)
             
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
 
         }else{
             
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Please fill out all fields", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
-            alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: nil))
-            presentViewController(alertController!, animated: true, completion: nil)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Please fill out all fields", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
+            alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .default, handler: nil))
+            present(alertController!, animated: true, completion: nil)
         }
     }
     
@@ -116,23 +116,24 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                 cell1.textLabel?.text = "Edit patient"
                 
                 if PatientListStruct.patientList != nil{
-                    let name = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("name")
-                    let document = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("document")
-                    let age = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("age")
-                    let gender = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("gender")
-                    let email = PatientListStruct.patientList!.valueForKey("result")![userSelectPatient].valueForKey("email")
-                
-                    userNameLabel.text = String(name!)
-                    userIdLabel.text = String(document!)
-                    userAgeLabel.text = String(age!)
-                    userGenderLabel.text = String(gender!)
-                    emailLabel.text = String(email!)
+                    /*
+                    let name = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "name")
+                    let document = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "document")
+                    let age = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "age")
+                    let gender = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "gender")
+                    let email = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "email")
+                */
+                    userNameLabel.text = String("name!")
+                    userIdLabel.text = String("document!")
+                    userAgeLabel.text = String("age!")
+                    userGenderLabel.text = String("gender!")
+                    emailLabel.text = String("email!")
                 }
             //}
         }
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.layer.cornerRadius = 5.0
     }
     

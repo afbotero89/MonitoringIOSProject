@@ -8,7 +8,7 @@
 
 import Foundation
 
-let defaults = NSUserDefaults.standardUserDefaults()
+let defaults = UserDefaults.standard
 
 // MARK: - Enumerations
 

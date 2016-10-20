@@ -7,6 +7,35 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class GBCCurrentMeasurementViewController: UIViewController {
 
@@ -88,13 +117,13 @@ class GBCCurrentMeasurementViewController: UIViewController {
         case .iPhone:
             doneButtonIphone.clipsToBounds = true
             doneButtonIphone.layer.cornerRadius = 10
-            doneButtonIphone.setTitle(NSLocalizedString("Done", comment: ""), forState: .Normal)
+            doneButtonIphone.setTitle(NSLocalizedString("Done", comment: ""), for: UIControlState())
         }
 
         
-        let color1 = UIColor.whiteColor().CGColor
+        let color1 = UIColor.white.cgColor
         
-        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.2).CGColor
+        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.2).cgColor
         
         gradientLayer.colors = [color1, color2]
         
@@ -102,9 +131,9 @@ class GBCCurrentMeasurementViewController: UIViewController {
         
         gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
         
-        gradientLayer.accessibilityElementAtIndex(0)
+        gradientLayer.accessibilityElement(at: 0)
         
-        view.layer.insertSublayer(gradientLayer, atIndex:0)
+        view.layer.insertSublayer(gradientLayer, at:0)
     }
     
     func batteryLevel(){
@@ -167,7 +196,7 @@ class GBCCurrentMeasurementViewController: UIViewController {
         }
     }
 
-    @IBAction func doneButton(sender: AnyObject) {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func doneButton(_ sender: AnyObject) {
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

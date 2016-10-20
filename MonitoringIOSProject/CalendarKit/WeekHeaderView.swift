@@ -12,15 +12,15 @@ class WeekHeaderView: UICollectionReusableView {
 
     @IBOutlet var labels: [UILabel]!
     
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     
     override func awakeFromNib() {
         if labels.count == formatter.weekdaySymbols.count {
             for i in 0..<formatter.weekdaySymbols.count{
             //for var i = 0; i < formatter.weekdaySymbols.count; i++ {
                 let weekDayString = formatter.weekdaySymbols[i] 
-                
-                labels[i].text = weekDayString.substringToIndex(weekDayString.startIndex.advancedBy(3)).uppercaseString
+                labels[i].text = weekDayString.substring(to: weekDayString.characters.index(weekDayString.startIndex, offsetBy: 3)).uppercased()
+                //labels[i].text = weekDayString.substringToIndex(weekDayString.characters.index(weekDayString.startIndex, offsetBy: 3)).uppercased()
             }
         }
     }

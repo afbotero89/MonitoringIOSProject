@@ -7,6 +7,35 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPopoverPresentationControllerDelegate {
 
@@ -65,7 +94,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         // Initialize the bluetooth manager.
         self.bluetoothManager = BluetoothManager()
         
-        let device = UIDevice.currentDevice().model
+        let device = UIDevice.current.model
         
         if device == "iPad"{
             UserSelectedConfiguration.typeOfDevice = .iPad
@@ -107,30 +136,30 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     
     func addNotifications(){
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(GBCCurrentMeasurementViewControllerPatientVersion.displaySavedHistoryGraphs),
                                                          
-                                                         name: "displaySavedHistoryGraphsNotificationPatientVersion",
+                                                         name: NSNotification.Name(rawValue: "displaySavedHistoryGraphsNotificationPatientVersion"),
                                                          
                                                          object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(GBCCurrentMeasurementViewControllerPatientVersion.displayMeasure),
                                                          
-                                                         name: "displayMeasurePatientViewController",
+                                                         name: NSNotification.Name(rawValue: "displayMeasurePatientViewController"),
                                                          
                                                          object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          
                                                          selector: #selector(ViewController.displayErrorMessageMainView),
                                                          
-                                                         name: "displayErrorMessageMainViewNotificationPatientVersion",
+                                                         name: NSNotification.Name(rawValue: "displayErrorMessageMainViewNotificationPatientVersion"),
                                                          
                                                          object: nil)
         
         // Watch Bluetooth connection
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.connectionChanged(_:)), name: NSNotification.Name(rawValue: BLEServiceChangedStatusNotification), object: nil)
     }
     
     func addAttributesToViewController(){
@@ -143,7 +172,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
             case .adminVersion:
                 doneButtonIphone.clipsToBounds = true
                 doneButtonIphone.layer.cornerRadius = 10
-                doneButtonIphone.setTitle(NSLocalizedString("Done", comment: ""), forState: .Normal)
+                doneButtonIphone.setTitle(NSLocalizedString("Done", comment: ""), for: UIControlState())
             case .patientVersion:
                 print("patient version iphone")
             }
@@ -151,9 +180,9 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         }
         navigationBar.barTintColor = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 1)
         
-        let color1 = UIColor.whiteColor().CGColor
+        let color1 = UIColor.white.cgColor
         
-        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.2).CGColor
+        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.2).cgColor
         
         gradientLayer.colors = [color1, color2]
         
@@ -161,16 +190,16 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         
         gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
         
-        gradientLayer.accessibilityElementAtIndex(0)
+        gradientLayer.accessibilityElement(at: 0)
         
         let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         
-        view.layer.insertSublayer(gradientLayer, atIndex:0)
+        view.layer.insertSublayer(gradientLayer, at:0)
     }
     
     func batteryLevel(){
@@ -233,18 +262,18 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         }
     }
 
-    @IBAction func displayCalendarButton(sender: AnyObject) {
+    @IBAction func displayCalendarButton(_ sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
             
-            let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("calendarViewControllerIPad")
-            documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let documentationTableViewController = storyboard.instantiateViewController(withIdentifier: "calendarViewControllerIPad")
+            documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             let popover = documentationTableViewController.popoverPresentationController!
-            documentationTableViewController.preferredContentSize = CGSizeMake(400,350)
+            documentationTableViewController.preferredContentSize = CGSize(width: 400,height: 350)
             
-            popover.permittedArrowDirections = .Any
+            popover.permittedArrowDirections = .any
             
             // Depending on the source, set the popover properties accordingly.
             if let barButtonItem = sender as? UIBarButtonItem{
@@ -258,11 +287,11 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
             popover.delegate = self
             //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
             
-            self.presentViewController(documentationTableViewController, animated: true, completion: nil)
+            self.present(documentationTableViewController, animated: true, completion: nil)
             
         case .iPhone:
             
-            let documentationTableViewController = storyboard.instantiateViewControllerWithIdentifier("calendarViewControllerIPhone")
+            let documentationTableViewController = storyboard.instantiateViewController(withIdentifier: "calendarViewControllerIPhone")
             
             //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
             navigationController?.pushViewController(documentationTableViewController, animated: true)
@@ -282,12 +311,12 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         batteryLevel()
     }
     
-    func connectionChanged(notification: NSNotification) {
+    func connectionChanged(_ notification: Notification) {
         
         // Connection status changed. Indicate on GUI.
-        let userInfo = notification.userInfo as! [String: Bool]
+        let userInfo = (notification as NSNotification).userInfo as! [String: Bool]
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             // Set image based on connection status
             if let isConnected: Bool = userInfo["isConnected"] {
                 if isConnected {
@@ -311,41 +340,41 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         switch typeError!{
         case 1:
             // Desconexion de manguera
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Disconnect hose", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         case 2:
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Circuit leaks", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         case 3:
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         case 4:
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Monitor measure canceled", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         case 5:
-            alertController = UIAlertController(title: "", message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("heart rate not caculated", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         case 6:
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect pressure", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         case 7:
-            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect measure", comment: ""), preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: NSLocalizedString("Incorrect measure", comment: ""), preferredStyle:UIAlertControllerStyle.alert)
         default:
-            alertController = UIAlertController(title: "", message: "Default principal view", preferredStyle:UIAlertControllerStyle.Alert)
+            alertController = UIAlertController(title: "", message: "Default principal view", preferredStyle:UIAlertControllerStyle.alert)
         }
         
-        alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .Default, handler: {
+        alertController!.addAction(UIAlertAction(title:  NSLocalizedString("Done", comment: ""), style: .default, handler: {
             action in
             
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             case .iPhone:
-                self.navigationController?.popViewControllerAnimated(true)
+                self.navigationController?.popViewController(animated: true)
             }
             
         }))
-        self.presentViewController(alertController!, animated: true, completion: nil)
+        self.present(alertController!, animated: true, completion: nil)
         
     }
     
     func displaySavedHistoryGraphs(){
         
-        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("savedHistoryGraphs"))
+        let popoverContent = (self.storyboard?.instantiateViewController(withIdentifier: "savedHistoryGraphs"))
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
@@ -357,8 +386,8 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         
     }
     
-    @IBAction func doneButton(sender: AnyObject) {
+    @IBAction func doneButton(_ sender: AnyObject) {
         print("done")
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

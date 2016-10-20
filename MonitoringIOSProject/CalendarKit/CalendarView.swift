@@ -12,7 +12,7 @@ import UIKit
 let kMonthRange = 12
 
 protocol CalendarViewDelegate: class {
-    func didSelectDate(date: NSDate)
+    func didSelectDate(_ date: Foundation.Date)
 }
 
 class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, MonthCollectionCellDelegate {
@@ -23,8 +23,8 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     @IBOutlet var previousButton: UIButton!
     weak var delegate: CalendarViewDelegate?
 
-    private var collectionData = [CalendarLogic]()
-    var baseDate: NSDate? {
+    fileprivate var collectionData = [CalendarLogic]()
+    var baseDate: Foundation.Date? {
         
         didSet {
             collectionData = [CalendarLogic]()
@@ -41,7 +41,7 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
                     set.insert(CalendarLogic(date: dateIter1))
                     set.insert(CalendarLogic(date: dateIter2))
                 }
-                collectionData = Array(set).sort(<)
+                collectionData = Array(set).sorted(by: <)
             }
             
             updateHeader()
@@ -49,10 +49,10 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         }
     }
     
-    var selectedDate: NSDate? {
+    var selectedDate: Foundation.Date? {
         didSet {
             collectionView.reloadData()
-            dispatch_async(dispatch_get_main_queue()){
+            DispatchQueue.main.async{
                 self.moveToSelectedDate(false)
                 if self.delegate != nil {
                     self.delegate!.didSelectDate(self.selectedDate!)
@@ -63,27 +63,27 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     override func awakeFromNib() {
         let nib = UINib(nibName: "MonthCollectionCell", bundle: nil)
-        self.collectionView.registerNib(nib, forCellWithReuseIdentifier: "MonthCollectionCell")
+        self.collectionView.register(nib, forCellWithReuseIdentifier: "MonthCollectionCell")
     }
     
-    class func instance(baseDate: NSDate, selectedDate: NSDate) -> CalendarView {
-        let calendarView = NSBundle.mainBundle().loadNibNamed("CalendarView", owner: nil, options: nil).first as! CalendarView
+    class func instance(_ baseDate: Foundation.Date, selectedDate: Foundation.Date) -> CalendarView {
+        let calendarView = Bundle.main.loadNibNamed("CalendarView", owner: nil, options: nil)?.first as! CalendarView
         calendarView.selectedDate = selectedDate
         calendarView.baseDate = baseDate
         return calendarView
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionData.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MonthCollectionCell", forIndexPath: indexPath) as! MonthCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MonthCollectionCell", for: indexPath) as! MonthCollectionCell
         
         cell.monthCellDelgate = self
         
-        cell.logic = collectionData[indexPath.item]
+        cell.logic = collectionData[(indexPath as NSIndexPath).item]
         if cell.logic!.isVisible(selectedDate!) {
             cell.selectedDate = Date(date: selectedDate!)
         }
@@ -91,17 +91,17 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (!decelerate) {
             updateHeader()
         }
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         updateHeader()
     }
     
@@ -110,35 +110,35 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         updateHeader(pageNumber)
     }
     
-    func updateHeader(pageNumber: Int) {
+    func updateHeader(_ pageNumber: Int) {
         if collectionData.count > pageNumber {
             let logic = collectionData[pageNumber]
             monthYearLabel.text = logic.currentMonthAndYear as String
         }
     }
     
-    @IBAction func retreatToPreviousMonth(button: UIButton) {
+    @IBAction func retreatToPreviousMonth(_ button: UIButton) {
         advance(-1, animate: true)
     }
     
-    @IBAction func advanceToFollowingMonth(button: UIButton) {
+    @IBAction func advanceToFollowingMonth(_ button: UIButton) {
         advance(1, animate: true)
     }
     
-    func advance(byIndex: Int, animate: Bool) {
-        var visibleIndexPath = self.collectionView.indexPathsForVisibleItems().first as NSIndexPath!
+    func advance(_ byIndex: Int, animate: Bool) {
+        var visibleIndexPath = self.collectionView.indexPathsForVisibleItems.first as IndexPath!
         
-        if (visibleIndexPath.item == 0 && byIndex == -1) ||
-           ((visibleIndexPath.item + 1) == collectionView.numberOfItemsInSection(0) && byIndex == 1) {
+        if ((visibleIndexPath?.item)! == 0 && byIndex == -1) ||
+           (((visibleIndexPath?.item)! + 1) == collectionView.numberOfItems(inSection: 0) && byIndex == 1) {
            return
         }
         
-        visibleIndexPath = NSIndexPath(forItem: visibleIndexPath.item + byIndex, inSection: visibleIndexPath.section)
-        updateHeader(visibleIndexPath.item)
-        collectionView.scrollToItemAtIndexPath(visibleIndexPath, atScrollPosition: .CenteredHorizontally, animated: animate)
+        visibleIndexPath = IndexPath(item: (visibleIndexPath?.item)! + byIndex, section: (visibleIndexPath?.section)!)
+        updateHeader((visibleIndexPath?.item)!)
+        collectionView.scrollToItem(at: visibleIndexPath!, at: .centeredHorizontally, animated: animate)
     }
     
-    func moveToSelectedDate(animated: Bool) {
+    func moveToSelectedDate(_ animated: Bool) {
         var index = -1
         for i in 0..<collectionData.count{
         //for var i = 0; i < collectionData.count; i++  {
@@ -150,14 +150,15 @@ class CalendarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         }
         
         if index != -1 {
-            let indexPath = NSIndexPath(forItem: index, inSection: 0)
-            updateHeader(indexPath.item)
-            collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: animated)
+            let indexPath = IndexPath(item: index, section: 0)
+            updateHeader((indexPath as NSIndexPath).item)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         }
     }
     
     //MARK: Month cell delegate.
-    func didSelect(date: Date) {
+    func didSelect(_ date: Date) {
+
         selectedDate = date.nsdate
     }
 }

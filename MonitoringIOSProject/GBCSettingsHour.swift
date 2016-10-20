@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class GBCSettingsHour: NSObject {
     
@@ -14,7 +34,7 @@ class GBCSettingsHour: NSObject {
     Hora de conexion: hora en la que se establecio la comunicacion bluetooth
     tiempoDispositivoEncendido: tiempo que transcurrio desde que se encendio el monitor hasta que se establece la comunicacion bluetooth.
     */
-    func horaInicioDispositivo(horaConexion:String, tiempoDispositivoEncendido:String)->String{
+    func horaInicioDispositivo(_ horaConexion:String, tiempoDispositivoEncendido:String)->String{
         // Hora de inicio del dispositivo
         var horaInicioDispositivo:Int!
         var minutoInicioDispositivo:Int!
@@ -25,14 +45,14 @@ class GBCSettingsHour: NSObject {
         
         
         // Hora de conexion de la app
-        let horaConexionApp = horaConexion.componentsSeparatedByString(":")[0]
-        let minutoConexionApp = horaConexion.componentsSeparatedByString(":")[1]
-        let segundoConexionApp = horaConexion.componentsSeparatedByString(":")[2]
+        let horaConexionApp = horaConexion.components(separatedBy: ":")[0]
+        let minutoConexionApp = horaConexion.components(separatedBy: ":")[1]
+        let segundoConexionApp = horaConexion.components(separatedBy: ":")[2]
         
         // tiempo que el dispositivo lleva encendido
-        let horaDispositivo = tiempoDispositivoEncendido.componentsSeparatedByString(":")[0]
-        let minutoDispositivo = tiempoDispositivoEncendido.componentsSeparatedByString(":")[1]
-        let segundoDispositivo = tiempoDispositivoEncendido.componentsSeparatedByString(":")[2]
+        let horaDispositivo = tiempoDispositivoEncendido.components(separatedBy: ":")[0]
+        let minutoDispositivo = tiempoDispositivoEncendido.components(separatedBy: ":")[1]
+        let segundoDispositivo = tiempoDispositivoEncendido.components(separatedBy: ":")[2]
         
         if Int(segundoDispositivo) > Int(segundoConexionApp){
             segundoInicioDispositivo = 60 - (Int(segundoDispositivo)! - Int(segundoConexionApp)!)
@@ -73,7 +93,7 @@ class GBCSettingsHour: NSObject {
         
     }
     
-    func horaNoConfigurada(horaActual:String, horaEncendidoDispositivo:String)->String{
+    func horaNoConfigurada(_ horaActual:String, horaEncendidoDispositivo:String)->String{
         
         //let horaActual = "01:50:50"
         //let horaEncendidoDispositivo = "15:24:30"
@@ -82,13 +102,13 @@ class GBCSettingsHour: NSObject {
         var minutoMedida:Int!
         var segundoMedida:Int!
         
-        let horaMedicion = horaActual.componentsSeparatedByString(":")[0]
-        let minutoMedicion = horaActual.componentsSeparatedByString(":")[1]
-        let segundoMedicion = horaActual.componentsSeparatedByString(":")[2]
+        let horaMedicion = horaActual.components(separatedBy: ":")[0]
+        let minutoMedicion = horaActual.components(separatedBy: ":")[1]
+        let segundoMedicion = horaActual.components(separatedBy: ":")[2]
         
-        let horaDispositivo = horaEncendidoDispositivo.componentsSeparatedByString(":")[0]
-        let minutoDispositivo = horaEncendidoDispositivo.componentsSeparatedByString(":")[1]
-        let segundoDispositivo = horaEncendidoDispositivo.componentsSeparatedByString(":")[2]
+        let horaDispositivo = horaEncendidoDispositivo.components(separatedBy: ":")[0]
+        let minutoDispositivo = horaEncendidoDispositivo.components(separatedBy: ":")[1]
+        let segundoDispositivo = horaEncendidoDispositivo.components(separatedBy: ":")[2]
         
         segundoMedida = Int(segundoMedicion)! + Int(segundoDispositivo)!
         

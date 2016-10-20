@@ -33,16 +33,16 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             // code here
         
         self.title = NSLocalizedString("Historical", comment: "")
             
         // Do any additional setup after loading the view, typically from a nib.
-        self.systolicPressurePlot.identifier = 4
-        self.diastolicPressurePlot.identifier = 5
-        self.averagePressurePlot.identifier = 6
-        self.heartRatePressurePlot.identifier = 7
+        self.systolicPressurePlot.identifier = 4 as (NSCoding & NSCopying & NSObjectProtocol)?
+        self.diastolicPressurePlot.identifier = 5 as (NSCoding & NSCopying & NSObjectProtocol)?
+        self.averagePressurePlot.identifier = 6 as (NSCoding & NSCopying & NSObjectProtocol)?
+        self.heartRatePressurePlot.identifier = 7 as (NSCoding & NSCopying & NSObjectProtocol)?
         
         // Set the lineStyle for the plot
         self.systolicPressurePlot.dataSource = self
@@ -51,8 +51,8 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.heartRatePressurePlot.dataSource = self
         
         // Plot simbol
-        let lowSymbol = CPTPlotSymbol.ellipsePlotSymbol()
-        lowSymbol.fill = CPTFill(color: CPTColor.blackColor())
+        let lowSymbol = CPTPlotSymbol.ellipse()
+        lowSymbol.fill = CPTFill(color: CPTColor.black())
             
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
@@ -92,7 +92,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.heartRatePressurePlot.title = NSLocalizedString("Heart rate", comment: "")
         
         let attrs = [
-            NSForegroundColorAttributeName : UIColor.blackColor(),
+            NSForegroundColorAttributeName : UIColor.black,
             NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
                 
         ]
@@ -102,10 +102,10 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
         self.heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
             
-        self.pressuresGraph.addPlot(self.systolicPressurePlot)
-        self.pressuresGraph.addPlot(self.diastolicPressurePlot)
-        self.pressuresGraph.addPlot(self.averagePressurePlot)
-        self.heartRateGraph.addPlot(self.heartRatePressurePlot)
+        self.pressuresGraph.add(self.systolicPressurePlot)
+        self.pressuresGraph.add(self.diastolicPressurePlot)
+        self.pressuresGraph.add(self.averagePressurePlot)
+        self.heartRateGraph.add(self.heartRatePressurePlot)
         
         let plotSpacePressureGraph = self.pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
@@ -126,7 +126,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         // Color gradient is added under the scatter plot
 
         let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
-        let areaGradient = CPTGradient(beginningColor: areaColor.colorWithAlphaComponent(0.2), endingColor: CPTColor.clearColor())
+        let areaGradient = CPTGradient(beginning: areaColor.withAlphaComponent(0.2), ending: CPTColor.clear())
         areaGradient.angle = -90
         let areaGradientFill = CPTFill.init(gradient: areaGradient)
             //CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
@@ -136,7 +136,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         self.heartRatePressurePlot.areaFill = areaGradientFill
         self.heartRatePressurePlot.areaBaseValue = 0
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.deviceRotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
  
         })
     }
@@ -146,32 +146,32 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 
         
     }
     func addAttributesToContainerGraph(){
         
         // Add gradient layer
-        let color1 = UIColor.whiteColor().CGColor
-        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.7).CGColor
+        let color1 = UIColor.white.cgColor
+        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.7).cgColor
         
         gradientLayer.colors = [color1, color2]
         gradientLayer.locations = [0.1, 1]
         
         gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
         
-        view.layer.insertSublayer(gradientLayer, atIndex:0)
+        view.layer.insertSublayer(gradientLayer, at:0)
         
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 0
-        pressureContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
+        pressureContainerGraph.layer.borderColor = UIColor.black.cgColor
         pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
         
         // attributes heart rate container graph
         heartRateContainerGraph.layer.borderWidth = 0
-        heartRateContainerGraph.layer.borderColor = UIColor.blackColor().CGColor
+        heartRateContainerGraph.layer.borderColor = UIColor.black.cgColor
         heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
         
@@ -191,7 +191,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         
         graphicsEnabledWidth = Double(view.frame.width)
         
-        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        if(UIDeviceOrientationIsPortrait(UIDevice.current.orientation))
         {
             // Portrait
             switch UserSelectedConfiguration.typeOfDevice!{
@@ -205,9 +205,9 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 
             case .iPhone:
                 
-                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
+                pressuresGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
-                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/1.8), -20.0)
+                heartRateGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 0, y: 120, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2) + 15)
@@ -230,9 +230,9 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
                 
             case .iPhone:
                 
-                pressuresGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
+                pressuresGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/4), y: -20.0)
                 
-                heartRateGraph.legendDisplacement = CGPointMake(CGFloat(graphicsEnabledWidth!/4), -20.0)
+                heartRateGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/4), y: -20.0)
                 
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 20, y: 100, width: Int(graphicsEnabledWidth!/2) - 20, height: Int(graphicsEnabledHeight!) + 20)
@@ -252,13 +252,13 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         let theLegendHeartRate=CPTLegend(graph: heartRateGraph)
         
         let legendLineStyle = CPTMutableLineStyle()
-        theLegend.fill = CPTFill(color: CPTColor.whiteColor())
-        legendLineStyle.lineColor = CPTColor.whiteColor()
+        theLegend.fill = CPTFill(color: CPTColor.white())
+        legendLineStyle.lineColor = CPTColor.white()
         theLegend.borderLineStyle = legendLineStyle
         theLegend.numberOfColumns = 1
         theLegend.numberOfRows = 4
         
-        theLegendHeartRate.fill = CPTFill(color: CPTColor.whiteColor())
+        theLegendHeartRate.fill = CPTFill(color: CPTColor.white())
         theLegendHeartRate.borderLineStyle = legendLineStyle
         theLegendHeartRate.numberOfColumns = 1
         theLegendHeartRate.numberOfRows = 4
@@ -277,20 +277,20 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            theLegend.swatchSize = CGSizeMake(20.0, 20.0)
-            theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
-            pressuresGraph.legendDisplacement = CGPointMake(450.0, -25.0)
-            heartRateGraph.legendDisplacement = CGPointMake(450.0, -25.0)
+            theLegend.swatchSize = CGSize(width: 20.0, height: 20.0)
+            theLegendHeartRate.swatchSize = CGSize(width: 50.0, height: 30.0)
+            pressuresGraph.legendDisplacement = CGPoint(x: 450.0, y: -25.0)
+            heartRateGraph.legendDisplacement = CGPoint(x: 450.0, y: -25.0)
             attrsLegend = [
-                NSForegroundColorAttributeName : UIColor.blackColor(),
+                NSForegroundColorAttributeName : UIColor.black,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
                 
             ]
         case .iPhone:
-            theLegend.swatchSize = CGSizeMake(20.0, 7.0)
-            theLegendHeartRate.swatchSize = CGSizeMake(50.0, 30.0)
+            theLegend.swatchSize = CGSize(width: 20.0, height: 7.0)
+            theLegendHeartRate.swatchSize = CGSize(width: 50.0, height: 30.0)
             attrsLegend = [
-                NSForegroundColorAttributeName : UIColor.blackColor(),
+                NSForegroundColorAttributeName : UIColor.black,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
                 
             ]
@@ -299,26 +299,26 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
         
         pressuresGraph.legend = theLegend
-        pressuresGraph.legendAnchor = CPTRectAnchor.TopLeft
-        pressureContainerGraph.userInteractionEnabled = true
+        pressuresGraph.legendAnchor = CPTRectAnchor.topLeft
+        pressureContainerGraph.isUserInteractionEnabled = true
         
         theLegendHeartRate.textStyle = CPTTextStyle(attributes: attrsLegend)
         
         heartRateGraph.legend = theLegendHeartRate
-        heartRateGraph.legendAnchor = CPTRectAnchor.TopLeft
-        heartRateContainerGraph.userInteractionEnabled = true
+        heartRateGraph.legendAnchor = CPTRectAnchor.topLeft
+        heartRateContainerGraph.isUserInteractionEnabled = true
     }
     
     func insertGraph(){
         
-        pressuresGraph.plotWithIdentifier(4)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
-        pressuresGraph.plotWithIdentifier(5)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
-        pressuresGraph.plotWithIdentifier(6)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
-        heartRateGraph.plotWithIdentifier(7)?.insertDataAtIndex(UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
+        pressuresGraph.plot(withIdentifier: 4 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.systolicPressure.count-1), numberOfRecords: 1)
+        pressuresGraph.plot(withIdentifier: 5 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.diastolicPressure.count-1), numberOfRecords: 1)
+        pressuresGraph.plot(withIdentifier: 6 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
+        heartRateGraph.plot(withIdentifier: 7 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
         
     }
     
-    func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
+    func scatterPlot(_ plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex index: Int, withEvent event: UIEvent) {
     
     }
     
@@ -332,8 +332,8 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         if PhysiologicalVariablesStoredInDatabaseSQL.hour.count>6{
             let startXRange = (PhysiologicalVariablesStoredInDatabaseSQL.hour.count - 3)/10
             
-            plotSpacePressureGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
-            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: startXRange, length: 1)
+            plotSpacePressureGraph.xRange = CPTPlotRange(location: NSNumber(value: startXRange), length: 1)
+            plotSpaceHeartRateGraph.xRange = CPTPlotRange(location: NSNumber(value: startXRange), length: 1)
             
         }else{
             plotSpacePressureGraph.xRange = CPTPlotRange(location: 0, length: 1)
@@ -341,7 +341,7 @@ class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
         }
     }
 
-    @IBAction func autoSetXYButton(sender: AnyObject) {
+    @IBAction func autoSetXYButton(_ sender: AnyObject) {
         autoSetXYGraph()
     }
 }

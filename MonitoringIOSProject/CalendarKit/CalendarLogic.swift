@@ -15,24 +15,24 @@ class CalendarLogic: Hashable {
     }
     
     // Mark: Public variables and methods.
-    var baseDate: NSDate {
+    var baseDate: Foundation.Date {
         didSet {
             calculateVisibleDays()
         }
     }
     
-    private lazy var dateFormatter = NSDateFormatter()
+    fileprivate lazy var dateFormatter = DateFormatter()
     
     var currentMonthAndYear: NSString {
         dateFormatter.dateFormat = "LLLL yyyy"
-        return dateFormatter.stringFromDate(baseDate)
+        return dateFormatter.string(from: baseDate) as NSString
     }
 
     var currentMonthDays: [Date]?
     var previousMonthVisibleDays: [Date]?
     var nextMonthVisibleDays: [Date]?
     
-    init(date: NSDate) {
+    init(date: Foundation.Date) {
         baseDate = date.firstDayOfTheMonth
         calculateVisibleDays()
     }
@@ -45,11 +45,11 @@ class CalendarLogic: Hashable {
         baseDate = baseDate.firstDayOfFollowingMonth
     }
     
-    func moveToMonth(date: NSDate) {
+    func moveToMonth(_ date: Foundation.Date) {
         baseDate = date
     }
     
-    func isVisible(date: NSDate) -> Bool {
+    func isVisible(_ date: Foundation.Date) -> Bool {
         let internalDate = Date(date: date)
         if (currentMonthDays!).contains(internalDate) {
             return true
@@ -61,7 +61,7 @@ class CalendarLogic: Hashable {
         return false
     }
     
-    func containsDate(date: NSDate) -> Bool {
+    func containsDate(_ date: Foundation.Date) -> Bool {
         let date = Date(date: date)
         let logicBaseDate = Date(date: baseDate)
 
@@ -74,13 +74,13 @@ class CalendarLogic: Hashable {
     }
     
     //Mark: Private methods.
-    private var numberOfDaysInPreviousPartialWeek: Int {
+    fileprivate var numberOfDaysInPreviousPartialWeek: Int {
         return baseDate.weekDay - 1
     }
     
-    private var numberOfVisibleDaysforFollowingMonth: Int {
+    fileprivate var numberOfVisibleDaysforFollowingMonth: Int {
         // Traverse to the last day of the month.
-        let parts = baseDate.monthDayAndYearComponents
+        var parts = baseDate.monthDayAndYearComponents
         
         parts.day = baseDate.numberOfDaysInMonth
         
@@ -88,18 +88,18 @@ class CalendarLogic: Hashable {
         return 42 - (numberOfDaysInPreviousPartialWeek + baseDate.numberOfDaysInMonth)
     }
     
-    private var calculateCurrentMonthVisibleDays: [Date] {
+    fileprivate var calculateCurrentMonthVisibleDays: [Date] {
         var dates = [Date]()
         let numberOfDaysInMonth = baseDate.numberOfDaysInMonth
         let component = baseDate.monthDayAndYearComponents
         for i in 1...numberOfDaysInMonth{
         //for var i = 1; i <= numberOfDaysInMonth; i++ {
-            dates.append(Date(day: i, month: component.month, year: component.year))
+            dates.append(Date(day: i, month: component.month!, year: component.year!))
         }
         return dates
     }
     
-    private var calculatePreviousMonthVisibleDays: [Date] {
+    fileprivate var calculatePreviousMonthVisibleDays: [Date] {
         var dates = [Date]()
         
         let date = baseDate.firstDayOfPreviousMonth
@@ -111,13 +111,13 @@ class CalendarLogic: Hashable {
         if (numberOfDaysInMonth - (numberOfVisibleDays - 1) <= numberOfDaysInMonth){
             for i in (numberOfDaysInMonth - (numberOfVisibleDays - 1))...numberOfDaysInMonth{
             //for var i = numberOfDaysInMonth - (numberOfVisibleDays - 1); i <= numberOfDaysInMonth; i++ {
-                dates.append(Date(day: i, month: parts.month, year: parts.year))
+                dates.append(Date(day: i, month: parts.month!, year: parts.year!))
             }
         }
         return dates
     }
 
-    private var calculateFollowingMonthVisibleDays: [Date] {
+    fileprivate var calculateFollowingMonthVisibleDays: [Date] {
         var dates = [Date]()
         
         let date = baseDate.firstDayOfFollowingMonth
@@ -126,13 +126,13 @@ class CalendarLogic: Hashable {
         
         for i in 1...numberOfDays{
         //for var i = 1; i <= numberOfDays; i++ {
-            dates.append(Date(day: i, month: parts.month, year: parts.year))
+            dates.append(Date(day: i, month: parts.month!, year: parts.year!))
             
         }
         return dates
     }
     
-    private func calculateVisibleDays() {
+    fileprivate func calculateVisibleDays() {
         currentMonthDays = calculateCurrentMonthVisibleDays
         previousMonthVisibleDays = calculatePreviousMonthVisibleDays
         nextMonthVisibleDays = calculateFollowingMonthVisibleDays
@@ -144,9 +144,9 @@ func ==(lhs: CalendarLogic, rhs: CalendarLogic) -> Bool {
 }
 
 func <(lhs: CalendarLogic, rhs: CalendarLogic) -> Bool {
-    return (lhs.baseDate.compare(rhs.baseDate) == .OrderedAscending)
+    return (lhs.baseDate.compare(rhs.baseDate) == .orderedAscending)
 }
 
 func >(lhs: CalendarLogic, rhs: CalendarLogic) -> Bool {
-    return (lhs.baseDate.compare(rhs.baseDate) == .OrderedDescending)
+    return (lhs.baseDate.compare(rhs.baseDate) == .orderedDescending)
 }

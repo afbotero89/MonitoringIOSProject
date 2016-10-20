@@ -8,46 +8,48 @@
 
 import Foundation
 
+
 class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     
     /// Request to remote data base sql: Type post
-    let requestSetDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/meassure/save")!)
+    let requestSetDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/meassure/save")!)
     
     
     /// Request to remote data base sql: Type post  -> Sibxeco server
-    let requestSetDataBaseSQL_sibxecoServer = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
+    let requestSetDataBaseSQL_sibxecoServer = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
     
     
     /// Request to remote data base sql: Type get   -> Sibxeco server
-    let requestGetDayMonthYearDataBaseSQL_sibxecoServer = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    let requestGetDayMonthYearDataBaseSQL_sibxecoServer = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
     
     
     /// Request to remote data base sql: Type get
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(URL: NSURL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
     
     var serverResponse:NSString?
     
     /**
      Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour, date, DC and AC signal)---> GIBIC server
      */
-    func uploadToServerDataBaseSQL(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String, ACSignal:String, DCSignal:String, date:String){
+    func uploadToServerDataBaseSQL(_ systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String, ACSignal:String, DCSignal:String, date:String){
         
         // create some JSON data and configure the request
         let jsonString = "data={\"patient_id\":\"\(1)\",\"data\":\"\(ACSignal)\",\"avg\":\"\(mediumPressure)\",\"dia\":\"\(diastolicPressure)\",\"sys\":\"\(systolicPressure)\",\"time\":\"\(hour)\",\"date\":\"\(date)\"}"
         //let jsonString = "data={\"branch_id\":\"\(branch_id)\",\"name\":\"\(name)\",\"document\":\"\(document)\",\"age\":\"\(age)\",\"gender\":\"\(gender)\"}"
-        requestSetDataBaseSQL.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        requestSetDataBaseSQL.HTTPMethod = "POST"
+        requestSetDataBaseSQL.httpBody = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        requestSetDataBaseSQL.httpMethod = "POST"
         requestSetDataBaseSQL.setValue("", forHTTPHeaderField: "X-Token")
         requestSetDataBaseSQL.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
         
-        let task = session.dataTaskWithRequest(requestSetDataBaseSQL, completionHandler: {(data, response, error) in
+        /*
+        let task = session.dataTask(with: requestSetDataBaseSQL, completionHandler: {(data, response, error) in
             var json:AnyObject?
             if data != nil{
                 do {
-                    try json = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+                    try json = JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                 }catch{
                     print("exception")
                 }
@@ -64,7 +66,7 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         });
         
         task.resume()
-        
+        */
     }
     
     // MARK: -- Sibxe server
@@ -72,48 +74,48 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     /**
     Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour and date) --> sibxe server
      */
-    func uploadToServerDataBaseSQL_Sibxeco(systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
+    func uploadToServerDataBaseSQL_Sibxeco(_ systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
         
-        requestSetDataBaseSQL_sibxecoServer.HTTPMethod = "POST"
+        requestSetDataBaseSQL_sibxecoServer.httpMethod = "POST"
         
-        let date = NSDate()
+        let date = Foundation.Date()
         
         VectorPhysiologicalVariables.ACSignal = "AC"
         
         let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
-        requestSetDataBaseSQL_sibxecoServer.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL_sibxecoServer) {
+        requestSetDataBaseSQL_sibxecoServer.httpBody = postString.data(using: String.Encoding.utf8)
+        /*
+        let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_sibxecoServer, completionHandler: {
             data, response, error in
             
             if error != nil {
                 
-                if defaults.arrayForKey("VectorToUpLoadServer")?.count > 0{
-                    VectorPhysiologicalVariables.vectorToUploadServer = defaults.arrayForKey("VectorToUpLoadServer")!
+                if defaults.array(forKey: "VectorToUpLoadServer")?.count > 0{
+                    VectorPhysiologicalVariables.vectorToUploadServer = defaults.array(forKey: "VectorToUpLoadServer")!
                 }
                 VectorPhysiologicalVariables.vectorToUploadServer.append(postString)
-                defaults.setObject(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
+                defaults.set(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
                 print("variables almacenadas db sql")
-                print(defaults.arrayForKey("VectorToUpLoadServer"))
+                print(defaults.array(forKey: "VectorToUpLoadServer"))
                 return
             }
             
             print("response = \(response)")
             
-        }
+        }) 
         task.resume()
-    
+         */
     }
     
     /*
         Upload lost data by bad internet connection --> Sibxe server
      */
-    func upLoadLostDataToServer(lostData:String){
+    func upLoadLostDataToServer(_ lostData:String){
         
         let postString = lostData
-        requestSetDataBaseSQL_sibxecoServer.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestSetDataBaseSQL_sibxecoServer) {
+        requestSetDataBaseSQL_sibxecoServer.httpBody = postString.data(using: String.Encoding.utf8)
+        /*
+        let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_sibxecoServer, completionHandler: {
             data, response, error in
             
             if error != nil {
@@ -123,10 +125,10 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
             
             print("response = \(response)")
             
-            defaults.removeObjectForKey("VectorToUpLoadServer")
-        }
+            defaults.removeObject(forKey: "VectorToUpLoadServer")
+        }) 
         task.resume()
-        
+        */
     }
     
     /*
@@ -134,13 +136,13 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
      */
     func getDataFromDataBaseSQLDayMonthYear(){
         
-        requestGetDayMonthYearDataBaseSQL.HTTPMethod = "POST"
+        requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
         
         let postString = "month=2016-06-21"
         
-        requestGetDayMonthYearDataBaseSQL.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(requestGetDayMonthYearDataBaseSQL) {
+        requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
+        /*
+        let task = URLSession.shared.dataTask(with: requestGetDayMonthYearDataBaseSQL, completionHandler: {
             data, response, error in
             
             if error != nil {
@@ -148,14 +150,14 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
                 return
             }
             
-            self.serverResponse = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            self.serverResponse = NSString(data: data!, encoding: String.Encoding.utf8)
             
             PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
             
-        }
+        }) 
         
         task.resume()
-        
+        */
         
     }
 
