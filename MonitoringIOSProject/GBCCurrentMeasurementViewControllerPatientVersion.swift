@@ -364,7 +364,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
             case .iPad:
                 self.dismiss(animated: true, completion: nil)
             case .iPhone:
-                self.navigationController?.popViewController(animated: true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
             
         }))
@@ -388,6 +388,6 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
     
     @IBAction func doneButton(_ sender: AnyObject) {
         print("done")
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
 }

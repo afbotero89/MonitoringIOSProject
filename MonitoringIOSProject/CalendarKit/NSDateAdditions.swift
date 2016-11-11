@@ -42,9 +42,11 @@ extension Foundation.Date {
     }
 
     var firstDayOfTheMonth: Foundation.Date {
-        var date: Foundation.Date?
+        var date = Foundation.Date()
+        var interval : TimeInterval = 0
+        _ = Calendar.current.dateInterval(of: .month, start: &date, interval: &interval, for: self)
         //(Calendar.current as NSCalendar).range(of: .month, start: date. , interval: nil, for: self)
-        return date!
+        return date
     }
 
     var firstDayOfPreviousMonth: Foundation.Date {

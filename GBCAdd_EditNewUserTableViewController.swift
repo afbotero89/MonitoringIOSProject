@@ -59,7 +59,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
     // MARK: - Buttons
     @IBAction func cancelButton(_ sender: AnyObject) {
         activeAdd_EditUserViewController = false
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func okButton(_ sender: AnyObject) {
@@ -85,7 +85,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterTableViewController"), object: nil, userInfo: nil)
             
-            navigationController?.popViewController(animated: true)
+            _ = navigationController?.popViewController(animated: true)
 
         }else{
             

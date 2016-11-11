@@ -10,8 +10,8 @@ import UIKit
 
 @IBDesignable class BWCircularSliderView: UIView {
     
-    @IBInspectable var startColor:UIColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
-    @IBInspectable var endColor:UIColor = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 1.0)
+    @IBInspectable var startColor:UIColor = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 1.0)
+    @IBInspectable var endColor:UIColor = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 1.0)
     
     #if TARGET_INTERFACE_BUILDER
     override func willMoveToSuperview(newSuperview: UIView?) {

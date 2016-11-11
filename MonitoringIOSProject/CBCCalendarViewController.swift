@@ -26,9 +26,9 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     @IBOutlet weak var displayRecordButton: UIButton!
     
-    let requestGetDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetData.php")!)
+    var requestGetDataBaseSQL = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseGetDataForDate.php")!)
     
-    var responseString:NSString!
+    var responseString:String!
     
     var activeCalendarViewController = false
     
@@ -126,8 +126,8 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 return
             }
             
-            self.responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            
+            self.responseString = String(data: data!, encoding: .utf8)
+            print(self.responseString)
             
             if (String(self.responseString).isEmpty || self.responseString == "s-d-a-f-h"){
                 internetConnectionError = false
@@ -160,29 +160,21 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 PhysiologicalVariablesStoredInDatabaseSQL.heartRate.removeAll()
                 PhysiologicalVariablesStoredInDatabaseSQL.hour.removeAll()
                 
-                let vector = self.responseString.components(separatedBy: "-")
-                print(vector.count)
-                for i in 0..<vector.count{
+                let vector = self.responseString.components(separatedBy: ";")
+                
+                for i in 0..<(vector.count-1){
                     var vector1 = vector[i].components(separatedBy: ",")
+
+                    PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[1])!)
                     
-                    for j in 0...(vector1.count - 1){
-                        
-                        if i == 0 && vector1[j] != "s"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[j])!)
-                        }
-                        if i == 1 && vector1[j] != "d"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[j])!)
-                        }
-                        if i == 2 && vector1[j] != "a"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[j])!)
-                        }
-                        if i == 3 && vector1[j] != "f"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[j])!)
-                        }
-                        if i == 4 && vector1[j] != "h"{
-                            PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[j])!)
-                        }
-                    }
+                    PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[2])!)
+                    
+                    PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[3])!)
+                    
+                    PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[4])!)
+
+                    PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[5])!)
+                    
                 }
                 if PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count > 80{
                     for _ in 0..<(PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count - 75){

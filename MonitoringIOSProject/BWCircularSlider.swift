@@ -40,8 +40,8 @@ class BWCircularSlider: UIControl {
     var textField:UITextField?
     var radius:CGFloat = 0
     var angle:Int!
-    var startColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
-    var endColor = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 1.0)
+    var startColor = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 1.0)
+    var endColor = UIColor(red: 0/255, green: 0/255, blue: 255/255, alpha: 1.0)
     
     // Custom initializer
     convenience init(startColor:UIColor, endColor:UIColor, frame:CGRect){
@@ -83,8 +83,8 @@ class BWCircularSlider: UIControl {
             UserSelectedConfiguration.userSelectMeasurementTime = 3
         }
         angle = UserSelectedConfiguration.userSelectMeasurementTime*6
-        textField?.text = "\(UserSelectedConfiguration.userSelectMeasurementTime) min"
-        //UserSelectedConfiguration.userSelectMeasurementTime = self.angle/6
+        textField?.text = "\(UserSelectedConfiguration.userSelectMeasurementTime!) min"
+        UserSelectedConfiguration.userSelectMeasurementTime = self.angle/6
         addSubview(textField!)
     }
 
@@ -125,8 +125,19 @@ class BWCircularSlider: UIControl {
         
         let ctx = UIGraphicsGetCurrentContext()
         
-        
         /** Draw the Background **/
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return
+        }
+        let startAngle :CGFloat = 0.0
+        let endAngle = 2*CGFloat.pi
+        let strokeWidth:CGFloat = 1.0
+        let center = CGPoint(x: self.frame.midX, y: self.frame.size.height/2)
+        
+        context.setStrokeColor(UIColor.red.cgColor)
+        context.setLineWidth(strokeWidth)
+        context.setFillColor(UIColor.clear.cgColor)
+        context.addArc(center: center, radius: radius, startAngle: startAngle, endAngle: CGFloat(endAngle), clockwise: false)
         
         //CGContextAddArc(ctx, CGFloat(self.frame.size.width / 2.0), CGFloat(self.frame.size.height / 2.0), radius, 0, CGFloat(M_PI * 2), 0)
         UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0).set()

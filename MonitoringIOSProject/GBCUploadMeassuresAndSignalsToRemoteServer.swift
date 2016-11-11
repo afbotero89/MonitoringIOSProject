@@ -11,20 +11,16 @@ import Foundation
 
 class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     
-    /// Request to remote data base sql: Type post
-    let requestSetDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/meassure/save")!)
+    /// Request to remote data base sql: Type post  -> GIBIC server
+    var requestSetDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/meassure/save")!)
     
     
     /// Request to remote data base sql: Type post  -> Sibxeco server
-    let requestSetDataBaseSQL_sibxecoServer = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
-    
-    
-    /// Request to remote data base sql: Type get   -> Sibxeco server
-    let requestGetDayMonthYearDataBaseSQL_sibxecoServer = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    var requestSetDataBaseSQL_sibxecoServer = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseInsertData.php")!)
     
     
     /// Request to remote data base sql: Type get
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    var requestGetDayMonthYearDataBaseSQL = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
     
     var serverResponse:NSString?
     
@@ -84,16 +80,19 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         
         let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
         requestSetDataBaseSQL_sibxecoServer.httpBody = postString.data(using: String.Encoding.utf8)
-        /*
+        
+        
         let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_sibxecoServer, completionHandler: {
             data, response, error in
             
             if error != nil {
                 
-                if defaults.array(forKey: "VectorToUpLoadServer")?.count > 0{
-                    VectorPhysiologicalVariables.vectorToUploadServer = defaults.array(forKey: "VectorToUpLoadServer")!
+                if  (defaults.array(forKey: "VectorToUpLoadServer") != nil){
+                    if (defaults.array(forKey: "VectorToUpLoadServer")?.count)! > 0{
+                        VectorPhysiologicalVariables.vectorToUploadServer = defaults.array(forKey: "VectorToUpLoadServer")! as [AnyObject]
+                    }
                 }
-                VectorPhysiologicalVariables.vectorToUploadServer.append(postString)
+                VectorPhysiologicalVariables.vectorToUploadServer.append(postString as AnyObject)
                 defaults.set(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
                 print("variables almacenadas db sql")
                 print(defaults.array(forKey: "VectorToUpLoadServer"))
@@ -104,7 +103,7 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
             
         }) 
         task.resume()
-         */
+        
     }
     
     /*
@@ -138,10 +137,10 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         
         requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
         
-        let postString = "month=2016-06-21"
+        let postString = "2016-11-9"
         
         requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
-        /*
+        
         let task = URLSession.shared.dataTask(with: requestGetDayMonthYearDataBaseSQL, completionHandler: {
             data, response, error in
             
@@ -150,14 +149,14 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
                 return
             }
             
-            self.serverResponse = NSString(data: data!, encoding: String.Encoding.utf8)
+            self.serverResponse = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             
             PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
             
         }) 
         
         task.resume()
-        */
+        
         
     }
 

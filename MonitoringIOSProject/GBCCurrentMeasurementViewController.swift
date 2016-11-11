@@ -197,6 +197,6 @@ class GBCCurrentMeasurementViewController: UIViewController {
     }
 
     @IBAction func doneButton(_ sender: AnyObject) {
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
 }

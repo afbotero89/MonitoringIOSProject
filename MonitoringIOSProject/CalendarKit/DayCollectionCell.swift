@@ -18,7 +18,7 @@ class DayCollectionCell: UICollectionViewCell {
     @IBOutlet var markedViewWidth: NSLayoutConstraint!
     @IBOutlet var markedViewHeight: NSLayoutConstraint!
     
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")! as URL)
+    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseGetDayMonthYear.php")! as URL)
     
     var serverResponse:NSString?
     
@@ -29,11 +29,12 @@ class DayCollectionCell: UICollectionViewCell {
             
             if date != nil {
                 
+                getDataFromDataBaseSQLDayMonthYear()
+    
+                vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
+                
                 if PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL == nil{
-    
-                    getDataFromDataBaseSQLDayMonthYear()
-    
-                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
+                
                 }else{
                     vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
                 }
@@ -53,18 +54,20 @@ class DayCollectionCell: UICollectionViewCell {
                     var dayString:String!
                     
                     if date!.month < 10{
-                        monthString = "0" + "\(date!.month)"
+                        //monthString = "0" + "\(date!.month)"
+                        monthString = "\(date!.month)"
                     }else{
                         monthString = "\(date!.month)"
                     }
                     
                     if date!.day < 10{
-                        dayString = "0" + "\(date!.day)"
+                        //dayString = "0" + "\(date!.day)"
+                        dayString = "\(date!.day)"
                     }else{
                         dayString = "\(date!.day)"
                     }
                     
-                    if "\(date!.year)" + "-" + "\(monthString)" + "-" + "\(dayString)" == i {
+                    if "\(date!.year)" + "-" + "\(monthString!)" + "-" + "\(dayString!)" == i {
                         view.backgroundColor = UIColor.red
                         
                     }
@@ -113,7 +116,6 @@ class DayCollectionCell: UICollectionViewCell {
                 print("error=\(error)")
                 return
             }
-            print("entra a la funcion !!!!")
             
             self.serverResponse = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             

@@ -20,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         appVersion = AppVersion.adminVersion
-        //reachability = Reachability.forInternetConnection()
-        //reachability.startNotifier()
         
         return true
     }

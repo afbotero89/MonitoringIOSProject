@@ -197,10 +197,11 @@ class BluetoothManager: NSObject{
     func readDataFromPeripheral(_ data:Data){
         
         // Get data from buffer
+        
         var buffer = [UInt8](repeating: 0, count: data.count)
         (data as NSData).getBytes(&buffer, length: data.count)
         var characterValue:Character?
-        
+
         for i in buffer{
             
             characterValue = Character(UnicodeScalar(i))
@@ -215,12 +216,11 @@ class BluetoothManager: NSObject{
             VectorPhysiologicalVariables.currentMeasures.append(characterValue!)
             VectorPhysiologicalVariables.fullSignal.append(characterValue!)
             
-            //print(characterValue)
         }
         
         var currentMeasurement = VectorPhysiologicalVariables.currentMeasures.components(separatedBy: ",")
         
-        //print(currentMeasurement)
+        print(currentMeasurement)
         
         var error = false
         
@@ -516,7 +516,6 @@ class BluetoothManager: NSObject{
                         
                         switch appVersion!{
                         case .adminVersion:
-                            print("admin version")
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
                         case .patientVersion:
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "displayMeasurePatientViewController"), object: nil, userInfo: nil)
@@ -756,8 +755,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         if monitorPeripheral != nil && self.monitorWritableCharacteristic != nil{
             
             activeCurrentHourFlag = true
-            for i in 0...2{
-                print(i)
+            for _ in 0...2{
                 monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
             }
             
@@ -821,21 +819,22 @@ extension BluetoothManager:CBPeripheralDelegate{
     }
     func timerPrueba(){
         contador = contador + 1
-        print(contador)
-        if contador == 20{
+        
+        if contador == 10{
             
             contador = 0
-            
-            print(contador)
+            /*
             VectorPhysiologicalVariables.systolicPressure.append(120)
             VectorPhysiologicalVariables.diastolicPressure.append(80)
             VectorPhysiologicalVariables.averagePressure.append(100)
             VectorPhysiologicalVariables.heartRate.append(70)
             VectorPhysiologicalVariables.measuringTime.append("00:00:00")
             VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+            */
         //NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
+            //NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
+ 
             //NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)
         }

@@ -149,6 +149,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         requestSetDataBaseSQL.httpMethod = "POST"
         
         uploadMeassuresToRemoteServer.getDataFromDataBaseSQLDayMonthYear()
+        
+        let date = NSDate()
+        print(date)
 
     }
     
@@ -763,12 +766,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             //Change the x and y range.
         
             autoSetXYRangePressureGraphAndHeartRateGraph()
-        /*
+        
             if defaults.array(forKey: "VectorToUpLoadServer")?.count > 0{
                 // Check internet connection to upload lost data
-                var reachability = Reachability()
-                let conexion = reachability.isConnectedToNetwork()
-                
+                //var reachability = Reachability()
+                let conexion = isInternetAvailable()
+                print(conexion)
                 if conexion == true{
                     for i in defaults.array(forKey: "VectorToUpLoadServer")!{
                         //upLoadLostDataToServer(i as! String)
@@ -776,7 +779,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                         
                     }
                 }
-            }*/
+            }
         }
     }
     
@@ -1048,7 +1051,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPad:
                 self.dismiss(animated: true, completion: nil)
             case .iPhone:
-                self.navigationController?.popViewController(animated: true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
             
         }))
@@ -1278,6 +1281,30 @@ extension ViewController{
         
         print("dissmiss iPad")
         
+    }
+    
+    /**
+     Check internet connection
+    */
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
     }
 
 }

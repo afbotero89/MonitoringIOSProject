@@ -144,7 +144,7 @@ class GBCPlotsViewController: UIViewController {
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
-                    xLabel.tickLocation = 3
+                    xLabel.tickLocation = NSNumber(value: Double(i)/10.0)
                     if i%2 == 0{
                         locations.insert(3)
                     }
@@ -155,7 +155,7 @@ class GBCPlotsViewController: UIViewController {
                 case .iPhone:
                     let xLabel = CPTAxisLabel.init(text: text[i].components(separatedBy: ":")[0] + ":" + text[i].components(separatedBy: ":")[1], textStyle: style)
                     xLabel.rotation = 3.14/3.0;
-                    xLabel.tickLocation = 3
+                    xLabel.tickLocation = NSNumber(value: Double(i)/10.0)
                     if i%2 == 0{
                         locations.insert(3)
                     }
@@ -284,7 +284,7 @@ class GBCPlotsViewController: UIViewController {
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     let xLabel = CPTAxisLabel.init(text: String(text[i]), textStyle: style)
-                    xLabel.tickLocation = 3
+                    xLabel.tickLocation = NSNumber(value: Double(i)/10.0)
                     xLabel.offset = 0
                     xAxisHeartRate.majorTickLocations = locations
                     labels.insert(xLabel)
@@ -292,7 +292,7 @@ class GBCPlotsViewController: UIViewController {
                 case .iPhone:
                     let xLabel = CPTAxisLabel.init(text: text[i].components(separatedBy: ":")[0] + ":" + text[i].components(separatedBy: ":")[1], textStyle: style)
                     xLabel.rotation = 3.14/3.0;
-                    xLabel.tickLocation = 3
+                    xLabel.tickLocation = NSNumber(value: Double(i)/10.0)
                     xLabel.offset = 0
                     xAxisHeartRate.majorTickLocations = locations
                     labels.insert(xLabel)
@@ -391,7 +391,8 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         
         //return UInt(VectorPhysiologicalVariables.vectorNumberOfSamples.count)
     }
-    @nonobjc func number(for plot: CPTPlot, field fieldEnum: UInt, record idx: UInt) -> AnyObject? {
+    
+    func numberForPlot(_ plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
         
         plot.delegate = self
         
@@ -402,7 +403,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             case 0,1,2,3:
                 return VectorPhysiologicalVariables.vectorNumberOfSamples[Int(idx)] as AnyObject?
             case 4,5,6,7:
-                return 3 as AnyObject?
+                return Double(idx)/10 as AnyObject?
             default:
                 return 0 as AnyObject?
             }
@@ -410,7 +411,6 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
             
         case .Y:
             var yLabel:Double?
-            //Systolic pressure
             
             switch plot.identifier as! NSInteger{
             case 0:
@@ -431,9 +431,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
                 yLabel = PhysiologicalVariablesStoredInDatabaseSQL.heartRate[Int(idx)]
             default:
                 yLabel = 0
-                
             }
-
             return yLabel as AnyObject?
         }
     }

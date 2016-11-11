@@ -165,7 +165,7 @@ class CBCAnimationViewController: UIViewController {
             case .iPad:
                 self.dismiss(animated: true, completion: nil)
             case .iPhone:
-                self.navigationController?.popViewController(animated: true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
 
         }))
