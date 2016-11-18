@@ -78,7 +78,7 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         
         VectorPhysiologicalVariables.ACSignal = "AC"
         
-        let postString = "a=\(systolicPressure)&b=\(diastolicPressure)&c=\(mediumPressure)&d=\(heartRate)&e=\(hour)&f=\(date.year)-\(date.month)-\(date.day)"
+        let postString = "document=\(systolicPressure)&sys=\(systolicPressure)&diast=\(diastolicPressure)&aver=\(mediumPressure)&heart=\(heartRate)&hour=\(hour)&date=\(date.year)-\(date.month)-\(date.day)"
         requestSetDataBaseSQL_sibxecoServer.httpBody = postString.data(using: String.Encoding.utf8)
         
         

@@ -17,7 +17,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-on-6rY">
@@ -105,7 +105,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
-                        <barButtonItem key="leftBarButtonItem" image="0FC62C5D-4F6C-485F-ACF7-97B1A0467940" id="hNM-xV-H5o">
+                        <barButtonItem key="leftBarButtonItem" image="45B700C0-FD6E-4DDA-ABB9-125CAD26295D" id="hNM-xV-H5o">
                             <connections>
                                 <action selector="userManagerButton:" destination="BYZ-38-t0r" id="A5j-Eu-far"/>
                             </connections>
@@ -144,7 +144,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Sue-xm-Rft"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ehf-Ol-fYt">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="MonitoringIOSProject" customModuleProvider="target">
@@ -217,7 +217,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hfv-XM-owH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="orj-hb-GKz">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtT-Jz-Stx">
@@ -297,7 +297,7 @@
                         <viewControllerLayoutGuide type="bottom" id="B8a-Ti-xKe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h4x-vN-SQk">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7C-Pe-JrJ">
@@ -349,7 +349,7 @@
                         <viewControllerLayoutGuide type="bottom" id="lk2-k1-6jL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UqV-TU-0NF" customClass="GBCAnimationView">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -370,7 +370,7 @@
                         <viewControllerLayoutGuide type="bottom" id="k3T-VW-5mC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wN0-h9-JA4">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZH-HO-BAX">
@@ -667,7 +667,7 @@
                         <viewControllerLayoutGuide type="bottom" id="SGx-S2-dhf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="G90-P3-30I">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNg-0v-MpS">
@@ -738,7 +738,7 @@
                         <viewControllerLayoutGuide type="bottom" id="01N-T1-T3y"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="btj-IO-w0I">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXL-j6-eHV">
@@ -1045,7 +1045,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0FC62C5D-4F6C-485F-ACF7-97B1A0467940" width="32" height="32">
+        <image name="45B700C0-FD6E-4DDA-ABB9-125CAD26295D" width="32" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

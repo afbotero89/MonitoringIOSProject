@@ -148,6 +148,16 @@ class BluetoothManager: NSObject{
                                                          name: NSNotification.Name(rawValue: "cancelCurrentMeasurementToPeripheral"),
                                                          
                                                          object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self,
+                                               
+                                               selector: #selector(BluetoothManager.sendUserDocumentToMonitor),
+                                               
+                                               name: NSNotification.Name(rawValue: "sendUserDocumentToMonitorNotification"),
+                                               
+                                               object: nil)
+        
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BluetoothManager.timerPrueba), userInfo: nil, repeats: true)
     }
     func playSound() {
@@ -195,6 +205,8 @@ class BluetoothManager: NSObject{
      Reads the data received from peripheral. If a more sophisticated method is requiered, such as one including buffers of data, take a look at RedCodeMobile project.
     */
     func readDataFromPeripheral(_ data:Data){
+        
+        var counterVariablesToGraph = 0
         
         // Get data from buffer
         
@@ -372,105 +384,35 @@ class BluetoothManager: NSObject{
         //Graphic data
         for j in currentMeasurement{
             
-            if j == "254\n\rs" || j == "254\n\r" || j == "254" {
-             //if j == "254" {
-                var counterVariablesToGraph = 0
+            if (j == "254") {
                 
-                for i in 0...(currentMeasurement.count - 1){
-                    // Systolic pressure
-                    if currentMeasurement[i] == "s" {
-                        if Double(currentMeasurement[i+1]) == nil{
-                            
-                        }else{
-                            stopSound()
-                            counterVariablesToGraph = counterVariablesToGraph + 1
-                            
-                        }
-                    // Diastolic pressure
-                    }else if(currentMeasurement[i] == "d"){
-                        if Double(currentMeasurement[i+1]) == nil{
-                            
-                        }else{
-                            counterVariablesToGraph = counterVariablesToGraph + 1
-                            
-                        }
-                    // Mean pressure
-                    }else if(currentMeasurement[i] == "m"){
-                        if Double(currentMeasurement[i+1]) == nil{
-                            
-                        }else{
-                            counterVariablesToGraph = counterVariablesToGraph + 1
-                            
-                        }
-                    // Battery level
-                    }else if(currentMeasurement[i] == "b"){
-                        if Double(currentMeasurement[i+1]) == nil{
-                            
-                        }else{
-                            counterVariablesToGraph = counterVariablesToGraph + 1
-                            
-                        }
-                    // Heart rate
-                    }else if(currentMeasurement[i] == "f"){
-                        if Double(currentMeasurement[i+1]) == nil{
-                        
-                        }else{
-                            counterVariablesToGraph = counterVariablesToGraph + 1
-                           
-                        }
-                    // Measurement time
-                    }else if(currentMeasurement[i] == "h"){
-                        counterVariablesToGraph = counterVariablesToGraph + 1
-                        
-                    }
-                    
-                }
-                if counterVariablesToGraph == 6{
-                    
                     for i in 0...(currentMeasurement.count - 1){
-                        // Systolic pressure
-                        if currentMeasurement[i] == "s" {
-                            if Double(currentMeasurement[i+1]) == nil{
-                                
-                            }else{
-                                VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+1])!)
-                            }
-                            // Diastolic pressure
-                        }else if(currentMeasurement[i] == "d"){
-                            if Double(currentMeasurement[i+1]) == nil{
-                                
-                            }else{
-                                VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+1])!)
-                            }
-                            // Mean pressure
-                        }else if(currentMeasurement[i] == "m"){
-                            if Double(currentMeasurement[i+1]) == nil{
-                                
-                            }else{
-                                VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+1])!)
-                            }
-                            // Battery level
-                        }else if(currentMeasurement[i] == "b"){
-                            if Double(currentMeasurement[i+1]) == nil{
-                                
-                            }else{
-                                VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+1])!)
-                            }
-                            // Heart rate
-                        }else if(currentMeasurement[i] == "f"){
-                            if Double(currentMeasurement[i+1]) == nil{
-                                
-                            }else{
-                                VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+1])!)
-                            }
-                            // Measurement time
-                        }else if(currentMeasurement[i] == "h"){
-                            VectorPhysiologicalVariables.measuringTime.append(String(validatingUTF8: currentMeasurement[i+1])!)
-                            
-                        }
                         
+                        if currentMeasurement[i] == ";" {
+                            stopSound()
+                            // Systolic pressure
+                            VectorPhysiologicalVariables.systolicPressure.append(Double(currentMeasurement[i+3])!)
+                            
+                            // Diastolic pressure
+                            VectorPhysiologicalVariables.diastolicPressure.append(Double(currentMeasurement[i+4])!)
+                            
+                            // Mean pressure
+                            VectorPhysiologicalVariables.averagePressure.append(Double(currentMeasurement[i+5])!)
+                            
+                            // Battery level
+                            VectorPhysiologicalVariables.batteryLevel.append(Double(currentMeasurement[i+6])!)
+                            
+                            // Heart rate
+                            VectorPhysiologicalVariables.heartRate.append(Double(currentMeasurement[i+7])!)
+                            
+                            // Measurement time
+                            VectorPhysiologicalVariables.measuringTime.append(String(validatingUTF8: currentMeasurement[i+8])!)
+                            
+                            counterVariablesToGraph = 6
+                        }
+
                     }
-                }
+                
                 
                 if activeCurrentMeasurementFlag == true && error == false{
                     
@@ -478,6 +420,8 @@ class BluetoothManager: NSObject{
                     
                     NotificationCenter.default.post(name: Notification.Name(rawValue: "displayCurrentMeasurementPopoverNotification"), object: nil, userInfo: nil)
                 }
+                
+                
                 
                 if counterVariablesToGraph == 6{
                     
@@ -579,10 +523,9 @@ class BluetoothManager: NSObject{
                 }
                 
                 VectorPhysiologicalVariables.currentMeasures.removeAll()
- 
+                
             }
         }
-
     }
 }
 
@@ -770,6 +713,16 @@ extension BluetoothManager:CBPeripheralDelegate{
     */
     func sendMeasurementTime(){
         
+        let userDocument = "001036935699"
+        
+        let str1:String =  "001036935699d254,"
+        
+        let data1 = str1.data(using: String.Encoding.utf8)
+        
+        monitorPeripheral!.writeValue(data1!, for: self.monitorWritableCharacteristic!, type: .withResponse)
+        
+        print("envia documento")
+        /*
         let str = "h254,"
         
         let data = str.data(using: String.Encoding.utf8)
@@ -781,9 +734,10 @@ extension BluetoothManager:CBPeripheralDelegate{
         }else{
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: "displayDisconnectBluetoothAlertMessage"), object: nil, userInfo: nil)
-        }
+        }*/
     
     }
+    
     
     /**
      Start new measure
@@ -852,4 +806,24 @@ extension BluetoothManager:CBPeripheralDelegate{
             monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
         }
     }
+    /**
+        Send user document to monitor
+     */
+    
+    func sendUserDocumentToMonitor(){
+        
+        print("send document")
+        
+        let userDocument = "001036935699"
+        
+        let str1:String =  "\(userDocument)d254,"
+        
+        let data1 = str1.data(using: String.Encoding.utf8)
+        
+        monitorPeripheral!.writeValue(data1!, for: self.monitorWritableCharacteristic!, type: .withResponse)
+        
+        print("envia documento")
+    
+    }
+    
 }

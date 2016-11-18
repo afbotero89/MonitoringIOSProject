@@ -1212,6 +1212,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBAction func displayCalendar(_ sender: AnyObject) {
         
+        //NotificationCenter.default.post(name: Notification.Name(rawValue: "sendUserDocumentToMonitorNotification"), object: nil, userInfo: nil)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         switch UserSelectedConfiguration.typeOfDevice!{
