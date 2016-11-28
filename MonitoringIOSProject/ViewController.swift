@@ -1248,6 +1248,34 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             navigationController?.pushViewController(documentationTableViewController, animated: true)
         }
     }
+    
+    @IBAction func cancelMeasurement(_ sender: AnyObject) {
+        if DeviceVariables.bluetoothConnected == true{
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelMeasurementNotification"), object: nil, userInfo: nil)
+            
+        }else{
+            
+            let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your Bluetooth connection", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default) { _ in })
+            self.present(alert, animated: true){}
+            
+        }
+    }
+    
+    @IBAction func sendDocument(_ sender: AnyObject) {
+        if DeviceVariables.bluetoothConnected == true{
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "sendUserDocumentToMonitorNotification"), object: nil, userInfo: nil)
+            
+        }else{
+            
+            let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your Bluetooth connection", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default) { _ in })
+            self.present(alert, animated: true){}
+            
+        }
+    }
 }
 // MARK: - Extension
 /**
@@ -1277,9 +1305,6 @@ extension ViewController{
      Method called after the popover is dissmissed by means of user interactions only (iPad).
      */
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        
-        //Code
-        //insertNewBarGraphExtubatedPatient()
         
         print("dissmiss iPad")
         

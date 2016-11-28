@@ -141,14 +141,6 @@ class BluetoothManager: NSObject{
                                                          
                                                          object: nil)
         
-        NotificationCenter.default.addObserver(self,
-                                                         
-                                                         selector: #selector(BluetoothManager.cancelCurrentMeasurement),
-                                                         
-                                                         name: NSNotification.Name(rawValue: "cancelCurrentMeasurementToPeripheral"),
-                                                         
-                                                         object: nil)
-        
         
         NotificationCenter.default.addObserver(self,
                                                
@@ -157,6 +149,15 @@ class BluetoothManager: NSObject{
                                                name: NSNotification.Name(rawValue: "sendUserDocumentToMonitorNotification"),
                                                
                                                object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               
+                                               selector: #selector(BluetoothManager.cancelMeasurement),
+                                               
+                                               name: NSNotification.Name(rawValue: "cancelMeasurementNotification"),
+                                               
+                                               object: nil)
+        
         
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BluetoothManager.timerPrueba), userInfo: nil, repeats: true)
     }
@@ -712,17 +713,7 @@ extension BluetoothManager:CBPeripheralDelegate{
      Measurement time set by the user
     */
     func sendMeasurementTime(){
-        
-        let userDocument = "001036935699"
-        
-        let str1:String =  "001036935699d254,"
-        
-        let data1 = str1.data(using: String.Encoding.utf8)
-        
-        monitorPeripheral!.writeValue(data1!, for: self.monitorWritableCharacteristic!, type: .withResponse)
-        
-        print("envia documento")
-        /*
+
         let str = "h254,"
         
         let data = str.data(using: String.Encoding.utf8)
@@ -734,7 +725,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         }else{
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: "displayDisconnectBluetoothAlertMessage"), object: nil, userInfo: nil)
-        }*/
+        }
     
     }
     
@@ -755,22 +746,49 @@ extension BluetoothManager:CBPeripheralDelegate{
             NotificationCenter.default.post(name: Notification.Name(rawValue: "displayDisconnectBluetoothAlertMessage"), object: nil, userInfo: nil)
         }
     }
-    /**
-     Cancel current measure
-    */
-    func cancelCurrentMeasurement(){
+    
+    func cancelMeasurement(){
+        
+        let data:String =  "s254,"
+        
+        let data1 = data.data(using: String.Encoding.utf8)
+        
+        monitorPeripheral!.writeValue(data1!, for: self.monitorWritableCharacteristic!, type: .withResponse)
+
+        print("Cancela medida")
+        
         /*
-        let str = "c254,"
+         let str = "c254,"
+         
+         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+         
+         if monitorPeripheral != nil{
+         monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
+         }else{
+         print("no cancela medida actual")
+         NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
+         }*/
         
-        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        if monitorPeripheral != nil{
-            monitorPeripheral!.writeValue(data!, forCharacteristic: self.monitorWritableCharacteristic!, type: .WithResponse)
-        }else{
-            print("no cancela medida actual")
-            NSNotificationCenter.defaultCenter().postNotificationName("displayDisconnectBluetoothAlertMessage", object: nil, userInfo: nil)
-        }*/
     }
+    
+    /**
+     Send user document to monitor
+     */
+    
+    func sendUserDocumentToMonitor(){
+        
+        let userDocument = "001036935699d254,"
+        
+        //let str1:String =  "\(userDocument)d254,"
+        
+        let data1 = userDocument.data(using: String.Encoding.utf8)
+        
+        monitorPeripheral!.writeValue(data1!, for: self.monitorWritableCharacteristic!, type: .withResponse)
+        
+        print("envia documento")
+        
+    }
+
     func timerPrueba(){
         contador = contador + 1
         
@@ -806,24 +824,4 @@ extension BluetoothManager:CBPeripheralDelegate{
             monitorPeripheral!.writeValue(data!, for: self.monitorWritableCharacteristic!, type: .withResponse)
         }
     }
-    /**
-        Send user document to monitor
-     */
-    
-    func sendUserDocumentToMonitor(){
-        
-        print("send document")
-        
-        let userDocument = "001036935699"
-        
-        let str1:String =  "\(userDocument)d254,"
-        
-        let data1 = str1.data(using: String.Encoding.utf8)
-        
-        monitorPeripheral!.writeValue(data1!, for: self.monitorWritableCharacteristic!, type: .withResponse)
-        
-        print("envia documento")
-    
-    }
-    
 }
