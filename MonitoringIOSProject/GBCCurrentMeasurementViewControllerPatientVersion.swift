@@ -307,7 +307,7 @@ class GBCCurrentMeasurementViewControllerPatientVersion: UIViewController, UIPop
         heartRateValue.text = String(VectorPhysiologicalVariables.heartRate.last!)  + "BPM"
         
         
-        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_Sibxeco(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: "12:22:22")
+        uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure.last!, diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!, mediumPressure: VectorPhysiologicalVariables.averagePressure.last!, heartRate: VectorPhysiologicalVariables.heartRate.last!, hour: "12:22:22")
         batteryLevel()
     }
     

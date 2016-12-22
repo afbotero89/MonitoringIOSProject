@@ -1046,7 +1046,7 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
         
         requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
         
-        let postString = "month=2016-06-21"
+        let postString = ""
         
         requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
         

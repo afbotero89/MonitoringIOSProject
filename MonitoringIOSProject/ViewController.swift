@@ -77,12 +77,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     /// Graphic container heart rate
     var heartRateContainerGraph = CPTGraphHostingView()
     
-    /// Request to remote data base sql: Type post
-    let requestSetDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabase.php")!)
-    
-    /// Request to remote data base sql: Type get
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.sibxe.co/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
-    
     /// Request to remote data base sql: Type post to GIBIC server
     let uploadMeassuresToRemoteServer = GBCUploadMeassuresAndSignalsToRemoteServer()
     
@@ -145,8 +139,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         setLegendGraph()
         
         addAttributesToContainerGraph()
-        
-        requestSetDataBaseSQL.httpMethod = "POST"
         
         uploadMeassuresToRemoteServer.getDataFromDataBaseSQLDayMonthYear()
         
@@ -650,7 +642,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressuresGraph.plot(withIdentifier: 2 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
                 heartRateGraph.plot(withIdentifier: 3 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
                 
-                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_Sibxeco(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!)
+                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!)
                 
                 //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
                 
@@ -675,7 +667,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, at: 0)
                 VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, at: 0)
                 
-                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_Sibxeco(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].components(separatedBy: ".")[0]))
+                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].components(separatedBy: ".")[0]))
                 
                 //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
                 

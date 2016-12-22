@@ -26,7 +26,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     
     @IBOutlet weak var displayRecordButton: UIButton!
     
-    var requestGetDataBaseSQL = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseGetDataForDate.php")!)
+    var requestGetDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseGetDataForDate.php")!)
     
     var responseString:String!
     
@@ -129,15 +129,13 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
             self.responseString = String(data: data!, encoding: .utf8)
             print(self.responseString)
             
-            if (String(self.responseString).isEmpty || self.responseString == "s-d-a-f-h"){
+            if (String(self.responseString).isEmpty){
                 internetConnectionError = false
-                //self.dismissViewControllerAnimated(true, completion:  {
-                    //internetConnectionError = false
-                    //NSNotificationCenter.defaultCenter().postNotificationName("displayAlertThereIsNoDataNotification", object: nil, userInfo: nil)
-                            
-                        
+                self.dismiss(animated: true, completion:  {
+                    internetConnectionError = false
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayAlertThereIsNoDataNotification"), object: nil, userInfo: nil)
                     
-                //})
+                })
                 switch UserSelectedConfiguration.typeOfDevice!{
                 case .iPad:
                     print("iPad")
@@ -164,16 +162,16 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 
                 for i in 0..<(vector.count-1){
                     var vector1 = vector[i].components(separatedBy: ",")
+                    
+                    PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[4])!)
 
-                    PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[1])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[5])!)
                     
-                    PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[2])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[6])!)
                     
-                    PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[3])!)
-                    
-                    PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[4])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[7])!)
 
-                    PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[5])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[8])!)
                     
                 }
                 if PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count > 80{

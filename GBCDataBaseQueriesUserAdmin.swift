@@ -10,11 +10,21 @@ import Foundation
 
 class GBCDataBaseQueriesUserAdmin:NSObject{
     
+    /// Instances Web service functions
+    
     let requestSetDataBaseSQL_GETMethod = NSMutableURLRequest(url: URL(string:"http://testgibic.com/app_slim/v1/public/pressure/patient/all")!)
     
     let requestSetDataBaseSQL_POSTMethod = NSMutableURLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/patient/save")!)
 
     let requestEditUser_POSTMethod = NSMutableURLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/patient/save")!)
+    
+    
+    
+    /// Instances GIBIC server
+    var requestInsertNewPatient = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/insertNewPatient.php")!)
+    
+    
+    // MARK: - Web service functions
     
     func getInfoPatient_getRequest(){
         
@@ -115,6 +125,33 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         
         task.resume()
     */
+    }
+    
+    // MARK: - Queries Gibic server
+    func insertNewPatient(_ name:String,document: String,age:String,gender:String,email:String,pass:String,profile:String){
+        
+        requestInsertNewPatient.httpMethod = "POST"
+        
+        let postString = "name=\(name)&document=\(document)&age=\(age)&gender=\(gender)&email=\(email)&pass=\(pass)&profile=\(profile)"
+        
+        requestInsertNewPatient.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        
+        let task = URLSession.shared.dataTask(with: requestInsertNewPatient, completionHandler: {
+            data, response, error in
+            
+            if error != nil {
+                
+                print("variables almacenadas db sql")
+                
+                return
+            }
+            
+            print("response = \(response)")
+            
+        })
+        task.resume()
+    
     }
     
 }

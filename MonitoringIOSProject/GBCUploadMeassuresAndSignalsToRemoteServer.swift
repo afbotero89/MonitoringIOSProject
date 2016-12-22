@@ -15,12 +15,14 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     var requestSetDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/meassure/save")!)
     
     
-    /// Request to remote data base sql: Type post  -> Sibxeco server
-    var requestSetDataBaseSQL_sibxecoServer = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseInsertData.php")!)
+    /// Request to remote data base sql: Type post  -> GIBIC server
+    //var requestSetDataBaseSQL_GIBICServer = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseInsertData.php")!)
+    //var requestSetDataBaseSQL_GIBICServer = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseInsertData.php")!)
+    var requestSetDataBaseSQL_GIBICServer = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseInsertData.php")!)
     
     
     /// Request to remote data base sql: Type get
-    var requestGetDayMonthYearDataBaseSQL = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseGetDayMonthYear.php")!)
+    var requestGetDayMonthYearDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseGetDayMonthYear.php")!)
     
     var serverResponse:NSString?
     
@@ -65,24 +67,24 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         */
     }
     
-    // MARK: -- Sibxe server
+    // MARK: -- GIBIC server
     
     /**
-    Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour and date) --> sibxe server
+    Insert data into data base SQL (Systolic pressure, diastolic pressure, medium pressure heart rate, hour and date) --> gibic server
      */
-    func uploadToServerDataBaseSQL_Sibxeco(_ systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
+    func uploadToServerDataBaseSQL_GIBIC(_ systolicPressure: Double,diastolicPressure: Double,mediumPressure: Double,heartRate: Double, hour:String){
         
-        requestSetDataBaseSQL_sibxecoServer.httpMethod = "POST"
+        requestSetDataBaseSQL_GIBICServer.httpMethod = "POST"
         
         let date = Foundation.Date()
         
         VectorPhysiologicalVariables.ACSignal = "AC"
         
         let postString = "document=\(systolicPressure)&sys=\(systolicPressure)&diast=\(diastolicPressure)&aver=\(mediumPressure)&heart=\(heartRate)&hour=\(hour)&date=\(date.year)-\(date.month)-\(date.day)"
-        requestSetDataBaseSQL_sibxecoServer.httpBody = postString.data(using: String.Encoding.utf8)
+        requestSetDataBaseSQL_GIBICServer.httpBody = postString.data(using: String.Encoding.utf8)
         
         
-        let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_sibxecoServer, completionHandler: {
+        let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_GIBICServer, completionHandler: {
             data, response, error in
             
             if error != nil {
@@ -95,7 +97,7 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
                 VectorPhysiologicalVariables.vectorToUploadServer.append(postString as AnyObject)
                 defaults.set(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
                 print("variables almacenadas db sql")
-                print(defaults.array(forKey: "VectorToUpLoadServer"))
+    
                 return
             }
             
@@ -107,14 +109,14 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     }
     
     /*
-        Upload lost data by bad internet connection --> Sibxe server
+        Upload lost data by bad internet connection --> Gibic server
      */
     func upLoadLostDataToServer(_ lostData:String){
         
         let postString = lostData
-        requestSetDataBaseSQL_sibxecoServer.httpBody = postString.data(using: String.Encoding.utf8)
+        requestSetDataBaseSQL_GIBICServer.httpBody = postString.data(using: String.Encoding.utf8)
         /*
-        let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_sibxecoServer, completionHandler: {
+        let task = URLSession.shared.dataTask(with: requestSetDataBaseSQL_GIBICServer, completionHandler: {
             data, response, error in
             
             if error != nil {
@@ -137,7 +139,7 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
         
         requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
         
-        let postString = "2016-11-9"
+        let postString = ""
         
         requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
         

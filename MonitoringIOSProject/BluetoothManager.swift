@@ -777,7 +777,7 @@ extension BluetoothManager:CBPeripheralDelegate{
     
     func sendUserDocumentToMonitor(){
         
-        let userDocument = "001036935699d254,"
+        let userDocument = "002036935698d254,"
         
         //let str1:String =  "\(userDocument)d254,"
         
@@ -793,9 +793,9 @@ extension BluetoothManager:CBPeripheralDelegate{
         contador = contador + 1
         
         if contador == 10{
-            
+           /*
             contador = 0
-            /*
+            
             VectorPhysiologicalVariables.systolicPressure.append(120)
             VectorPhysiologicalVariables.diastolicPressure.append(80)
             VectorPhysiologicalVariables.averagePressure.append(100)
@@ -803,7 +803,7 @@ extension BluetoothManager:CBPeripheralDelegate{
             VectorPhysiologicalVariables.measuringTime.append("00:00:00")
             VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
             */
-        //NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
+            //NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
             
             //NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
  

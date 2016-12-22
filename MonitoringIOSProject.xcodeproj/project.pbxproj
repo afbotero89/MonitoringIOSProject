@@ -273,7 +273,6 @@
 		B544D9A71D04F21100248390 /* AnimCurva1920x1080V1.00119.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B544D8B81D04F21100248390 /* AnimCurva1920x1080V1.00119.jpg */; };
 		B544D9A81D04F21100248390 /* AnimCurva1920x1080V1.00119.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B544D8B81D04F21100248390 /* AnimCurva1920x1080V1.00119.jpg */; };
 		B544D9AC1D04F2CE00248390 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
-		B544D9AD1D04F2CE00248390 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
 		B544D9B21D04F48000248390 /* CBCAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544D9B11D04F48000248390 /* CBCAnimationViewController.swift */; };
 		B544D9B31D04F48000248390 /* CBCAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B544D9B11D04F48000248390 /* CBCAnimationViewController.swift */; };
 		B544D9D41D077D2000248390 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B544D9D61D077D2000248390 /* Localizable.strings */; };
@@ -299,7 +298,6 @@
 		D84920571CDA5BD500AB611B /* AditionalInformationPopPup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D84920561CDA5BD500AB611B /* AditionalInformationPopPup.storyboard */; };
 		D84920631CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84920621CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift */; };
 		D84CD84F1CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
-		D84CD8501CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
 		D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */; };
@@ -312,6 +310,10 @@
 		D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */; };
 		D875659F1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */; };
 		D889758B1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */; };
+		D89D21921E0C784A00F487C4 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
+		D89D21A01E0C784E00F487C4 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
+		D8A14FD81E0B1EE10035B622 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
+		D8A14FE61E0B1F350035B622 /* GBCEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E0F751CD1565100300593 /* GBCEnumerations.swift */; };
 		D8FDC8A71CD9091F002A702F /* GBCCurrentMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -1447,6 +1449,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D89D21921E0C784A00F487C4 /* GBCAnimationView.m in Sources */,
+				D8A14FE61E0B1F350035B622 /* GBCEnumerations.swift in Sources */,
+				D8A14FD81E0B1EE10035B622 /* BWCircularSlider.swift in Sources */,
 				D83E0F371CD137C900300593 /* MonitoringIOSProjectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1459,15 +1464,14 @@
 				B505D3E81CE820F10054E2BC /* WeekHeaderView.swift in Sources */,
 				B505D3DC1CE820F10054E2BC /* Date.swift in Sources */,
 				B544D9B31D04F48000248390 /* CBCAnimationViewController.swift in Sources */,
+				D89D21A01E0C784E00F487C4 /* GBCAnimationView.m in Sources */,
 				D83E0F421CD137C900300593 /* MonitoringIOSProjectUITests.swift in Sources */,
-				B544D9AD1D04F2CE00248390 /* GBCAnimationView.m in Sources */,
 				B505D3E61CE820F10054E2BC /* NSDateAdditions.swift in Sources */,
 				B505D3DE1CE820F10054E2BC /* DayCollectionCell.swift in Sources */,
 				D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
 				B505D3D61CE820F10054E2BC /* CalendarLogic.swift in Sources */,
 				B505D3E21CE820F10054E2BC /* MonthCollectionCell.swift in Sources */,
 				B505D3FE1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */,
-				D84CD8501CD7FA1800B35B18 /* BWCircularSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

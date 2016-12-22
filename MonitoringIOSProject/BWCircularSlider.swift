@@ -21,7 +21,7 @@ struct Config {
 // MARK: Math Helpers 
 
 func DegreesToRadians (_ value:Double) -> Double {
-    return value * M_PI / 180.0
+    return value * M_PI /   180.0
 }
 
 func RadiansToDegrees (_ value:Double) -> Double {

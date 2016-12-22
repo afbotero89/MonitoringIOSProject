@@ -18,7 +18,7 @@ class DayCollectionCell: UICollectionViewCell {
     @IBOutlet var markedViewWidth: NSLayoutConstraint!
     @IBOutlet var markedViewHeight: NSLayoutConstraint!
     
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseGetDayMonthYear.php")! as URL)
+    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseGetDayMonthYear.php")! as URL)
     
     var serverResponse:NSString?
     
@@ -105,7 +105,7 @@ class DayCollectionCell: UICollectionViewCell {
         
         requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
         
-        let postString = "month=2016-06-21"
+        let postString = ""
         
         requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
 

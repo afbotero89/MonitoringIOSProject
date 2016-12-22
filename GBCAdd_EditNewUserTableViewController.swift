@@ -73,7 +73,9 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                 Users.age.append(userAgeLabel.text!)
                 Users.gender.append(userGenderLabel.text!)
                 
-                queriesUserAdmin.insertNewPatient_postRequest(branch_id,name:userNameLabel.text!,document:userIdLabel.text!,age:userAgeLabel.text!,gender:userGenderLabel.text!,email:emailLabel.text!)
+                //queriesUserAdmin.insertNewPatient_postRequest(branch_id,name:userNameLabel.text!,document:userIdLabel.text!,age:userAgeLabel.text!,gender:userGenderLabel.text!,email:emailLabel.text!)
+                
+                queriesUserAdmin.insertNewPatient(userNameLabel.text!, document: userIdLabel.text!, age: userAgeLabel.text!, gender: userGenderLabel.text!, email: "email", pass: "1", profile: "1")
 
             case .editNewPatient:
                 
