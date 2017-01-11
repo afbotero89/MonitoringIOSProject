@@ -642,10 +642,29 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressuresGraph.plot(withIdentifier: 2 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
                 heartRateGraph.plot(withIdentifier: 3 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
                 
-                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!)
+                //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!)
                 
                 //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
                 
+                print("datos almacenados en el dispositivo")
+                
+                var memoryDevice = ""
+                var appendData = ""
+                
+                if defaults.value(forKey: "medidas") != nil{
+                    
+                    memoryDevice = String(describing: defaults.value(forKey: "medidas")!)
+                    
+                    appendData = memoryDevice + "," + (String(VectorPhysiologicalVariables.systolicPressure.last!) + String(VectorPhysiologicalVariables.diastolicPressure.last!) + String(VectorPhysiologicalVariables.averagePressure.last!) + String(VectorPhysiologicalVariables.heartRate.last!) + String(measuringTimeDevice)) + ","
+                }else{
+                    appendData = (String(VectorPhysiologicalVariables.systolicPressure.last!) + String(VectorPhysiologicalVariables.diastolicPressure.last!) + String(VectorPhysiologicalVariables.averagePressure.last!) + String(VectorPhysiologicalVariables.heartRate.last!) + String(measuringTimeDevice)) + ","
+                }
+
+                defaults.setValue(appendData, forKey: "medidas")
+                
+                memoryDevice = String(describing: defaults.value(forKey: "medidas")!)
+                
+                print(memoryDevice)
                 
             }else{
                 
@@ -667,7 +686,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, at: 0)
                 VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, at: 0)
                 
-                uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].components(separatedBy: ".")[0]))
+                //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].components(separatedBy: ".")[0]))
                 
                 //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
                 
@@ -766,8 +785,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 print(conexion)
                 if conexion == true{
                     for i in defaults.array(forKey: "VectorToUpLoadServer")!{
+                        print(i)
                         //upLoadLostDataToServer(i as! String)
-                        uploadMeassuresToRemoteServer.upLoadLostDataToServer(i as! String)
+                        //uploadMeassuresToRemoteServer.upLoadLostDataToServer(i as! String)
                         
                     }
                 }
@@ -1268,6 +1288,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             
         }
     }
+    @IBAction func cleanMemory(_ sender: Any) {
+        defaults.removeObject(forKey: "medidas")
+    }
+    
 }
 // MARK: - Extension
 /**

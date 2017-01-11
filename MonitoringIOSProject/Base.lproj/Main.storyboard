@@ -126,6 +126,11 @@
                                     <action selector="sendDocument:" destination="BYZ-38-t0r" id="U0k-PK-Ti8"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="trash" id="z5G-DZ-fgi">
+                                <connections>
+                                    <action selector="cleanMemory:" destination="BYZ-38-t0r" id="Vmd-ir-bvC"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem image="Configuration" id="fgi-yk-fJE">
