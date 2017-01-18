@@ -144,6 +144,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         let date = NSDate()
         print(date)
+        
+        print("medidas dispositivo")
+        
 
     }
     

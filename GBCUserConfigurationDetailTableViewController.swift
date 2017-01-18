@@ -62,18 +62,18 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         //if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
         
         if PatientListStruct.patientList != nil{
-            /*
-            let name = PatientListStruct.patientList?.valueForKey("result")[userSelectPatient].valueForKey("name")
-            let document = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "document")
-            let age = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "age")
-            let gender = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "gender")
-            let email = PatientListStruct.patientList?.value(forKey: "result")![userSelectPatient].value(forKey: "email")
-            userNameTextLabel.text = String(name!)
-            userIdLabel.text = String(document!)
-            ageLabel.text = String(age!)
-            enderLabel.text = String(gender!)
-            emailLabel.text = String(email!)
- */
+            
+            let name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
+            let document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")
+            let age = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "age")
+            let gender = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "gender")
+            let email = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
+            userNameTextLabel.text = String(describing: name!)
+            userIdLabel.text = String(describing: document!)
+            ageLabel.text = String(describing: age!)
+            genderLabel.text = String(describing: gender!)
+            emailLabel.text = String(describing: email!)
+ 
         }
         //}
 

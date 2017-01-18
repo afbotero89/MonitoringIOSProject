@@ -14,7 +14,7 @@ let defaults = UserDefaults.standard
 
 struct PatientListStruct{
     
-    static var patientList:AnyObject?
+    static var patientList:NSArray?
     
     static var editOrAddNewUser:UserConfigurationEditOrAddNewPatient?
 }

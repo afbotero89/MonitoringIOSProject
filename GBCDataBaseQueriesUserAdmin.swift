@@ -24,6 +24,11 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
     var requestInsertNewPatient = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/insertNewPatient.php")!)
     
     
+    var requestGetPatientList = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/getPatientList.php")!)
+    
+    var requestEditPatient = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/editPatient.php")!)
+    
+    
     // MARK: - Web service functions
     
     func getInfoPatient_getRequest(){
@@ -128,6 +133,8 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
     }
     
     // MARK: - Queries Gibic server
+    
+    /* Insert new patient */
     func insertNewPatient(_ name:String,document: String,age:String,gender:String,email:String,pass:String,profile:String){
         
         requestInsertNewPatient.httpMethod = "POST"
@@ -139,6 +146,7 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         
         let task = URLSession.shared.dataTask(with: requestInsertNewPatient, completionHandler: {
             data, response, error in
+            
             
             if error != nil {
                 
@@ -152,6 +160,73 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
         })
         task.resume()
     
+    }
+    
+    
+    /* Get patient list */
+    func getPatientList(){
+        
+         requestGetPatientList.httpMethod = "GET"
+        
+         URLSession.shared.dataTask(with: self.requestGetPatientList, completionHandler: {
+         data, response, error in
+            
+            if error != nil {
+                
+                print("variables almacenadas db sql")
+                
+                return
+            }
+            
+            var json:Any?
+            
+            do {
+                try json = JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+            }catch{
+                print("exception")
+            }
+
+            let result = json as! NSArray
+            
+            PatientListStruct.patientList = result
+            
+            let name = result.object(at: 0)
+            
+            print("server response = \((name as AnyObject))")
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterAdminUserPanel"), object: nil, userInfo: nil)
+            
+         }).resume()
+        
+         print("entra 2")
+    }
+    
+    /* Edit patient */
+    func editPatient(_ id:Int, name:String,document: String,age:String,gender:String,email:String,pass:String,profile:String){
+        
+        requestEditPatient.httpMethod = "POST"
+        
+        let postString = "id=\(id)&name=\(name)&document=\(document)&age=\(age)&gender=\(gender)&email=\(email)&pass=\(pass)&profile=\(profile)"
+        
+        requestEditPatient.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        
+        let task = URLSession.shared.dataTask(with: requestEditPatient, completionHandler: {
+            data, response, error in
+            
+            
+            if error != nil {
+                
+                print("variables almacenadas db sql")
+                
+                return
+            }
+            
+            print("response = \(response)")
+            
+        })
+        task.resume()
+        
     }
     
 }

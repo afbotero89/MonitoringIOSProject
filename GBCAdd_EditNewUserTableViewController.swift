@@ -79,13 +79,14 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
 
             case .editNewPatient:
                 
-                queriesUserAdmin.editPatientByID(1, branch_id: branch_id, name:userNameLabel.text!, document:userIdLabel.text!, age:userAgeLabel.text!, gender:userGenderLabel.text!, email:emailLabel.text!)
+                //queriesUserAdmin.editPatientByID(1, branch_id: branch_id, name:userNameLabel.text!, document:userIdLabel.text!, age:userAgeLabel.text!, gender:userGenderLabel.text!, email:emailLabel.text!)
+                queriesUserAdmin.editPatient(1, name: userNameLabel.text!, document: userIdLabel.text!, age: userAgeLabel.text!, gender: userGenderLabel.text!, email: emailLabel.text!, pass: "1", profile: "1")
                 
             }
             
             activeAdd_EditUserViewController = false
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterTableViewController"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterAdminUserPanel"), object: nil, userInfo: nil)
             
             _ = navigationController?.popViewController(animated: true)
 
@@ -118,18 +119,18 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                 cell1.textLabel?.text = "Edit patient"
                 
                 if PatientListStruct.patientList != nil{
-                    /*
-                    let name = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "name")
-                    let document = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "document")
-                    let age = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "age")
-                    let gender = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "gender")
-                    let email = PatientListStruct.patientList!.value(forKey: "result")![userSelectPatient].value(forKey: "email")
-                */
-                    userNameLabel.text = String("name!")
-                    userIdLabel.text = String("document!")
-                    userAgeLabel.text = String("age!")
-                    userGenderLabel.text = String("gender!")
-                    emailLabel.text = String("email!")
+                    
+                    let name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
+                    let document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")
+                    let age = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "age")
+                    let gender = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "gender")
+                    let email = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "mail")
+                
+                    userNameLabel.text = String(describing: name!)
+                    userIdLabel.text = String(describing: document!)
+                    userAgeLabel.text = String(describing: age!)
+                    userGenderLabel.text = String(describing: gender!)
+                    emailLabel.text = String(describing: email)
                 }
             //}
         }
