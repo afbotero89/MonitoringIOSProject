@@ -21,12 +21,15 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
     
     
     /// Instances GIBIC server
+    
     var requestInsertNewPatient = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/insertNewPatient.php")!)
     
     
     var requestGetPatientList = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/getPatientList.php")!)
     
     var requestEditPatient = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/editPatient.php")!)
+    
+    var requestRemovePatient = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/admin/removePatient.php")!)
     
     
     // MARK: - Web service functions
@@ -186,15 +189,22 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
                 print("exception")
             }
 
-            let result = json as! NSArray
+            let patientsInDB = json as! NSArray
             
-            PatientListStruct.patientList = result
             
-            let name = result.object(at: 0)
+            // If there are patients in database
+            if (patientsInDB.count != 0){
             
-            print("server response = \((name as AnyObject))")
+                PatientListStruct.patientList = patientsInDB
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterAdminUserPanel"), object: nil, userInfo: nil)
+                let name = patientsInDB.object(at: 0)
+            
+                print("server response = \((name as AnyObject))")
+            
+                PatientListStruct.numberOfPatientsInDataBases = PatientListStruct.patientList?.count
+            
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterAdminUserPanel"), object: nil, userInfo: nil)
+            }
             
          }).resume()
         
@@ -202,16 +212,44 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
     }
     
     /* Edit patient */
-    func editPatient(_ id:Int, name:String,document: String,age:String,gender:String,email:String,pass:String,profile:String){
+    func editPatient(_ last_id:Int, last_name:String, last_document:String, name:String,document: String,age:String,gender:String,email:String,pass:String,profile:String){
         
         requestEditPatient.httpMethod = "POST"
         
-        let postString = "id=\(id)&name=\(name)&document=\(document)&age=\(age)&gender=\(gender)&email=\(email)&pass=\(pass)&profile=\(profile)"
+        let postString = "last_id=\(last_id)&last_name=\(last_name)&last_document=\(last_document)&name=\(name)&document=\(document)&age=\(age)&gender=\(gender)&email=\(email)&pass=\(pass)&profile=\(profile)"
         
         requestEditPatient.httpBody = postString.data(using: String.Encoding.utf8)
         
         
         let task = URLSession.shared.dataTask(with: requestEditPatient, completionHandler: {
+            data, response, error in
+            
+            
+            if error != nil {
+                
+                print("variables almacenadas db sql")
+                
+                return
+            }
+            
+            print("response = \(response)")
+            
+        })
+        task.resume()
+        
+    }
+    
+    /* Remove patient */
+    func removePatient(_ id:Int, name:String, document: String){
+        
+        requestRemovePatient.httpMethod = "POST"
+        
+        let postString = "id=\(id)&document=\(document)&name=\(name)"
+        
+        requestRemovePatient.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        print("remove patient")
+        let task = URLSession.shared.dataTask(with: requestRemovePatient, completionHandler: {
             data, response, error in
             
             

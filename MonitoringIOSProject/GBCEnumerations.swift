@@ -12,11 +12,18 @@ let defaults = UserDefaults.standard
 
 // MARK: - Enumerations
 
+struct PressureMonitors{
+    static var monitorsNearby:Set<String> = Set<String>()
+}
+
+
 struct PatientListStruct{
     
     static var patientList:NSArray?
     
     static var editOrAddNewUser:UserConfigurationEditOrAddNewPatient?
+    
+    static var numberOfPatientsInDataBases:Int?
 }
 
 enum PhysiologicalVariables:Int{

@@ -16,11 +16,10 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     
     var add_editNewUserDelegate = GBCAdd_EditNewUserTableViewController()
     
-    var numberOfPatientsInDataBases:Int?
-    
     let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         self.splitViewController?.preferredDisplayMode = .allVisible
@@ -41,8 +40,6 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
         
-        queriesUserAdmin.getPatientList()
-        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -62,7 +59,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        queriesUserAdmin.getPatientList()
     }
     
     func detailPatientList(){
@@ -93,11 +90,13 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        numberOfPatientsInDataBases = PatientListStruct.patientList?.count
-        if numberOfPatientsInDataBases == nil{
-            numberOfPatientsInDataBases = 0
+        
+        if PatientListStruct.numberOfPatientsInDataBases == nil{
+            PatientListStruct.numberOfPatientsInDataBases = 0
         }
-        return (numberOfPatientsInDataBases)!
+        print("numero de pacientes en bases de datos")
+        print(PatientListStruct.numberOfPatientsInDataBases!)
+        return PatientListStruct.numberOfPatientsInDataBases!
     }
 
     
@@ -109,12 +108,8 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         //let name = PatientListStruct.patientList!.value(forKey: "result")![(indexPath as NSIndexPath).row].value(forKey: "name")
         
         // Configure the cell...
-        print("documento")
-        print(document)
-        cell.textLabel?.text = String(describing: name!)
+        cell.textLabel?.text = String(describing: name)
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
-        cell.detailTextLabel?.text = String(describing: document!)
-        cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         
         return cell
     }
@@ -153,6 +148,16 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //objects.remove(at: indexPath.row)
+            PatientListStruct.numberOfPatientsInDataBases = PatientListStruct.numberOfPatientsInDataBases! - 1
+            let id = ((PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "id") as! NSString).intValue
+            
+            let name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")!
+            
+            let document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")!
+            
+            
+            queriesUserAdmin.removePatient(Int(id), name: String(describing: name), document: String(describing: document))
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

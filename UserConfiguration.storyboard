@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="H1P-rV-HBx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="l2C-7s-itg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1vc-8I-ETC" id="Zht-hW-o1v">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -46,7 +46,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3c6-Aq-JKn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1527" y="-34"/>
+            <point key="canvasLocation" x="1650" y="-280"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SqC-Wx-QMt">
@@ -62,7 +62,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tRk-1f-pRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="-34"/>
+            <point key="canvasLocation" x="822" y="-280"/>
         </scene>
         <!--User Configuration Detail Table View Controller-->
         <scene sceneID="Lo7-3a-WbR">
@@ -389,7 +389,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNb-KD-YRk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1527" y="746"/>
+            <point key="canvasLocation" x="1650" y="484"/>
         </scene>
         <!--Add Edit New User Table View Controller-->
         <scene sceneID="WYf-lm-VtV">
@@ -713,12 +713,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V36-Ss-WVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3053" y="746"/>
+            <point key="canvasLocation" x="3242" y="484"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Item-->
         <scene sceneID="HbH-b6-n90">
             <objects>
                 <splitViewController storyboardIdentifier="splitRootViewController" id="H1P-rV-HBx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="ea5-55-LNr"/>
                     <connections>
                         <segue destination="j1V-WG-ABA" kind="relationship" relationship="masterViewController" id="Tf7-Cg-uOM"/>
                         <segue destination="rfR-9g-aoN" kind="relationship" relationship="detailViewController" id="Rjv-uu-mjA"/>
@@ -726,7 +727,54 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1KB-ly-fFO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-113" y="297"/>
+            <point key="canvasLocation" x="-1178" y="-35"/>
+        </scene>
+        <!--Monitores cerca-->
+        <scene sceneID="NqO-HM-cYV">
+            <objects>
+                <tableViewController id="KC0-4B-UY4" customClass="GBC_BLEConfigurationTableViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="cNw-Dc-nIU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bleListCell" id="efY-a8-b2Y">
+                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="efY-a8-b2Y" id="hYx-i6-WIg">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KC0-4B-UY4" id="SNj-Hf-a0y"/>
+                            <outlet property="delegate" destination="KC0-4B-UY4" id="SKk-NN-ucu"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Monitores cerca" id="vIA-iL-P4G"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ezy-p9-THP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-239.19999999999999" y="805.54722638680664"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="323-xi-2Od">
+            <objects>
+                <tabBarController id="l2C-7s-itg" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="QiT-iR-eNX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="H1P-rV-HBx" kind="relationship" relationship="viewControllers" id="XB0-up-oEb"/>
+                        <segue destination="vn7-TG-yqX" kind="relationship" relationship="viewControllers" id="WyM-RI-tv6"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sMh-Zn-qIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2130" y="379"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gY8-X2-fjG">
@@ -744,7 +792,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6k-nU-qeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="746"/>
+            <point key="canvasLocation" x="822" y="484"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vYw-O5-M18">
@@ -762,13 +810,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9S-bF-iBY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2241" y="746"/>
+            <point key="canvasLocation" x="2410" y="484"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="NkF-Po-RJK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vn7-TG-yqX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="oA3-XX-EbP"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rcP-n9-b4v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KC0-4B-UY4" kind="relationship" relationship="rootViewController" id="i7j-CR-7sx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6WM-dH-qdV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1178.4000000000001" y="805.54722638680664"/>
         </scene>
     </scenes>
     <resources>
         <image name="home" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Rjv-uu-mjA"/>
+        <segue reference="Qrp-gL-lLx"/>
     </inferredMetricsTieBreakers>
 </document>

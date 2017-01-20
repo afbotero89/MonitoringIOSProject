@@ -310,6 +310,7 @@
 		D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */; };
 		D875659F1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */; };
 		D889758B1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */; };
+		D89A079C1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */; };
 		D89D21921E0C784A00F487C4 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
 		D89D21A01E0C784E00F487C4 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
 		D8A14FD81E0B1EE10035B622 /* BWCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */; };
@@ -570,6 +571,7 @@
 		D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationDetailTableViewController.swift; sourceTree = "<group>"; };
 		D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GBCDataBaseQueriesUserAdmin.swift; path = ../GBCDataBaseQueriesUserAdmin.swift; sourceTree = "<group>"; };
 		D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCAdd_EditNewUserTableViewController.swift; sourceTree = "<group>"; };
+		D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBC_BLEConfigurationTableViewController.swift; sourceTree = "<group>"; };
 		D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -946,6 +948,7 @@
 				D86DC6AE1D30396600B3D69B /* GBCUserConfigurationMasterTableViewController.swift */,
 				D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */,
 				D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */,
+				D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */,
 			);
 			name = UserConfiguration;
 			sourceTree = "<group>";
@@ -1410,6 +1413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D89A079C1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift in Sources */,
 				D83E0F731CD13D5900300593 /* GBCPlotsViewController.swift in Sources */,
 				B5FA03371CF428F0003EB9E6 /* GBCSettingsHour.swift in Sources */,
 				B505D3DD1CE820F10054E2BC /* DayCollectionCell.swift in Sources */,

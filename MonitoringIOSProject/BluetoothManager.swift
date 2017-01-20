@@ -574,6 +574,14 @@ extension BluetoothManager:CBCentralManagerDelegate{
         //TODO:Verify if a more rigurous selection of the device is requiered. What if several devices have the same services?
         // It is important to have a reference to the peripheral that will be connected. Otherwise, the connection does not succeed (seems to be a bug?)
         print(peripheral.name)
+        
+        if peripheral.name != nil{
+            PressureMonitors.monitorsNearby.insert(peripheral.name!)
+            print("monitores cerca")
+            print(PressureMonitors.monitorsNearby)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterMonitorsNearby"), object: nil, userInfo: nil)
+        }
+        
         //if peripheral.identifier.UUIDString == self.monitorDeviceUUIDString{
         if peripheral.name == BluetoothManager.monitorServiceName{
             print("Will attempt to connect. The peripheral UUID \(peripheral.identifier)")

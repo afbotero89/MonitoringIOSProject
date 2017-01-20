@@ -24,6 +24,7 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var emailLabel: UILabel!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +35,14 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
                                                          name: NSNotification.Name(rawValue: "add_editNewUser"),
                                                          
                                                          object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               
+                                               selector: #selector(GBCUserConfigurationDetailTableViewController.reloadTableViewController),
+                                               
+                                               name: NSNotification.Name(rawValue: "reloadDetailAdminUserPanel"),
+                                               
+                                               object: nil)
 
         userNameCell.imageView?.image = UIImage(named: "User")
         
@@ -124,6 +133,10 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.layer.cornerRadius = 5.0
+    }
+    
+    func reloadTableViewController(){
+        self.tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: UITableViewRowAnimation.automatic)
     }
 
     /*
