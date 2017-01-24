@@ -84,8 +84,12 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         return 1
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Registered users"
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0
+        return 80.0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,14 +106,28 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellUserConfigurationMaster", for: indexPath)
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "cellUserConfigurationMaster", for: indexPath)
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cellUserConfigurationMaster")
+        
         let name = (PatientListStruct.patientList?.object(at: indexPath.row) as AnyObject).value(forKey: "name")
+        
         let document = (PatientListStruct.patientList?.object(at: indexPath.row) as AnyObject).value(forKey: "document")
+        
         //let name = PatientListStruct.patientList!.value(forKey: "result")![(indexPath as NSIndexPath).row].value(forKey: "name")
         
         // Configure the cell...
-        cell.textLabel?.text = String(describing: name)
-        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        cell.textLabel?.text = String(describing: name!)
+        
+        cell.detailTextLabel?.text = "Asigned monitor: False"
+        
+        cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        
+        cell.imageView?.image = UIImage(named: "MonitorAssigned")
+        
+        //cell.detailTextLabel?.textColor = UIColor.black
+        
+        //cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         
         return cell
     }
@@ -141,30 +159,33 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         return true
     }
     */
-
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return true
+    }
     
     // Override to support editing the table view.
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            //objects.remove(at: indexPath.row)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if editingStyle == .delete
+        {
+            
+            //yourArray.remove(at: indexPath.row)
             PatientListStruct.numberOfPatientsInDataBases = PatientListStruct.numberOfPatientsInDataBases! - 1
+            
             let id = ((PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "id") as! NSString).intValue
             
             let name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")!
             
             let document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")!
             
-            
             queriesUserAdmin.removePatient(Int(id), name: String(describing: name), document: String(describing: document))
             
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+            tableView.reloadData()
         }
     }
     
-
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {

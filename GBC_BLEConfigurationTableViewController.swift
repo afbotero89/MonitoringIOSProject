@@ -56,10 +56,17 @@ class GBC_BLEConfigurationTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bleListCell", for: indexPath)
         
         cell.textLabel?.text = PressureMonitors.monitorsNearby[PressureMonitors.monitorsNearby.index(PressureMonitors.monitorsNearby.startIndex, offsetBy: indexPath.row)]
-        cell.detailTextLabel?.text = "id:"
+        cell.detailTextLabel?.text = "UUID: BDCBCB68-4353-4540-AEE4-9D4D9295121A"
+        
+        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+        
         // Configure the cell...
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
     }
     
     func reloadTableViewController(){

@@ -204,6 +204,8 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
                 PatientListStruct.numberOfPatientsInDataBases = PatientListStruct.patientList?.count
             
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterAdminUserPanel"), object: nil, userInfo: nil)
+                
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadDetailAdminUserPanel"), object: nil, userInfo: nil)
             }
             
          }).resume()

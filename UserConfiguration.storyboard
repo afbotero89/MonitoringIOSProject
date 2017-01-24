@@ -715,11 +715,11 @@
             </objects>
             <point key="canvasLocation" x="3242" y="484"/>
         </scene>
-        <!--Item-->
+        <!--Patients-->
         <scene sceneID="HbH-b6-n90">
             <objects>
                 <splitViewController storyboardIdentifier="splitRootViewController" id="H1P-rV-HBx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ea5-55-LNr"/>
+                    <tabBarItem key="tabBarItem" title="Patients" image="userAdministration" id="ea5-55-LNr"/>
                     <connections>
                         <segue destination="j1V-WG-ABA" kind="relationship" relationship="masterViewController" id="Tf7-Cg-uOM"/>
                         <segue destination="rfR-9g-aoN" kind="relationship" relationship="detailViewController" id="Rjv-uu-mjA"/>
@@ -738,12 +738,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bleListCell" id="efY-a8-b2Y">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bleListCell" textLabel="cOx-f7-N1m" detailTextLabel="CDA-YZ-cjq" style="IBUITableViewCellStyleSubtitle" id="efY-a8-b2Y">
                                 <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="efY-a8-b2Y" id="hYx-i6-WIg">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cOx-f7-N1m">
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CDA-YZ-cjq">
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -812,11 +828,11 @@
             </objects>
             <point key="canvasLocation" x="2410" y="484"/>
         </scene>
-        <!--Item-->
+        <!--Pressure monitors-->
         <scene sceneID="NkF-Po-RJK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vn7-TG-yqX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="oA3-XX-EbP"/>
+                    <tabBarItem key="tabBarItem" title="Pressure monitors" image="Configuration" id="oA3-XX-EbP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rcP-n9-b4v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -833,9 +849,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Configuration" width="30" height="30"/>
         <image name="home" width="32" height="32"/>
+        <image name="userAdministration" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qrp-gL-lLx"/>
+        <segue reference="Rjv-uu-mjA"/>
     </inferredMetricsTieBreakers>
 </document>

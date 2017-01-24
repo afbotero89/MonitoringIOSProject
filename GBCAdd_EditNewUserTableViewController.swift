@@ -86,9 +86,7 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
 
                 
                 queriesUserAdmin.editPatient(Int(last_id), last_name: last_name as! String, last_document: last_document as! String, name: userNameLabel.text!, document: userIdLabel.text!, age: userAgeLabel.text!, gender: userGenderLabel.text!, email: emailLabel.text!, pass: "1", profile: "1")
-                
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadDetailAdminUserPanel"), object: nil, userInfo: nil)
-                
+            
                 
                 
             }
