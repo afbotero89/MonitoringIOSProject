@@ -19,7 +19,7 @@ struct PressureMonitors{
 
 struct PatientListStruct{
     
-    static var patientList:NSArray?
+    static var patientList = [AnyObject]()
     
     static var editOrAddNewUser:UserConfigurationEditOrAddNewPatient?
     

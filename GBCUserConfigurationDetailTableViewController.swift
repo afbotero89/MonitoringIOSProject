@@ -70,20 +70,33 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         
         //if Users.userName.count > 0 && Users.userId.count > 0 && Users.age.count > 0 && Users.gender.count > 0{
         
-        if PatientListStruct.patientList != nil{
+        if PatientListStruct.patientList.count != 0{
             
-            let name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
-            let document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")
-            let age = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "age")
-            let gender = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "gender")
-            let email = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
+            let name = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "name")
+            let document = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "document")
+            let age = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "age")
+            let gender = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "gender")
+            let email = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "name")
             userNameTextLabel.text = String(describing: name!)
             userIdLabel.text = String(describing: document!)
             ageLabel.text = String(describing: age!)
             genderLabel.text = String(describing: gender!)
             emailLabel.text = String(describing: email!)
  
+        }else{
+            userNameTextLabel.text = "nil"
+            userIdLabel.text = "nil"
+            ageLabel.text = "nil"
+            genderLabel.text = "nil"
+            emailLabel.text = "nil"
+        
         }
+        
+        userNameTextLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        userIdLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        ageLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        genderLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        emailLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         //}
 
     }

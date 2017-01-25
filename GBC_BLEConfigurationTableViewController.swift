@@ -60,6 +60,14 @@ class GBC_BLEConfigurationTableViewController: UITableViewController {
         
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
         
+        var imageView : UIImageView?
+        
+        imageView  = UIImageView(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
+        
+        imageView?.image = UIImage(named:"Configuration3")
+        
+        cell.accessoryView = imageView
+        
         // Configure the cell...
 
         return cell

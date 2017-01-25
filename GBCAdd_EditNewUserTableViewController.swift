@@ -80,9 +80,9 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
             case .editNewPatient:
                 
                 //queriesUserAdmin.editPatientByID(1, branch_id: branch_id, name:userNameLabel.text!, document:userIdLabel.text!, age:userAgeLabel.text!, gender:userGenderLabel.text!, email:emailLabel.text!)
-                let last_id = ((PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "id") as! NSString).intValue
-                let last_name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
-                let last_document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")
+                let last_id = ((PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "id") as! NSString).intValue
+                let last_name = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "name")
+                let last_document = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "document")
 
                 
                 queriesUserAdmin.editPatient(Int(last_id), last_name: last_name as! String, last_document: last_document as! String, name: userNameLabel.text!, document: userIdLabel.text!, age: userAgeLabel.text!, gender: userGenderLabel.text!, email: emailLabel.text!, pass: "1", profile: "1")
@@ -127,11 +127,11 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                 
                 if PatientListStruct.patientList != nil{
                     
-                    let name = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "name")
-                    let document = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "document")
-                    let age = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "age")
-                    let gender = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "gender")
-                    let email = (PatientListStruct.patientList?.object(at: userSelectPatient) as AnyObject).value(forKey: "mail")
+                    let name = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "name")
+                    let document = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "document")
+                    let age = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "age")
+                    let gender = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "gender")
+                    let email = (PatientListStruct.patientList[userSelectPatient] as AnyObject).value(forKey: "mail")
                 
                     userNameLabel.text = String(describing: name!)
                     userIdLabel.text = String(describing: document!)

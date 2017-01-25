@@ -195,13 +195,13 @@ class GBCDataBaseQueriesUserAdmin:NSObject{
             // If there are patients in database
             if (patientsInDB.count != 0){
             
-                PatientListStruct.patientList = patientsInDB
+                PatientListStruct.patientList = patientsInDB as [AnyObject]
             
                 let name = patientsInDB.object(at: 0)
             
                 print("server response = \((name as AnyObject))")
             
-                PatientListStruct.numberOfPatientsInDataBases = PatientListStruct.patientList?.count
+                PatientListStruct.numberOfPatientsInDataBases = PatientListStruct.patientList.count
             
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadMasterAdminUserPanel"), object: nil, userInfo: nil)
                 
