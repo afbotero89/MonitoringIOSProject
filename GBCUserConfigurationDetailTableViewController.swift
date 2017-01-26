@@ -92,11 +92,11 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
         
         }
         
-        userNameTextLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
-        userIdLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
-        ageLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
-        genderLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
-        emailLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
+        userNameTextLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+        userIdLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+        ageLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+        genderLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+        emailLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
         //}
 
     }
@@ -116,6 +116,18 @@ class GBCUserConfigurationDetailTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10.0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 1{
+            return 60.0
+        }else{
+            return 50.0
+        }
+    }
 /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections

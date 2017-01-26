@@ -667,15 +667,15 @@
                                                     <exclude reference="Whj-wg-0XK"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="7B1-iZ-dh0"/>
+                                                    <exclude reference="JXe-3u-WBN"/>
+                                                    <exclude reference="y5D-PG-Hyd"/>
                                                     <exclude reference="55t-2w-28q"/>
                                                     <exclude reference="RTm-er-ebR"/>
                                                     <exclude reference="nm3-my-bo9"/>
-                                                    <exclude reference="7B1-iZ-dh0"/>
-                                                    <exclude reference="fz0-Id-KeN"/>
-                                                    <exclude reference="JXe-3u-WBN"/>
-                                                    <exclude reference="y5D-PG-Hyd"/>
                                                     <exclude reference="ypq-3b-iLL"/>
                                                     <exclude reference="bmG-2Q-img"/>
+                                                    <exclude reference="fz0-Id-KeN"/>
                                                     <exclude reference="B7N-3z-Vpt"/>
                                                 </mask>
                                             </variation>
@@ -688,15 +688,15 @@
                                                     <include reference="Whj-wg-0XK"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="7B1-iZ-dh0"/>
+                                                    <include reference="JXe-3u-WBN"/>
+                                                    <include reference="y5D-PG-Hyd"/>
                                                     <include reference="55t-2w-28q"/>
                                                     <include reference="RTm-er-ebR"/>
                                                     <include reference="nm3-my-bo9"/>
-                                                    <include reference="7B1-iZ-dh0"/>
-                                                    <include reference="fz0-Id-KeN"/>
-                                                    <include reference="JXe-3u-WBN"/>
-                                                    <include reference="y5D-PG-Hyd"/>
                                                     <include reference="ypq-3b-iLL"/>
                                                     <include reference="bmG-2Q-img"/>
+                                                    <include reference="fz0-Id-KeN"/>
                                                     <include reference="B7N-3z-Vpt"/>
                                                 </mask>
                                             </variation>

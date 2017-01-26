@@ -80,7 +80,46 @@ class GBC_BLEConfigurationTableViewController: UITableViewController {
     func reloadTableViewController(){
         self.tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: UITableViewRowAnimation.automatic)
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        displayPatientList(indexPath: indexPath)
+    }
  
+    
+    func displayPatientList(indexPath: IndexPath){
+        
+        let selectedCellSourceView = tableView.cellForRow(at: indexPath)
+        
+        let selectedCellSourceRect = selectedCellSourceView?.bounds
+        
+        let storyboard = UIStoryboard(name: "UserConfiguration", bundle: nil)
+        
+        let documentationTableViewController = storyboard.instantiateViewController(withIdentifier: "patientList")
+        documentationTableViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+        let popover = documentationTableViewController.popoverPresentationController!
+        documentationTableViewController.preferredContentSize = CGSize(width: 400,height: 550)
+        
+        popover.permittedArrowDirections = .any
+        
+        popover.sourceView = selectedCellSourceView
+        popover.sourceRect = selectedCellSourceRect!
+        
+        /*
+        // Depending on the source, set the popover properties accordingly.
+        if let barButtonItem = sender as? UIBarButtonItem{
+            popover.barButtonItem = barButtonItem
+        } else if let view = sender as? UIView{
+            popover.sourceView = view
+            popover.sourceRect = view.bounds
+            
+        }*/
+        
+        //popover.delegate = self
+        //NSNotificationCenter.defaultCenter().postNotificationName("sendCurrentTimeToPeripheral", object: nil, userInfo: nil)
+        
+        self.present(documentationTableViewController, animated: true, completion: nil)
+    
+    }
 
     /*
     // Override to support conditional editing of the table view.

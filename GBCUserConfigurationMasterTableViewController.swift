@@ -123,7 +123,7 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         
         cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
         
-        cell.imageView?.image = UIImage(named: "MonitorAssigned")
+        cell.imageView?.image = UIImage(named: "MonitorNo-Assigned")
         
         
         //cell.detailTextLabel?.textColor = UIColor.black

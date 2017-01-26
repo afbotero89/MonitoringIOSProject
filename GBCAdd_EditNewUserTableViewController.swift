@@ -139,12 +139,26 @@ class GBCAdd_EditNewUserTableViewController: UITableViewController {
                     userGenderLabel.text = String(describing: gender!)
                     emailLabel.text = String(describing: email)
                 }
+            
+                userNameLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+                userIdLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+                userAgeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+                userGenderLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
+                emailLabel.font = UIFont(name: "HelveticaNeue-Light", size: 22.0)
             //}
         }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.layer.cornerRadius = 5.0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 1{
+            return 60.0
+        }else{
+            return 50.0
+        }
     }
     
     // MARK: - Table view data source

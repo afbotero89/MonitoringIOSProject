@@ -310,6 +310,8 @@
 		D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */; };
 		D875659F1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */; };
 		D889758B1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */; };
+		D88CD8A41E3A5750003A6F1C /* GBCPatientListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88CD8A31E3A5750003A6F1C /* GBCPatientListTableViewController.swift */; };
+		D88CD8A51E3A5750003A6F1C /* GBCPatientListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88CD8A31E3A5750003A6F1C /* GBCPatientListTableViewController.swift */; };
 		D89A079C1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */; };
 		D89D21921E0C784A00F487C4 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
 		D89D21A01E0C784E00F487C4 /* GBCAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B544D9AB1D04F2CE00248390 /* GBCAnimationView.m */; };
@@ -571,6 +573,7 @@
 		D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUserConfigurationDetailTableViewController.swift; sourceTree = "<group>"; };
 		D875659E1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GBCDataBaseQueriesUserAdmin.swift; path = ../GBCDataBaseQueriesUserAdmin.swift; sourceTree = "<group>"; };
 		D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCAdd_EditNewUserTableViewController.swift; sourceTree = "<group>"; };
+		D88CD8A31E3A5750003A6F1C /* GBCPatientListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCPatientListTableViewController.swift; sourceTree = "<group>"; };
 		D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBC_BLEConfigurationTableViewController.swift; sourceTree = "<group>"; };
 		D8FDC8A61CD9091F002A702F /* GBCCurrentMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -949,6 +952,7 @@
 				D86DC6B01D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift */,
 				D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */,
 				D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */,
+				D88CD8A31E3A5750003A6F1C /* GBCPatientListTableViewController.swift */,
 			);
 			name = UserConfiguration;
 			sourceTree = "<group>";
@@ -1419,6 +1423,7 @@
 				B505D3DD1CE820F10054E2BC /* DayCollectionCell.swift in Sources */,
 				D86DC6B11D30398200B3D69B /* GBCUserConfigurationDetailTableViewController.swift in Sources */,
 				D8FDC8A71CD9091F002A702F /* GBCCurrentMeasurementViewController.swift in Sources */,
+				D88CD8A41E3A5750003A6F1C /* GBCPatientListTableViewController.swift in Sources */,
 				D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
 				D81015271D42A00000735568 /* ViewControllerPatientVersion.swift in Sources */,
 				D83E0F761CD1565100300593 /* GBCEnumerations.swift in Sources */,
@@ -1474,6 +1479,7 @@
 				B505D3DE1CE820F10054E2BC /* DayCollectionCell.swift in Sources */,
 				D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */,
 				B505D3D61CE820F10054E2BC /* CalendarLogic.swift in Sources */,
+				D88CD8A51E3A5750003A6F1C /* GBCPatientListTableViewController.swift in Sources */,
 				B505D3E21CE820F10054E2BC /* MonthCollectionCell.swift in Sources */,
 				B505D3FE1CE821DD0054E2BC /* CBCCalendarViewController.swift in Sources */,
 			);
