@@ -110,14 +110,18 @@ class GBCUserConfigurationMasterTableViewController: UITableViewController {
         
         //let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cellUserConfigurationMaster")
         
-        let name = (PatientListStruct.patientList[indexPath.row] as AnyObject).value(forKey: "name")
+        if PatientListStruct.patientList.count != 0{
         
-        let document = (PatientListStruct.patientList[indexPath.row] as AnyObject).value(forKey: "document")
+            let name = (PatientListStruct.patientList[indexPath.row] as AnyObject).value(forKey: "name")
         
-        //let name = PatientListStruct.patientList!.value(forKey: "result")![(indexPath as NSIndexPath).row].value(forKey: "name")
+            let document = (PatientListStruct.patientList[indexPath.row] as AnyObject).value(forKey: "document")
         
-        // Configure the cell...
-        cell.textLabel?.text = String(describing: name!)
+            //let name = PatientListStruct.patientList!.value(forKey: "result")![(indexPath as NSIndexPath).row].value(forKey: "name")
+        
+            // Configure the cell...
+            cell.textLabel?.text = String(describing: name!)
+            
+        }
         
         cell.detailTextLabel?.text = "Asigned monitor: False"
         

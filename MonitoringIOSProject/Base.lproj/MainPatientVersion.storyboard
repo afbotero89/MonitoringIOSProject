@@ -403,7 +403,7 @@
                                             <rect key="frame" x="8" y="8" width="584" height="408"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1YT-Ww-akF">
-                                                    <rect key="frame" x="257" y="30" width="239" height="95"/>
+                                                    <rect key="frame" x="256.5" y="30" width="239" height="95"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8he-kK-7Js">
                                                             <rect key="frame" x="0.0" y="0.0" width="239" height="43"/>
@@ -458,7 +458,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iHf-Mi-9EX">
-                                                    <rect key="frame" x="257" y="160" width="239" height="95"/>
+                                                    <rect key="frame" x="256.5" y="160" width="239" height="95"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zqb-7j-mAH">
                                                             <rect key="frame" x="0.0" y="0.0" width="239" height="43"/>
@@ -513,7 +513,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zhe-Ng-obg">
-                                                    <rect key="frame" x="257" y="333" width="239" height="95"/>
+                                                    <rect key="frame" x="256.5" y="333" width="239" height="95"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQH-Yv-hyG">
                                                             <rect key="frame" x="0.0" y="0.0" width="239" height="43"/>
@@ -590,10 +590,10 @@
                                                     </variation>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Whj-wg-0XK">
-                                                    <rect key="frame" x="274" y="465" width="204" height="95"/>
+                                                    <rect key="frame" x="274.5" y="465" width="203.5" height="95"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvj-Yh-YK2">
-                                                            <rect key="frame" x="0.0" y="0.0" width="204" height="43"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="203.5" height="43"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HeartRate" translatesAutoresizingMaskIntoConstraints="NO" id="lR0-NY-HCB">
                                                                     <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
@@ -615,7 +615,7 @@
                                                                     </variation>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8V-pT-rbe">
-                                                                    <rect key="frame" x="43" y="0.0" width="161" height="43"/>
+                                                                    <rect key="frame" x="43" y="0.0" width="160.5" height="43"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content="Heart rate:">
                                                                             <attributes>
@@ -630,7 +630,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5N-19-sX8">
-                                                            <rect key="frame" x="0.0" y="43" width="204" height="52"/>
+                                                            <rect key="frame" x="0.0" y="43" width="203.5" height="52"/>
                                                             <attributedString key="attributedText">
                                                                 <fragment content="0000 BPM">
                                                                     <attributes>

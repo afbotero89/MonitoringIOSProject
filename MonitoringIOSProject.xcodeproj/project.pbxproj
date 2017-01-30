@@ -301,6 +301,8 @@
 		D84CD8521CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84CD8531CD7FAAE00B35B18 /* BWCircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */; };
 		D84D65FE1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */; };
+		D84F938C1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F938B1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift */; };
+		D84F938D1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84F938B1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift */; };
 		D8642BF81D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8642BF71D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift */; };
 		D8646FA01DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8646F9F1DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift */; };
 		D86639041D5A4C09007CE075 /* 60Hz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D86639031D5A4C09007CE075 /* 60Hz.mp3 */; };
@@ -565,6 +567,7 @@
 		D84CD84C1CD7FA1800B35B18 /* BWCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSlider.swift; sourceTree = "<group>"; };
 		D84CD8511CD7FAAE00B35B18 /* BWCircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWCircularSliderView.swift; sourceTree = "<group>"; };
 		D84D65FD1CEB75EB005AA1F1 /* GBCBatteryLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCBatteryLevelViewController.swift; sourceTree = "<group>"; };
+		D84F938B1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GBCPatientHistoryViewController.swift; path = MonitoringIOSProject/GBCPatientHistoryViewController.swift; sourceTree = "<group>"; };
 		D8642BF71D50068A00634BFB /* GBCUploadMeassuresAndSignalsToRemoteServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCUploadMeassuresAndSignalsToRemoteServer.swift; sourceTree = "<group>"; };
 		D8646F9F1DA58DB7005298CA /* GBCCurrentMeasurementPatientVersionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GBCCurrentMeasurementPatientVersionTableViewController.swift; path = ../GBCCurrentMeasurementPatientVersionTableViewController.swift; sourceTree = "<group>"; };
 		D86639031D5A4C09007CE075 /* 60Hz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 60Hz.mp3; sourceTree = "<group>"; };
@@ -953,6 +956,7 @@
 				D889758A1D33FC250053E974 /* GBCAdd_EditNewUserTableViewController.swift */,
 				D89A079B1E313D8D006A23E9 /* GBC_BLEConfigurationTableViewController.swift */,
 				D88CD8A31E3A5750003A6F1C /* GBCPatientListTableViewController.swift */,
+				D84F938B1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift */,
 			);
 			name = UserConfiguration;
 			sourceTree = "<group>";
@@ -1440,6 +1444,7 @@
 				B505D3D71CE820F10054E2BC /* CalendarView.swift in Sources */,
 				D83E0F211CD137C900300593 /* ViewController.swift in Sources */,
 				D84920631CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift in Sources */,
+				D84F938C1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift in Sources */,
 				B505D3DB1CE820F10054E2BC /* Date.swift in Sources */,
 				B50341401CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,
@@ -1471,6 +1476,7 @@
 			files = (
 				B505D3D81CE820F10054E2BC /* CalendarView.swift in Sources */,
 				B505D3E81CE820F10054E2BC /* WeekHeaderView.swift in Sources */,
+				D84F938D1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift in Sources */,
 				B505D3DC1CE820F10054E2BC /* Date.swift in Sources */,
 				B544D9B31D04F48000248390 /* CBCAnimationViewController.swift in Sources */,
 				D89D21A01E0C784E00F487C4 /* GBCAnimationView.m in Sources */,
