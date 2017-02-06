@@ -18,7 +18,7 @@ class DayCollectionCell: UICollectionViewCell {
     @IBOutlet var markedViewWidth: NSLayoutConstraint!
     @IBOutlet var markedViewHeight: NSLayoutConstraint!
     
-    let requestGetDayMonthYearDataBaseSQL = NSMutableURLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseGetDayMonthYear.php")! as URL)
+    let requestGetDayMonthYearDataBaseSQL = GBCUploadMeassuresAndSignalsToRemoteServer()
     
     var serverResponse:NSString?
     
@@ -29,21 +29,21 @@ class DayCollectionCell: UICollectionViewCell {
             
             if date != nil {
                 
-                getDataFromDataBaseSQLDayMonthYear()
+                requestGetDayMonthYearDataBaseSQL.getDataFromDataBaseSQLDayMonthYear()
     
                 vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
                 
                 if PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL == nil{
                 
                 }else{
-                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
+                    vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL!.components(separatedBy: ",")
                 }
-                
+
                 label.text = "\(date!.day)"
-                view.frame = CGRect(x: 35, y: 5, width: 5, height: 5)
+                view.frame = CGRect(x: 35, y: 5, width: 15, height: 15)
                 view.layer.cornerRadius = 3
                 
-            view.backgroundColor = UIColor.groupTableViewBackground
+                view.backgroundColor = UIColor.groupTableViewBackground
                 
             if vectorDatesStoredInDataBases != nil{
                 
@@ -67,7 +67,7 @@ class DayCollectionCell: UICollectionViewCell {
                         dayString = "\(date!.day)"
                     }
                     
-                    if "\(date!.year)" + "-" + "\(monthString!)" + "-" + "\(dayString!)" == i {
+                    if "\(dayString!)" + "/" + "\(monthString!)" + "/" + "\(date!.year)"  == i {
                         view.backgroundColor = UIColor.red
                         
                     }
@@ -99,32 +99,6 @@ class DayCollectionCell: UICollectionViewCell {
                 markedView!.isHidden = true
             }
         }
-    }
-    
-    func getDataFromDataBaseSQLDayMonthYear(){
-        
-        requestGetDayMonthYearDataBaseSQL.httpMethod = "POST"
-        
-        let postString = ""
-        
-        requestGetDayMonthYearDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
-
-        let task = URLSession.shared.dataTask(with: requestGetDayMonthYearDataBaseSQL as URLRequest) {
-            data, response, error in
-            
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            
-            self.serverResponse = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            
-            PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL = self.serverResponse
-            
-        }
-        
-        task.resume()
-        
     }
     
     override func layoutSubviews() {

@@ -70,7 +70,7 @@ class BluetoothManager: NSObject{
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
     //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
     
-    let monitorDeviceUUIDString:String = "EA8A63C5-4B86-CDE2-200C-8EE9918FD2AA"
+    let monitorDeviceUUIDString:String = "85F3CA4D-DC52-4598-9964-500BC17B1D86"
     
     //let monitorDeviceUUIDString:String = "BB8DC5A4-5AA4-6656-00FD-188D16815EB2"
     
@@ -78,7 +78,7 @@ class BluetoothManager: NSObject{
     //static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     static let monitorserviceUUIDString:String = "EF080D8C-C3BE-41FF-BD3F-05A5F4795D7F"
     
-    static let monitorServiceName:String = "Pressure Monitor"
+    static let monitorServiceName:String = "Pressure Sensor 1"
     
     /// Read characteristic string UUID for the BLEBee Service
     //static let rxBLEBeeSeviceCharacteristicUUIDString:String = "A1E8F5B1-696B-4E4C-87C6-69DFE0B0093B"

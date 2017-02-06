@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B50341401CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503413F1CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift */; };
+		B50341401CE9A0280064B828 /* GBCSavedHistoryGraphsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503413F1CE9A0280064B828 /* GBCSavedHistoryGraphsViewController.swift */; };
 		B505D3D51CE820F10054E2BC /* CalendarLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3CA1CE820F10054E2BC /* CalendarLogic.swift */; };
 		B505D3D61CE820F10054E2BC /* CalendarLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3CA1CE820F10054E2BC /* CalendarLogic.swift */; };
 		B505D3D71CE820F10054E2BC /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505D3CB1CE820F10054E2BC /* CalendarView.swift */; };
@@ -396,7 +396,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B503413F1CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCSavedHistoryGraphsViewController1.swift; sourceTree = "<group>"; };
+		B503413F1CE9A0280064B828 /* GBCSavedHistoryGraphsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCSavedHistoryGraphsViewController.swift; sourceTree = "<group>"; };
 		B505D3CA1CE820F10054E2BC /* CalendarLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogic.swift; sourceTree = "<group>"; };
 		B505D3CB1CE820F10054E2BC /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		B505D3CC1CE820F10054E2BC /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
@@ -632,7 +632,7 @@
 			isa = PBXGroup;
 			children = (
 				B505D3FC1CE821DD0054E2BC /* CBCCalendarViewController.swift */,
-				B503413F1CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift */,
+				B503413F1CE9A0280064B828 /* GBCSavedHistoryGraphsViewController.swift */,
 			);
 			name = SavedHistoryGraphs;
 			sourceTree = "<group>";
@@ -1446,7 +1446,7 @@
 				D84920631CDA5CAA00AB611B /* GBCAditionalInformationPopupViewController.swift in Sources */,
 				D84F938C1E3FE58A0063E87D /* GBCPatientHistoryViewController.swift in Sources */,
 				B505D3DB1CE820F10054E2BC /* Date.swift in Sources */,
-				B50341401CE9A0280064B828 /* GBCSavedHistoryGraphsViewController1.swift in Sources */,
+				B50341401CE9A0280064B828 /* GBCSavedHistoryGraphsViewController.swift in Sources */,
 				D83E0F1F1CD137C900300593 /* AppDelegate.swift in Sources */,
 				D81015251D42879500735568 /* GBCCurrentMeasurementViewControllerPatientVersion.swift in Sources */,
 				D875659F1D4A6D6D008703F1 /* GBCDataBaseQueriesUserAdmin.swift in Sources */,

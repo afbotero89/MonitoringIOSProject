@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GBCSavedHistoryGraphsViewController1: GBCPlotsViewController {
+class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
 
     @IBOutlet weak var titleLabelUserSelectedDate: UILabel!
     

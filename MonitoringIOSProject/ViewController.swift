@@ -662,7 +662,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 }else{
                     appendData = (String(VectorPhysiologicalVariables.systolicPressure.last!) + String(VectorPhysiologicalVariables.diastolicPressure.last!) + String(VectorPhysiologicalVariables.averagePressure.last!) + String(VectorPhysiologicalVariables.heartRate.last!) + String(measuringTimeDevice)) + ","
                 }
-
+                
+                appendData = "datos"
+                
                 defaults.setValue(appendData, forKey: "medidas")
                 
                 memoryDevice = String(describing: defaults.value(forKey: "medidas")!)

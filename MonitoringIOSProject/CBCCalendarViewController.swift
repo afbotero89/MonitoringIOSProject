@@ -69,7 +69,12 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     func didSelectDate(_ date: Foundation.Date) {
-        PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =  "\(date.year)-\(date.month)-\(date.day)"
+        PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =
+        "\(date.day)/\(date.month)/\(date.year)"
+        
+        print("dato seleccionado\n")
+        print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
+        
         
         if activeCalendarViewController == true{
             getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)

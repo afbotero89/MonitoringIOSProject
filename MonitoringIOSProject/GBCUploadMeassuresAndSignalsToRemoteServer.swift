@@ -11,10 +11,13 @@ import Foundation
 
 class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     
+    
+    // Instances web service functions
     /// Request to remote data base sql: Type post  -> GIBIC server
     var requestSetDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_slim/v1/public/pressure/meassure/save")!)
     
     
+    // Instances GIBIC server
     /// Request to remote data base sql: Type post  -> GIBIC server
     //var requestSetDataBaseSQL_GIBICServer = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseInsertData.php")!)
     //var requestSetDataBaseSQL_GIBICServer = URLRequest(url: URL(string:"http://localhost/appMonitoreo/querysToDatabaseInsertData.php")!)
@@ -23,6 +26,8 @@ class GBCUploadMeassuresAndSignalsToRemoteServer:NSObject{
     
     /// Request to remote data base sql: Type get
     var requestGetDayMonthYearDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseGetDayMonthYear.php")!)
+    
+    var requestGetDataBaseSQL = URLRequest(url: URL(string:"http://www.testgibic.com/app_pressure_monitor/querysToDatabaseGetDataForDate.php")!)
     
     var serverResponse:NSString?
     
