@@ -68,9 +68,9 @@ class BluetoothManager: NSObject{
     
     /// Device UUID. Given that we might have several devices with the same services, a match between the iOS device and the BLE device must be performed. This configuration must be done as a setup of the application, and store the UUID of the device in the NSUserDefaults.
     //let monitorDeviceUUIDString:String = "CFE88BC2-233E-B2D0-50C0-BB68FE22998A" //TODO: selection of device from user input. Store in NSUserDefaults.
-    //let monitorDeviceUUIDString:String = "1DBE05DE-619B-896D-25DC-36B7E942BC90"
+    let monitorDeviceUUIDString:String = "BBB2DC14-92CD-4A3A-9B94-5641AFB1CA06"
     
-    let monitorDeviceUUIDString:String = "85F3CA4D-DC52-4598-9964-500BC17B1D86"
+    //let monitorDeviceUUIDString:String = "85F3CA4D-DC52-4598-9964-500BC17B1D86"
     
     //let monitorDeviceUUIDString:String = "BB8DC5A4-5AA4-6656-00FD-188D16815EB2"
     
@@ -369,9 +369,9 @@ class BluetoothManager: NSObject{
                 let str:String?
                 if UserSelectedConfiguration.userSelectMeasurementTime < 10{
                     //str = "00:01:00254,"
-                    str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
+                    str = "00:0\(UserSelectedConfiguration.userSelectMeasurementTime!):00254,"
                 }else{
-                    str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime):00254,"
+                    str = "00:\(UserSelectedConfiguration.userSelectMeasurementTime!):00254,"
                 }
                 
                 let data = str!.data(using: String.Encoding.utf8)
