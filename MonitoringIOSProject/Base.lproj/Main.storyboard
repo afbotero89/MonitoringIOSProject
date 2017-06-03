@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="IG1-hq-OhC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="IG1-hq-OhC">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
         <!--Monitoring-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="initialView" id="BYZ-38-t0r" customClass="ViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initialView" id="BYZ-38-t0r" customClass="ViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -50,6 +50,7 @@
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Si4-00-uDv">
                                 <rect key="frame" x="0.0" y="64" width="768" height="44"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem id="uST-cI-jLf">
                                         <barButtonItem key="rightBarButtonItem" image="AutoSet" id="3ON-pm-D1D">
@@ -91,8 +92,45 @@
                                     <constraint firstAttribute="height" constant="28" id="DsT-oG-do0"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQq-Qj-dal">
+                                <rect key="frame" x="88" y="108" width="681" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">  Paciente                                                                                                                                                     </string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCI-Zo-hl7">
+                                <rect key="frame" x="0.0" y="108" width="91" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="dTn-Lc-Zw1">
+                                <rect key="frame" x="10" y="118" width="79" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="  ID: 1036935699                           Medellin, Antioquia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOm-T3-XZk">
+                                <rect key="frame" x="88" y="145" width="680" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="  Tel: 3216437884                          28 años" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQL-gb-CC2">
+                                <rect key="frame" x="88" y="175" width="680" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.11372549019607843" green="0.13725490196078433" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jKl-Bq-YWP" secondAttribute="bottom" constant="24" id="1Rw-Fr-WpZ"/>
                             <constraint firstAttribute="trailing" secondItem="Si4-00-uDv" secondAttribute="trailing" id="3KI-tm-xs5"/>
@@ -111,19 +149,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
                         <leftBarButtonItems>
-                            <barButtonItem image="userAdministration" id="SKH-ko-9fV">
-                                <connections>
-                                    <action selector="userManagerButton:" destination="BYZ-38-t0r" id="cf3-5U-vCK"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="CancelM" id="zet-wh-boA">
+                            <barButtonItem title="C" id="zet-wh-boA">
                                 <connections>
                                     <action selector="cancelMeasurement:" destination="BYZ-38-t0r" id="8Hw-Kn-erz"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="sendDocument" id="P0u-3r-lpf">
-                                <connections>
-                                    <action selector="sendDocument:" destination="BYZ-38-t0r" id="U0k-PK-Ti8"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="trash" id="z5G-DZ-fgi">
@@ -160,7 +188,7 @@
         <!--User configuration-->
         <scene sceneID="uMs-gI-Hn2">
             <objects>
-                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qym-mq-K5y"/>
                         <viewControllerLayoutGuide type="bottom" id="Sue-xm-Rft"/>
@@ -169,7 +197,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="MonitoringIOSProject" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="Monitor1" customModuleProvider="target">
                                 <rect key="frame" x="127" y="147" width="347" height="306"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -233,7 +261,7 @@
         <!--General information-->
         <scene sceneID="tKF-4S-UI6">
             <objects>
-                <viewController storyboardIdentifier="generalInformation" id="aUc-0Y-hsP" customClass="GBCBatteryLevelViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="generalInformation" id="aUc-0Y-hsP" customClass="GBCBatteryLevelViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dS4-ug-ux3"/>
                         <viewControllerLayoutGuide type="bottom" id="hfv-XM-owH"/>
@@ -313,7 +341,7 @@
         <!--Historical graphics stored-->
         <scene sceneID="wgL-dx-Nry">
             <objects>
-                <viewController storyboardIdentifier="savedHistoryGraphs" title="Historical graphics stored" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="savedHistoryGraphs" title="Historical graphics stored" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7x2-ic-eai"/>
                         <viewControllerLayoutGuide type="bottom" id="B8a-Ti-xKe"/>
@@ -365,7 +393,7 @@
         <!--Animation View Controller-->
         <scene sceneID="Jte-On-Lxv">
             <objects>
-                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kCW-lP-h5P"/>
                         <viewControllerLayoutGuide type="bottom" id="lk2-k1-6jL"/>
@@ -386,7 +414,7 @@
         <!--Current Measurement-->
         <scene sceneID="5Oa-du-Yqc">
             <objects>
-                <viewController storyboardIdentifier="currentMeasurement" id="WZg-wb-XpF" customClass="GBCCurrentMeasurementViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentMeasurement" id="WZg-wb-XpF" customClass="GBCCurrentMeasurementViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GT2-RM-9QH"/>
                         <viewControllerLayoutGuide type="bottom" id="k3T-VW-5mC"/>
@@ -692,7 +720,7 @@
         <!--Calendar-->
         <scene sceneID="La9-2U-2bz">
             <objects>
-                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MGD-RA-nv8"/>
                         <viewControllerLayoutGuide type="bottom" id="SGx-S2-dhf"/>
@@ -763,7 +791,7 @@
         <!--Current Measurement-->
         <scene sceneID="h4z-ku-Lu1">
             <objects>
-                <viewController storyboardIdentifier="currentMeasurementiPhone" id="3s2-5p-4id" customClass="GBCCurrentMeasurementViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentMeasurementiPhone" id="3s2-5p-4id" customClass="GBCCurrentMeasurementViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f6K-AW-Afk"/>
                         <viewControllerLayoutGuide type="bottom" id="01N-T1-T3y"/>
@@ -1096,7 +1124,7 @@
         <image name="DiastolicPressure" width="256" height="256"/>
         <image name="HeartRate" width="256" height="256"/>
         <image name="SystolicPressure" width="256" height="256"/>
+        <image name="User" width="128" height="128"/>
         <image name="UserSelect" width="32" height="32"/>
-        <image name="userAdministration" width="32" height="32"/>
     </resources>
 </document>

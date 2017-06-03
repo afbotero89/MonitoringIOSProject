@@ -541,7 +541,7 @@
 		D81015241D42879500735568 /* GBCCurrentMeasurementViewControllerPatientVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCCurrentMeasurementViewControllerPatientVersion.swift; sourceTree = "<group>"; };
 		D81015261D42A00000735568 /* ViewControllerPatientVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPatientVersion.swift; sourceTree = "<group>"; };
 		D821AB831CE509D200B1DB64 /* GBCConfigurationMeasuringTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GBCConfigurationMeasuringTimeViewController.swift; sourceTree = "<group>"; };
-		D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonitoringIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D83E0F1B1CD137C900300593 /* Monitor1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monitor1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83E0F1E1CD137C900300593 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D83E0F201CD137C900300593 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D83E0F231CD137C900300593 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -841,7 +841,7 @@
 		D83E0F1C1CD137C900300593 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */,
+				D83E0F1B1CD137C900300593 /* Monitor1.app */,
 				D83E0F321CD137C900300593 /* MonitoringIOSProjectTests.xctest */,
 				D83E0F3D1CD137C900300593 /* MonitoringIOSProjectUITests.xctest */,
 			);
@@ -978,7 +978,7 @@
 			);
 			name = MonitoringIOSProject;
 			productName = MonitoringIOSProject;
-			productReference = D83E0F1B1CD137C900300593 /* MonitoringIOSProject.app */;
+			productReference = D83E0F1B1CD137C900300593 /* Monitor1.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D83E0F311CD137C900300593 /* MonitoringIOSProjectTests */ = {
@@ -1587,6 +1587,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1626,6 +1627,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1647,7 +1649,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Monitor1;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";
 				SWIFT_VERSION = 3.0;
@@ -1670,7 +1672,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.MonitoringIOSProject;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Monitor1;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/MonitoringIOSProject/MonitoringIOSProject-Header-File.h";
 				SWIFT_VERSION = 3.0;

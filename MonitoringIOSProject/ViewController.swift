@@ -383,26 +383,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     func addAttributesToViewController(){
         
-        let color1 = UIColor.white.cgColor
-        
-        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.7).cgColor
-        
-        gradientLayer.colors = [color1, color2]
-        
-        gradientLayer.locations = [0.1, 1]
-        
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
-        
-        gradientLayer.accessibilityElement(at: 0)
-        
-        view.layer.insertSublayer(gradientLayer, at:0)
-        
         let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.black
         nav?.tintColor = UIColor.white
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 64/255, blue: 128/255, alpha: 1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 38/255, green: 43/255, blue: 64/255, alpha: 1.0)
         
         labelHeartRate.clipsToBounds = true
         
@@ -894,7 +880,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPhone:
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!/2), width: 130, height: 80)
+                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!/1.6), width: 130, height: 80)
                 
                 // Label2: heart rate value
                 labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!) + 40, width: 130, height: 50)
@@ -905,10 +891,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 0, y: 110, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2)+10)
+                pressureContainerGraph.frame = CGRect(x: 0, y: 220, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!/2) + 120, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2)+10)
+                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!)-80, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
             }
             
         }else{
