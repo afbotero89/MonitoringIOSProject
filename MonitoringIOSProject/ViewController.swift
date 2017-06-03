@@ -121,6 +121,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         title =  NSLocalizedString("Monitoring", comment: "")
         
+        
+        PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
+        PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
         //statusConnectionLabel.text = NSLocalizedString("Scanning bluetooth", comment: "") + "..."
         
         currentMeasurementLabel.setTitle(NSLocalizedString("Get a measure", comment: ""), for: UIControlState())
@@ -1281,6 +1284,15 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     }
     @IBAction func cleanMemory(_ sender: Any) {
         defaults.removeObject(forKey: "medidas")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelPheriperalConnectionNotification"), object: nil, userInfo: nil)
+        
+        if(PressureMonitors.IDuserMonitorSelected == PressureMonitors.monitorID1){
+            PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID3
+            PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName3
+        }else{
+            PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
+            PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
+        }
     }
     
 }

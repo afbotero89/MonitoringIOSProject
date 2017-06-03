@@ -14,6 +14,12 @@ let defaults = UserDefaults.standard
 
 struct PressureMonitors{
     static var monitorsNearby:Set<String> = Set<String>()
+    static var IDuserMonitorSelected:String?
+    static var nameUserMonitorSelected:String?
+    static var monitorID1 = "F68AF695-F568-4070-9EFB-A0782C0E467A"
+    static var monitorName1 = "Pressure Monitor 1"
+    static var monitorID3 = "1B15C063-281A-4573-93AE-4EA1F0534F04"
+    static var monitorName3 = "Pressure Monitor 3"
 }
 
 
