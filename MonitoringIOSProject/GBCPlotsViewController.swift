@@ -54,7 +54,7 @@ class GBCPlotsViewController: UIViewController {
         heartRateGraph.defaultPlotSpace?.graph?.cornerRadius = 20
         
         let titleTextStyle = CPTMutableTextStyle()
-        titleTextStyle.color = CPTColor.gray()
+        titleTextStyle.color = CPTColor.white()
         titleTextStyle.fontName = "Helveltica-Neue"
         
         /*
@@ -110,11 +110,11 @@ class GBCPlotsViewController: UIViewController {
         // Grid line styles. For the X axis
         var majorGridLineStyle = CPTMutableLineStyle()
         majorGridLineStyle.lineWidth = 0.35
-        majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).withAlphaComponent(CGFloat(0.35))
+        majorGridLineStyle.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.1))
         majorGridLineStyle.dashPattern = [3, 3]
         var minorGridLineStyle = CPTMutableLineStyle()
         minorGridLineStyle.lineWidth = 0.5
-        minorGridLineStyle.lineColor = CPTColor.black().withAlphaComponent(CGFloat(0.1))
+        minorGridLineStyle.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.1))
         minorGridLineStyle.dashPattern = [3, 3]
         
         let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
@@ -194,10 +194,10 @@ class GBCPlotsViewController: UIViewController {
         var attributes:[String: AnyObject]?
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+            attributes = [ NSForegroundColorAttributeName : UIColor.white,
                                NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 12)!]
         case .iPhone:
-            attributes = [ NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+            attributes = [ NSForegroundColorAttributeName : UIColor.white,
                                NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 8)!]
         }
         
@@ -209,11 +209,11 @@ class GBCPlotsViewController: UIViewController {
         // Grid line styles. For the Y axis
         majorGridLineStyle = CPTMutableLineStyle()
         majorGridLineStyle.lineWidth = 0.75
-        majorGridLineStyle.lineColor = CPTColor(genericGray: CGFloat()).withAlphaComponent(CGFloat(0.2))
+        majorGridLineStyle.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.1))
         majorGridLineStyle.dashPattern = [3, 3]
         minorGridLineStyle = CPTMutableLineStyle()
         minorGridLineStyle.lineWidth = 0.25
-        minorGridLineStyle.lineColor = CPTColor.black().withAlphaComponent(CGFloat(0.1))
+        minorGridLineStyle.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.1))
         
         let yAxis = axisSet.yAxis!
         yAxis.labelingPolicy = CPTAxisLabelingPolicy.automatic
@@ -246,11 +246,11 @@ class GBCPlotsViewController: UIViewController {
         // Grid line styles. For the X axis
         var majorGridLineStyleHeartRate = CPTMutableLineStyle()
         majorGridLineStyleHeartRate.lineWidth = 0.35
-        majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).withAlphaComponent(CGFloat(0.35))
+        majorGridLineStyleHeartRate.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.1))
         majorGridLineStyleHeartRate.dashPattern = [3, 3]
         var minorGridLineStyleHeartRate = CPTMutableLineStyle()
         minorGridLineStyleHeartRate.lineWidth = 0.25
-        minorGridLineStyleHeartRate.lineColor = CPTColor.black().withAlphaComponent(CGFloat(0.1))
+        minorGridLineStyleHeartRate.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.1))
         minorGridLineStyleHeartRate.dashPattern = [3, 3]
         
         let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
@@ -318,10 +318,10 @@ class GBCPlotsViewController: UIViewController {
         var attributesHeartRate:[String: AnyObject]?
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
-            attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+            attributesHeartRate = [NSForegroundColorAttributeName : UIColor.white,
                                        NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 12)!]
         case .iPhone:
-            attributesHeartRate = [NSForegroundColorAttributeName : UIColor(red:11/255, green:44/255,blue:65/255,alpha:1.0),
+            attributesHeartRate = [NSForegroundColorAttributeName : UIColor.white,
                                        NSFontAttributeName:UIFont(name: "Helvetica Neue", size: 8)!]
         }
         
@@ -333,11 +333,11 @@ class GBCPlotsViewController: UIViewController {
         // Grid line styles. For the Y axis
         majorGridLineStyleHeartRate = CPTMutableLineStyle()
         majorGridLineStyleHeartRate.lineWidth = 0.75
-        majorGridLineStyleHeartRate.lineColor = CPTColor(genericGray: CGFloat()).withAlphaComponent(CGFloat(0.1))
+        majorGridLineStyleHeartRate.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.2))
         majorGridLineStyleHeartRate.dashPattern = [3, 3]
         minorGridLineStyleHeartRate = CPTMutableLineStyle()
         minorGridLineStyleHeartRate.lineWidth = 0.25
-        minorGridLineStyleHeartRate.lineColor = CPTColor.black().withAlphaComponent(CGFloat(0.2))
+        minorGridLineStyleHeartRate.lineColor = CPTColor.white().withAlphaComponent(CGFloat(0.2))
         
         let yAxisHeartRate = axisSetHeartRate.yAxis!
         yAxisHeartRate.labelingPolicy = CPTAxisLabelingPolicy.automatic
@@ -440,7 +440,7 @@ extension GBCPlotsViewController:CPTPlotDataSource, CPTPieChartDelegate, CPTLege
         //tickLocation
         
         let style = CPTMutableTextStyle()
-        style.color = CPTColor.black()
+        style.color = CPTColor.white()
         style.fontName = "HelveticaNeue-Light"
         style.fontSize = 10.0
         

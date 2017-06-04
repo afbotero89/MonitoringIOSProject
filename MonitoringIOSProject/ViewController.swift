@@ -85,10 +85,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     /// Bluetooth manager
     var bluetoothManager:BluetoothManager!
     
-    let labelPressure = UILabel()
-    
-    let labelHeartRate = UILabel()
-    
     let gradientLayer = CAGradientLayer()
     
     var graphicsEnabledHeight:Double?
@@ -127,25 +123,19 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var averageLabelLeft: UILabel!
     
+    @IBOutlet weak var diastolicLabelLeft: UILabel!
+
+    @IBOutlet weak var diastolicLabelRight: UILabel!
+    
+    @IBOutlet weak var heartRateLabelRight: UILabel!
+    
+    @IBOutlet weak var heartRateLabelLeft: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title =  NSLocalizedString("Monitoring", comment: "")
-        
-        let rectShape = CAShapeLayer()
-        rectShape.bounds = systolicLabel.frame
-        rectShape.position = systolicLabel.center
-        rectShape.path = UIBezierPath(roundedRect: self.systolicLabel.bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: 20, height: 20)).cgPath
-        
-        systolicLabel.layer.mask = rectShape
-        averageLabelRight.layer.mask = rectShape
-        
-        let rectShapeLeft = CAShapeLayer()
-        rectShapeLeft.bounds = systolicLabelLeft.frame
-        rectShapeLeft.position = systolicLabelLeft.center
-        rectShapeLeft.path = UIBezierPath(roundedRect: self.systolicLabelLeft.bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: 20, height: 20)).cgPath
-        systolicLabelLeft.layer.mask = rectShapeLeft
-        averageLabelLeft.layer.mask = rectShapeLeft
         
         PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
         PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
@@ -170,7 +160,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         uploadMeassuresToRemoteServer.getDataFromDataBaseSQLDayMonthYear()
         
-        let date = NSDate()
+        addMaskLabelsPhysiologicalVariables()
 
 
     }
@@ -263,6 +253,81 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.deviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
+    func addMaskLabelsPhysiologicalVariables(){
+        // Corner radius labels only right or left //
+        
+        // Sistolic label, right
+        let rectShapeSistolicLabelRight = CAShapeLayer()
+        rectShapeSistolicLabelRight.bounds = systolicLabel.frame
+        rectShapeSistolicLabelRight.position = systolicLabel.center
+        rectShapeSistolicLabelRight.path = UIBezierPath(roundedRect: self.systolicLabel.bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        systolicLabel.layer.mask = rectShapeSistolicLabelRight
+        
+        // Sistolic label, left
+        let rectShapeSistolicLabelLeft = CAShapeLayer()
+        rectShapeSistolicLabelLeft.bounds = systolicLabelLeft.frame
+        rectShapeSistolicLabelLeft.position = systolicLabelLeft.center
+        rectShapeSistolicLabelLeft.path = UIBezierPath(roundedRect: self.systolicLabelLeft.bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        systolicLabelLeft.layer.mask = rectShapeSistolicLabelLeft
+        
+        // Average label, right
+        
+        let rectShapeAverageLabelRight = CAShapeLayer()
+        rectShapeAverageLabelRight.bounds = averageLabelRight.frame
+        rectShapeAverageLabelRight.position = averageLabelRight.center
+        rectShapeAverageLabelRight.path = UIBezierPath(roundedRect: self.averageLabelRight.bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        averageLabelRight.layer.mask = rectShapeAverageLabelRight
+        
+        // Average label, left
+        let rectShapeAverageLabelLeft = CAShapeLayer()
+        rectShapeAverageLabelLeft.bounds = averageLabelLeft.frame
+        rectShapeAverageLabelLeft.position = averageLabelLeft.center
+        rectShapeAverageLabelLeft.path = UIBezierPath(roundedRect: self.averageLabelLeft.bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        averageLabelLeft.layer.mask = rectShapeAverageLabelLeft
+        
+        
+        // Diastolic label, right
+        
+        let rectShapeDiastolicLabelRight = CAShapeLayer()
+        rectShapeDiastolicLabelRight.bounds = diastolicLabelRight.frame
+        rectShapeDiastolicLabelRight.position = diastolicLabelRight.center
+        rectShapeDiastolicLabelRight.path = UIBezierPath(roundedRect: self.diastolicLabelRight.bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        diastolicLabelRight.layer.mask = rectShapeDiastolicLabelRight
+        
+        // Diatolic label, left
+        let rectShapeDiastolicLabelLeft = CAShapeLayer()
+        rectShapeDiastolicLabelLeft.bounds = diastolicLabelLeft.frame
+        rectShapeDiastolicLabelLeft.position = diastolicLabelLeft.center
+        rectShapeDiastolicLabelLeft.path = UIBezierPath(roundedRect: self.diastolicLabelLeft.bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        diastolicLabelLeft.layer.mask = rectShapeDiastolicLabelLeft
+        
+        
+        
+        // Heart rate label, right
+        
+        let rectShapeHeartRateLabelRight = CAShapeLayer()
+        rectShapeHeartRateLabelRight.bounds = heartRateLabelRight.frame
+        rectShapeHeartRateLabelRight.position = heartRateLabelRight.center
+        rectShapeHeartRateLabelRight.path = UIBezierPath(roundedRect: self.heartRateLabelRight.bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        heartRateLabelRight.layer.mask = rectShapeHeartRateLabelRight
+        
+        // Diatolic label, left
+        let rectShapeHeartRateLabelLeft = CAShapeLayer()
+        rectShapeHeartRateLabelLeft.bounds = heartRateLabelLeft.frame
+        rectShapeHeartRateLabelLeft.position = heartRateLabelLeft.center
+        rectShapeHeartRateLabelLeft.path = UIBezierPath(roundedRect: self.heartRateLabelLeft.bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        
+        heartRateLabelLeft.layer.mask = rectShapeHeartRateLabelLeft
+    }
+    
+    
     func configurePlots(){
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -279,7 +344,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         // Plot simbol
         let lowSymbol = CPTPlotSymbol.ellipse()
-        lowSymbol.fill = CPTFill(color: CPTColor.black())
+        lowSymbol.fill = CPTFill(color: CPTColor.white())
         switch UserSelectedConfiguration.typeOfDevice!{
         case .iPad:
             lowSymbol.size = CGSize(width: 6, height: 6) //Inflection point size
@@ -298,15 +363,20 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         let plotLineStyle = systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 1.5
         
-        plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
+        plotLineStyle.lineColor = CPTColor(componentRed: 128/255, green: 192/255, blue: 255/255, alpha: 1.0)
         systolicPressurePlot.dataLineStyle = plotLineStyle
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0))
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 128/255, green: 192/255, blue: 255/255, alpha: 1.0))
         systolicPressurePlot.plotSymbol = lowSymbol
         
-        plotLineStyle.lineColor = CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0)
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0))
+        plotLineStyle.lineColor = CPTColor(componentRed: 63/255, green: 159/255, blue: 239/255, alpha: 1.0)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 63/255, green: 159/255, blue: 239/255, alpha: 1.0))
         diastolicPressurePlot.dataLineStyle = plotLineStyle
         diastolicPressurePlot.plotSymbol = lowSymbol
+        
+        plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 170/255, blue: 241/255, alpha: 1.0)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 170/255, blue: 241/255, alpha: 1.0))
+        averagePressurePlot.dataLineStyle = plotLineStyle
+        averagePressurePlot.plotSymbol = lowSymbol
         
         plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
         lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
@@ -319,19 +389,24 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         heartRatePressurePlot.title = NSLocalizedString("Heart Rate", comment: "")
         
         let attrs = [
-            NSForegroundColorAttributeName : UIColor.black,
+            NSForegroundColorAttributeName : UIColor.white,
             NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
             
             ]
         
         pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
         pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
+        pressuresGraph.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
+        pressuresGraph.plotAreaFrame?.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
+        
         heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
         heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
+        heartRateGraph.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
+        heartRateGraph.plotAreaFrame?.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
         
         // Color gradient is added under the scatter plot
         
-        let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
+        let areaColor = CPTColor.white()
         let areaGradient = CPTGradient(beginning: areaColor.withAlphaComponent(0.2), ending: CPTColor.clear())
         areaGradient.angle = -90
         let areaGradientFill = CPTFill.init(gradient: areaGradient)
@@ -358,43 +433,17 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     
     func addAttributesToContainerGraph(){
-        
-        // Labe1: pressure value
-        labelPressure.numberOfLines = 10
-        labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):\n \(NSLocalizedString("Average", comment: "")):\n \(NSLocalizedString("Diastolic", comment: "")):"
-        labelPressure.textColor = UIColor.white
-        labelPressure.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
-        labelPressure.layer.cornerRadius = 5
-        
-        
-        // Label2: heart rate value
-        labelHeartRate.numberOfLines = 10
-        labelHeartRate.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Heart Rate", comment: "")):"
-        labelHeartRate.textColor = UIColor.white
-        labelHeartRate.backgroundColor =  UIColor(red: 11/255, green: 44/255, blue: 65/255, alpha: 0.7)
-        labelHeartRate.layer.cornerRadius = 10
-        
-        
-        switch UserSelectedConfiguration.typeOfDevice!{
-        case .iPad:
-            labelPressure.font = UIFont(name: "HelveticaNeue-Light", size: 16)
-            labelHeartRate.font = UIFont(name: "HelveticaNeue-Light", size: 16)
-        case .iPhone:
-            labelPressure.font = UIFont(name: "HelveticaNeue-Light", size: 12)
-            labelHeartRate.font = UIFont(name: "HelveticaNeue-Light", size: 12)
-        }
-        
+
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 0
-        pressureContainerGraph.layer.borderColor = UIColor.black.cgColor
+        pressureContainerGraph.layer.borderColor = UIColor.white.cgColor
         //pressureContainerGraph.layer.cornerRadius = 20
         pressureContainerGraph.hostedGraph = pressuresGraph
-        pressureContainerGraph.addSubview(labelPressure)
         
         
         // attributes heart rate container graph
         heartRateContainerGraph.layer.borderWidth = 0
-        heartRateContainerGraph.layer.borderColor = UIColor.black.cgColor
+        heartRateContainerGraph.layer.borderColor = UIColor.white.cgColor
         //heartRateContainerGraph.layer.cornerRadius = 20
         heartRateContainerGraph.hostedGraph = heartRateGraph
         
@@ -402,8 +451,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         // Insert subviews
         view.addSubview(pressureContainerGraph)
         view.addSubview(heartRateContainerGraph)
-        view.addSubview(labelHeartRate)
-        view.addSubview(labelPressure)
     }
     
     func addAttributesToViewController(){
@@ -414,14 +461,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 38/255, green: 43/255, blue: 64/255, alpha: 1.0)
-        
-        labelHeartRate.clipsToBounds = true
-        
-        labelHeartRate.layer.cornerRadius = 10
-        
-        labelPressure.clipsToBounds = true
-        
-        labelPressure.layer.cornerRadius = 10
         
         currentMeasurementLabel.clipsToBounds = true
         
@@ -435,13 +474,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         let theLegendHeartRate=CPTLegend(graph: heartRateGraph)
         
         let legendLineStyle = CPTMutableLineStyle()
-        theLegend.fill = CPTFill(color: CPTColor.white())
-        legendLineStyle.lineColor = CPTColor.white()
+        //theLegend.fill = CPTFill(color: CPTColor.white())
+        legendLineStyle.lineWidth = 0
         theLegend.borderLineStyle = legendLineStyle
         theLegend.numberOfColumns = 1
         theLegend.numberOfRows = 4
-        
-        theLegendHeartRate.fill = CPTFill(color: CPTColor.white())
+        theLegendHeartRate.fill = CPTFill(color: CPTColor(componentRed: 11/255, green: 56/255, blue: 97/255, alpha: 0.3))
         theLegendHeartRate.borderLineStyle = legendLineStyle
         theLegendHeartRate.numberOfColumns = 1
         theLegendHeartRate.numberOfRows = 4
@@ -465,7 +503,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             pressuresGraph.legendDisplacement = CGPoint(x: 450.0, y: -25.0)
             heartRateGraph.legendDisplacement = CGPoint(x: 430.0, y: -25.0)
             attrsLegend = [
-                NSForegroundColorAttributeName : UIColor.black,
+                NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
                 
             ]
@@ -473,7 +511,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             theLegend.swatchSize = CGSize(width: 20.0, height: 7.0)
             theLegendHeartRate.swatchSize = CGSize(width: 50.0, height: 30.0)
             attrsLegend = [
-                NSForegroundColorAttributeName : UIColor.black,
+                NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
                 
             ]
@@ -482,6 +520,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
         
         pressuresGraph.legend = theLegend
+        pressuresGraph.legend?.backgroundColor = UIColor(red: 11/255, green:  56/255, blue:  97/255, alpha: 0.3).cgColor
+        //pressuresGraph.legend?.fill = CPTFill(color: CPTColor(componentRed: 11/255, green: 56/255, blue: 97/255, alpha: 0.3))
         pressuresGraph.legendAnchor = CPTRectAnchor.topLeft
         pressureContainerGraph.isUserInteractionEnabled = true
         
@@ -504,7 +544,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         if VectorPhysiologicalVariables.systolicPressure.count > 0 && VectorPhysiologicalVariables.diastolicPressure.count > 0 && VectorPhysiologicalVariables.averagePressure.count > 0 && VectorPhysiologicalVariables.heartRate.count > 0{
             
             let style = CPTMutableTextStyle()
-            style.color = CPTColor.black()
+            style.color = CPTColor.white()
             style.fontName = "HelveticaNeue-Light"
             switch UserSelectedConfiguration.typeOfDevice!{
             case .iPad:
@@ -631,7 +671,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 xAxis.majorTickLocations = locations
                 xAxis.axisLabels = labels
                 
-                
                 // xAxis heart rate graph
                 let axisSetHeartRate = heartRateGraph.axisSet as! CPTXYAxisSet
                 let xAxisHeartRate = axisSetHeartRate.xAxis!
@@ -658,13 +697,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 //defaults.removeObject(forKey: PressureMonitors.nameUserMonitorSelected!)
                 
-                var medidas = String(VectorPhysiologicalVariables.systolicPressure.last!) + "," + String(VectorPhysiologicalVariables.diastolicPressure.last!) + "," + String(VectorPhysiologicalVariables.averagePressure.last!) + "," + String(VectorPhysiologicalVariables.heartRate.last!) + "," + String((VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!) + ";"
+                let medidas = String(VectorPhysiologicalVariables.systolicPressure.last!) + "," + String(VectorPhysiologicalVariables.diastolicPressure.last!) + "," + String(VectorPhysiologicalVariables.averagePressure.last!) + "," + String(VectorPhysiologicalVariables.heartRate.last!) + "," + String((VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!) + ";"
                 
                 if(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!) == nil){
                     defaultsDB.setValue(medidas, forKey: PressureMonitors.nameUserMonitorSelected!)
                 }else{
                 
-                    var beforeValues = defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)
+                    let beforeValues = defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)
                 
                     defaultsDB.setValue(String(describing: beforeValues!) + medidas, forKey: PressureMonitors.nameUserMonitorSelected!)
                 
@@ -792,11 +831,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressuresGraph.reloadData()
                 heartRateGraph.reloadData()
             }
-            
-
-            // Label update with latest measures
-            labelPressure.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Systolic", comment: "")):  \(VectorPhysiologicalVariables.systolicPressure.last!) mmHg\n \(NSLocalizedString("Average", comment: "")):  \(VectorPhysiologicalVariables.averagePressure.last!) mmHg\n \(NSLocalizedString("Diastolic", comment: "")): \(VectorPhysiologicalVariables.diastolicPressure.last!) mmHg"
-            labelHeartRate.text = " \(NSLocalizedString("Last messure", comment: "")) \n\n \(NSLocalizedString("Heart Rate", comment: "")): \(VectorPhysiologicalVariables.heartRate.last!) BPM"
         
             //Change the x and y range.
         
@@ -898,12 +932,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPad:
                 constraintSeparation.constant = 170
                 
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 460, width: 190, height: 120)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
-                
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 50, y: 340, width: 650, height: 300)
                 
@@ -911,14 +939,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 50, y: 650, width: 650, height: 300)
                 
             case .iPhone:
-                
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!/1.6), width: 130, height: 80)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!) - 130, y: Int(graphicsEnabledHeight!) + 40, width: 130, height: 50)
-                
-                
+
                 pressuresGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
                 heartRateGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
@@ -937,12 +958,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             case .iPad:
                 constraintSeparation.constant = 200
                 
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 680, y: 230, width: 190, height: 120)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: 680, y: 575, width: 190, height: 80)
-                
                 // Attributes pressure container
                 pressureContainerGraph.frame = CGRect(x: 230, y: 110, width: 650, height: 300)
                 
@@ -950,12 +965,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 230, y: 415, width: 650, height: 300)
 
             case .iPhone:
-                
-                // Labe1: pressure value
-                labelPressure.frame = CGRect(x: Int(graphicsEnabledWidth!/2)-130, y: Int(graphicsEnabledHeight!)-30, width: 130, height: 80)
-                
-                // Label2: heart rate value
-                labelHeartRate.frame = CGRect(x: Int(graphicsEnabledWidth!)-140, y: Int(graphicsEnabledHeight!)-30, width: 130, height: 50)
                 
                 pressuresGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/4), y: -20.0)
                 
@@ -1313,6 +1322,18 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
     }
     @IBAction func cleanMemory(_ sender: Any) {
+        
+        VectorPhysiologicalVariables.systolicPressure.removeAll()
+        VectorPhysiologicalVariables.diastolicPressure.removeAll()
+        VectorPhysiologicalVariables.averagePressure.removeAll()
+        VectorPhysiologicalVariables.heartRate.removeAll()
+        VectorPhysiologicalVariables.measuringTime.removeAll()
+        VectorPhysiologicalVariables.vectorNumberOfSamples.removeAll()
+        VectorPhysiologicalVariables.measuringTime.removeAll()
+        
+        pressuresGraph.reloadData()
+        heartRateGraph.reloadData()
+        
         defaultsDB.removeObject(forKey: "medidas")
         NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelPheriperalConnectionNotification"), object: nil, userInfo: nil)
         
