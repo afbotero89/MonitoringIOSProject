@@ -8,7 +8,7 @@
 
 import Foundation
 
-let defaults = UserDefaults.standard
+let defaultsDB = UserDefaults.standard
 
 // MARK: - Enumerations
 

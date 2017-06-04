@@ -715,11 +715,11 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
             
             if error != nil {
                 
-                if (defaults.array(forKey: "VectorToUpLoadServer")?.count)! > 0{
-                    VectorPhysiologicalVariables.vectorToUploadServer = defaults.array(forKey: "VectorToUpLoadServer")! as [AnyObject]
+                if (defaultsDB.array(forKey: "VectorToUpLoadServer")?.count)! > 0{
+                    VectorPhysiologicalVariables.vectorToUploadServer = defaultsDB.array(forKey: "VectorToUpLoadServer")! as [AnyObject]
                 }
                 VectorPhysiologicalVariables.vectorToUploadServer.append(postString as AnyObject)
-                defaults.set(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
+                defaultsDB.set(VectorPhysiologicalVariables.vectorToUploadServer, forKey: "VectorToUpLoadServer")
 
                 return
             }
@@ -745,7 +745,7 @@ class ViewControllerPatientVersion: GBCPlotsViewController, UIPopoverPresentatio
             
             print("response = \(response)")
             
-            defaults.removeObject(forKey: "VectorToUpLoadServer")
+            defaultsDB.removeObject(forKey: "VectorToUpLoadServer")
         }
         task.resume()
         

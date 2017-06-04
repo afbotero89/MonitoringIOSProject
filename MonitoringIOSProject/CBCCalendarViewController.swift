@@ -75,9 +75,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         print("dato seleccionado\n")
         print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
         
-        
         if activeCalendarViewController == true{
-            getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
+            if(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser == "4/6/2017"){
+                getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
+            }
         }
         activeCalendarViewController = true
     }
@@ -96,43 +97,9 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
      */
     func getDataFromServerDataBaseSQL(_ date: String){
         
-        let postString = "date=\(date)"
+            let data = String(describing: defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)!)
         
-        requestGetDataBaseSQL.httpBody = postString.data(using: String.Encoding.utf8)
-        
-        requestGetDataBaseSQL.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: requestGetDataBaseSQL as URLRequest, completionHandler: {
-            data, response, error in
-            
-            if error != nil {
-                
-                self.dismiss(animated: true, completion:  {
-                    internetConnectionError = true
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "displayAlertThereIsNoDataNotification"), object: nil, userInfo: nil)
-                    
-                    })
-                
-                switch UserSelectedConfiguration.typeOfDevice!{
-                case .iPad:
-                    print("iPad")
-                case .iPhone:
-                    
-                    DispatchQueue.main.async(execute: {
-                        let alert = UIAlertController(title: NSLocalizedString("Connection fail", comment: ""), message: NSLocalizedString("Check your internet connection", comment: ""), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default) { _ in })
-                        self.present(alert, animated: true, completion: nil)
-                    })
-                    
-                }
-                
-                print("no hay datos en la base de datos1")
-                print("error=\(error)")
-                return
-            }
-            
-            self.responseString = String(data: data!, encoding: .utf8)
-            print(self.responseString)
+            self.responseString = data
             
             if (String(self.responseString).isEmpty){
                 internetConnectionError = false
@@ -167,16 +134,16 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 
                 for i in 0..<(vector.count-1){
                     var vector1 = vector[i].components(separatedBy: ",")
-                    
-                    PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[4])!)
 
-                    PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[5])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.append(Double(vector1[0])!)
                     
-                    PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[6])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.diastolicPressure.append(Double(vector1[1])!)
                     
-                    PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[7])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.averagePressure.append(Double(vector1[2])!)
+                    
+                    PhysiologicalVariablesStoredInDatabaseSQL.heartRate.append(Double(vector1[3])!)
 
-                    PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[8])!)
+                    PhysiologicalVariablesStoredInDatabaseSQL.hour.append(String(validatingUTF8: vector1[4])!)
                     
                 }
                 if PhysiologicalVariablesStoredInDatabaseSQL.systolicPressure.count > 80{
@@ -217,8 +184,6 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
                 }
                 
             }
-        }) 
-        task.resume()
     }
 
 }

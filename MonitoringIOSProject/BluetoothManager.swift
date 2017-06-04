@@ -817,7 +817,7 @@ extension BluetoothManager:CBPeripheralDelegate{
         contador = contador + 1
         
         if contador == 10{
-           /*
+           
             contador = 0
             
             VectorPhysiologicalVariables.systolicPressure.append(120)
@@ -825,11 +825,11 @@ extension BluetoothManager:CBPeripheralDelegate{
             VectorPhysiologicalVariables.averagePressure.append(100)
             VectorPhysiologicalVariables.heartRate.append(70)
             VectorPhysiologicalVariables.measuringTime.append("00:00:00")
-            VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
-            */
+           VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
+            
             //NSNotificationCenter.defaultCenter().postNotificationName("displayMeasurePatientViewController", object: nil, userInfo: nil)
             
-            //NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "insertNewPlot"), object: nil, userInfo: nil)
  
             //NSNotificationCenter.defaultCenter().postNotificationName("displayCurrentMeasurementPopoverNotification", object: nil, userInfo: nil)
             //NSNotificationCenter.defaultCenter().postNotificationName("displayErrorMessage", object: nil, userInfo: nil)

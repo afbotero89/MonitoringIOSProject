@@ -59,6 +59,8 @@ var hourOnDevice:String?
 
 class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDelegate  {
     
+    @IBOutlet weak var segmentControlMonitor: UISegmentedControl!
+    
     /// Systolic pressure graph core plot
     let systolicPressurePlot = CPTScatterPlot()
     
@@ -115,12 +117,35 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     let queriesUserAdmin = GBCDataBaseQueriesUserAdmin()
     
+    @IBOutlet weak var userConnectedToMonitor: UILabel!
+    
+    @IBOutlet weak var systolicLabel: UILabel!
+    
+    @IBOutlet weak var systolicLabelLeft: UILabel!
+    
+    @IBOutlet weak var averageLabelRight: UILabel!
+    
+    @IBOutlet weak var averageLabelLeft: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title =  NSLocalizedString("Monitoring", comment: "")
         
+        let rectShape = CAShapeLayer()
+        rectShape.bounds = systolicLabel.frame
+        rectShape.position = systolicLabel.center
+        rectShape.path = UIBezierPath(roundedRect: self.systolicLabel.bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: 20, height: 20)).cgPath
+        
+        systolicLabel.layer.mask = rectShape
+        averageLabelRight.layer.mask = rectShape
+        
+        let rectShapeLeft = CAShapeLayer()
+        rectShapeLeft.bounds = systolicLabelLeft.frame
+        rectShapeLeft.position = systolicLabelLeft.center
+        rectShapeLeft.path = UIBezierPath(roundedRect: self.systolicLabelLeft.bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: 20, height: 20)).cgPath
+        systolicLabelLeft.layer.mask = rectShapeLeft
+        averageLabelLeft.layer.mask = rectShapeLeft
         
         PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
         PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
@@ -146,10 +171,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         uploadMeassuresToRemoteServer.getDataFromDataBaseSQLDayMonthYear()
         
         let date = NSDate()
-        print(date)
-        
-        print("medidas dispositivo")
-        
+
 
     }
     
@@ -634,18 +656,29 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 pressuresGraph.plot(withIdentifier: 2 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.averagePressure.count-1), numberOfRecords: 1)
                 heartRateGraph.plot(withIdentifier: 3 as NSCopying?)?.insertData(at: UInt(VectorPhysiologicalVariables.heartRate.count-1), numberOfRecords: 1)
                 
-                //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!)
+                //defaults.removeObject(forKey: PressureMonitors.nameUserMonitorSelected!)
                 
-                //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure.last!,diastolicPressure: VectorPhysiologicalVariables.diastolicPressure.last!,mediumPressure: VectorPhysiologicalVariables.averagePressure.last!,heartRate: VectorPhysiologicalVariables.heartRate.last!,hour:(VectorPhysiologicalVariables.measuringTime.last?.componentsSeparatedByString(".")[0])!)
+                var medidas = String(VectorPhysiologicalVariables.systolicPressure.last!) + "," + String(VectorPhysiologicalVariables.diastolicPressure.last!) + "," + String(VectorPhysiologicalVariables.averagePressure.last!) + "," + String(VectorPhysiologicalVariables.heartRate.last!) + "," + String((VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!) + ";"
                 
-                print("datos almacenados en el dispositivo")
+                if(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!) == nil){
+                    defaultsDB.setValue(medidas, forKey: PressureMonitors.nameUserMonitorSelected!)
+                }else{
+                
+                    var beforeValues = defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)
+                
+                    defaultsDB.setValue(String(describing: beforeValues!) + medidas, forKey: PressureMonitors.nameUserMonitorSelected!)
+                
+                }
+                
+                print("valores almacenados user default")
+                print(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!))
                 
                 var memoryDevice = ""
                 var appendData = ""
                 
-                if defaults.value(forKey: "medidas") != nil{
+                if defaultsDB.value(forKey: "medidas") != nil{
                     
-                    memoryDevice = String(describing: defaults.value(forKey: "medidas")!)
+                    memoryDevice = String(describing: defaultsDB.value(forKey: "medidas")!)
                     
                     appendData = memoryDevice + "," + (String(VectorPhysiologicalVariables.systolicPressure.last!) + String(VectorPhysiologicalVariables.diastolicPressure.last!) + String(VectorPhysiologicalVariables.averagePressure.last!) + String(VectorPhysiologicalVariables.heartRate.last!) + String(measuringTimeDevice)) + ","
                 }else{
@@ -654,9 +687,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 appendData = "datos"
                 
-                defaults.setValue(appendData, forKey: "medidas")
+                defaultsDB.setValue(appendData, forKey: "medidas")
                 
-                memoryDevice = String(describing: defaults.value(forKey: "medidas")!)
+                memoryDevice = String(describing: defaultsDB.value(forKey: "medidas")!)
                 
                 print(memoryDevice)
                 
@@ -680,9 +713,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, at: 0)
                 VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, at: 0)
                 
-                //uploadMeassuresToRemoteServer.uploadToServerDataBaseSQL_GIBIC(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].components(separatedBy: ".")[0]))
-                
-                //uploadToServerDataBaseSQL(VectorPhysiologicalVariables.systolicPressure[0],diastolicPressure: VectorPhysiologicalVariables.diastolicPressure[0],mediumPressure: VectorPhysiologicalVariables.averagePressure[0],heartRate: VectorPhysiologicalVariables.heartRate[0],hour:(VectorPhysiologicalVariables.measuringTime[0].componentsSeparatedByString(".")[0]))
                 
                 for i in 0..<VectorPhysiologicalVariables.measuringTime.count{
                     let measuringHour:String?
@@ -772,13 +802,13 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
             autoSetXYRangePressureGraphAndHeartRateGraph()
         
-            if defaults.array(forKey: "VectorToUpLoadServer")?.count > 0{
+            if defaultsDB.array(forKey: "VectorToUpLoadServer")?.count > 0{
                 // Check internet connection to upload lost data
                 //var reachability = Reachability()
                 let conexion = isInternetAvailable()
                 print(conexion)
                 if conexion == true{
-                    for i in defaults.array(forKey: "VectorToUpLoadServer")!{
+                    for i in defaultsDB.array(forKey: "VectorToUpLoadServer")!{
                         print(i)
                         //upLoadLostDataToServer(i as! String)
                         //uploadMeassuresToRemoteServer.upLoadLostDataToServer(i as! String)
@@ -869,16 +899,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 constraintSeparation.constant = 170
                 
                 // Labe1: pressure value
-                labelPressure.frame = CGRect(x: 500, y: 360, width: 190, height: 120)
+                labelPressure.frame = CGRect(x: 500, y: 460, width: 190, height: 120)
                 
                 // Label2: heart rate value
                 labelHeartRate.frame = CGRect(x: 500, y: 800, width: 190, height: 80)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 50, y: 140, width: 650, height: 400)
+                pressureContainerGraph.frame = CGRect(x: 50, y: 340, width: 650, height: 300)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
+                heartRateContainerGraph.frame = CGRect(x: 50, y: 650, width: 650, height: 300)
                 
             case .iPhone:
                 
@@ -1283,7 +1313,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
     }
     @IBAction func cleanMemory(_ sender: Any) {
-        defaults.removeObject(forKey: "medidas")
+        defaultsDB.removeObject(forKey: "medidas")
         NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelPheriperalConnectionNotification"), object: nil, userInfo: nil)
         
         if(PressureMonitors.IDuserMonitorSelected == PressureMonitors.monitorID1){
@@ -1295,6 +1325,25 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         }
     }
     
+    @IBAction func segmentControlMonitorSelected(_ sender: Any) {
+        
+        defaultsDB.removeObject(forKey: "medidas")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelPheriperalConnectionNotification"), object: nil, userInfo: nil)
+        
+        var itemSelected = (sender as AnyObject).selectedSegmentIndex
+        
+        if itemSelected == 0{
+            PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID3
+            PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName3
+            userConnectedToMonitor.text = "  Paciente 1"
+        }else if(itemSelected==1){
+            PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
+            PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
+            userConnectedToMonitor.text = "  Paciente 2"
+            
+        }
+        
+    }
 }
 // MARK: - Extension
 /**
@@ -1352,6 +1401,7 @@ extension ViewController{
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
     }
+    
 
 }
 

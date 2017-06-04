@@ -29,15 +29,16 @@ class DayCollectionCell: UICollectionViewCell {
             
             if date != nil {
                 
-                requestGetDayMonthYearDataBaseSQL.getDataFromDataBaseSQLDayMonthYear()
+                //requestGetDayMonthYearDataBaseSQL.getDataFromDataBaseSQLDayMonthYear()
     
-                vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
-                
+                //vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
+                vectorDatesStoredInDataBases = ["4/6/2017"]
+                /*
                 if PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL == nil{
                 
                 }else{
                     vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL!.components(separatedBy: ",")
-                }
+                }*/
 
                 label.text = "\(date!.day)"
                 view.frame = CGRect(x: 35, y: 5, width: 15, height: 15)
