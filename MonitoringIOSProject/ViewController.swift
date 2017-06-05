@@ -162,7 +162,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         addMaskLabelsPhysiologicalVariables()
 
-
+        //defaultsDB.removeObject(forKey: "Pressure Monitor 1")
+        //defaultsDB.removeObject(forKey: "Pressure Monitor 3")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -307,8 +308,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         diastolicLabelLeft.layer.mask = rectShapeDiastolicLabelLeft
         
-        
-        
         // Heart rate label, right
         
         let rectShapeHeartRateLabelRight = CAShapeLayer()
@@ -378,8 +377,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         averagePressurePlot.dataLineStyle = plotLineStyle
         averagePressurePlot.plotSymbol = lowSymbol
         
-        plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
+        plotLineStyle.lineColor = CPTColor(componentRed:240/255, green:76/255,blue:71/255,alpha:0.9)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:240/255, green:76/255,blue:71/255,alpha:0.9))
         heartRatePressurePlot.dataLineStyle = plotLineStyle
         heartRatePressurePlot.plotSymbol = lowSymbol
         
@@ -553,7 +552,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 style.fontSize = 10.0
             }
             
-            
             var text =  VectorPhysiologicalVariables.measuringTime.last
             let hourMS = text?.components(separatedBy: ":")
             let currentHour = Int(hourMS![0])
@@ -649,7 +647,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 // xAxis pressure graph
                 let axisSet = pressuresGraph.axisSet as! CPTXYAxisSet
-                
                 let xAxis = axisSet.xAxis!
                 let xLabel:CPTAxisLabel?
                 switch UserSelectedConfiguration.typeOfDevice!{
@@ -687,6 +684,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 }
                 xLabelHeartRate.offset = 0
                 labelsHeartRate.insert(xLabelHeartRate)
+                print("labels!!!!!!")
+                print(labelsHeartRate)
                 xAxisHeartRate.majorTickLocations = locationsHeartRate
                 xAxisHeartRate.axisLabels = labelsHeartRate
                 
@@ -709,9 +708,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 }
                 
-                print("valores almacenados user default")
-                print(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!))
-                
                 var memoryDevice = ""
                 var appendData = ""
                 
@@ -732,6 +728,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 print(memoryDevice)
                 
+                systolicLabel.text = String(VectorPhysiologicalVariables.systolicPressure.last!) + " mmHg"
+                averageLabelRight.text = String(VectorPhysiologicalVariables.averagePressure.last!) + " mmHg"
+                diastolicLabelRight.text = String(VectorPhysiologicalVariables.diastolicPressure.last!) + " mmHg"
+                heartRateLabelRight.text = String(VectorPhysiologicalVariables.heartRate.last!) + " BPM"
+                
             }else{
                 
                 let pressureSystolicLastElement = VectorPhysiologicalVariables.systolicPressure[VectorPhysiologicalVariables.heartRate.count - 1]
@@ -751,6 +752,11 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 VectorPhysiologicalVariables.averagePressure.insert(averagePressureLastElement, at: 0)
                 VectorPhysiologicalVariables.heartRate.insert(heartRateLastElement, at: 0)
                 VectorPhysiologicalVariables.measuringTime.insert(measuringTimeLastElement, at: 0)
+                
+                systolicLabel.text = String(pressureSystolicLastElement) + " mmHg"
+                averageLabelRight.text = String(averagePressureLastElement) + " mmHg"
+                diastolicLabelRight.text = String(pressureDiastolicLastElement) + " mmHg"
+                heartRateLabelRight.text = String(heartRateLastElement) + " BPM"
                 
                 
                 for i in 0..<VectorPhysiologicalVariables.measuringTime.count{
@@ -1331,8 +1337,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         VectorPhysiologicalVariables.vectorNumberOfSamples.removeAll()
         VectorPhysiologicalVariables.measuringTime.removeAll()
         
-        pressuresGraph.reloadData()
-        heartRateGraph.reloadData()
+        //labelsHeartRate.removeAll()
         
         defaultsDB.removeObject(forKey: "medidas")
         NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelPheriperalConnectionNotification"), object: nil, userInfo: nil)
@@ -1344,6 +1349,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
             PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
         }
+        
+        pressuresGraph.reloadData()
+        heartRateGraph.reloadData()
+        labelsHeartRate.removeAll()
+        labels.removeAll()
+        
     }
     
     @IBAction func segmentControlMonitorSelected(_ sender: Any) {
@@ -1354,12 +1365,12 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         var itemSelected = (sender as AnyObject).selectedSegmentIndex
         
         if itemSelected == 0{
-            PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID3
-            PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName3
-            userConnectedToMonitor.text = "  Paciente 1"
-        }else if(itemSelected==1){
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
             PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
+            userConnectedToMonitor.text = "  Paciente 1"
+        }else if(itemSelected==1){
+            PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID3
+            PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName3
             userConnectedToMonitor.text = "  Paciente 2"
             
         }

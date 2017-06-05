@@ -96,8 +96,13 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
      Get data from data base SQL where date is selected by the user with the calendar
      */
     func getDataFromServerDataBaseSQL(_ date: String){
+        var data = ""
         
-            let data = String(describing: defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)!)
+        if(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!) != nil){
+            data = String(describing: defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)!)
+        }else{
+            data = ""
+        }
         
             self.responseString = data
             

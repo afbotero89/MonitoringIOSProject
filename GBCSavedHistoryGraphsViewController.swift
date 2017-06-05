@@ -30,8 +30,17 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
     
     var graphicsEnabledWidth:Double?
     
+    @IBOutlet weak var patientLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if PressureMonitors.nameUserMonitorSelected=="Pressure Monitor 1"{
+            patientLabel.text = "Paciente 1"
+        }else{
+            patientLabel.text = "Paciente 2"
+        }
+        
         
         DispatchQueue.main.async(execute: {
             // code here
@@ -67,38 +76,46 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         self.diastolicPressurePlot.plotSymbolMarginForHitDetection = 20
         self.averagePressurePlot.plotSymbolMarginForHitDetection = 20
         self.heartRatePressurePlot.plotSymbolMarginForHitDetection = 20
-        
+            
         let plotLineStyle = self.systolicPressurePlot.dataLineStyle!.mutableCopy() as! CPTMutableLineStyle
         plotLineStyle.lineWidth = 1.5
-        
-        plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0)
+            
+        plotLineStyle.lineColor = CPTColor(componentRed: 128/255, green: 192/255, blue: 255/255, alpha: 1.0)
         self.systolicPressurePlot.dataLineStyle = plotLineStyle
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 0/255, blue: 37/255, alpha: 1.0))
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 128/255, green: 192/255, blue: 255/255, alpha: 1.0))
         self.systolicPressurePlot.plotSymbol = lowSymbol
-        
-        plotLineStyle.lineColor = CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0)
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 0, green: 64/255, blue: 128/255, alpha: 1.0))
+            
+        plotLineStyle.lineColor = CPTColor(componentRed: 63/255, green: 159/255, blue: 239/255, alpha: 1.0)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 63/255, green: 159/255, blue: 239/255, alpha: 1.0))
         self.diastolicPressurePlot.dataLineStyle = plotLineStyle
         self.diastolicPressurePlot.plotSymbol = lowSymbol
-        
-        plotLineStyle.lineColor = CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9)
-        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:0/255, green:128/255,blue:128/255,alpha:0.9))
+            
+        plotLineStyle.lineColor = CPTColor(componentRed: 162/255, green: 170/255, blue: 241/255, alpha: 1.0)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed: 162/255, green: 170/255, blue: 241/255, alpha: 1.0))
+        self.averagePressurePlot.dataLineStyle = plotLineStyle
+        self.averagePressurePlot.plotSymbol = lowSymbol
+            
+        plotLineStyle.lineColor = CPTColor(componentRed:240/255, green:76/255,blue:71/255,alpha:0.9)
+        lowSymbol.fill = CPTFill(color: CPTColor(componentRed:240/255, green:76/255,blue:71/255,alpha:0.9))
         self.heartRatePressurePlot.dataLineStyle = plotLineStyle
         self.heartRatePressurePlot.plotSymbol = lowSymbol
-        
+            
         self.systolicPressurePlot.title = NSLocalizedString("Systolic pressure", comment: "")
         self.diastolicPressurePlot.title = NSLocalizedString("Diastolic pressure", comment: "")
         self.averagePressurePlot.title = NSLocalizedString("Average pressure", comment: "")
         self.heartRatePressurePlot.title = NSLocalizedString("Heart rate", comment: "")
         
         let attrs = [
-            NSForegroundColorAttributeName : UIColor.black,
+            NSForegroundColorAttributeName : UIColor.white,
             NSFontAttributeName : UIFont(name: "HelveticaNeue", size: 16)!,
                 
         ]
             
         self.pressuresGraph.title = NSLocalizedString("Pressure graphics", comment: "")
         self.pressuresGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
+        self.pressuresGraph.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
+        self.pressuresGraph.plotAreaFrame?.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
+            
         self.heartRateGraph.title = NSLocalizedString("Heart rate graphic", comment: "")
         self.heartRateGraph.titleTextStyle = CPTTextStyle(attributes: attrs)
             
@@ -106,6 +123,8 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         self.pressuresGraph.add(self.diastolicPressurePlot)
         self.pressuresGraph.add(self.averagePressurePlot)
         self.heartRateGraph.add(self.heartRatePressurePlot)
+        self.heartRateGraph.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
+        self.heartRateGraph.plotAreaFrame?.backgroundColor = UIColor(red: 11/255, green: 56/255, blue: 97/255, alpha: 0.3).cgColor
         
         let plotSpacePressureGraph = self.pressuresGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpacePressureGraph.yRange = CPTPlotRange(location: 0, length: 200)
@@ -125,7 +144,7 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         
         // Color gradient is added under the scatter plot
 
-        let areaColor = CPTColor(componentRed: 0/255, green: 64/255, blue: 128/255, alpha: 0.1)
+        let areaColor = CPTColor.white()
         let areaGradient = CPTGradient(beginning: areaColor.withAlphaComponent(0.2), ending: CPTColor.clear())
         areaGradient.angle = -90
         let areaGradientFill = CPTFill.init(gradient: areaGradient)
@@ -151,17 +170,6 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         
     }
     func addAttributesToContainerGraph(){
-        
-        // Add gradient layer
-        let color1 = UIColor.white.cgColor
-        let color2 = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.7).cgColor
-        
-        gradientLayer.colors = [color1, color2]
-        gradientLayer.locations = [0.1, 1]
-        
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: 1024, height: 1024)
-        
-        view.layer.insertSublayer(gradientLayer, at:0)
         
         // attributes pressure container
         pressureContainerGraph.layer.borderWidth = 0
@@ -198,10 +206,10 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
             case .iPad:
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 50, y: 140, width: 650, height: 400)
+                pressureContainerGraph.frame = CGRect(x: 50, y: 210, width: 650, height: 380)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 50, y: 550, width: 650, height: 400)
+                heartRateContainerGraph.frame = CGRect(x: 50, y: 600, width: 650, height: 380)
                 
             case .iPhone:
                 
@@ -254,11 +262,12 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         let legendLineStyle = CPTMutableLineStyle()
         theLegend.fill = CPTFill(color: CPTColor.white())
         legendLineStyle.lineColor = CPTColor.white()
+        legendLineStyle.lineWidth = 0
         theLegend.borderLineStyle = legendLineStyle
         theLegend.numberOfColumns = 1
         theLegend.numberOfRows = 4
         
-        theLegendHeartRate.fill = CPTFill(color: CPTColor.white())
+        theLegendHeartRate.fill = CPTFill(color: CPTColor(componentRed: 11/255, green: 56/255, blue: 97/255, alpha: 0.3))
         theLegendHeartRate.borderLineStyle = legendLineStyle
         theLegendHeartRate.numberOfColumns = 1
         theLegendHeartRate.numberOfRows = 4
@@ -282,7 +291,7 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
             pressuresGraph.legendDisplacement = CGPoint(x: 450.0, y: -25.0)
             heartRateGraph.legendDisplacement = CGPoint(x: 450.0, y: -25.0)
             attrsLegend = [
-                NSForegroundColorAttributeName : UIColor.black,
+                NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 16)!,
                 
             ]
@@ -290,7 +299,7 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
             theLegend.swatchSize = CGSize(width: 20.0, height: 7.0)
             theLegendHeartRate.swatchSize = CGSize(width: 50.0, height: 30.0)
             attrsLegend = [
-                NSForegroundColorAttributeName : UIColor.black,
+                NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 12)!,
                 
             ]
@@ -299,6 +308,7 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         theLegend.textStyle = CPTTextStyle(attributes: attrsLegend)
         
         pressuresGraph.legend = theLegend
+        pressuresGraph.legend?.fill = CPTFill(color: CPTColor(componentRed: 11/255, green: 56/255, blue: 97/255, alpha: 0.3))
         pressuresGraph.legendAnchor = CPTRectAnchor.topLeft
         pressureContainerGraph.isUserInteractionEnabled = true
         
