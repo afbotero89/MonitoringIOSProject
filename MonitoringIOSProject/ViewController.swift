@@ -1359,6 +1359,14 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBAction func segmentControlMonitorSelected(_ sender: Any) {
         
+        VectorPhysiologicalVariables.systolicPressure.removeAll()
+        VectorPhysiologicalVariables.diastolicPressure.removeAll()
+        VectorPhysiologicalVariables.averagePressure.removeAll()
+        VectorPhysiologicalVariables.heartRate.removeAll()
+        VectorPhysiologicalVariables.measuringTime.removeAll()
+        VectorPhysiologicalVariables.vectorNumberOfSamples.removeAll()
+        VectorPhysiologicalVariables.measuringTime.removeAll()
+        
         defaultsDB.removeObject(forKey: "medidas")
         NotificationCenter.default.post(name: Notification.Name(rawValue: "cancelPheriperalConnectionNotification"), object: nil, userInfo: nil)
         
@@ -1374,7 +1382,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             userConnectedToMonitor.text = "  Paciente 2"
             
         }
-        
+        pressuresGraph.reloadData()
+        heartRateGraph.reloadData()
+        labelsHeartRate.removeAll()
+        labels.removeAll()
     }
 }
 // MARK: - Extension

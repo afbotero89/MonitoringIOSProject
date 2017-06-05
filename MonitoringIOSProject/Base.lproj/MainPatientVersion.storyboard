@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="74c-R6-NMz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="74c-R6-NMz">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
         <!--Monitoring-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="initialView" id="BYZ-38-t0r" customClass="ViewControllerPatientVersion" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initialView" id="BYZ-38-t0r" customClass="ViewControllerPatientVersion" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -138,7 +138,7 @@
         <!--User configuration-->
         <scene sceneID="uMs-gI-Hn2">
             <objects>
-                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qym-mq-K5y"/>
                         <viewControllerLayoutGuide type="bottom" id="Sue-xm-Rft"/>
@@ -147,7 +147,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="MonitoringIOSProject" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="VitalSing" customModuleProvider="target">
                                 <rect key="frame" x="127" y="147" width="347" height="306"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -211,7 +211,7 @@
         <!--General information-->
         <scene sceneID="tKF-4S-UI6">
             <objects>
-                <viewController storyboardIdentifier="generalInformation" id="aUc-0Y-hsP" customClass="GBCBatteryLevelViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="generalInformation" id="aUc-0Y-hsP" customClass="GBCBatteryLevelViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dS4-ug-ux3"/>
                         <viewControllerLayoutGuide type="bottom" id="hfv-XM-owH"/>
@@ -291,7 +291,7 @@
         <!--Historical graphics stored-->
         <scene sceneID="wgL-dx-Nry">
             <objects>
-                <viewController storyboardIdentifier="savedHistoryGraphs" title="Historical graphics stored" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController1" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="savedHistoryGraphs" title="Historical graphics stored" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController1" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7x2-ic-eai"/>
                         <viewControllerLayoutGuide type="bottom" id="B8a-Ti-xKe"/>
@@ -343,7 +343,7 @@
         <!--Animation View Controller-->
         <scene sceneID="Jte-On-Lxv">
             <objects>
-                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kCW-lP-h5P"/>
                         <viewControllerLayoutGuide type="bottom" id="lk2-k1-6jL"/>
@@ -364,7 +364,7 @@
         <!--Current measurement-->
         <scene sceneID="o1c-eh-gxp">
             <objects>
-                <tableViewController storyboardIdentifier="currentMeasurementiPad" id="9ZD-QJ-vpZ" customClass="GBCCurrentMeasurementPatientVersionTableViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="currentMeasurementiPad" id="9ZD-QJ-vpZ" customClass="GBCCurrentMeasurementPatientVersionTableViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="617" sectionHeaderHeight="18" sectionFooterHeight="18" id="h0S-4J-P3o">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -752,7 +752,7 @@
         <!--Current Measurement-->
         <scene sceneID="5Oa-du-Yqc">
             <objects>
-                <viewController storyboardIdentifier="currentMeasurement" id="WZg-wb-XpF" customClass="GBCCurrentMeasurementViewControllerPatientVersion" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentMeasurement" id="WZg-wb-XpF" customClass="GBCCurrentMeasurementViewControllerPatientVersion" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GT2-RM-9QH"/>
                         <viewControllerLayoutGuide type="bottom" id="k3T-VW-5mC"/>
@@ -1180,7 +1180,7 @@
         <!--Calendar-->
         <scene sceneID="La9-2U-2bz">
             <objects>
-                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MGD-RA-nv8"/>
                         <viewControllerLayoutGuide type="bottom" id="SGx-S2-dhf"/>
@@ -1251,7 +1251,7 @@
         <!--Current Measurement-->
         <scene sceneID="h4z-ku-Lu1">
             <objects>
-                <viewController storyboardIdentifier="currentMeasurementiPhone" id="3s2-5p-4id" customClass="GBCCurrentMeasurementViewController" customModule="MonitoringIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentMeasurementiPhone" id="3s2-5p-4id" customClass="GBCCurrentMeasurementViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f6K-AW-Afk"/>
                         <viewControllerLayoutGuide type="bottom" id="01N-T1-T3y"/>

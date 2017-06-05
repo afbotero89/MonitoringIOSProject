@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D83E0F1A1CD137C900300593"
-               BuildableName = "MonitoringIOSProject.app"
+               BuildableName = "VitalSing.app"
                BlueprintName = "MonitoringIOSProject"
                ReferencedContainer = "container:MonitoringIOSProject.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D83E0F1A1CD137C900300593"
-            BuildableName = "MonitoringIOSProject.app"
+            BuildableName = "VitalSing.app"
             BlueprintName = "MonitoringIOSProject"
             ReferencedContainer = "container:MonitoringIOSProject.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D83E0F1A1CD137C900300593"
-            BuildableName = "MonitoringIOSProject.app"
+            BuildableName = "VitalSing.app"
             BlueprintName = "MonitoringIOSProject"
             ReferencedContainer = "container:MonitoringIOSProject.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D83E0F1A1CD137C900300593"
-            BuildableName = "MonitoringIOSProject.app"
+            BuildableName = "VitalSing.app"
             BlueprintName = "MonitoringIOSProject"
             ReferencedContainer = "container:MonitoringIOSProject.xcodeproj">
          </BuildableReference>

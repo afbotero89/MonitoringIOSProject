@@ -14,7 +14,7 @@
         <!--Monitoring-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="initialView" id="BYZ-38-t0r" customClass="ViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initialView" id="BYZ-38-t0r" customClass="ViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -93,61 +93,55 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQq-Qj-dal">
-                                <rect key="frame" x="88" y="108" width="680" height="37"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="88" y="140" width="680" height="37"/>
+                                <color key="backgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="Mjc-39-saI"/>
+                                    <constraint firstAttribute="height" constant="37" id="GLR-oo-bmd"/>
                                 </constraints>
                                 <string key="text">  Paciente                                                                                                                                                     </string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCI-Zo-hl7">
-                                <rect key="frame" x="0.0" y="108" width="91" height="96"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="140" width="88" height="96"/>
+                                <color key="backgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="91" id="UHS-5b-31b"/>
-                                    <constraint firstAttribute="height" constant="96" id="nsy-fa-COg"/>
+                                    <constraint firstAttribute="width" constant="88" id="lrk-E9-U3T"/>
+                                    <constraint firstAttribute="height" constant="96" id="qKa-BL-cG2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="dTn-Lc-Zw1">
-                                <rect key="frame" x="10" y="118" width="79" height="72"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="79" id="2D3-o6-SIo"/>
-                                    <constraint firstAttribute="height" constant="72" id="fxp-zN-dl2"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  ID: 1036935699                           Medellin, Antioquia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOm-T3-XZk">
-                                <rect key="frame" x="88" y="145" width="680" height="30"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="88" y="177" width="680" height="30"/>
+                                <color key="backgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="lPI-aC-IA9"/>
+                                    <constraint firstAttribute="height" constant="30" id="jzR-PV-KIT"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Tel: 3216437884                          28 años" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQL-gb-CC2">
-                                <rect key="frame" x="88" y="175" width="680" height="29"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="88" y="207" width="680" height="29"/>
+                                <color key="backgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="JaV-Xm-oVz"/>
+                                    <constraint firstAttribute="height" constant="29" id="L9A-l6-FB6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tXc-Mb-FBX">
-                                <rect key="frame" x="0.0" y="204" width="768" height="29"/>
+                                <rect key="frame" x="0.0" y="108" width="768" height="29"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <segments>
                                     <segment title="Monitor 1"/>
                                     <segment title="Monitor 2"/>
                                 </segments>
-                                <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="segmentControlMonitorSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="C2U-Dl-ggS"/>
                                 </connections>
@@ -268,55 +262,53 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.94117647058823528" green="0.29803921568627451" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="dTn-Lc-Zw1">
+                                <rect key="frame" x="9" y="152" width="79" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="79" id="Q5R-Gl-LCK"/>
+                                    <constraint firstAttribute="height" constant="72" id="fLO-K9-YLa"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.11372549019607843" green="0.13725490196078433" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jKl-Bq-YWP" secondAttribute="bottom" constant="24" id="1Rw-Fr-WpZ"/>
                             <constraint firstAttribute="trailing" secondItem="Si4-00-uDv" secondAttribute="trailing" id="3KI-tm-xs5"/>
-                            <constraint firstItem="dTn-Lc-Zw1" firstAttribute="leading" secondItem="LCI-Zo-hl7" secondAttribute="trailing" constant="-81" id="7f5-cz-l64"/>
-                            <constraint firstItem="tXc-Mb-FBX" firstAttribute="top" secondItem="CQL-gb-CC2" secondAttribute="bottom" id="Apn-vc-Mf7"/>
+                            <constraint firstItem="CQL-gb-CC2" firstAttribute="leading" secondItem="LCI-Zo-hl7" secondAttribute="trailing" id="56H-ye-ogH"/>
+                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9UE-Qf-65z"/>
+                            <constraint firstAttribute="trailing" secondItem="OQq-Qj-dal" secondAttribute="trailing" id="Bcg-cR-xLB"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="CTg-Pt-Mqf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="CQL-gb-CC2" secondAttribute="trailing" constant="-20" id="E6h-Kt-DvD"/>
+                            <constraint firstItem="OQq-Qj-dal" firstAttribute="top" secondItem="tXc-Mb-FBX" secondAttribute="bottom" constant="4" id="Ego-O0-PCE"/>
+                            <constraint firstItem="dTn-Lc-Zw1" firstAttribute="leading" secondItem="LCI-Zo-hl7" secondAttribute="trailing" constant="-79" id="FBc-hw-aqw"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FRc-ab-eos"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="-35" id="G90-uC-S44"/>
-                            <constraint firstItem="CQL-gb-CC2" firstAttribute="top" secondItem="xOm-T3-XZk" secondAttribute="bottom" id="KKT-MB-Snn"/>
+                            <constraint firstItem="xOm-T3-XZk" firstAttribute="top" secondItem="OQq-Qj-dal" secondAttribute="bottom" id="Htj-nV-824"/>
+                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="top" secondItem="tXc-Mb-FBX" secondAttribute="bottom" constant="4" id="J0M-uJ-OBp"/>
+                            <constraint firstAttribute="trailing" secondItem="xOm-T3-XZk" secondAttribute="trailing" id="KIs-Ao-72N"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="leading" secondItem="dY4-YU-d9z" secondAttribute="trailing" constant="-51" id="LZK-gd-l6g"/>
-                            <constraint firstItem="xOm-T3-XZk" firstAttribute="top" secondItem="OQq-Qj-dal" secondAttribute="bottom" id="Lfa-bj-uRO"/>
-                            <constraint firstItem="CQL-gb-CC2" firstAttribute="leading" secondItem="LCI-Zo-hl7" secondAttribute="trailing" constant="-3" id="N5Y-I0-AoB"/>
                             <constraint firstItem="Si4-00-uDv" firstAttribute="top" secondItem="dY4-YU-d9z" secondAttribute="bottom" constant="-32" id="Nr6-fx-Stc"/>
-                            <constraint firstAttribute="trailing" secondItem="tXc-Mb-FBX" secondAttribute="trailing" id="TJY-uB-Bxi"/>
-                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="V5N-w6-cDx"/>
+                            <constraint firstItem="CQL-gb-CC2" firstAttribute="top" secondItem="xOm-T3-XZk" secondAttribute="bottom" id="Ry1-CS-02u"/>
                             <constraint firstItem="FuE-21-oHP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="-45" id="WLA-5H-TQg"/>
-                            <constraint firstItem="tXc-Mb-FBX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="X1z-dH-SjV"/>
+                            <constraint firstAttribute="trailing" secondItem="CQL-gb-CC2" secondAttribute="trailing" id="XoI-AI-LTU"/>
                             <constraint firstItem="SM6-zv-a7x" firstAttribute="top" secondItem="Si4-00-uDv" secondAttribute="bottom" constant="-40" id="Z6A-z9-O6L"/>
-                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="top" secondItem="dTn-Lc-Zw1" secondAttribute="bottom" constant="-82" id="azr-9X-nOq"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OQq-Qj-dal" secondAttribute="trailing" constant="-20" id="cdU-LM-Lva"/>
-                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="top" secondItem="Si4-00-uDv" secondAttribute="bottom" id="fYc-1F-XrC"/>
+                            <constraint firstItem="xOm-T3-XZk" firstAttribute="leading" secondItem="dTn-Lc-Zw1" secondAttribute="trailing" id="eCE-oU-CWs"/>
                             <constraint firstItem="jKl-Bq-YWP" firstAttribute="leading" secondItem="ANx-on-6rY" secondAttribute="trailing" constant="10" id="h1W-1Z-Eow"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xOm-T3-XZk" secondAttribute="trailing" constant="-20" id="hP6-lH-i9m"/>
-                            <constraint firstItem="xOm-T3-XZk" firstAttribute="leading" secondItem="LCI-Zo-hl7" secondAttribute="trailing" constant="-3" id="iUE-Mw-Qo1"/>
-                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="top" secondItem="Si4-00-uDv" secondAttribute="bottom" id="ifT-Wo-7MB"/>
+                            <constraint firstItem="OQq-Qj-dal" firstAttribute="leading" secondItem="dTn-Lc-Zw1" secondAttribute="trailing" id="iFD-Uz-zXb"/>
                             <constraint firstItem="ANx-on-6rY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jwM-uv-x4h"/>
-                            <constraint firstItem="OQq-Qj-dal" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="rEg-JH-KBZ"/>
-                            <constraint firstItem="OQq-Qj-dal" firstAttribute="leading" secondItem="LCI-Zo-hl7" secondAttribute="trailing" constant="-3" id="t93-Yh-j6L"/>
-                            <constraint firstItem="LCI-Zo-hl7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vQ6-eY-Ckw"/>
+                            <constraint firstItem="tXc-Mb-FBX" firstAttribute="top" secondItem="Si4-00-uDv" secondAttribute="bottom" id="nYY-DY-XUu"/>
+                            <constraint firstAttribute="trailing" secondItem="tXc-Mb-FBX" secondAttribute="trailing" id="teX-VT-gcO"/>
+                            <constraint firstItem="tXc-Mb-FBX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="w8R-b0-1w9"/>
+                            <constraint firstItem="dTn-Lc-Zw1" firstAttribute="top" secondItem="LCI-Zo-hl7" secondAttribute="bottom" constant="-84" id="x7u-D4-DdP"/>
                             <constraint firstItem="SM6-zv-a7x" firstAttribute="leading" secondItem="dY4-YU-d9z" secondAttribute="trailing" id="zJW-tx-vnt"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ANx-on-6rY" secondAttribute="bottom" constant="20" id="zUG-re-ZQO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Monitoring" id="P3e-lu-W6G">
-                        <leftBarButtonItems>
-                            <barButtonItem title="C" id="zet-wh-boA">
-                                <connections>
-                                    <action selector="cancelMeasurement:" destination="BYZ-38-t0r" id="8Hw-Kn-erz"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="trash" id="z5G-DZ-fgi">
-                                <connections>
-                                    <action selector="cleanMemory:" destination="BYZ-38-t0r" id="Vmd-ir-bvC"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="zet-wh-boA">
+                            <connections>
+                                <action selector="cancelMeasurement:" destination="BYZ-38-t0r" id="8Hw-Kn-erz"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="Configuration" id="fgi-yk-fJE">
                                 <connections>
@@ -355,7 +347,7 @@
         <!--User configuration-->
         <scene sceneID="uMs-gI-Hn2">
             <objects>
-                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sliderConfiguration" id="0kz-tk-cwH" customClass="GBCConfigurationMeasuringTimeViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qym-mq-K5y"/>
                         <viewControllerLayoutGuide type="bottom" id="Sue-xm-Rft"/>
@@ -364,7 +356,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="Monitor1" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzj-XZ-AH3" customClass="BWCircularSliderView" customModule="VitalSing" customModuleProvider="target">
                                 <rect key="frame" x="127" y="147" width="347" height="306"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -428,7 +420,7 @@
         <!--General information-->
         <scene sceneID="tKF-4S-UI6">
             <objects>
-                <viewController storyboardIdentifier="generalInformation" id="aUc-0Y-hsP" customClass="GBCBatteryLevelViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="generalInformation" id="aUc-0Y-hsP" customClass="GBCBatteryLevelViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dS4-ug-ux3"/>
                         <viewControllerLayoutGuide type="bottom" id="hfv-XM-owH"/>
@@ -508,7 +500,7 @@
         <!--Historical graphics stored-->
         <scene sceneID="wgL-dx-Nry">
             <objects>
-                <viewController storyboardIdentifier="savedHistoryGraphs" title="Historical graphics stored" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="savedHistoryGraphs" title="Historical graphics stored" id="9RS-rQ-aTU" customClass="GBCSavedHistoryGraphsViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7x2-ic-eai"/>
                         <viewControllerLayoutGuide type="bottom" id="B8a-Ti-xKe"/>
@@ -539,39 +531,51 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4l-CO-Ar7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4l-CO-Ar7">
                                 <rect key="frame" x="88" y="64" width="680" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <string key="text">  Paciente                                                                                                                                                     </string>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="TJ4-iJ-ePM"/>
+                                </constraints>
+                                <string key="text">    Paciente                                                                                                                                                     </string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKA-rh-iyH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKA-rh-iyH">
                                 <rect key="frame" x="0.0" y="64" width="91" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="MFT-cl-gia"/>
+                                    <constraint firstAttribute="width" constant="91" id="U5r-Vr-51L"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="ry2-z5-6jQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="ry2-z5-6jQ">
                                 <rect key="frame" x="10" y="74" width="79" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="79" id="08P-Ls-Z1W"/>
+                                    <constraint firstAttribute="height" constant="72" id="9XT-lZ-qoO"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="  ID: 1036935699                           Medellin, Antioquia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idJ-CJ-aVV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  ID: 1036935699                           Medellin, Antioquia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idJ-CJ-aVV">
                                 <rect key="frame" x="88" y="101" width="680" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="cTm-gx-YLM"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="  Tel: 3216437884                          28 años" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGd-Ij-Yhs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Tel: 3216437884                          28 años" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGd-Ij-Yhs">
                                 <rect key="frame" x="88" y="131" width="680" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="d3E-yl-nBu"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -579,10 +583,23 @@
                         </subviews>
                         <color key="backgroundColor" red="0.11372549019607843" green="0.13725490196078433" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="nGd-Ij-Yhs" firstAttribute="top" secondItem="idJ-CJ-aVV" secondAttribute="bottom" id="2CV-hO-rVO"/>
+                            <constraint firstAttribute="trailing" secondItem="q4l-CO-Ar7" secondAttribute="trailing" id="2wi-kU-D7t"/>
+                            <constraint firstAttribute="trailing" secondItem="idJ-CJ-aVV" secondAttribute="trailing" id="6lA-mi-i7e"/>
+                            <constraint firstItem="VKA-rh-iyH" firstAttribute="leading" secondItem="h4x-vN-SQk" secondAttribute="leading" id="Ape-PX-Nbt"/>
+                            <constraint firstItem="ry2-z5-6jQ" firstAttribute="leading" secondItem="VKA-rh-iyH" secondAttribute="trailing" constant="-81" id="E7T-0f-3nt"/>
+                            <constraint firstItem="VKA-rh-iyH" firstAttribute="top" secondItem="e7C-Pe-JrJ" secondAttribute="bottom" id="Ifi-34-2oz"/>
+                            <constraint firstItem="q4l-CO-Ar7" firstAttribute="leading" secondItem="ry2-z5-6jQ" secondAttribute="trailing" constant="-1" id="LRz-ud-gjo"/>
+                            <constraint firstAttribute="trailing" secondItem="nGd-Ij-Yhs" secondAttribute="trailing" id="NCU-zA-FGp"/>
+                            <constraint firstItem="idJ-CJ-aVV" firstAttribute="leading" secondItem="ry2-z5-6jQ" secondAttribute="trailing" constant="-1" id="SSV-ee-SUj"/>
+                            <constraint firstItem="VKA-rh-iyH" firstAttribute="top" secondItem="ry2-z5-6jQ" secondAttribute="bottom" constant="-82" id="VBT-rV-866"/>
                             <constraint firstItem="e7C-Pe-JrJ" firstAttribute="leading" secondItem="h4x-vN-SQk" secondAttribute="leadingMargin" constant="-20" id="asl-tz-OsA"/>
+                            <constraint firstItem="idJ-CJ-aVV" firstAttribute="top" secondItem="q4l-CO-Ar7" secondAttribute="bottom" id="d8P-Er-ipg"/>
                             <constraint firstItem="0Zv-zC-LBd" firstAttribute="top" secondItem="e7C-Pe-JrJ" secondAttribute="bottom" constant="-32" id="fr0-nY-RLU"/>
                             <constraint firstItem="e7C-Pe-JrJ" firstAttribute="top" secondItem="7x2-ic-eai" secondAttribute="bottom" id="lIf-BZ-313"/>
+                            <constraint firstItem="q4l-CO-Ar7" firstAttribute="top" secondItem="e7C-Pe-JrJ" secondAttribute="bottom" id="lyF-A2-rTh"/>
                             <constraint firstAttribute="trailing" secondItem="e7C-Pe-JrJ" secondAttribute="trailing" id="nna-r1-qyH"/>
+                            <constraint firstItem="nGd-Ij-Yhs" firstAttribute="leading" secondItem="VKA-rh-iyH" secondAttribute="trailing" constant="-3" id="tdL-lO-HhY"/>
                             <constraint firstItem="0Zv-zC-LBd" firstAttribute="centerX" secondItem="h4x-vN-SQk" secondAttribute="centerX" id="zr6-rJ-p1u"/>
                         </constraints>
                     </view>
@@ -598,7 +615,7 @@
         <!--Animation View Controller-->
         <scene sceneID="Jte-On-Lxv">
             <objects>
-                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="animationViewController" id="QRC-fW-3kf" customClass="CBCAnimationViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kCW-lP-h5P"/>
                         <viewControllerLayoutGuide type="bottom" id="lk2-k1-6jL"/>
@@ -619,7 +636,7 @@
         <!--Current Measurement-->
         <scene sceneID="5Oa-du-Yqc">
             <objects>
-                <viewController storyboardIdentifier="currentMeasurement" id="WZg-wb-XpF" customClass="GBCCurrentMeasurementViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentMeasurement" id="WZg-wb-XpF" customClass="GBCCurrentMeasurementViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GT2-RM-9QH"/>
                         <viewControllerLayoutGuide type="bottom" id="k3T-VW-5mC"/>
@@ -925,7 +942,7 @@
         <!--Calendar-->
         <scene sceneID="La9-2U-2bz">
             <objects>
-                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="calendarViewControllerIPhone" id="DC9-27-pkX" customClass="CBCCalendarViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MGD-RA-nv8"/>
                         <viewControllerLayoutGuide type="bottom" id="SGx-S2-dhf"/>
@@ -996,7 +1013,7 @@
         <!--Current Measurement-->
         <scene sceneID="h4z-ku-Lu1">
             <objects>
-                <viewController storyboardIdentifier="currentMeasurementiPhone" id="3s2-5p-4id" customClass="GBCCurrentMeasurementViewController" customModule="Monitor1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentMeasurementiPhone" id="3s2-5p-4id" customClass="GBCCurrentMeasurementViewController" customModule="VitalSing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f6K-AW-Afk"/>
                         <viewControllerLayoutGuide type="bottom" id="01N-T1-T3y"/>
