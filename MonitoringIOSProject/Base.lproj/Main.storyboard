@@ -114,7 +114,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  ID: 1036935699                           Medellin, Antioquia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOm-T3-XZk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  ID: 1036935699                                  Medellin, Antioquia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOm-T3-XZk">
                                 <rect key="frame" x="88" y="177" width="680" height="30"/>
                                 <color key="backgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -124,7 +124,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Tel: 3216437884                          28 años" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQL-gb-CC2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Tel: 3216437884                                28 años" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQL-gb-CC2">
                                 <rect key="frame" x="88" y="207" width="680" height="29"/>
                                 <color key="backgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -323,18 +323,27 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="averageIcon" destination="hNG-wP-pds" id="Fsp-1h-3nm"/>
                         <outlet property="averageLabelLeft" destination="C67-RZ-Wmq" id="ex6-hX-Iyw"/>
                         <outlet property="averageLabelRight" destination="9el-ax-K6M" id="n5I-ff-jr0"/>
+                        <outlet property="averageTitle" destination="0bJ-4t-zgd" id="CYL-Je-kLp"/>
                         <outlet property="batteryLevelImageView" destination="SM6-zv-a7x" id="kjH-Cl-APt"/>
                         <outlet property="batteryLevelTextLabel" destination="dY4-YU-d9z" id="oOI-Nk-c5L"/>
                         <outlet property="constraintSeparation" destination="h1W-1Z-Eow" id="CqC-Mc-A79"/>
                         <outlet property="currentMeasurementLabel" destination="ANx-on-6rY" id="xkJ-IC-4MD"/>
+                        <outlet property="diastolicImage" destination="zmh-Ya-X0f" id="FOJ-QL-z4U"/>
                         <outlet property="diastolicLabelLeft" destination="Sc1-Tk-nCJ" id="Pf8-LL-wXo"/>
                         <outlet property="diastolicLabelRight" destination="LoX-FJ-dE9" id="lOQ-QG-EQ3"/>
+                        <outlet property="diastolicTitle" destination="q6t-wB-ACX" id="bJY-Rh-5lN"/>
+                        <outlet property="heartRateIcon" destination="hPK-g3-mS9" id="kyr-FR-rK9"/>
                         <outlet property="heartRateLabelLeft" destination="gMm-6y-uPh" id="P3h-sL-Zc8"/>
                         <outlet property="heartRateLabelRight" destination="vhh-64-Xov" id="EGr-Mi-c6K"/>
+                        <outlet property="heartRateTitle" destination="JnO-He-CjW" id="D1M-9E-X9w"/>
                         <outlet property="imageStatusConnection" destination="jKl-Bq-YWP" id="JR9-xA-rZ4"/>
+                        <outlet property="patientImage" destination="dTn-Lc-Zw1" id="sTL-mc-ONH"/>
                         <outlet property="segmentControlMonitor" destination="tXc-Mb-FBX" id="YFl-wO-oMg"/>
+                        <outlet property="sistolicIcon" destination="SaS-Jg-FF7" id="4hy-YX-d0H"/>
+                        <outlet property="sistolicTitle" destination="NMu-Gb-0DE" id="ypm-8X-dOv"/>
                         <outlet property="systolicLabel" destination="5oZ-vm-gRf" id="aGJ-UC-9Hy"/>
                         <outlet property="systolicLabelLeft" destination="av4-Rd-t2A" id="QLX-6I-0rq"/>
                         <outlet property="userConnectedToMonitor" destination="OQq-Qj-dal" id="wj6-Nl-PGH"/>
@@ -605,6 +614,8 @@
                     </view>
                     <connections>
                         <outlet property="patientLabel" destination="q4l-CO-Ar7" id="yzH-KV-rMO"/>
+                        <outlet property="patientNameText" destination="q4l-CO-Ar7" id="o1e-Ck-Xab"/>
+                        <outlet property="patientViewImage" destination="ry2-z5-6jQ" id="TDf-K6-B62"/>
                         <outlet property="titleLabelUserSelectedDate" destination="0Zv-zC-LBd" id="VTr-Xe-Jvg"/>
                     </connections>
                 </viewController>

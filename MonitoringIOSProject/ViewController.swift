@@ -115,6 +115,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var userConnectedToMonitor: UILabel!
     
+    @IBOutlet weak var patientImage: UIImageView!
+    
     @IBOutlet weak var systolicLabel: UILabel!
     
     @IBOutlet weak var systolicLabelLeft: UILabel!
@@ -131,6 +133,21 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var heartRateLabelLeft: UILabel!
     
+    @IBOutlet weak var sistolicIcon: UIImageView!
+    
+    @IBOutlet weak var diastolicImage: UIImageView!
+    
+    @IBOutlet weak var averageIcon: UIImageView!
+    
+    @IBOutlet weak var heartRateIcon: UIImageView!
+    
+    @IBOutlet weak var sistolicTitle: UILabel!
+    
+    @IBOutlet weak var diastolicTitle: UILabel!
+    
+    @IBOutlet weak var averageTitle: UILabel!
+    
+    @IBOutlet weak var heartRateTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,6 +179,8 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         addMaskLabelsPhysiologicalVariables()
 
+        userConnectedToMonitor.text = "  Yessika Maria Ortega"
+        patientImage.image = UIImage(named: "patient1")
         //defaultsDB.removeObject(forKey: "Pressure Monitor 1")
         //defaultsDB.removeObject(forKey: "Pressure Monitor 3")
     }
@@ -945,16 +964,47 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateContainerGraph.frame = CGRect(x: 50, y: 650, width: 650, height: 300)
                 
             case .iPhone:
-
+                systolicLabel.isHidden = true
+                
+                systolicLabelLeft.isHidden = true
+                
+                averageLabelRight.isHidden = true
+                
+                averageLabelLeft.isHidden = true
+                
+                diastolicLabelLeft.isHidden = true
+                
+                diastolicLabelRight.isHidden = true
+                
+                heartRateLabelRight.isHidden = true
+                
+                heartRateLabelLeft.isHidden = true
+                
+                sistolicIcon.isHidden = true
+                
+                diastolicImage.isHidden = true
+                
+                averageIcon.isHidden = true
+                
+                heartRateIcon.isHidden = true
+                
+                sistolicTitle.isHidden = true
+                
+                diastolicTitle.isHidden = true
+                
+                averageTitle.isHidden = true
+                
+                heartRateTitle.isHidden = true
+                
                 pressuresGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
                 heartRateGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 0, y: 220, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
+                pressureContainerGraph.frame = CGRect(x: 0, y: 240, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!)-80, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
+                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!)-100, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
             }
             
         }else{
@@ -965,12 +1015,44 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 constraintSeparation.constant = 200
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 230, y: 110, width: 650, height: 300)
+                pressureContainerGraph.frame = CGRect(x: 230, y: 330, width: 650, height: 180)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 230, y: 415, width: 650, height: 300)
+                heartRateContainerGraph.frame = CGRect(x: 230, y: 535, width: 650, height: 180)
 
             case .iPhone:
+                
+                systolicLabel.isHidden = true
+                
+                systolicLabelLeft.isHidden = true
+                
+                averageLabelRight.isHidden = true
+                
+                averageLabelLeft.isHidden = true
+                
+                diastolicLabelLeft.isHidden = true
+                
+                diastolicLabelRight.isHidden = true
+                
+                heartRateLabelRight.isHidden = true
+                
+                heartRateLabelLeft.isHidden = true
+                
+                sistolicIcon.isHidden = true
+                
+                diastolicImage.isHidden = true
+                
+                averageIcon.isHidden = true
+                
+                heartRateIcon.isHidden = true
+                
+                sistolicTitle.isHidden = true
+                
+                diastolicTitle.isHidden = true
+                
+                averageTitle.isHidden = true
+                
+                heartRateTitle.isHidden = true
                 
                 pressuresGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/4), y: -20.0)
                 
@@ -1375,11 +1457,16 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         if itemSelected == 0{
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
             PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
-            userConnectedToMonitor.text = "  Paciente 1"
+            userConnectedToMonitor.text = "  Yessika Maria Ortega"
+            patientImage.image = UIImage(named: "patient1")
+            
         }else if(itemSelected==1){
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID3
             PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName3
-            userConnectedToMonitor.text = "  Paciente 2"
+
+            
+            userConnectedToMonitor.text = "  Andrés Felipe Castaño Franco"
+            patientImage.image = UIImage(named: "patient2")
             
         }
         pressuresGraph.reloadData()

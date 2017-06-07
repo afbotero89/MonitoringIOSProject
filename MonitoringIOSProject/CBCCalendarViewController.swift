@@ -76,7 +76,7 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
         print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
         
         if activeCalendarViewController == true{
-            if(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser == "4/6/2017"){
+            if(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser == "7/6/2017"){
                 getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
             }
         }

@@ -30,15 +30,21 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
     
     var graphicsEnabledWidth:Double?
     
+    @IBOutlet weak var patientViewImage: UIImageView!
+    
+    @IBOutlet weak var patientNameText: UILabel!
+    
     @IBOutlet weak var patientLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if PressureMonitors.nameUserMonitorSelected=="Pressure Monitor 1"{
-            patientLabel.text = "Paciente 1"
+            patientNameText.text = "  Yessika Maria Ortega"
+            patientViewImage.image = UIImage(named: "patient1")
         }else{
-            patientLabel.text = "Paciente 2"
+            patientNameText.text = "  Andrés Felipe Castaño Franco"
+            patientViewImage.image = UIImage(named: "patient2")
         }
         
         
@@ -231,10 +237,10 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
             case .iPad:
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 230, y: 120, width: 650, height: 300)
+                pressureContainerGraph.frame = CGRect(x: 230, y: 220, width: 650, height: 250)
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 230, y: 440, width: 650, height: 300)
+                heartRateContainerGraph.frame = CGRect(x: 230, y: 500, width: 650, height: 250)
                 
             case .iPhone:
                 

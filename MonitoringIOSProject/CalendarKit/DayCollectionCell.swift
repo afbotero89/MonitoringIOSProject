@@ -32,7 +32,7 @@ class DayCollectionCell: UICollectionViewCell {
                 //requestGetDayMonthYearDataBaseSQL.getDataFromDataBaseSQLDayMonthYear()
     
                 //vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
-                vectorDatesStoredInDataBases = ["4/6/2017"]
+                vectorDatesStoredInDataBases = ["7/6/2017"]
                 /*
                 if PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL == nil{
                 
