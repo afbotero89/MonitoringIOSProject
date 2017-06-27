@@ -179,7 +179,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         
         addMaskLabelsPhysiologicalVariables()
 
-        userConnectedToMonitor.text = "  Yessika Maria Ortega"
+        userConnectedToMonitor.text = "  Andrés Felipe Botero Ospina"
         patientImage.image = UIImage(named: "patient1")
         //defaultsDB.removeObject(forKey: "Pressure Monitor 1")
         //defaultsDB.removeObject(forKey: "Pressure Monitor 3")
@@ -1457,7 +1457,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         if itemSelected == 0{
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
             PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
-            userConnectedToMonitor.text = "  Yessika Maria Ortega"
+            userConnectedToMonitor.text = "  Andrés Felipe Botero Ospina"
             patientImage.image = UIImage(named: "patient1")
             
         }else if(itemSelected==1){
@@ -1469,6 +1469,7 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             patientImage.image = UIImage(named: "patient2")
             
         }
+        self.bluetoothManager.centralManager.scanForPeripherals(withServices: nil, options: nil)
         pressuresGraph.reloadData()
         heartRateGraph.reloadData()
         labelsHeartRate.removeAll()

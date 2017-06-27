@@ -40,7 +40,7 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
         super.viewDidLoad()
         
         if PressureMonitors.nameUserMonitorSelected=="Pressure Monitor 1"{
-            patientNameText.text = "  Yessika Maria Ortega"
+            patientNameText.text = "  Andrés Felipe Botero Ospina"
             patientViewImage.image = UIImage(named: "patient1")
         }else{
             patientNameText.text = "  Andrés Felipe Castaño Franco"
