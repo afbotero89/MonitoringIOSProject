@@ -12,6 +12,8 @@ import AVFoundation
 
 var contador = 0
 
+var medidaSimulada = 0
+
 enum CharacteristicsNames:String {
     case ReadFromBLEBeeKey = "ReadFromBLEBee"
     case SendToBLEBeeKey = "SendToBLEBee"
@@ -820,11 +822,12 @@ extension BluetoothManager:CBPeripheralDelegate{
            
             contador = 0
             
+            medidaSimulada = medidaSimulada + 10
             /*
             VectorPhysiologicalVariables.systolicPressure.append(120)
             VectorPhysiologicalVariables.diastolicPressure.append(80)
             VectorPhysiologicalVariables.averagePressure.append(100)
-            VectorPhysiologicalVariables.heartRate.append(70)
+            VectorPhysiologicalVariables.heartRate.append(Double(medidaSimulada))
             VectorPhysiologicalVariables.measuringTime.append("00:00:00")
             VectorPhysiologicalVariables.vectorNumberOfSamples.append(Double(VectorPhysiologicalVariables.systolicPressure.count)/10.0)
             */

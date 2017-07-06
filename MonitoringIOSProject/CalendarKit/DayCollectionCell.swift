@@ -22,7 +22,7 @@ class DayCollectionCell: UICollectionViewCell {
     
     var serverResponse:NSString?
     
-    var vectorDatesStoredInDataBases:[String]?
+    var vectorDatesStoredInDataBases:[String] = []
     
     var date: Date? {
         didSet {
@@ -32,7 +32,29 @@ class DayCollectionCell: UICollectionViewCell {
                 //requestGetDayMonthYearDataBaseSQL.getDataFromDataBaseSQLDayMonthYear()
     
                 //vectorDatesStoredInDataBases = PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL?.components(separatedBy: ",")
-                vectorDatesStoredInDataBases = ["12/6/2017"]
+                
+                // The key is stored with the format: monitor Name + "_" + date, for example: Pressure Monitor 1_27/06/2017
+                print("valores NSUserDefault!!!!!!!")
+                var monitorDates:String?
+                var splitKeys:[String]?
+                var datesWithRegisters:String?
+                for (key, value) in defaultsDB.dictionaryRepresentation(){
+                    
+                    monitorDates = String(key)
+                    
+                    splitKeys = monitorDates?.components(separatedBy: "_")
+                    
+                    if(splitKeys?.count == 2){
+                        
+                        if splitKeys?[0] == PressureMonitors.nameUserMonitorSelected!{
+                            datesWithRegisters = splitKeys?[1]
+                            vectorDatesStoredInDataBases.append(datesWithRegisters!)
+                        }
+                    }
+                    print(monitorDates! + "+" + String(describing: value))
+                    
+                }
+                //vectorDatesStoredInDataBases = ["12/6/2017"]
                 /*
                 if PhysiologicalVariablesStoredInDatabaseSQL.dayMonthYearDataBaseSQL == nil{
                 
@@ -48,7 +70,7 @@ class DayCollectionCell: UICollectionViewCell {
                 
             if vectorDatesStoredInDataBases != nil{
                 
-                for i in vectorDatesStoredInDataBases!{
+                for i in vectorDatesStoredInDataBases{
                     
                     var monthString:String!
                     

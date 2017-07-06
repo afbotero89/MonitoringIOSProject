@@ -117,6 +117,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var patientImage: UIImageView!
     
+    @IBOutlet weak var userIDConnectedToMonitor: UILabel!
+    
+    @IBOutlet weak var telAndBirthDate: UILabel!
+    
     @IBOutlet weak var systolicLabel: UILabel!
     
     @IBOutlet weak var systolicLabelLeft: UILabel!
@@ -180,9 +184,26 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
         addMaskLabelsPhysiologicalVariables()
 
         userConnectedToMonitor.text = "  Andrés Felipe Botero Ospina"
-        patientImage.image = UIImage(named: "patient1")
-        //defaultsDB.removeObject(forKey: "Pressure Monitor 1")
-        //defaultsDB.removeObject(forKey: "Pressure Monitor 3")
+        userIDConnectedToMonitor.text = "  ID: 1036935699             Medellin, Antioquia"
+        telAndBirthDate.text = "Tel: 3216437884               28 años"
+        //patientImage.image = UIImage(named: "patient1")
+        
+        
+        print("valores NSUserDefault!!!!!!!")
+        var stringKeys:String?
+        for (key, value) in defaultsDB.dictionaryRepresentation(){
+            
+            stringKeys = String(key)
+            
+            print(stringKeys! + "+" + String(describing: value))
+            
+        }
+        /*
+        defaultsDB.removeObject(forKey: "Pressure Monitor 1")
+        defaultsDB.removeObject(forKey: "Pressure Monitor 3")
+        defaultsDB.removeObject(forKey: "Pressure Monitor 1-27/6/2017")
+        defaultsDB.removeObject(forKey: "medidas")
+        */
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -703,8 +724,6 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 }
                 xLabelHeartRate.offset = 0
                 labelsHeartRate.insert(xLabelHeartRate)
-                print("labels!!!!!!")
-                print(labelsHeartRate)
                 xAxisHeartRate.majorTickLocations = locationsHeartRate
                 xAxisHeartRate.axisLabels = labelsHeartRate
                 
@@ -717,13 +736,21 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 
                 let medidas = String(VectorPhysiologicalVariables.systolicPressure.last!) + "," + String(VectorPhysiologicalVariables.diastolicPressure.last!) + "," + String(VectorPhysiologicalVariables.averagePressure.last!) + "," + String(VectorPhysiologicalVariables.heartRate.last!) + "," + String((VectorPhysiologicalVariables.measuringTime.last?.components(separatedBy: ".")[0])!) + ";"
                 
-                if(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!) == nil){
-                    defaultsDB.setValue(medidas, forKey: PressureMonitors.nameUserMonitorSelected!)
+                let date = Foundation.Date()
+                
+                let date1 = "\(date.day)/\(date.month)/\(date.year)"
+                
+                let keyDB = PressureMonitors.nameUserMonitorSelected! + "_" + date1
+                
+                if(defaultsDB.value(forKey: keyDB) == nil){
+                    
+                    defaultsDB.setValue(medidas, forKey: keyDB)
+                    
                 }else{
                 
-                    let beforeValues = defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)
+                    let beforeValues = defaultsDB.value(forKey: keyDB)
                 
-                    defaultsDB.setValue(String(describing: beforeValues!) + medidas, forKey: PressureMonitors.nameUserMonitorSelected!)
+                    defaultsDB.setValue(String(describing: beforeValues!) + medidas, forKey: keyDB)
                 
                 }
                 
@@ -1001,10 +1028,10 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
                 heartRateGraph.legendDisplacement = CGPoint(x: CGFloat(graphicsEnabledWidth!/1.8), y: -20.0)
                 
                 // Attributes pressure container
-                pressureContainerGraph.frame = CGRect(x: 0, y: 240, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
+                pressureContainerGraph.frame = CGRect(x: 0, y: 250, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/3))
                 
                 // Attributes heart rate container graph
-                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!)-100, width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/2.8)+10)
+                heartRateContainerGraph.frame = CGRect(x: 0, y: Int(graphicsEnabledHeight!), width: Int(graphicsEnabledWidth!), height: Int(graphicsEnabledHeight!/3))
             }
             
         }else{
@@ -1458,7 +1485,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID1
             PressureMonitors.nameUserMonitorSelected = PressureMonitors.monitorName1
             userConnectedToMonitor.text = "  Andrés Felipe Botero Ospina"
-            patientImage.image = UIImage(named: "patient1")
+            userIDConnectedToMonitor.text = "  ID: 1036935699             Rionegro, Antioquia"
+            telAndBirthDate.text = "Tel: 3216437884               28 años"
+            //patientImage.image = UIImage(named: "patient1")
             
         }else if(itemSelected==1){
             PressureMonitors.IDuserMonitorSelected = PressureMonitors.monitorID3
@@ -1466,7 +1495,9 @@ class ViewController: GBCPlotsViewController, UIPopoverPresentationControllerDel
 
             
             userConnectedToMonitor.text = "  Andrés Felipe Castaño Franco"
-            patientImage.image = UIImage(named: "patient2")
+            userIDConnectedToMonitor.text = "  ID: 1036935699             Medellin, Antioquia"
+            telAndBirthDate.text = "Tel: 3173725221               33 años"
+            //patientImage.image = UIImage(named: "patient2")
             
         }
         self.bluetoothManager.centralManager.scanForPeripherals(withServices: nil, options: nil)

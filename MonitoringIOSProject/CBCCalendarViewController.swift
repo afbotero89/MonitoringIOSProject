@@ -69,16 +69,16 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     }
     
     func didSelectDate(_ date: Foundation.Date) {
-        PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser =
-        "\(date.day)/\(date.month)/\(date.year)"
+        
+        PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser = "\(date.day)/\(date.month)/\(date.year)"
         
         print("dato seleccionado\n")
         print(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser)
         
         if activeCalendarViewController == true{
-            if(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser == "12/6/2017"){
-                getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
-            }
+            
+            getDataFromServerDataBaseSQL(PhysiologicalVariablesStoredInDatabaseSQL.dateSelectedByTheUser!)
+            
         }
         activeCalendarViewController = true
     }
@@ -98,8 +98,10 @@ class CBCCalendarViewController: UIViewController, CalendarViewDelegate {
     func getDataFromServerDataBaseSQL(_ date: String){
         var data = ""
         
-        if(defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!) != nil){
-            data = String(describing: defaultsDB.value(forKey: PressureMonitors.nameUserMonitorSelected!)!)
+        let keyDB = PressureMonitors.nameUserMonitorSelected! + "_" + date
+        
+        if(defaultsDB.value(forKey: keyDB) != nil){
+            data = String(describing: defaultsDB.value(forKey: keyDB)!)
         }else{
             data = ""
         }

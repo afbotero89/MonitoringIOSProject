@@ -36,15 +36,23 @@ class GBCSavedHistoryGraphsViewController: GBCPlotsViewController {
     
     @IBOutlet weak var patientLabel: UILabel!
     
+    @IBOutlet weak var userIDConnectedToMonitor: UILabel!
+    
+    @IBOutlet weak var telAndBirthDate: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if PressureMonitors.nameUserMonitorSelected=="Pressure Monitor 1"{
             patientNameText.text = "  Andrés Felipe Botero Ospina"
-            patientViewImage.image = UIImage(named: "patient1")
+            userIDConnectedToMonitor.text = "  ID: 1036935699             Medellin, Antioquia"
+            telAndBirthDate.text = "Tel: 3216437884               28 años"
+            //patientViewImage.image = UIImage(named: "patient1")
         }else{
             patientNameText.text = "  Andrés Felipe Castaño Franco"
-            patientViewImage.image = UIImage(named: "patient2")
+            userIDConnectedToMonitor.text = "  ID: 1036935699             Medellin, Antioquia"
+            telAndBirthDate.text = "Tel: 3216437884               28 años"
+            //patientViewImage.image = UIImage(named: "patient2")
         }
         
         

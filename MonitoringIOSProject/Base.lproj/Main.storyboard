@@ -346,7 +346,9 @@
                         <outlet property="sistolicTitle" destination="NMu-Gb-0DE" id="ypm-8X-dOv"/>
                         <outlet property="systolicLabel" destination="5oZ-vm-gRf" id="aGJ-UC-9Hy"/>
                         <outlet property="systolicLabelLeft" destination="av4-Rd-t2A" id="QLX-6I-0rq"/>
+                        <outlet property="telAndBirthDate" destination="CQL-gb-CC2" id="i1e-yA-49h"/>
                         <outlet property="userConnectedToMonitor" destination="OQq-Qj-dal" id="wj6-Nl-PGH"/>
+                        <outlet property="userIDConnectedToMonitor" destination="xOm-T3-XZk" id="gKh-Yw-6VH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -616,7 +618,9 @@
                         <outlet property="patientLabel" destination="q4l-CO-Ar7" id="yzH-KV-rMO"/>
                         <outlet property="patientNameText" destination="q4l-CO-Ar7" id="o1e-Ck-Xab"/>
                         <outlet property="patientViewImage" destination="ry2-z5-6jQ" id="TDf-K6-B62"/>
+                        <outlet property="telAndBirthDate" destination="nGd-Ij-Yhs" id="bzI-ZN-4q0"/>
                         <outlet property="titleLabelUserSelectedDate" destination="0Zv-zC-LBd" id="VTr-Xe-Jvg"/>
+                        <outlet property="userIDConnectedToMonitor" destination="idJ-CJ-aVV" id="3ZY-ro-WsR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qwc-IJ-vf6" userLabel="First Responder" sceneMemberID="firstResponder"/>
